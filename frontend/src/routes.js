@@ -3,7 +3,6 @@ import VueRouter from "vue-router";
 import Main from './views/main/Main.vue'
 import Login from './views/user/Login.vue'
 export default [
-
     {
         path : '/',
         name : 'Login',

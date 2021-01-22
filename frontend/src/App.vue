@@ -78,6 +78,7 @@
   </v-app>
 </template>
 
+
 <script>
 import Login from './views/user/Login.vue';
 
@@ -91,3 +92,19 @@ export default {
   data: () => ({ value: 0 }),
 };
 </script>
+
+<style>
+  @font-face {
+    font-family: 'LotteMartHappy';
+    font-style: normal;
+    font-weight: 700;
+    src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyBold.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyBold.woff') format('woff');
+  }
+
+  #app {
+    font-family: 'LotteMartHappy', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* text-align: center; */
+  }
+</style>
