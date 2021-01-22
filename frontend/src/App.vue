@@ -47,8 +47,7 @@
     </div>
     
     <v-main>
-      <Main class="mt-13 mb-13"/>
-      <!-- <MakeMeeting class="mt-15 mb-13"/> -->
+      <Login class="mt-13 mb-13"/>
     </v-main>
 
     <v-bottom-navigation
@@ -81,15 +80,13 @@
 
 
 <script>
-import Main from './views/main/Main.vue';
-// import MakeMeeting from './views/makemeeting/MakeMeeting.vue';
+import Login from './views/user/Login.vue';
 
 export default {
   name: 'App',
 
   components: {
-    Main,
-    // MakeMeeting,
+    Login
   },
 
   data: () => ({ value: 0 }),
