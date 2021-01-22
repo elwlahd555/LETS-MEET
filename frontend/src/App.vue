@@ -48,6 +48,7 @@
     
     <v-main>
       <Main class="mt-13 mb-13"/>
+      <!-- <MakeMeeting class="mt-15 mb-13"/> -->
     </v-main>
 
     <v-bottom-navigation
@@ -78,16 +79,35 @@
   </v-app>
 </template>
 
+
 <script>
 import Main from './views/main/Main.vue';
+// import MakeMeeting from './views/makemeeting/MakeMeeting.vue';
 
 export default {
   name: 'App',
 
   components: {
     Main,
+    // MakeMeeting,
   },
 
   data: () => ({ value: 0 }),
 };
 </script>
+
+<style>
+  @font-face {
+    font-family: 'LotteMartHappy';
+    font-style: normal;
+    font-weight: 700;
+    src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyBold.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyBold.woff') format('woff');
+  }
+
+  #app {
+    font-family: 'LotteMartHappy', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* text-align: center; */
+  }
+</style>

@@ -23,11 +23,19 @@
       </v-fade-transition>
     </v-card>
     <infinite-loading @infinite="infiniteHandler"></infinite-loading>
+    <div class="d-flex justify-center">
+      <back-to-top bottom="65px" right="">
+        <v-btn fab dark small color="teal">
+          <v-icon dark>mdi-chevron-up</v-icon>
+        </v-btn>
+      </back-to-top>
+    </div>
   </div>
 </template>
 
 <script>
 import InfiniteLoading from 'vue-infinite-loading'
+import BackToTop from 'vue-backtotop'
 
 export default {
   name: "Main",
@@ -38,6 +46,7 @@ export default {
   },
   components: {
     InfiniteLoading,
+    BackToTop,
   },
    methods: {
     infiniteHandler($state) {
