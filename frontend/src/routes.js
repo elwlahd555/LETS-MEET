@@ -2,6 +2,7 @@ import Vue from "vue"
 import VueRouter from "vue-router"
 import Main from '@/views/main/Main'
 import Login from '@/views/user/Login'
+import Signup from './views/user/Signup.vue'
 import MakeMeeting from '@/views/makemeeting/MakeMeeting'
 
 Vue.use(VueRouter)
@@ -22,6 +23,11 @@ const routes = [
         name : 'MakeMeeting',
         component : MakeMeeting
     },
+    {   
+        path: '/signup',
+        name: 'Signup',
+        component: Signup
+    }
   ]
   
   const router = new VueRouter({

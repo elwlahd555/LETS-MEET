@@ -79,13 +79,12 @@
 
 
 <script>
-// import Login from './views/user/Login.vue';
 
 export default {
   name: 'App',
 
   components: {
-    // Login
+
   },
 
   data: () => ({ value: 0 }),
