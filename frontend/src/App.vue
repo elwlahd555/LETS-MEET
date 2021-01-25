@@ -47,7 +47,7 @@
     </div>
     
     <v-main>
-      <router-view class="mt-13 mb-13"/>
+      <router-view class="mt-14 mb-13"></router-view>
     </v-main>
 
     <v-bottom-navigation
@@ -59,14 +59,13 @@
       style="z-index:10;"
     >
       <v-btn>
-        <span></span>
-        <v-icon>mdi-home</v-icon>
+        <router-link class="ro" :to="{ name: 'Main' }"><v-icon>mdi-home</v-icon></router-link>
       </v-btn>
       <v-btn>
         <v-icon>mdi-calendar</v-icon>
       </v-btn>
       <v-btn>
-        <v-icon>mdi-plus-circle</v-icon>
+        <router-link class="ro" :to="{ name: 'MakeMeeting' }"><v-icon>mdi-plus-circle</v-icon></router-link>
       </v-btn>
       <v-btn>
         <v-icon>mdi-bell</v-icon>
@@ -89,6 +88,8 @@ export default {
   },
 
   data: () => ({ value: 0 }),
+  methods: {
+  }
 };
 </script>
 
@@ -105,5 +106,10 @@ export default {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     /* text-align: center; */
+  }
+
+  .ro {
+    text-decoration: none !important;
+    color: inherit !important;
   }
 </style>

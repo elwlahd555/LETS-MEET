@@ -73,6 +73,19 @@
         </v-row>
       </v-container>
     </v-form>
+    <div class="mx-10 mb-15 d-flex justify-end">
+      <v-btn
+        fab
+        dark
+        small
+        color="teal"
+        @click="is_next"
+      >
+        <v-icon dark>
+          mdi-chevron-double-right
+        </v-icon>
+      </v-btn>
+    </div>
   </div>
 </template>
 
@@ -118,7 +131,10 @@ export default {
     selectImage(idx){
       this.image_idx = idx
     },
-  }
+    is_next(){
+      this.$emit('is_next')
+    },
+  },
 }
 </script>
 
