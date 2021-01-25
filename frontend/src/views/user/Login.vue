@@ -8,27 +8,27 @@
       </div>
     </div>
 
-    <Loginform />
+    <LoginForm />
 
     <div class="footer">
-      <div class="links">
-        <img src="../../assets/images/snsLogin/kakao.jpg" style='width:20%; border-radius:50%' alt="">
-        <span>구글</span>
-        <span>네이버</span>
+      <div>
+        <img src="../../assets/images/snsLogin/kakao.jpg" style='width:13%;' alt="">
+        <img src="../../assets/images/snsLogin/google.png" style='width:13%;' alt="">
+        <img src="../../assets/images/snsLogin/naver.png" style='width:13%;' alt="">
       </div>
       <a href="" style="color:slateGray">비밀번호 찾기</a>
-      <a href="" style="color:slateGray">회원가입</a>
+      <router-link :to="{ name: 'Signup' }" style="color:slateGray">회원가입</router-link>
     </div>
   </div>
 </template>
 
 <script>
-import Loginform from "../../components/user/Loginform";
+import LoginForm from "../../components/user/LoginForm";
 
 export default {
   name: "Login",
   components: {
-    Loginform,
+    LoginForm,
   }
 };
 </script>
@@ -69,5 +69,11 @@ export default {
   .logo .part-2 {
     color: #d64545;
   }
+}
+.footer > div {
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
 }
 </style>
