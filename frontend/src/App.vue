@@ -47,7 +47,7 @@
     </div>
     
     <v-main>
-      <Login class="mt-13 mb-13"/>
+      <router-view class="mt-13 mb-13"/>
     </v-main>
 
     <v-bottom-navigation
@@ -80,13 +80,12 @@
 
 
 <script>
-import Login from './views/user/Login.vue';
 
 export default {
   name: 'App',
 
   components: {
-    Login
+
   },
 
   data: () => ({ value: 0 }),
