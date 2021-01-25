@@ -1265,7 +1265,7 @@
     webpack "^4.0.0"
     yorkie "^2.0.0"
 
-"@vue/cli-plugin-router@^4.5.10":
+"@vue/cli-plugin-router@^4.5.10", "@vue/cli-plugin-router@~4.5.0":
   version "4.5.10"
   resolved "https://registry.yarnpkg.com/@vue/cli-plugin-router/-/cli-plugin-router-4.5.10.tgz#546eaf6295bb125ce2365fb6db83548979776b0d"
   integrity sha512-roiZTx2W59kTRaqNzHEnjnakP89MS+pVf3zWBlwsNXZpQuvqwFvoNfH/nBSJjqGRgZTRtCUe6vGgVPUEFYi/cg==
@@ -8248,6 +8248,13 @@ vue-functional-data-merge@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/vue-functional-data-merge/-/vue-functional-data-merge-3.1.0.tgz#08a7797583b7f35680587f8a1d51d729aa1dc657"
   integrity sha512-leT4kdJVQyeZNY1kmnS1xiUlQ9z1B/kdBFCILIjYYQDqZgLqCLa0UhjSSeRX6c3mUe6U5qYeM8LrEqkHJ1B4LA==
+
+vue-geolocation-api@^0.1.21:
+  version "0.1.21"
+  resolved "https://registry.yarnpkg.com/vue-geolocation-api/-/vue-geolocation-api-0.1.21.tgz#f276b5f228e49a9e761d51b70ecd1de7cd2d1100"
+  integrity sha512-+62ANOOWkHuB0AaSvD5sbIt6aHo73UeHKunNNy4JaUWmptBDD3yHsRDCwpwtSPGDKZpj5bR0cdkY9edFa8WLGw==
+  dependencies:
+    vue "^2.6.12"
 
 vue-hot-reload-api@^2.3.0:
   version "2.3.4"
