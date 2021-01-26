@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.anjanda.letsmeet.user.dto.UserDTO;
+import com.anjanda.letsmeet.repository.dto.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -34,7 +34,7 @@ public class JwtService {
 	private String signature = "LetsMeetSign";
 
 	/* 로그인 성공시, 사용자 정보를 기반으로 JWT Token을 생성하여 반환 */
-	public String create(UserDTO user) {
+	public String create(User user) {
 		JwtBuilder jwtBuilder = Jwts.builder();
 		jwtBuilder.setHeaderParam("typ", "JWT"); // 헤더설정 => 토큰의 타입으로 고정 값 ???
 		jwtBuilder.setSubject("로그인 토큰")	// 토큰의 제목 설정
