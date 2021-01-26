@@ -1,4 +1,4 @@
-package com.notsleep.letsmeet.login.controller;
+package com.anjanda.letsmeet.login.controller;
 
 import java.util.Map;
 
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.notsleep.letsmeet.login.service.LoginService;
-import com.notsleep.letsmeet.repository.dto.UserDTO;
+import com.anjanda.letsmeet.login.service.LoginService;
+import com.anjanda.letsmeet.repository.dto.User;
 
 @Controller
 @RequestMapping("/login")
@@ -32,7 +32,7 @@ public class LoginController {
 	public String service(@RequestParam Map<String, String> map, HttpSession session, HttpServletResponse response,
 			Model model) throws Exception {
 		try {
-			UserDTO user = loginService.login(map);
+			User user = loginService.login(map);
 			if (user != null) { // 유저 정보가 왔을 경우
 				session.setAttribute("userinfo", user);
 				System.out.println(user.getEmail());
