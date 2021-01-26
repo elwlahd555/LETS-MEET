@@ -27,23 +27,23 @@ public class BackendApplication {
 		SpringApplication.run(BackendApplication.class, args);
 	}
 	
-	/* JWT 인터셉터 객체 불러오기 */
-	@Autowired
-	private JwtInterceptor jwtInterceptor;
-	
-	/* JWT 인터셉터 설치 : 인터셉터 적용할 경로와 제외할 경로 설정 :: 로그인화면때, 회원정보부를때 ,비번찾기할 땐 필요없으므로 exclude처리 */
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(jwtInterceptor).addPathPatterns("/user/**")
-											.excludePathPatterns(Arrays.asList("/user/login", "/user", "/user/check/**", "user/forgot/**"));
-	}
-	
-	/* 전역의 Cors Origin 처리 */
-	@Override
-	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**")
-			.allowedOrigins("*")
-			.allowedMethods("*")
-			.allowedHeaders("*")
-			.exposedHeaders("auth-token");
-	}
+//	/* JWT 인터셉터 객체 불러오기 */
+//	@Autowired
+//	private JwtInterceptor jwtInterceptor;
+//	
+//	/* JWT 인터셉터 설치 : 인터셉터 적용할 경로와 제외할 경로 설정 :: 로그인화면때, 회원정보부를때 ,비번찾기할 땐 필요없으므로 exclude처리 */
+//	public void addInterceptors(InterceptorRegistry registry) {
+//		registry.addInterceptor(jwtInterceptor).addPathPatterns("/user/**")
+//											.excludePathPatterns(Arrays.asList("/user/login", "/user", "/user/check/**", "user/forgot/**"));
+//	}
+//	
+//	/* 전역의 Cors Origin 처리 */
+//	@Override
+//	public void addCorsMappings(CorsRegistry registry) {
+//		registry.addMapping("/**")
+//			.allowedOrigins("*")
+//			.allowedMethods("*")
+//			.allowedHeaders("*")
+//			.exposedHeaders("auth-token");
+//	}
 }
