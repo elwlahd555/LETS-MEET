@@ -24,6 +24,7 @@
         />
  
     </v-card-text>
+    <mdb-btn gradient="peach" rounded>n</mdb-btn>
     <v-card-actions>
         <v-btn @click='submit' color="success" rounded style='width:100%'>Login</v-btn>
     </v-card-actions>
@@ -34,10 +35,13 @@
 
 <script>
 // import PV from "password-validator";
-
+import { mdbBtn } from 'mdbvue';
 
 export default {
-    name: 'Loginform',
+    name: 'LoginForm',
+    components: {
+      mdbBtn
+    },
     methods: {
       submit() { 
         // 이메일, 비번 다 기입했는지 확인 
