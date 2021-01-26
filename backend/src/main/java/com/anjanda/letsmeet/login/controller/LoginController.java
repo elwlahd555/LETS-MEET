@@ -35,8 +35,8 @@ public class LoginController {
 			User user = loginService.login(map);
 			if (user != null) { // 유저 정보가 왔을 경우
 				session.setAttribute("userinfo", user);
-				System.out.println(user.getEmail());
-				Cookie cookie = new Cookie("user_id", user.getEmail());
+				System.out.println(user.getuEmail());
+				Cookie cookie = new Cookie("user_id", user.getuEmail());
 				cookie.setPath("/");
 				if ("saveok".equals(map.get("idsave"))) { // id저장 하면
 					cookie.setMaxAge(60 * 60 * 24 * 365 * 50); // 단위가 초이기 때문에 초*분*시간*일*년을 하면 최대 ~년간 저장 된다.(윤년 고려 안함)
