@@ -1,9 +1,5 @@
 <template>
   <div>
-      <!-- <div class='logo'>
-        <img src="../../assets/images/logo.png" 
-        style="width: 50%; max-height: 50px; max-width: 200px;">
-      </div> -->
     <v-form ref='form'>
       <v-card-title>
         회원가입
@@ -26,20 +22,23 @@
               :rules="[rules.required, rules.min]"
               :type="showPassword ? 'text' : 'password'"
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append="showPassword = !showPassword"
               prepend-icon="mdi-lock"
 
             >
             </v-text-field>
             
-            <!-- <v-text-field
+            <v-text-field
               ref="passwordConfirm"
               v-model="passwordConfirm"
+              :rules="[rules.required, rules.min, passwordCheck]"
               label="비밀번호 확인"
-              :type="showPassword ? 'text' : 'password'"
-              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+              :type="showPassword2 ? 'text' : 'password'"
+              :append-icon="showPassword2 ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append="showPassword2 = !showPassword2"
               prepend-icon="mdi-lock-alert"
             >
-            </v-text-field> -->
+            </v-text-field>
 
             <v-text-field
               ref='name'
@@ -59,7 +58,7 @@
               max = '2010-12-31'
               ref= 'birthdate'
               v-model="birthdate"
-              :rules = [rules.required]
+              :rules = "[rules.required]"
               label='생년원일'
               prepend-icon="mdi-calendar-range"
             >
@@ -89,12 +88,14 @@ export default {
     data: () => {
       return  {
         email : '',
-        password: '',
         name: '',
         birthdate: '',
         phone: '',
         showPassword: false,
+        showPassword2: false,
         SignupFormHasError: false,
+        passwordConfirm: '',
+        password: '',
         rules: {
             required: value => !!value, 
             phone: value => {
@@ -108,6 +109,11 @@ export default {
               },
         },
       }
+    },
+    computed: {
+        passwordCheck () { 
+          return () => (this.password === this.passwordConfirm) || '비밀번호가 일치하지 않습니다.'
+        },
     },
     methods: {
       submit () {
