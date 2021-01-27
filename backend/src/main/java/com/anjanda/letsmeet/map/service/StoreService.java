@@ -6,5 +6,5 @@ import com.anjanda.letsmeet.repository.dto.Store;
 
 public interface StoreService {
 	
-	List<Store> getStore(String dong);
+	List<Store> getStore(String dong) throws Exception;
 }
