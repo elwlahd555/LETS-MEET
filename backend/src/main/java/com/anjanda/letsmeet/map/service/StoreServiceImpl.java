@@ -15,8 +15,20 @@ public class StoreServiceImpl implements StoreService {
 	private StoreMapper mapper;
 	
 	@Override
-	public List<Store> getStore(String dong) throws Exception {
-		return mapper.getStore(dong);
+	public List<Store> getStoreInDong(String dong) throws Exception {
+		return mapper.getStoreInDong(dong);
+	}
+
+	@Override
+	public Store getStoreInPoint(double lat, double lng) throws Exception {
+		// TODO Auto-generated method stub
+		return mapper.getStoreInPoint(lat,lng);
+	}
+
+	@Override
+	public List<Store> getStoreInMidpoint(double lat, double lng) {
+		// TODO Auto-generated method stub
+		return mapper.getStoreInMidpoint(lat,lng);
 	}
 
 }

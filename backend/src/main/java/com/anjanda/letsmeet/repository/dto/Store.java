@@ -5,15 +5,15 @@ public class Store {
 	private int sNo;
 	private String sName;
 	private String sCategory;
-	private String sDetailCategory;
 	private String sDong;
 	private String sRoad;
-	private int sMainBungee;
-	private int sSubBungee;
+	private int sBungeeMain;
+	private int sBungeeSub;
 	private String sBuilding;
-	private String sRoadadress;
+	private String sRoadAddress;
 	private int sLat;
 	private int sLng;
+	private String sImg;
 	private int sScore;
 	public int getsNo() {
 		return sNo;
@@ -33,12 +33,6 @@ public class Store {
 	public void setsCategory(String sCategory) {
 		this.sCategory = sCategory;
 	}
-	public String getsDetailCategory() {
-		return sDetailCategory;
-	}
-	public void setsDetailCategory(String sDetailCategory) {
-		this.sDetailCategory = sDetailCategory;
-	}
 	public String getsDong() {
 		return sDong;
 	}
@@ -51,17 +45,17 @@ public class Store {
 	public void setsRoad(String sRoad) {
 		this.sRoad = sRoad;
 	}
-	public int getsMainBungee() {
-		return sMainBungee;
+	public int getsBungeeMain() {
+		return sBungeeMain;
 	}
-	public void setsMainBungee(int sMainBungee) {
-		this.sMainBungee = sMainBungee;
+	public void setsBungeeMain(int sBungeeMain) {
+		this.sBungeeMain = sBungeeMain;
 	}
-	public int getsSubBungee() {
-		return sSubBungee;
+	public int getsBungeeSub() {
+		return sBungeeSub;
 	}
-	public void setsSubBungee(int sSubBungee) {
-		this.sSubBungee = sSubBungee;
+	public void setsBungeeSub(int sBungeeSub) {
+		this.sBungeeSub = sBungeeSub;
 	}
 	public String getsBuilding() {
 		return sBuilding;
@@ -69,11 +63,11 @@ public class Store {
 	public void setsBuilding(String sBuilding) {
 		this.sBuilding = sBuilding;
 	}
-	public String getsRoadadress() {
-		return sRoadadress;
+	public String getsRoadAddress() {
+		return sRoadAddress;
 	}
-	public void setsRoadadress(String sRoadadress) {
-		this.sRoadadress = sRoadadress;
+	public void setsRoadAddress(String sRoadAddress) {
+		this.sRoadAddress = sRoadAddress;
 	}
 	public int getsLat() {
 		return sLat;
@@ -87,6 +81,12 @@ public class Store {
 	public void setsLng(int sLng) {
 		this.sLng = sLng;
 	}
+	public String getsImg() {
+		return sImg;
+	}
+	public void setsImg(String sImg) {
+		this.sImg = sImg;
+	}
 	public int getsScore() {
 		return sScore;
 	}
@@ -95,12 +95,11 @@ public class Store {
 	}
 	@Override
 	public String toString() {
-		return "Store [sNo=" + sNo + ", sName=" + sName + ", sCategory=" + sCategory + ", sDetailCategory="
-				+ sDetailCategory + ", sDong=" + sDong + ", sRoad=" + sRoad + ", sMainBungee=" + sMainBungee
-				+ ", sSubBungee=" + sSubBungee + ", sBuilding=" + sBuilding + ", sRoadadress=" + sRoadadress + ", sLat="
-				+ sLat + ", sLng=" + sLng + ", sScore=" + sScore + "]";
+		return "Store [sNo=" + sNo + ", sName=" + sName + ", sCategory=" + sCategory + ", sDong=" + sDong + ", sRoad="
+				+ sRoad + ", sBungeeMain=" + sBungeeMain + ", sBungeeSub=" + sBungeeSub + ", sBuilding=" + sBuilding
+				+ ", sRoadAddress=" + sRoadAddress + ", sLat=" + sLat + ", sLng=" + sLng + ", sImg=" + sImg
+				+ ", sScore=" + sScore + "]";
 	}
-	
 	
 	
 	
