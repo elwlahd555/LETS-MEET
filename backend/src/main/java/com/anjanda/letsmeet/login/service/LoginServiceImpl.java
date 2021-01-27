@@ -10,7 +10,6 @@ import com.anjanda.letsmeet.repository.mapper.LoginMapper;
 
 @Service
 public class LoginServiceImpl implements LoginService {
-
 	@Autowired
 	private LoginMapper mapper;
 
