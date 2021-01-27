@@ -1,5 +1,6 @@
 package com.anjanda.letsmeet;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,6 +22,7 @@ import com.anjanda.letsmeet.user.jwt.interceptor.JwtInterceptor;
  */
 
 @SpringBootApplication
+@MapperScan(basePackages ="com.anjanda.letsmeet.repository.mapper")
 public class BackendApplication {
 
 	public static void main(String[] args) {
