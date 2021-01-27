@@ -14,10 +14,14 @@ import com.anjanda.letsmeet.user.jwt.service.JwtService;
  * @Team AnJanDa
  * @author 개발자명
  * @Project : Test
- * @Function :
- * @Description : 
+ * @Function : jwt의 인터셉터
+ * @Description
+ * 	- 쉽게말해, 클라이언트에서 서버로의 요청을 보내는 과정에 있어, 인터셉터가 중간에 요청을 가로채서 해당 정보의 어떠한 작업을 처리하는 과정
+ * 	- 정상 작업 완료시, 서버로 보냄
+ * 	- 정사 작업 실패시, 클라이언트로 돌려보냄
  *
  */
+
 @Component
 public class JwtInterceptor implements HandlerInterceptor {
 
