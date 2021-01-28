@@ -46,7 +46,13 @@ export default {
       submit() { 
         // 이메일, 비번 다 기입했는지 확인 
         if (!this.$refs.form.validate()) return console.log('다 안채워짐')
-        else console.log('확인')
+        else {
+          console.log('확인')
+          this.axios.post('/login',{
+            email: this.email,
+            password: this.password
+          })
+        }
         // Object.keys(this.$refs).forEach(f => {
         //   console.log(this.$refs[f].$options)
           // if (!this.$refs[f].) this.formHasErrors = true

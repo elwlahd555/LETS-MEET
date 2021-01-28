@@ -1,4 +1,8 @@
 package com.anjanda.letsmeet.repository.dto;
+
+import lombok.Builder;
+import lombok.Data;
+
 /**
  * 
  * @Date 2021. 1. 25.
@@ -10,6 +14,9 @@ package com.anjanda.letsmeet.repository.dto;
  *	- 이메일 인증 확인 => 수정 필요
  *	- 사진 받기 호우...?
  */
+
+@Data
+@Builder
 public class User {
 	private int uNo;
 	private String uEmail;
@@ -26,6 +33,7 @@ public class User {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	public User(int uNo, String uEmail, char uConfirmEmail, String uPassword, String uName, String uBirth,
 			String uJoinDate, String uImg, String uAddress, String uProvider) {
 		super();
