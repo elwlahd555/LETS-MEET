@@ -15,7 +15,7 @@
 	</select>
 
 <!-- C :: 회원 가입 -->
-	<insert id="insertUser" parameterType="com.anjanda.letsmeet.repository.dto.User">
+	<insert id="insertUser" parameterType="user">
 		insert
 		  into user(u_email, u_password, u_name, ...)
 		values (#{uEmail}, #{uPassword}, #{uName}, ...)

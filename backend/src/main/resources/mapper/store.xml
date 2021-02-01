@@ -6,24 +6,29 @@
 	namespace="com.anjanda.letsmeet.repository.mapper.StoreMapper">
 	
 	
-	<select id="getStoreInDong" resultType="Store">
-              select *
-      from store s
-      where s.s_dong=#{dong};
+	<select id="reviewStoreByDong" parameterType="com.anjanda.letsmeet.repository.dto.Store" resultType="Store">
+		select *
+		  from store
+		 where s_dong = #{sDong}
 	</select>
 	
 	
-	<select id="getStoreInPoint" resultType="Store">
-select * from store s 
-where s.s_lat =#{lat} and s.s_lng =#{lng};
+	<select id="reviewStoreByPoint" parameterType="com.anjanda.letsmeet.repository.dto.Store" resultType="Store">
+		select *
+		  from store
+		 where s_lat = #{sLat} and s_lng = #{sLng}
 	</select>
 	
 	
-	<select id="getStoreInMidpoint" resultType="Store">
-select * from store s 
-where (s.s_lat between #{lat}-0.002 and #{lat}+0.002) and (s.s_lng between #{lng}-0.002 and #{lng}+0.002);
+	<select id="reviewStoreByMidPoint" parameterType="com.anjanda.letsmeet.repository.dto.Store" resultType="Store">
+		select *
+		  from store
+		 where (s_lat between (#{sLat} - 0.003) and (#{sLng} + 0.003))
+		 	   and 
+		 	   (s_lng between (#{sLng} - 0.003) and (#{sLng} + 0.003))
 	</select>
 	
 
-	
+	<!-- 문자->숫자 : CAST('문자열' AS INT) -->
+	<!-- 숫자->문자 : CAST(숫자 AS CHAR(10) -->
 </mapper>

@@ -10,25 +10,29 @@ import com.anjanda.letsmeet.repository.mapper.StoreMapper;
 
 @Service
 public class StoreServiceImpl implements StoreService {
-
+	
+	/* 가게 매퍼 객체 불러오기 */
 	@Autowired
 	private StoreMapper mapper;
-	
+
+	/* '동 이름'으로 가게 전체 조회 */
 	@Override
-	public List<Store> getStoreInDong(String dong) throws Exception {
-		return mapper.getStoreInDong(dong);
+	public List<Store> reviewStoreByDong(String dong) throws Exception {
+		return mapper.selectStoreByDong(dong);
 	}
 
+	/* '좌표 값' 으로 해당 가게 조회 */
 	@Override
-	public Store getStoreInPoint(double lat, double lng) throws Exception {
+	public Store reviewStoreByPoint(String lat, String lng) throws Exception {
 		// TODO Auto-generated method stub
-		return mapper.getStoreInPoint(lat,lng);
+		return mapper.selectStoreByPoint(lat, lng);
 	}
 
+	/* '중간 좌표 값'으로 일정 반경 내 가게들 조회 */
 	@Override
-	public List<Store> getStoreInMidpoint(double lat, double lng) {
+	public List<Store> reviewStoreByMidPoint(String lat, String lng) {
 		// TODO Auto-generated method stub
-		return mapper.getStoreInMidpoint(lat,lng);
+		return mapper.selectStoreByMidPoint(lat,lng);
 	}
 
 }

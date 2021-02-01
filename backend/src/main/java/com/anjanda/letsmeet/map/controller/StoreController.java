@@ -12,50 +12,66 @@ import com.anjanda.letsmeet.repository.dto.Store;
 
 import io.swagger.annotations.ApiOperation;
 
+/**
+ * 
+ * @Date 2021. 2. 1.
+ * @Team AnJanDa
+ * @author 개발자명
+ * @Project : backend
+ * @Function :
+ * @Description : 
+ *
+ */
+
 @RestController
 @RequestMapping(value="/map")
 public class StoreController {
 
+	/* 가게 객체 불러오기 */
 	@Autowired
-	private StoreService StoreService;
+	private StoreService storeService;
 	
+	/* '동 이름'으로 가게 조회하기 */
 	@ApiOperation(value="전체 동 조회", notes="동을 이용해서 조회")
 	@GetMapping("/dong")
-	public List<Store> mapInDong(String dong) {
+	public List<Store> reviewStoreByDong(String dong) {
 		try {
 			System.out.println("dong값 받아오기");
-			System.out.println("data size : " + StoreService.getStoreInDong(dong).size());
-			System.out.println("data size : " + StoreService.getStoreInDong(dong).get(0).getsDong());
+			System.out.println("data size : " + storeService.reviewStoreByDong(dong).size());
+			System.out.println("data size : " + storeService.reviewStoreByDong(dong).get(0).getsDong());
 			
-			return StoreService.getStoreInDong(dong);
+			return storeService.reviewStoreByDong(dong);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
+	/* '좌표 값'으로 가게 조회하기 */
 	@ApiOperation(value="좌표로 조회", notes="좌표를 이용해서 조회")
 	@GetMapping("/point")
-	public Store mapInPoint(double lat, double lng) {
+	public Store reviewStoreByPoint(String lat, String lng) {
 		try {
 			System.out.println("좌표값 받아오기");
-			System.out.println("data name : " + StoreService.getStoreInPoint(lat,lng).getsName());
+			System.out.println("data name : " + storeService.reviewStoreByPoint(lat,lng).getsName());
 			
-			return StoreService.getStoreInPoint(lat,lng);
+			return storeService.reviewStoreByPoint(lat,lng);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
+
+	/* '중간 좌표 값' 으로 반경 내 가게 조회하기 */ // 나중에 알고리즘 이부분 추가해서 강,바다 걸러준다거나 일정 알고리즘 적용하면 될듯??
 	@ApiOperation(value="중간 좌표로 조회", notes="중간 좌표를 이용해서 조회")
 	@GetMapping("/midpoint")
-	public List<Store> mapInMidpoint(double lat, double lng) {
+	public List<Store> reviewStoreByMidPoint(String lat, String lng) {
 		try {
 			System.out.println("중간 좌표값 받아오기");
-			System.out.println("data size : " + StoreService.getStoreInMidpoint(lat,lng).size());
-			System.out.println("data size : " + StoreService.getStoreInMidpoint(lat,lng).get(0).getsName());
+			System.out.println("data size : " + storeService.reviewStoreByMidPoint(lat,lng).size());
+			System.out.println("data size : " + storeService.reviewStoreByMidPoint(lat,lng).get(0).getsName());
 
-			return StoreService.getStoreInMidpoint(lat,lng);
+			return storeService.reviewStoreByMidPoint(lat,lng);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

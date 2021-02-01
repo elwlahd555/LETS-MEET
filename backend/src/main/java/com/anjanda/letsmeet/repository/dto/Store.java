@@ -92,9 +92,4 @@ public class Store {
 	public void setsScore(int sScore) {
 		this.sScore = sScore;
 	}
-	
-	
-	
-	
-	
 }
