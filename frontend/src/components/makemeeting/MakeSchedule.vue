@@ -1,5 +1,4 @@
 <template>
-
   <div>
     <div class="pt-5 d-flex justify-center mx-5" style="border-bottom: 2px solid black">
       <h5>약속방 만들기</h5>
@@ -31,8 +30,8 @@
       </v-row>
     </v-container>
 
-    <v-container>
-      <div id="map" style="width: 100%; height: 300px;"></div>
+    <v-container v-show="direct">
+      <div id="map"></div>
     </v-container>
 
     <v-container>
@@ -47,21 +46,29 @@
     </v-container>
     
     <v-container>
-      <v-row>
-        <v-col
-          cols="12"
-          sm="12"
-        >
-          <v-date-picker
-            v-model="dates"
-            multiple
-            color="teal"
-            full-width
-            no-title
-            :min="today"
-          ></v-date-picker>
-        </v-col>
-      </v-row>
+      <v-col
+        cols="12"
+        sm="12"
+      >
+        <v-date-picker
+          v-model="dates"
+          range
+          color="indigo accent-2"
+          full-width
+          no-title
+          :min="today"
+        ></v-date-picker>
+      </v-col>
+      <v-col
+        cols="12"
+      >
+        <v-text-field
+          v-model="dateRangeText"
+          label="약속 기간"
+          prepend-icon="mdi-calendar"
+          readonly
+        ></v-text-field>
+      </v-col>
     </v-container>
     
     <div class="mx-10 d-flex justify-space-between">
@@ -69,7 +76,7 @@
         fab
         dark
         small
-        color="teal"
+        color="indigo accent-2"
         @click="is_prev"
       >
         <v-icon dark>
@@ -86,7 +93,7 @@
             fab
             dark
             small
-            color="teal"
+            color="indigo accent-2"
             v-bind="attrs"
             v-on="on"
           >
@@ -120,14 +127,13 @@
         </v-card>
       </v-dialog>
     </div>
-
-    
   </div>
 </template>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=71f77d07e68b0f6c0464d85d3df14e6c"></script>
 <script>
 const KAKAO_API_KEY = process.env.VUE_APP_KAKAO_API_KEY
+
+var map = ''
 export default {
   name: "MakeSchedule",
   data () {
@@ -139,6 +145,7 @@ export default {
       today: new Date().toISOString().substr(0, 10),
       dialog: false,
       direct: false,
+      flag: true,
     }
   },
   watch: {
@@ -146,12 +153,15 @@ export default {
       console.log(this.dates)
     },
   },
-  mounted() {
-    if (window.kakao && window.kakao.maps) {
-      setTimeout(() => { this.initMap() }, 1000)
-    } else {
-      this.addKakaoMapScript()
-    }
+  computed: {
+    dateRangeText () {
+      this.dateSort()
+      return this.dates.join(' ~ ')
+    },
+  },
+  mounted() { 
+    // window.kakao && window.kakao.maps ? this.initMap() : this.addKakaoMapScript()
+    this.addKakaoMapScript()
   },
   methods: {
     is_prev(){
@@ -159,68 +169,90 @@ export default {
     },
     directSelect(){
       this.direct = !this.direct
+      if (this.direct && this.flag) {
+        setTimeout(() => { this.initMap() }, 100)
+      }
+      this.flag = false
+    },
+    dateSort(){
+      if (this.dates.length == 2){
+        if (this.dates[0] > this.dates[1]) {
+          var tmp = this.dates[0]
+          this.dates[0] = this.dates[1]
+          this.dates[1] = tmp
+        }
+      }
     },
     geofind() {
       if(!("geolocation" in navigator)) {
-      this.textContent = 'Geolocation is not available.';
+      this.textContent = 'Geolocation is not available.'
       return;
       }
       this.textContent = 'Locating...'
       
       navigator.geolocation.getCurrentPosition(pos => {
-        this.latitude = pos.coords.latitude;
-        this.longitude = pos.coords.longitude;
+        this.latitude = pos.coords.latitude
+        this.longitude = pos.coords.longitude
         this.textContent = this.latitude + ', ' + this.longitude
         console.log(this.textContent)
       }, err => {
-        this.textContent = err.message;
+        this.textContent = err.message
       })
+      // this.initMap()
     },
     addKakaoMapScript() {
-      const script = document.createElement("script");
-      script.onload = () => kakao.maps.load(this.initMap);
+      const script = document.createElement("script")
+      script.onload = () => kakao.maps.load()
       script.src =
-        `http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${KAKAO_API_KEY}`;
+        `http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${KAKAO_API_KEY}`
       document.head.appendChild(script)
     },
     initMap() {
       var container = document.getElementById("map");
+      container.style.width = '100%'
+      container.style.height = '300px'
       var options = {
-        center: new kakao.maps.LatLng(36.1299968, 128.34242559999998),
-        level: 3
-      };
-      
-      var map = new kakao.maps.Map(container, options);
-      var mapTypeControl = new kakao.maps.MapTypeControl();
-      map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
-      var zoomControl = new kakao.maps.ZoomControl();
-      map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+        center: new kakao.maps.LatLng(this.latitude, this.longitude),
+        level: 4
+      }
+      map = new kakao.maps.Map(container, options)
+      var mapTypeControl = new kakao.maps.MapTypeControl()
+      map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT)
+      var zoomControl = new kakao.maps.ZoomControl()
+      map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT)
       var markers = []
+      setTimeout(function() {
+        map.relayout()
+      }, 100)
+      addMarker(options['center'])
+      map.setCenter(options['center'])
+      setTimeout(function() {
+        map.relayout()
+      }, 100)
 
       kakao.maps.event.addListener(map, 'click', function(mouseEvent) {  
-          hideMarkers()
-          var latlng = mouseEvent.latLng;
-          this.latitude = latlng.getLat()
-          this.longitude = latlng.getLng()
-          console.log(this.latitude, this.longitude)
-          addMarker(latlng)
-      });
+        map.relayout()
+        hideMarkers()
+        var latlng = mouseEvent.latLng
+        this.latitude = latlng.getLat()
+        this.longitude = latlng.getLng()
+        addMarker(latlng)
+      })
       function setMarkers(map) {
-          for (var i = 0; i < markers.length; i++) {
-              markers[i].setMap(map);
-          }            
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(map)
+        }            
       }
       function hideMarkers() {
-          setMarkers(null)
+        setMarkers(null)
       }
       function addMarker(position) {
-          var marker = new kakao.maps.Marker({
-              position: position
-          });
-          marker.setMap(map)
-          markers.push(marker)
+        var marker = new kakao.maps.Marker({
+            position: position
+        })
+        marker.setMap(map)
+        markers.push(marker)
       }
-      setTimeout(map.relayout(), 1000)
     },
   },
 }
