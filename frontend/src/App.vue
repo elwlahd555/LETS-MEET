@@ -52,7 +52,7 @@
 
     <v-bottom-navigation
       :value="value"
-      color="teal"
+      color="indigo accent-2"
       dense
       grow
       fixed
@@ -71,7 +71,7 @@
         <v-icon>mdi-bell</v-icon>
       </v-btn>
       <v-btn>
-        <v-icon>mdi-account-circle</v-icon>
+        <router-link class="ro" :to="{ name: 'MyPage' }"><v-icon>mdi-account-circle</v-icon></router-link>
       </v-btn>
     </v-bottom-navigation>
   </v-app>
@@ -94,7 +94,8 @@ export default {
 </script>
 
 <style>
-  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
   @font-face {
     font-family: 'LotteMartHappy';
     font-style: normal;

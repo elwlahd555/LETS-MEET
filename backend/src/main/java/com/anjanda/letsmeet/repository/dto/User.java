@@ -8,10 +8,17 @@ import lombok.ToString;
 @Setter
 @ToString
 public class User {
-	private int uNo;
+
+	@Id // Primary key
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // 프로젝트에서 연결된 DB의 넘버링 전략을 따라간다.
+	private int uNo; // 시퀀스, auto_increment
+
+	@Column
 	private String uEmail;
 	private String uPassword;
+	@Column
 	private String uName;
+	@Column
 	private String uBirth;
 	private String uDefaultLat;
 	private String uDefaultLng;
@@ -36,33 +43,42 @@ public class User {
 		this.uJoinDate = uJoinDate;
 		this.uProvider = uProvider;
 	}
+
 	public int getuNo() {
 		return uNo;
 	}
+
 	public void setuNo(int uNo) {
 		this.uNo = uNo;
 	}
+
 	public String getuEmail() {
 		return uEmail;
 	}
+
 	public void setuEmail(String uEmail) {
 		this.uEmail = uEmail;
 	}
 	public String getuPassword() {
 		return uPassword;
 	}
+
 	public void setuPassword(String uPassword) {
 		this.uPassword = uPassword;
 	}
+
 	public String getuName() {
 		return uName;
 	}
+
 	public void setuName(String uName) {
 		this.uName = uName;
 	}
+
 	public String getuBirth() {
 		return uBirth;
 	}
+
 	public void setuBirth(String uBirth) {
 		this.uBirth = uBirth;
 	}
@@ -90,9 +106,11 @@ public class User {
 	public void setuJoinDate(String uJoinDate) {
 		this.uJoinDate = uJoinDate;
 	}
+
 	public String getuProvider() {
 		return uProvider;
 	}
+
 	public void setuProvider(String uProvider) {
 		this.uProvider = uProvider;
 	}

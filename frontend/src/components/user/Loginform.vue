@@ -7,14 +7,14 @@
     <v-card-text>
         <v-text-field 
             ref ='email'
-            v-model="email"
+            v-model="user.email"
             label="이메일" 
             prepend-icon="email"
             :rules="[rules.required, rules.email]"
         />
         <v-text-field 
             ref ='password'
-            v-model="password"
+            v-model="user.password"
             :type="showPassword ? 'text' : 'password'"
             :rules="[rules.required, rules.min]"
             label="비밀번호"
@@ -26,7 +26,7 @@
     </v-card-text>
     <mdb-btn gradient="peach" rounded>n</mdb-btn>
     <v-card-actions>
-        <v-btn @click='submit' color="success" rounded style='width:100%'>Login</v-btn>
+        <v-btn @click='loginsubmit' color="success" rounded style='width:100%'>Login</v-btn>
     </v-card-actions>
     </v-form>
   </div>
@@ -34,19 +34,25 @@
 
 
 <script>
-// import PV from "password-validator";
 import { mdbBtn } from 'mdbvue';
 
 export default {
     name: 'LoginForm',
+
     components: {
       mdbBtn
     },
     methods: {
-      submit() { 
+      loginsubmit() { 
         // 이메일, 비번 다 기입했는지 확인 
         if (!this.$refs.form.validate()) return console.log('다 안채워짐')
-        else console.log('확인')
+        else {
+          console.log('확인')
+          this.axios.post('/login',{
+            email: this.email,
+            password: this.password
+          })
+        }
         // Object.keys(this.$refs).forEach(f => {
         //   console.log(this.$refs[f].$options)
           // if (!this.$refs[f].) this.formHasErrors = true
@@ -56,8 +62,10 @@ export default {
     },
     data: () => {
         return {
+          user : {
             email: '',
             password: '',
+          },
             showPassword: false,
             formHasErrors: false,
             rules: {

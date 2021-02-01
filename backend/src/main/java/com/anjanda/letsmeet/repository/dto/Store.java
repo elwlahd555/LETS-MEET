@@ -12,34 +12,15 @@ public class Store {
 	private String sName;
 	private String sCategory;
 	private String sDong;
-	private String sRoadNmae;
-	private String sBunjiMain;
-	private String sBunjiSub;
-	private String sBuildingName;
+	private String sRoad;
+	private String sBungeeMain;
+	private String sBungeeSub;
+	private String sBuilding;
+	private String sRoadAddress;
 	private String sLat;
 	private String sLng;
-	private int sImageId;
-	private int sReview;
-	public Store() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Store(int sNo, String sName, String sCategory, String sDong, String sRoadNmae, String sBunjiMain,
-			String sBunjiSub, String sBuildingName, String sLat, String sLng, int sImageId, int sReview) {
-		super();
-		this.sNo = sNo;
-		this.sName = sName;
-		this.sCategory = sCategory;
-		this.sDong = sDong;
-		this.sRoadNmae = sRoadNmae;
-		this.sBunjiMain = sBunjiMain;
-		this.sBunjiSub = sBunjiSub;
-		this.sBuildingName = sBuildingName;
-		this.sLat = sLat;
-		this.sLng = sLng;
-		this.sImageId = sImageId;
-		this.sReview = sReview;
-	}
+	private int sImg;
+	private int sScore;
 	public int getsNo() {
 		return sNo;
 	}
@@ -64,17 +45,23 @@ public class Store {
 	public void setsDong(String sDong) {
 		this.sDong = sDong;
 	}
-	public String getsRoadNmae() {
-		return sRoadNmae;
+	public String getsRoad() {
+		return sRoad;
 	}
-	public void setsRoadNmae(String sRoadNmae) {
-		this.sRoadNmae = sRoadNmae;
+	public void setsRoad(String sRoad) {
+		this.sRoad = sRoad;
 	}
-	public String getsBunjiMain() {
-		return sBunjiMain;
+	public String getsBungeeMain() {
+		return sBungeeMain;
 	}
-	public void setsBunjiMain(String sBunjiMain) {
-		this.sBunjiMain = sBunjiMain;
+	public void setsBungeeMain(String sBungeeMain) {
+		this.sBungeeMain = sBungeeMain;
+	}
+	public String getsBungeeSub() {
+		return sBungeeSub;
+	}
+	public void setsBungeeSub(String sBungeeSub) {
+		this.sBungeeSub = sBungeeSub;
 	}
 	public String getsBunjiSub() {
 		return sBunjiSub;
@@ -82,11 +69,11 @@ public class Store {
 	public void setsBunjiSub(String sBunjiSub) {
 		this.sBunjiSub = sBunjiSub;
 	}
-	public String getsBuildingName() {
-		return sBuildingName;
+	public String getsRoadAddress() {
+		return sRoadAddress;
 	}
-	public void setsBuildingName(String sBuildingName) {
-		this.sBuildingName = sBuildingName;
+	public void setsRoadAddress(String sRoadAddress) {
+		this.sRoadAddress = sRoadAddress;
 	}
 	public String getsLat() {
 		return sLat;
@@ -100,8 +87,14 @@ public class Store {
 	public void setsLng(String sLng) {
 		this.sLng = sLng;
 	}
-	public int getsImageId() {
-		return sImageId;
+	public int getsImg() {
+		return sImg;
+	}
+	public void setsImg(int sImg) {
+		this.sImg = sImg;
+	}
+	public int getsScore() {
+		return sScore;
 	}
 	public void setsImageId(int sImageId) {
 		this.sImageId = sImageId;
@@ -112,13 +105,8 @@ public class Store {
 	public void setsReview(int sReview) {
 		this.sReview = sReview;
 	}
-	@Override
-	public String toString() {
-		return "Store [sNo=" + sNo + ", sName=" + sName + ", sCategory=" + sCategory + ", sDong=" + sDong
-				+ ", sRoadNmae=" + sRoadNmae + ", sBunjiMain=" + sBunjiMain + ", sBunjiSub=" + sBunjiSub
-				+ ", sBuildingName=" + sBuildingName + ", sLat=" + sLat + ", sLng=" + sLng + ", sImageId=" + sImageId
-				+ ", sReview=" + sReview + "]";
-	}
+	
+	
 	
 	
 }
