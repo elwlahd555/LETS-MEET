@@ -1,23 +1,12 @@
 package com.anjanda.letsmeet.repository.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import org.springframework.data.annotation.Id;
-
-/**
- * 
- * @Date 2021. 1. 25.
- * @Team AnJanDa
- * @author 개발자명
- * @Project : Test -
- * @Function : 유저 DB 테이블
- * @Description : - 이메일 인증 확인 => 수정 필요 - 사진 받기 호우...?
- */
-
-@Entity
+@Getter
+@Setter
+@ToString
 public class User {
 
 	@Id // Primary key
@@ -26,40 +15,32 @@ public class User {
 
 	@Column
 	private String uEmail;
-	@Column
-	private char uConfirmEmail;
-	@Column
 	private String uPassword;
 	@Column
 	private String uName;
 	@Column
 	private String uBirth;
-	@Column
+	private String uDefaultLat;
+	private String uDefaultLng;
+	private int uImageId;
 	private String uJoinDate;
-	@Column
-	private String uImg;
-	@Column
-	private String uAddress;
-	@Column
 	private String uProvider;
-
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	public User(int uNo, String uEmail, char uConfirmEmail, String uPassword, String uName, String uBirth,
-			String uJoinDate, String uImg, String uAddress, String uProvider) {
+	public User(int uNo, String uEmail, String uPassword, String uName, String uBirth, String uDefaultLat,
+			String uDefaultLng, int uImageId, String uJoinDate, String uProvider) {
 		super();
 		this.uNo = uNo;
 		this.uEmail = uEmail;
-		this.uConfirmEmail = uConfirmEmail;
 		this.uPassword = uPassword;
 		this.uName = uName;
 		this.uBirth = uBirth;
+		this.uDefaultLat = uDefaultLat;
+		this.uDefaultLng = uDefaultLng;
+		this.uImageId = uImageId;
 		this.uJoinDate = uJoinDate;
-		this.uImg = uImg;
-		this.uAddress = uAddress;
 		this.uProvider = uProvider;
 	}
 
@@ -78,15 +59,6 @@ public class User {
 	public void setuEmail(String uEmail) {
 		this.uEmail = uEmail;
 	}
-
-	public char getuConfirmEmail() {
-		return uConfirmEmail;
-	}
-
-	public void setuConfirmEmail(char uConfirmEmail) {
-		this.uConfirmEmail = uConfirmEmail;
-	}
-
 	public String getuPassword() {
 		return uPassword;
 	}
@@ -110,29 +82,29 @@ public class User {
 	public void setuBirth(String uBirth) {
 		this.uBirth = uBirth;
 	}
-
+	public String getuDefaultLat() {
+		return uDefaultLat;
+	}
+	public void setuDefaultLat(String uDefaultLat) {
+		this.uDefaultLat = uDefaultLat;
+	}
+	public String getuDefaultLng() {
+		return uDefaultLng;
+	}
+	public void setuDefaultLng(String uDefaultLng) {
+		this.uDefaultLng = uDefaultLng;
+	}
+	public int getuImageId() {
+		return uImageId;
+	}
+	public void setuImageId(int uImageId) {
+		this.uImageId = uImageId;
+	}
 	public String getuJoinDate() {
 		return uJoinDate;
 	}
-
 	public void setuJoinDate(String uJoinDate) {
 		this.uJoinDate = uJoinDate;
-	}
-
-	public String getuImg() {
-		return uImg;
-	}
-
-	public void setuImg(String uImg) {
-		this.uImg = uImg;
-	}
-
-	public String getuAddress() {
-		return uAddress;
-	}
-
-	public void setuAddress(String uAddress) {
-		this.uAddress = uAddress;
 	}
 
 	public String getuProvider() {
@@ -142,11 +114,10 @@ public class User {
 	public void setuProvider(String uProvider) {
 		this.uProvider = uProvider;
 	}
-
 	@Override
 	public String toString() {
-		return "UserDTO [uNo=" + uNo + ", uEmail=" + uEmail + ", uConfirmEmail=" + uConfirmEmail + ", uPassword="
-				+ uPassword + ", uName=" + uName + ", uBirth=" + uBirth + ", uJoinDate=" + uJoinDate + ", uImg=" + uImg
-				+ ", uAddress=" + uAddress + ", uProvider=" + uProvider + "]";
+		return "User [uNo=" + uNo + ", uEmail=" + uEmail + ", uPassword=" + uPassword + ", uName=" + uName + ", uBirth="
+				+ uBirth + ", uDefaultLat=" + uDefaultLat + ", uDefaultLng=" + uDefaultLng + ", uImageId=" + uImageId
+				+ ", uJoinDate=" + uJoinDate + ", uProvider=" + uProvider + "]";
 	}
 }

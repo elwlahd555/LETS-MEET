@@ -1,7 +1,13 @@
 package com.anjanda.letsmeet.repository.dto;
 
-public class Store {
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@ToString
+public class Store {
 	private int sNo;
 	private String sName;
 	private String sCategory;
@@ -57,11 +63,11 @@ public class Store {
 	public void setsBungeeSub(String sBungeeSub) {
 		this.sBungeeSub = sBungeeSub;
 	}
-	public String getsBuilding() {
-		return sBuilding;
+	public String getsBunjiSub() {
+		return sBunjiSub;
 	}
-	public void setsBuilding(String sBuilding) {
-		this.sBuilding = sBuilding;
+	public void setsBunjiSub(String sBunjiSub) {
+		this.sBunjiSub = sBunjiSub;
 	}
 	public String getsRoadAddress() {
 		return sRoadAddress;
@@ -90,11 +96,15 @@ public class Store {
 	public int getsScore() {
 		return sScore;
 	}
-	public void setsScore(int sScore) {
-		this.sScore = sScore;
+	public void setsImageId(int sImageId) {
+		this.sImageId = sImageId;
 	}
-	
-	
+	public int getsReview() {
+		return sReview;
+	}
+	public void setsReview(int sReview) {
+		this.sReview = sReview;
+	}
 	
 	
 	

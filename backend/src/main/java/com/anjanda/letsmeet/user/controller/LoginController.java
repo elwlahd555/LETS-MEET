@@ -1,3 +1,71 @@
+package com.anjanda.letsmeet.user.controller;
+
+import java.util.HashMap;
+import java.util.Map;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.anjanda.letsmeet.repository.dto.User;
+import com.anjanda.letsmeet.user.jwt.JwtService;
+import com.anjanda.letsmeet.user.service.UserService;
+
+/**
+ * 
+ * @Date : 2021. 2. 1.
+ * @Team : AnJanDa
+ * @author : 개발자명
+ * @Project : 레쓰밋 :: backend
+ * @Function : 로그인 관련 컨트롤러
+ * @Description 
+ *	유저 관련된 것이지만, 로그인만 따로 처리해줄 필요성을 느껴 컨트롤러 부분만 뺌..(유저 컨트롤에 넣어도 되긴 함)
+ */
+
+@CrossOrigin(origins = { "*" }, maxAge = 6000)	// 이건 왜쓰지..
+@RestController
+@RequestMapping("/user")
+public class LoginController {
+
+	/* jwt 객체 불러오기 */
+	@Autowired
+	private JwtService jwtService;
+	
+	/* 유저 서비스 객체 불러오기 */
+	@Autowired
+	private UserService service;
+	
+	/* 로그인 */
+	@PostMapping("/login")
+	public ResponseEntity<?> login(@RequestBody User user, HttpServletResponse response, HttpSession session) throws Exception {
+		Map<String, Object> resultMap = new HashMap<>();
+		User check = service.login(user);
+		
+		if(check != null) {
+			String token = jwtService.create(check);
+			
+			// 파라미터 1번째 것은 FE 대로 따라가기..
+			resultMap.put("auth-token", token);
+			resultMap.put("uEmail", check.getuEmail()); 
+			resultMap.put("uName", check.getuName());
+			resultMap.put("uDefaultLat", check.getuDefaultLat());
+			resultMap.put("uDefaultLng", check.getuDefaultLng());
+			
+			return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+		}
+		resultMap.put("message", "로그인에 실패하였습니다.");
+		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.NO_CONTENT);
+	}
+}
+
+
+// 우리 동빈이가 한 세션 로그인 컨트롤러!!!!!!
+/*
 package com.anjanda.letsmeet.login.controller;
 
 import java.util.Map;
@@ -223,3 +291,5 @@ public class LoginController {
 		return response2.getBody();
 	}
 }
+
+ */
