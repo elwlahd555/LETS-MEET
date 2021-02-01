@@ -8555,6 +8555,11 @@ vue-clickaway@^2.2.2:
   dependencies:
     loose-envify "^1.2.0"
 
+vue-delay@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/vue-delay/-/vue-delay-0.1.0.tgz#dabfc3bef1c8f2b244c0d1a5d4fb247586a8b414"
+  integrity sha512-9SxZtcVpUGLSvM5vQKlyQ7WAqSC/1Ea4kvdIfRqWqG0V0B8VEi6LefJwUsZoZtnlfXKDzJ+GcYZzlcTJhZCmYQ==
+
 vue-eslint-parser@^7.4.1:
   version "7.4.1"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-7.4.1.tgz#e4adcf7876a7379758d9056a72235af18a587f92"

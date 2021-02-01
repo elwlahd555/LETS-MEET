@@ -52,7 +52,7 @@
 
     <v-bottom-navigation
       :value="value"
-      color="teal"
+      color="indigo accent-2"
       dense
       grow
       fixed
@@ -94,7 +94,8 @@ export default {
 </script>
 
 <style>
-  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
   @font-face {
     font-family: 'LotteMartHappy';
     font-style: normal;
