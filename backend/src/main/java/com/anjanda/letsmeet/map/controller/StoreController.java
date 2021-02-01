@@ -24,7 +24,7 @@ import io.swagger.annotations.ApiOperation;
  */
 
 @RestController
-@RequestMapping(value="/map")
+@RequestMapping("/map")
 public class StoreController {
 
 	/* 가게 객체 불러오기 */
