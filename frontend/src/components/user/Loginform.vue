@@ -45,14 +45,13 @@ export default {
     methods: {
       loginsubmit() { 
         // 이메일, 비번 다 기입했는지 확인 
-        if (this.$refs.form.validate()) {
-          this.$store
-          .dispatch('LOGIN', this.user) 
-          .then(() => { 
-            console.log('로그인 성공')
-            })
-          .catch(() => { alert('로그인 실패 ')})
-
+        if (!this.$refs.form.validate()) return console.log('다 안채워짐')
+        else {
+          console.log('확인')
+          this.axios.post('/login',{
+            email: this.email,
+            password: this.password
+          })
         }
         // Object.keys(this.$refs).forEach(f => {
         //   console.log(this.$refs[f].$options)
