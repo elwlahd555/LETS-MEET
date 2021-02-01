@@ -5,15 +5,15 @@ public class Store {
 	private int sNo;
 	private String sName;
 	private String sCategory;
-	private String sDetailCategory;
 	private String sDong;
 	private String sRoad;
-	private int sMainBungee;
-	private int sSubBungee;
+	private String sBungeeMain;
+	private String sBungeeSub;
 	private String sBuilding;
-	private String sRoadadress;
-	private int sLat;
-	private int sLng;
+	private String sRoadAddress;
+	private String sLat;
+	private String sLng;
+	private int sImg;
 	private int sScore;
 	public int getsNo() {
 		return sNo;
@@ -33,12 +33,6 @@ public class Store {
 	public void setsCategory(String sCategory) {
 		this.sCategory = sCategory;
 	}
-	public String getsDetailCategory() {
-		return sDetailCategory;
-	}
-	public void setsDetailCategory(String sDetailCategory) {
-		this.sDetailCategory = sDetailCategory;
-	}
 	public String getsDong() {
 		return sDong;
 	}
@@ -51,17 +45,17 @@ public class Store {
 	public void setsRoad(String sRoad) {
 		this.sRoad = sRoad;
 	}
-	public int getsMainBungee() {
-		return sMainBungee;
+	public String getsBungeeMain() {
+		return sBungeeMain;
 	}
-	public void setsMainBungee(int sMainBungee) {
-		this.sMainBungee = sMainBungee;
+	public void setsBungeeMain(String sBungeeMain) {
+		this.sBungeeMain = sBungeeMain;
 	}
-	public int getsSubBungee() {
-		return sSubBungee;
+	public String getsBungeeSub() {
+		return sBungeeSub;
 	}
-	public void setsSubBungee(int sSubBungee) {
-		this.sSubBungee = sSubBungee;
+	public void setsBungeeSub(String sBungeeSub) {
+		this.sBungeeSub = sBungeeSub;
 	}
 	public String getsBuilding() {
 		return sBuilding;
@@ -69,23 +63,29 @@ public class Store {
 	public void setsBuilding(String sBuilding) {
 		this.sBuilding = sBuilding;
 	}
-	public String getsRoadadress() {
-		return sRoadadress;
+	public String getsRoadAddress() {
+		return sRoadAddress;
 	}
-	public void setsRoadadress(String sRoadadress) {
-		this.sRoadadress = sRoadadress;
+	public void setsRoadAddress(String sRoadAddress) {
+		this.sRoadAddress = sRoadAddress;
 	}
-	public int getsLat() {
+	public String getsLat() {
 		return sLat;
 	}
-	public void setsLat(int sLat) {
+	public void setsLat(String sLat) {
 		this.sLat = sLat;
 	}
-	public int getsLng() {
+	public String getsLng() {
 		return sLng;
 	}
-	public void setsLng(int sLng) {
+	public void setsLng(String sLng) {
 		this.sLng = sLng;
+	}
+	public int getsImg() {
+		return sImg;
+	}
+	public void setsImg(int sImg) {
+		this.sImg = sImg;
 	}
 	public int getsScore() {
 		return sScore;
@@ -93,13 +93,8 @@ public class Store {
 	public void setsScore(int sScore) {
 		this.sScore = sScore;
 	}
-	@Override
-	public String toString() {
-		return "Store [sNo=" + sNo + ", sName=" + sName + ", sCategory=" + sCategory + ", sDetailCategory="
-				+ sDetailCategory + ", sDong=" + sDong + ", sRoad=" + sRoad + ", sMainBungee=" + sMainBungee
-				+ ", sSubBungee=" + sSubBungee + ", sBuilding=" + sBuilding + ", sRoadadress=" + sRoadadress + ", sLat="
-				+ sLat + ", sLng=" + sLng + ", sScore=" + sScore + "]";
-	}
+	
+	
 	
 	
 	
