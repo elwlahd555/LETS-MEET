@@ -2,19 +2,34 @@ package com.anjanda.letsmeet.user.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import com.anjanda.letsmeet.repository.dto.OAuthToken;
 import com.anjanda.letsmeet.repository.dto.User;
 import com.anjanda.letsmeet.user.jwt.JwtService;
 import com.anjanda.letsmeet.user.service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * 
@@ -61,7 +76,6 @@ public class LoginController {
 		resultMap.put("message", "로그인에 실패하였습니다.");
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.NO_CONTENT);
 	}
-}
 
 
 // 우리 동빈이가 한 세션 로그인 컨트롤러!!!!!!
@@ -291,5 +305,3 @@ public class LoginController {
 		return response2.getBody();
 	}
 }
-
- */
