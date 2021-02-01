@@ -123,7 +123,7 @@ export default {
       submit () {
         if (this.$refs.form.validate()) {
           // sprin url 받기
-          axios.post(`http://localhost:8080/`, this.user)
+          axios.post(`http://localhost:8000/`, this.user)
             .then(()=> {
               this.$router.replace('/');
               alert('회원가입 완료되었습니다.')
