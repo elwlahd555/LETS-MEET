@@ -1,20 +1,45 @@
 package com.anjanda.letsmeet.repository.dto;
 
-public class Store {
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@ToString
+public class Store {
 	private int sNo;
 	private String sName;
 	private String sCategory;
-	private String sDetailCategory;
 	private String sDong;
-	private String sRoad;
-	private int sMainBungee;
-	private int sSubBungee;
-	private String sBuilding;
-	private String sRoadadress;
-	private int sLat;
-	private int sLng;
-	private int sScore;
+	private String sRoadNmae;
+	private String sBunjiMain;
+	private String sBunjiSub;
+	private String sBuildingName;
+	private String sLat;
+	private String sLng;
+	private int sImageId;
+	private int sReview;
+	public Store() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Store(int sNo, String sName, String sCategory, String sDong, String sRoadNmae, String sBunjiMain,
+			String sBunjiSub, String sBuildingName, String sLat, String sLng, int sImageId, int sReview) {
+		super();
+		this.sNo = sNo;
+		this.sName = sName;
+		this.sCategory = sCategory;
+		this.sDong = sDong;
+		this.sRoadNmae = sRoadNmae;
+		this.sBunjiMain = sBunjiMain;
+		this.sBunjiSub = sBunjiSub;
+		this.sBuildingName = sBuildingName;
+		this.sLat = sLat;
+		this.sLng = sLng;
+		this.sImageId = sImageId;
+		this.sReview = sReview;
+	}
 	public int getsNo() {
 		return sNo;
 	}
@@ -33,75 +58,67 @@ public class Store {
 	public void setsCategory(String sCategory) {
 		this.sCategory = sCategory;
 	}
-	public String getsDetailCategory() {
-		return sDetailCategory;
-	}
-	public void setsDetailCategory(String sDetailCategory) {
-		this.sDetailCategory = sDetailCategory;
-	}
 	public String getsDong() {
 		return sDong;
 	}
 	public void setsDong(String sDong) {
 		this.sDong = sDong;
 	}
-	public String getsRoad() {
-		return sRoad;
+	public String getsRoadNmae() {
+		return sRoadNmae;
 	}
-	public void setsRoad(String sRoad) {
-		this.sRoad = sRoad;
+	public void setsRoadNmae(String sRoadNmae) {
+		this.sRoadNmae = sRoadNmae;
 	}
-	public int getsMainBungee() {
-		return sMainBungee;
+	public String getsBunjiMain() {
+		return sBunjiMain;
 	}
-	public void setsMainBungee(int sMainBungee) {
-		this.sMainBungee = sMainBungee;
+	public void setsBunjiMain(String sBunjiMain) {
+		this.sBunjiMain = sBunjiMain;
 	}
-	public int getsSubBungee() {
-		return sSubBungee;
+	public String getsBunjiSub() {
+		return sBunjiSub;
 	}
-	public void setsSubBungee(int sSubBungee) {
-		this.sSubBungee = sSubBungee;
+	public void setsBunjiSub(String sBunjiSub) {
+		this.sBunjiSub = sBunjiSub;
 	}
-	public String getsBuilding() {
-		return sBuilding;
+	public String getsBuildingName() {
+		return sBuildingName;
 	}
-	public void setsBuilding(String sBuilding) {
-		this.sBuilding = sBuilding;
+	public void setsBuildingName(String sBuildingName) {
+		this.sBuildingName = sBuildingName;
 	}
-	public String getsRoadadress() {
-		return sRoadadress;
-	}
-	public void setsRoadadress(String sRoadadress) {
-		this.sRoadadress = sRoadadress;
-	}
-	public int getsLat() {
+	public String getsLat() {
 		return sLat;
 	}
-	public void setsLat(int sLat) {
+	public void setsLat(String sLat) {
 		this.sLat = sLat;
 	}
-	public int getsLng() {
+	public String getsLng() {
 		return sLng;
 	}
-	public void setsLng(int sLng) {
+	public void setsLng(String sLng) {
 		this.sLng = sLng;
 	}
-	public int getsScore() {
-		return sScore;
+	public int getsImageId() {
+		return sImageId;
 	}
-	public void setsScore(int sScore) {
-		this.sScore = sScore;
+	public void setsImageId(int sImageId) {
+		this.sImageId = sImageId;
+	}
+	public int getsReview() {
+		return sReview;
+	}
+	public void setsReview(int sReview) {
+		this.sReview = sReview;
 	}
 	@Override
 	public String toString() {
-		return "Store [sNo=" + sNo + ", sName=" + sName + ", sCategory=" + sCategory + ", sDetailCategory="
-				+ sDetailCategory + ", sDong=" + sDong + ", sRoad=" + sRoad + ", sMainBungee=" + sMainBungee
-				+ ", sSubBungee=" + sSubBungee + ", sBuilding=" + sBuilding + ", sRoadadress=" + sRoadadress + ", sLat="
-				+ sLat + ", sLng=" + sLng + ", sScore=" + sScore + "]";
+		return "Store [sNo=" + sNo + ", sName=" + sName + ", sCategory=" + sCategory + ", sDong=" + sDong
+				+ ", sRoadNmae=" + sRoadNmae + ", sBunjiMain=" + sBunjiMain + ", sBunjiSub=" + sBunjiSub
+				+ ", sBuildingName=" + sBuildingName + ", sLat=" + sLat + ", sLng=" + sLng + ", sImageId=" + sImageId
+				+ ", sReview=" + sReview + "]";
 	}
-	
-	
 	
 	
 }
