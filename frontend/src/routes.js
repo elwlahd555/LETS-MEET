@@ -5,6 +5,7 @@ import Login from '@/views/user/Login'
 import Signup from '@/views/user/Signup'
 import MyPage from '@/views/user/MyPage'
 import MakeMeeting from '@/views/makemeeting/MakeMeeting'
+import MeetingRoom from '@/views/meetingroom/MeetingRoom'
 
 
 
@@ -35,7 +36,11 @@ const routes = [
         path: '/mypage',
         name: 'MyPage',
         component: MyPage
-    }
+    },
+        path: '/meetingroom',
+        name: 'MeetingRoom',
+        component: MeetingRoom
+    },
   ]
   
   const router = new VueRouter({

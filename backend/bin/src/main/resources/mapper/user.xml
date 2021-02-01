@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 매퍼 패키지 안의 UserMapper 클래스와 매핑 -->
+<mapper namespace="com.anjanda.letsmeet.mappers.UserMapper">
+
+<!-- 로그인 -->
+<select id="selectUser" parameterType="com.anjanda.letsmeet.user.dto.UserDTO" resultType="com.anjanda.letsmeet.user.dto.UserDTO">
+
+</select>
+
+</mapper>
+
