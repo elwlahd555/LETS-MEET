@@ -7,13 +7,13 @@ public class Store {
 	private String sCategory;
 	private String sDong;
 	private String sRoad;
-	private int sBungeeMain;
-	private int sBungeeSub;
+	private String sBungeeMain;
+	private String sBungeeSub;
 	private String sBuilding;
 	private String sRoadAddress;
-	private int sLat;
-	private int sLng;
-	private String sImg;
+	private String sLat;
+	private String sLng;
+	private int sImg;
 	private int sScore;
 	public int getsNo() {
 		return sNo;
@@ -45,16 +45,16 @@ public class Store {
 	public void setsRoad(String sRoad) {
 		this.sRoad = sRoad;
 	}
-	public int getsBungeeMain() {
+	public String getsBungeeMain() {
 		return sBungeeMain;
 	}
-	public void setsBungeeMain(int sBungeeMain) {
+	public void setsBungeeMain(String sBungeeMain) {
 		this.sBungeeMain = sBungeeMain;
 	}
-	public int getsBungeeSub() {
+	public String getsBungeeSub() {
 		return sBungeeSub;
 	}
-	public void setsBungeeSub(int sBungeeSub) {
+	public void setsBungeeSub(String sBungeeSub) {
 		this.sBungeeSub = sBungeeSub;
 	}
 	public String getsBuilding() {
@@ -69,22 +69,22 @@ public class Store {
 	public void setsRoadAddress(String sRoadAddress) {
 		this.sRoadAddress = sRoadAddress;
 	}
-	public int getsLat() {
+	public String getsLat() {
 		return sLat;
 	}
-	public void setsLat(int sLat) {
+	public void setsLat(String sLat) {
 		this.sLat = sLat;
 	}
-	public int getsLng() {
+	public String getsLng() {
 		return sLng;
 	}
-	public void setsLng(int sLng) {
+	public void setsLng(String sLng) {
 		this.sLng = sLng;
 	}
-	public String getsImg() {
+	public int getsImg() {
 		return sImg;
 	}
-	public void setsImg(String sImg) {
+	public void setsImg(int sImg) {
 		this.sImg = sImg;
 	}
 	public int getsScore() {
@@ -93,13 +93,9 @@ public class Store {
 	public void setsScore(int sScore) {
 		this.sScore = sScore;
 	}
-	@Override
-	public String toString() {
-		return "Store [sNo=" + sNo + ", sName=" + sName + ", sCategory=" + sCategory + ", sDong=" + sDong + ", sRoad="
-				+ sRoad + ", sBungeeMain=" + sBungeeMain + ", sBungeeSub=" + sBungeeSub + ", sBuilding=" + sBuilding
-				+ ", sRoadAddress=" + sRoadAddress + ", sLat=" + sLat + ", sLng=" + sLng + ", sImg=" + sImg
-				+ ", sScore=" + sScore + "]";
-	}
+	
+	
+	
 	
 	
 	
