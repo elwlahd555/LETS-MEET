@@ -71,7 +71,7 @@
         <v-icon>mdi-bell</v-icon>
       </v-btn>
       <v-btn>
-        <v-icon>mdi-account-circle</v-icon>
+        <router-link class="ro" :to="{ name: 'MyPage' }"><v-icon>mdi-account-circle</v-icon></router-link>
       </v-btn>
     </v-bottom-navigation>
   </v-app>
