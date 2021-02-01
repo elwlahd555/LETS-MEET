@@ -44,7 +44,7 @@
             :src="images[idx].src" style="border: 4px solid black; width: 100%;" 
             @click="selectImage(idx)"></b-img>
           <b-img v-else v-bind="mainProps" rounded="circle" alt="Circle image"
-            :src="images[idx].src" style="border: 4px solid teal; width: 100%;" 
+            :src="images[idx].src" style="border: 4px solid #536DFE; width: 100%;" 
             @click="selectImage(idx)"></b-img>
           <span class="text-center">{{ images[idx].title }}</span>
         </v-col>
@@ -78,7 +78,7 @@
         fab
         dark
         small
-        color="teal"
+        color="indigo accent-2"
         @click="is_next"
       >
         <v-icon dark>

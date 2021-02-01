@@ -40,8 +40,7 @@ export default {
       window.location.replace("https://kauth.kakao.com/oauth/authorize?client_id=deace353f1fd1555201a07f914bc5598&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code")
     }
   }
-};
-
+}
 </script>
 
 <style lang="scss">

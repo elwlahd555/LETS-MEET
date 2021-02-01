@@ -2,6 +2,7 @@ package com.anjanda.letsmeet.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -15,14 +16,15 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
 
 	// 24라인에서.. 컨트롤러 연결시켜야하는데 흠?
+	//http://localhost:8000/letsmeet/swagger-ui.html
 @Bean
 public Docket postsApi() {
 	return new Docket(DocumentationType.SWAGGER_2)
 			.groupName("ssafyVueBoard")
 			.apiInfo(apiInfo())
 			.select()
-			.apis(RequestHandlerSelectors.basePackage("com.anjanda.letsmeet"))
-			.paths(PathSelectors.ant("/api/**"))
+			.apis(RequestHandlerSelectors.any())
+			.paths(PathSelectors.any())
 			.build();
 }
 

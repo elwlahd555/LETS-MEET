@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.anjanda.letsmeet.repository.mapper.StoreMapper">
+	
+	
+	<select id="getStoreInDong" resultType="Store">
+              select *
+      from store s
+      where s.s_dong=#{dong};
+	</select>
+	
+	
+	<select id="getStoreInPoint" resultType="Store">
+select * from store s 
+where s.s_lat =#{lat} and s.s_lng =#{lng};
+	</select>
+	
+	
+	<select id="getStoreInMidpoint" resultType="Store">
+select * from store s 
+where (s.s_lat between #{lat}-0.002 and #{lat}+0.002) and (s.s_lng between #{lng}-0.002 and #{lng}+0.002);
+	</select>
+	
+
+	
+</mapper>
