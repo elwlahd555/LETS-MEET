@@ -1,84 +1,52 @@
 package com.anjanda.letsmeet.repository.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-@Getter
-@Setter
-@ToString
 public class User {
 
 	@Id // Primary key
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // 프로젝트에서 연결된 DB의 넘버링 전략을 따라간다.
 	private int uNo; // 시퀀스, auto_increment
 
-	@Column
 	private String uEmail;
 	private String uPassword;
-	@Column
 	private String uName;
-	@Column
 	private String uBirth;
 	private String uDefaultLat;
 	private String uDefaultLng;
 	private int uImageId;
 	private String uJoinDate;
 	private String uProvider;
-	public User() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public User(int uNo, String uEmail, String uPassword, String uName, String uBirth, String uDefaultLat,
-			String uDefaultLng, int uImageId, String uJoinDate, String uProvider) {
-		super();
-		this.uNo = uNo;
-		this.uEmail = uEmail;
-		this.uPassword = uPassword;
-		this.uName = uName;
-		this.uBirth = uBirth;
-		this.uDefaultLat = uDefaultLat;
-		this.uDefaultLng = uDefaultLng;
-		this.uImageId = uImageId;
-		this.uJoinDate = uJoinDate;
-		this.uProvider = uProvider;
-	}
-
 	public int getuNo() {
 		return uNo;
 	}
-
 	public void setuNo(int uNo) {
 		this.uNo = uNo;
 	}
-
 	public String getuEmail() {
 		return uEmail;
 	}
-
 	public void setuEmail(String uEmail) {
 		this.uEmail = uEmail;
 	}
 	public String getuPassword() {
 		return uPassword;
 	}
-
 	public void setuPassword(String uPassword) {
 		this.uPassword = uPassword;
 	}
-
 	public String getuName() {
 		return uName;
 	}
-
 	public void setuName(String uName) {
 		this.uName = uName;
 	}
-
 	public String getuBirth() {
 		return uBirth;
 	}
-
 	public void setuBirth(String uBirth) {
 		this.uBirth = uBirth;
 	}
@@ -106,18 +74,13 @@ public class User {
 	public void setuJoinDate(String uJoinDate) {
 		this.uJoinDate = uJoinDate;
 	}
-
 	public String getuProvider() {
 		return uProvider;
 	}
-
 	public void setuProvider(String uProvider) {
 		this.uProvider = uProvider;
 	}
-	@Override
-	public String toString() {
-		return "User [uNo=" + uNo + ", uEmail=" + uEmail + ", uPassword=" + uPassword + ", uName=" + uName + ", uBirth="
-				+ uBirth + ", uDefaultLat=" + uDefaultLat + ", uDefaultLng=" + uDefaultLng + ", uImageId=" + uImageId
-				+ ", uJoinDate=" + uJoinDate + ", uProvider=" + uProvider + "]";
-	}
+	
+	
+	
 }
