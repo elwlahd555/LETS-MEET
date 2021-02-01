@@ -7,7 +7,7 @@
         <v-card-text>
             <v-text-field
               ref='email'
-              v-model='email'
+              v-model='user.email'
               label ='이메일'
               prepend-icon="email"
               :rules="[rules.required, rules.email]"
@@ -17,7 +17,7 @@
 
             <v-text-field
               ref='password'
-              v-model="password"
+              v-model="user.password"
               label="비밀번호"
               :rules="[rules.required, rules.min]"
               :type="showPassword ? 'text' : 'password'"
@@ -30,7 +30,7 @@
             
             <v-text-field
               ref="passwordConfirm"
-              v-model="passwordConfirm"
+              v-model="user.passwordConfirm"
               :rules="[rules.required, rules.min, passwordCheck]"
               label="비밀번호 확인"
               :type="showPassword2 ? 'text' : 'password'"
@@ -42,7 +42,7 @@
 
             <v-text-field
               ref='name'
-              v-model="name"
+              v-model="user.name"
               required
               label="이름"
               :rules="[rules.required]"
@@ -57,7 +57,7 @@
               min = '1950-01-01'
               max = '2010-12-31'
               ref= 'birthdate'
-              v-model="birthdate"
+              v-model="user.birthdate"
               :rules = "[rules.required]"
               label='생년원일'
               prepend-icon="mdi-calendar-range"
@@ -69,7 +69,7 @@
               placeholder="010-1234-5678"
               :rules="[rules.phone]"
               ref='phone'
-              v-model="phone"
+              v-model="user.phone"
               label='전화번호'
               prepend-icon="phone"
             >
@@ -83,19 +83,23 @@
 </template>
 
 <script>
+const axios = require('axios');
+
 export default {
     name: 'Signup',
     data: () => {
       return  {
-        email : '',
-        name: '',
-        birthdate: '',
-        phone: '',
+        user: {
+          email : '',
+          password: '',
+          passwordConfirm: '',
+          name: '',
+          birthdate: '',
+          phone: '',
+        },
         showPassword: false,
         showPassword2: false,
         SignupFormHasError: false,
-        passwordConfirm: '',
-        password: '',
         rules: {
             required: value => !!value, 
             phone: value => {
@@ -112,13 +116,26 @@ export default {
     },
     computed: {
         passwordCheck () { 
-          return () => (this.password === this.passwordConfirm) || '비밀번호가 일치하지 않습니다.'
+          return () => (this.user.password === this.user.passwordConfirm) || '비밀번호가 일치하지 않습니다.'
         },
     },
     methods: {
       submit () {
-        if (!this.$refs.form.validate()) return console.log('다 안채워짐')
-        else return console.log('다 채워짐')
+        if (this.$refs.form.validate()) {
+          // sprin url 받기
+          axios.post(`http://localhost:8080/`, this.user)
+            .then(()=> {
+              this.$router.replace('/');
+              alert('회원가입 완료되었습니다.')
+            })
+            .catch(() => {
+              alert('회원가입에 실패하셨습니다.')
+            })
+        }
+        else {
+          console.log('정보가 다 안채워짐')
+        }
+
       }
     },
 }
