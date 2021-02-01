@@ -7,13 +7,6 @@
 <!-- resultMap 사용 방법 -->
 
 
-<!-- 로그인 -->
-	<select id="selectUser" parameterType="com.anjanda.letsmeet.repository.dto.User" resultType="com.anjanda.letsmeet.repository.dto.User">
-		select u_email 'uEmail', u_password 'uPassword', u_name 'uName' ...
-		  from user
-		 where u_email = #{uEmail} and u_password = #{uPassword}
-	</select>
-
 <!-- C :: 회원 가입 -->
 	<insert id="insertUser" parameterType="user">
 		insert
@@ -21,7 +14,7 @@
 		values (#{uEmail}, #{uPassword}, #{uName}, ...)
 	</insert>
 
-<!-- R :: 회원 정보 상세 조회 -->
+<!-- R :: 로그인 / 회원 정보 상세 조회 -->
 	<select id="selectUser" parameterType="com.anjanda.letsmeet.repository.dto.User" resultType="com.anjanda.letsmeet.repository.dto.User">
 		select *  <!-- 별 쓰면 안될듯..? 네이밍 안맞아서... -->
 		  from user
