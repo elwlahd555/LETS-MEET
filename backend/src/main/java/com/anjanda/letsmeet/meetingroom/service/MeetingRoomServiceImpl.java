@@ -1,0 +1,62 @@
+package com.anjanda.letsmeet.meetingroom.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.anjanda.letsmeet.repository.dto.MeetingRoom;
+import com.anjanda.letsmeet.repository.mapper.MeetingRoomMapper;
+
+/**
+ * 
+ * @Date : 2021. 2. 1.
+ * @Team : AnJanDa
+ * @author : 개발자명
+ * @Project : 레쓰밋 :: backend
+ * @Function : 약속방 서비스 클래스
+ * @Description
+ *	- 약속방 생성
+ *	- 약속방 전체조회 (사용자 기준) -> 메인
+ *	- 약속방 상세조회 => 메인에 보이는 것과,,, 끝난 약속 처리 필요...
+ *	- 약속방 수정 -> 제일 중요
+ *	- 약속방 삭제
+ */
+
+@Service
+public class MeetingRoomServiceImpl implements MeetingRoomService {
+	/* 미팅룸 매퍼 객체 불러오기 */
+	@Autowired
+	private static MeetingRoomMapper meetingRoomMapper;
+	
+	/* C :: 약속방 생성 메소드 */
+	@Override
+	public int createMeetingRoom(MeetingRoom meetingRoom) throws Exception {
+		return meetingRoomMapper.insertMeetingRoom(meetingRoom);
+	}
+	
+	/* R :: 약속방 전체 조회 */
+	@Override
+	public List<MeetingRoom> reviewMyMeetingRoom() {
+		return meetingRoomMapper.selectMeetingRoom();
+	}
+	
+	/* R :: 약속방 상세 조회 */
+	@Override
+	public MeetingRoom reviewDetailMeetingRoom(int mrNo) {
+		return meetingRoomMapper.selectMeetingRoomByMrNo(mrNo);
+	}
+	
+	/* U :: 약속방 수정 */ // @Transcational ???
+	@Override
+	public boolean updateMeetingRoom(MeetingRoom meetingRoom) {
+		return meetingRoomMapper.updateMeetingRoom(meetingRoom) == 1;
+	}
+	
+	/* D :: 약속방 삭제 */
+	@Override
+	public boolean deleteMeetingRoom(int mrNo) {
+		return meetingRoomMapper.deleteMeetingRoom(mrNo) == 1;
+	}
+
+}
