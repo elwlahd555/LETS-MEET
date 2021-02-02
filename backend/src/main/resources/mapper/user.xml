@@ -9,19 +9,26 @@
 
 <!-- C :: 회원 가입 -->
 	<insert id="insertUser" parameterType="user">
-INSERT INTO `letsmeet`.`user`
-(`u_no`,
-`u_email`,
-`u_password`,
-`u_name`,
-`u_join_date`
-)
-VALUES
-(#{uNo },
-#{uEmail },
-#{uPassword },
-#{uName },
-now());
+	    INSERT INTO `letsmeet`.`user`
+            (`u_no`,
+            `u_email`,
+            `u_password`,
+            `u_name`,
+            `u_join_date`
+            )
+            VALUES
+            (#{uNo },
+            #{uEmail },
+            #{uPassword },
+            #{uName },
+            now());
+	</insert>
+
+<!-- C :: 카카오 회원 가입 -->
+	<insert id="insertKakaoUser" parameterType="user">
+		insert
+		  into user(u_email, u_password, u_name, u_provider, u_join_date)
+		values (#{uEmail}, #{uPassword}, #{uName}, #{uProvider}, now())
 	</insert>
 
 <!-- R :: 로그인 / 회원 정보 상세 조회 -->

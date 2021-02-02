@@ -26,6 +26,10 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserMapper mapper;
 	
+//	/* 비밀번호를 해쉬로 저장하기 위한 인코더 */
+//	@Autowired
+//	private BCryptPasswordEncoder encoder;
+	
 	/* 로그인 메소드 */
 	@Override
 	public User login(User user) throws Exception {
@@ -39,7 +43,19 @@ public class UserServiceImpl implements UserService {
 	/* C :: 회원 가입 메소드 */
 	@Override
 	public int createUser(User user) throws Exception {
+//		String rawPassword = user.getuPassword(); // 비밀번호 원문
+//		String encPassword = encoder.encode(rawPassword); // 해쉬
+//		user.setuPassword(rawPassword);
 		return mapper.insertUser(user);
+	}
+
+	/* C :: 카카오 회원 가입 메소드 */
+	@Override
+	public int createKakaoUser(User user) throws Exception {
+//		String rawPassword = user.getuPassword(); // 비밀번호 원문
+//		String encPassword = encoder.encode(rawPassword); // 해쉬
+//		user.setuPassword(rawPassword);
+		return mapper.insertKakaoUser(user);
 	}
 	
 	/* R :: 회원 상세 조회 메소드 */

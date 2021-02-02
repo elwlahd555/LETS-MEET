@@ -21,6 +21,9 @@ public interface UserService {
 	/* C :: 회원 가입 메소드 */
 	int createUser(User user) throws Exception;
 
+	/* C :: 카카오 회원 가입 메소드 */
+	int createKakaoUser(User user) throws Exception;
+
 	/* R :: 회원 상세 조회 메소드 */
 	User selectUser(User user) throws Exception;
 
@@ -33,5 +36,6 @@ public interface UserService {
 	// CRUD 외 추가 기능 
 	/* 이메일 중복 체크 */
 	int existEmail(User user) throws Exception;
+
 
 }
