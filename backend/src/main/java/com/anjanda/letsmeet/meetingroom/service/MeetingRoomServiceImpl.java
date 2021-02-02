@@ -47,7 +47,7 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 		return meetingRoomMapper.selectMeetingRoomByMrNo(mrNo);
 	}
 	
-	/* U :: 약속방 수정 */ // @Transcational ???
+	/* U :: 약속방 수정 */ 
 	@Override
 	public boolean updateMeetingRoom(MeetingRoom meetingRoom) {
 		return meetingRoomMapper.updateMeetingRoom(meetingRoom) == 1;
