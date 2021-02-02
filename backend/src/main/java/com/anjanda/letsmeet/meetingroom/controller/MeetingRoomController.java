@@ -17,9 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.anjanda.letsmeet.meetingroom.service.MeetingRoomService;
 import com.anjanda.letsmeet.repository.dto.MeetingRoom;
+import com.anjanda.letsmeet.repository.dto.User;
 
 @RestController
-@RequestMapping("/main")
+@RequestMapping("/{uEmail}")
 public class MeetingRoomController {
 	
 	/* 약속방서비스 객체 불러오기 */
@@ -27,35 +28,29 @@ public class MeetingRoomController {
 	private static MeetingRoomService meetingRoomService;
 	
 	/* C :: 미팅룽 추가 */
-	@GetMapping("/addMeetingRoom")
-	public void addMeetingRoomForm() {}
-	@PostMapping("/addMeetingRoom")
-	public String createMeetingRoom(Model model, MeetingRoom meetingRoom) {
-		try {
-			meetingRoomService.createMeetingRoom(meetingRoom);
-			model.addAttribute("msg", "약속방이 생성 되었습니다.");
-		} catch(Exception e) {
-			e.printStackTrace();
-			model.addAttribute("errorMsg", "약속방 생성 중 오류가 발생하였습니다.");
-			return "error/error";
+	@PostMapping("/meetingRoom/create")
+	public ResponseEntity<String> createMeetingRoom(@RequestBody MeetingRoom meetingRoom) throws Exception {
+		System.out.println(meetingRoom.getMrName()+"이 생성되었습니다");
+		if(meetingRoomService.createMeetingRoom(meetingRoom) > 0) {	
+			return new ResponseEntity<String>("약속방 생성 성공", HttpStatus.OK);
 		}
-		return "redirect:/main";
+		return new ResponseEntity<String>("약속방 생성 실패", HttpStatus.NO_CONTENT);
 	}
 	
 	/* R :: 사용자의 모든 약속방 조회 => 약속 기간 지난 것만 걸러서 따로 리스트 뽑아낼수 있겠지? */
-	@GetMapping("{uEmail}")
+	@GetMapping("/main")
 	public ResponseEntity<List<MeetingRoom>> reviewMyMeetingRoom() throws Exception {
 		return new ResponseEntity<List<MeetingRoom>>(meetingRoomService.reviewMyMeetingRoom(), HttpStatus.OK);
 	}
 	
 	/* R :: 약속방 상세조회 */
-	@GetMapping("{uEmail}/{mrNo}")
+	@GetMapping("/meetingRoom/{mrNo}/detail")
 	public ResponseEntity<MeetingRoom> reviewDetailMeetingRoom(@PathVariable int mrNo){
 		return new ResponseEntity<MeetingRoom>(meetingRoomService.reviewDetailMeetingRoom(mrNo), HttpStatus.OK);
 	}
 	
 	/* U :: 약속방 수정 */
-	@PutMapping("{uEmail}/{mrNo}")
+	@PutMapping("/meetingRoom/{mrNo}/edit")
 	public ResponseEntity<String> updateMeetingRoom(@RequestBody MeetingRoom meetingRoom){
 		if(meetingRoomService.updateMeetingRoom(meetingRoom)) {
 			return new ResponseEntity<String>("약속방 수정 성공", HttpStatus.OK);
@@ -64,7 +59,7 @@ public class MeetingRoomController {
 	}
 	
 	/* D :: 약속방 삭제 */
-	@DeleteMapping("{uEmail}/{mrNo}")
+	@DeleteMapping("/meetingRoom/{mrNo}/delete")
 	public ResponseEntity<String> deleteMeetingRoom(@PathVariable int mrNo){
 		if(meetingRoomService.deleteMeetingRoom(mrNo)) {
 			return new ResponseEntity<String>("약속방 삭제 성공", HttpStatus.OK);

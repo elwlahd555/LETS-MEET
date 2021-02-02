@@ -19,6 +19,7 @@ public class MeetingRoom {
 	private String mrCenterLng;
 	private String mrDate;
 	private int mrPlace;
+	
 	public MeetingRoom() {
 		super();
 		// TODO Auto-generated constructor stub

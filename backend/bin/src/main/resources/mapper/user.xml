@@ -1,15 +1,62 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace = "com.anjanda.letsmeet.repository.mapper.UserMapper">
+
+<!-- resultMap 사용 방법 -->
 
 
-<!-- 매퍼 패키지 안의 UserMapper 클래스와 매핑 -->
-<mapper namespace="com.anjanda.letsmeet.mappers.UserMapper">
+<!-- C :: 회원 가입 -->
+	<insert id="insertUser" parameterType="user">
+INSERT INTO `letsmeet`.`user`
+(`u_no`,
+`u_email`,
+`u_password`,
+`u_name`,
+`u_join_date`
+)
+VALUES
+(#{uNo },
+#{uEmail },
+#{uPassword },
+#{uName },
+now());
+	</insert>
 
-<!-- 로그인 -->
-<select id="selectUser" parameterType="com.anjanda.letsmeet.user.dto.UserDTO" resultType="com.anjanda.letsmeet.user.dto.UserDTO">
+<!-- R :: 로그인 / 회원 정보 상세 조회 -->
+	<select id="selectUser" parameterType="com.anjanda.letsmeet.repository.dto.User" resultType="com.anjanda.letsmeet.repository.dto.User">
+		select *  <!-- 별 쓰면 안될듯..? 네이밍 안맞아서... -->
+		  from user
+		 where u_email=#{uEmail}
+	</select>
 
-</select>
+<!-- U :: 회원 정보 수정 -->
+	<update id="updateUser" parameterType="com.anjanda.letsmeet.repository.dto.User">
+		update user
+		   set ???
+		 where ???
+	</update>
 
+<!-- D :: 회원 탈퇴 -->
+	<delete id="deleteUser" parameterType="com.anjanda.letsmeet.repository.dto.User">
+		delete 
+		  from user 
+		 where uEmail=#{uEmail}
+	</delete>
+
+<!-- CRUD 외 추가 기능 -->
+<!-- 이메일 중복 체크 -->
+	<select id="existEmail" parameterType="com.anjanda.letsmeet.repository.dto.User" resultType="int">
+		select count(*)
+		  from user
+		 where u_email = #{uEmail}
+	</select>
+	
+<!-- 비밀번호 찾기 -->
+	<select id="selectPassword" parameterType="com.anjanda.letsmeet.repository.dto.User" resultType="string">
+		select u_password 'uPassword'
+		  from user
+		 where u_email=#{uEmail} and u_name=#{uName}
+	</select>
 </mapper>
-
