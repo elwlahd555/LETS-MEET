@@ -15,6 +15,13 @@
 		(#{uNo}, #{uEmail}, #{uPassword}, #{uName}, now());
 	</insert>
 
+<!-- C :: 카카오 회원 가입 -->
+	<insert id="insertKakaoUser" parameterType="user">
+		insert
+		  into user(u_email, u_password, u_name, u_provider, u_join_date)
+		values (#{uEmail}, #{uPassword}, #{uName}, #{uProvider}, now())
+	</insert>
+
 <!-- R :: 로그인 -->
 	<select id="selectUserLogin" parameterType="user" resultType="user">
 		select *
