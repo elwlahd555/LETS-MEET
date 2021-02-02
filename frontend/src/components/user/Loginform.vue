@@ -16,7 +16,7 @@
             ref ='password'
             v-model="user.uPassword"
             :type="showPassword ? 'text' : 'password'"
-            :rules="[rules.required, rules.min]"
+            :rules="[rules.required]"
             label="비밀번호"
             prepend-icon="mdi-lock"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"

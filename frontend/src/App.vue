@@ -51,6 +51,7 @@
     </v-main>
 
     <v-bottom-navigation
+      :v-if='isLogin === true'
       :value="value"
       color="indigo accent-2"
       dense
@@ -83,18 +84,19 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'App',
-
+  data: () => {
+    return {
+      value: 0,
+    }
+  },
   components: {
 
   },
 
-  data: () => ({ value: 0 }),
   methods: {
   },
   computed: {
-    ...mapState([
-      'isLogin'
-    ])
+    ...mapState(['isLogin'])
   }
 };
 </script>
