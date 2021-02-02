@@ -9,6 +9,9 @@ public interface UserMapper {
 	/* C :: 회원 가입 메소드 */
 	public int insertUser(User user) throws Exception;
 	
+	/* C :: 카카오 회원 가입 메소드 */
+	public int insertKakaoUser(User user) throws Exception;
+
 	/* R :: 회원상세정보조회 메소드 */
 	public User selectUser(User user) throws Exception;
 
@@ -21,4 +24,5 @@ public interface UserMapper {
 	// CRUD 외 추가 기능
 	/* 이메일 중복 체크 메소드 */
 	public int existEmail(User user) throws Exception;
+
 }

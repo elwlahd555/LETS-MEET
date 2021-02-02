@@ -13,7 +13,7 @@ Vue.use(VueRouter)
 
 const routes = [
     {
-        path : '/',
+        path : '/login',
         name : 'Login',
         component : Login
     },  
@@ -46,7 +46,7 @@ const routes = [
   
   const router = new VueRouter({
     base: process.env.BASE_URL,
-    // mode: 'history',
+    mode: 'history',
     routes
   })
 
