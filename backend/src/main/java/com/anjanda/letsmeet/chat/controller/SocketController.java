@@ -5,7 +5,6 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
 import com.anjanda.letsmeet.repository.dto.MeetingRoomChat;
-import com.anjanda.letsmeet.repository.dto.SocketVO;
 
 @Controller
 public class SocketController {
@@ -22,14 +21,14 @@ public class SocketController {
         // vo에서 getter로 userName을 가져옵니다.
         int userNo = meetingRoomChat.getMrcUNo();
         // vo에서 setter로 content를 가져옵니다.
-        String content = socketVO.getContent();
+        String content = meetingRoomChat.getMrcContent();
 
         // 생성자로 반환값을 생성합니다.
-        SocketVO result = new SocketVO();
+        MeetingRoomChat result = new MeetingRoomChat();
         System.out.println(content);
         
-        result.setContent(content);
-        result.setUserName(userName);
+        result.setMrcContent(content);
+        result.setMrcUNo(userNo);
         // 반환
         return result;
     }
