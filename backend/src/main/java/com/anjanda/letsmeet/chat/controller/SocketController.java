@@ -25,6 +25,8 @@ public class SocketController {
 
         // 생성자로 반환값을 생성합니다.
         MeetingRoomChat result = new MeetingRoomChat();
+        
+        System.out.println(userNo);
         System.out.println(content);
         
         result.setMrcContent(content);
