@@ -58,6 +58,12 @@ public class UserServiceImpl implements UserService {
 		return mapper.insertKakaoUser(user);
 	}
 	
+	/* R :: 로그인을 위한 조회 */
+	@Override
+	public User selectUserLogin(User user) throws Exception {
+		return mapper.selectUserLogin(user);
+	}
+	
 	/* R :: 회원 상세 조회 메소드 */
 	@Override
 	public User selectUser(User user) throws Exception {

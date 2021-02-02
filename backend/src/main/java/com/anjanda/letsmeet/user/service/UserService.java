@@ -24,8 +24,11 @@ public interface UserService {
 	/* C :: 카카오 회원 가입 메소드 */
 	int createKakaoUser(User user) throws Exception;
 
+	/* R :: 로그인을 위한 조회*/
+	public User selectUserLogin(User user) throws Exception;
+	
 	/* R :: 회원 상세 조회 메소드 */
-	User selectUser(User user) throws Exception;
+	public User selectUser(User user) throws Exception;
 
 	/* U :: 회원 정보 수정 메소드 */
 	int updateUser(User user) throws Exception;
