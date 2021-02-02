@@ -60,7 +60,6 @@ public class LoginController {
 	public ResponseEntity<?> login(@RequestBody User user, HttpServletResponse response, HttpSession session) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 		User check = service.login(user);
-		
 		if(check != null) {
 			String token = jwtService.create(check);
 			

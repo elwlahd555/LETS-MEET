@@ -7,14 +7,14 @@
     <v-card-text>
         <v-text-field 
             ref ='email'
-            v-model="user.email"
+            v-model="user.uEmail"
             label="이메일" 
             prepend-icon="email"
             :rules="[rules.required, rules.email]"
         />
         <v-text-field 
             ref ='password'
-            v-model="user.password"
+            v-model="user.uPassword"
             :type="showPassword ? 'text' : 'password'"
             :rules="[rules.required, rules.min]"
             label="비밀번호"
@@ -24,7 +24,6 @@
         />
  
     </v-card-text>
-    <mdb-btn gradient="peach" rounded>n</mdb-btn>
     <v-card-actions>
         <v-btn @click='loginsubmit' color="success" rounded style='width:100%'>Login</v-btn>
     </v-card-actions>
@@ -34,13 +33,11 @@
 
 
 <script>
-import { mdbBtn } from 'mdbvue';
 
 export default {
     name: 'LoginForm',
 
     components: {
-      mdbBtn
     },
     methods: {
       loginsubmit() { 
@@ -48,10 +45,15 @@ export default {
         if (!this.$refs.form.validate()) return console.log('다 안채워짐')
         else {
           console.log('확인')
-          this.axios.post('/login',{
-            email: this.email,
-            password: this.password
-          })
+          // this.axios.post(`http://localhost:8000/letsmeet/user/login`,{
+          //   email: this.email,
+          //   password: this.password
+          // })
+          this.$store // 현재 컴포넌트에서 저장소 접근하여
+            .dispatch('LOGIN', this.user) // 비동기적인 Actions에 접근한다 (현 컴포넌트의 user 데이터를 가지고, 저장소에 LOGIN이라는 Actions에 접근)
+            .then(() => this.$router.push({ name: 'Main'})) // 정상적으로 접근했다면 현 컴포넌트의 nextRoute url 값을 대체한다.???
+            .catch(() => alert('로그인에 실패했습니다.'));
+
         }
         // Object.keys(this.$refs).forEach(f => {
         //   console.log(this.$refs[f].$options)
@@ -63,8 +65,8 @@ export default {
     data: () => {
         return {
           user : {
-            email: '',
-            password: '',
+            uEmail: '',
+            uPassword: '',
           },
             showPassword: false,
             formHasErrors: false,
