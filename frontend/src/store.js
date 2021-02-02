@@ -27,16 +27,16 @@ export const store = new Vuex.Store({
   actions: {
     LOGIN (context, user) {
       return axios
-      .post(`http://localhost:8000/user/login`, user)
+      .post(`http://localhost:8000/letsmeet/user/login`, user)
       .then((res) => {
         alert('로그인 되었습니다.')
         context.commit('SET_USER_AUTH_DATA', res.data)
-
-        localStorage.setItem('auth-token', res.data.token)
+        let token = res.data['auth-token']
+        localStorage.setItem('auth-token', token)
         // axios default 헤더에 현재 token 적재
         axios.defaults.headers.common[
             'auth-token'
-          ] = `${res.data['auth-token']}`;
+          ] = window.localStorage.getItem("auth-token");  
       })
     },
     LOGOUT(context) {

@@ -79,6 +79,7 @@
 
 
 <script>
+import { mapState } from 'vuex'
 
 export default {
   name: 'App',
@@ -89,6 +90,11 @@ export default {
 
   data: () => ({ value: 0 }),
   methods: {
+  },
+  computed: {
+    ...mapState([
+      'isLogin'
+    ])
   }
 };
 </script>
