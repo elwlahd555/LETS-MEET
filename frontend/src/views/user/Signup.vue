@@ -19,7 +19,7 @@
               ref='password'
               v-model="user.uPassword"
               label="비밀번호"
-              :rules="[rules.required, rules.min]"
+              :rules="[rules.required]"
               :type="showPassword ? 'text' : 'password'"
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
               @click:append="showPassword = !showPassword"
@@ -31,7 +31,7 @@
             <v-text-field
               ref="passwordConfirm"
               v-model="passwordConfirm"
-              :rules="[rules.required, rules.min, passwordCheck]"
+              :rules="[rules.required, passwordCheck]"
               label="비밀번호 확인"
               :type="showPassword2 ? 'text' : 'password'"
               :append-icon="showPassword2 ? 'mdi-eye' : 'mdi-eye-off'"
