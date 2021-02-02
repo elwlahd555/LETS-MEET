@@ -2,10 +2,13 @@ package com.anjanda.letsmeet.user.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.anjanda.letsmeet.repository.dto.User;
 import com.anjanda.letsmeet.user.jwt.JwtService;
 import com.anjanda.letsmeet.user.service.UserService;
@@ -43,10 +47,10 @@ public class UserController {
 	private UserService userService;
 	
 	/* C :: 회원 가입 */
-	@GetMapping("/join")
+	@CrossOrigin(origins="*")
 	@PostMapping("/join")
 	public ResponseEntity<String> createUser(@RequestBody User user) throws Exception {
-		System.out.println(user);
+		System.out.println(user+"유저정보"+user.getuName());
 		if(userService.createUser(user) > 0) {	// 해당 메소드가 int형이기에, 유저가 추가되는 순간 1이 뜨므로, > 0 으로 처리..
 			return new ResponseEntity<String>("회원가입 성공", HttpStatus.OK);
 		}
