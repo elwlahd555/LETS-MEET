@@ -29,6 +29,7 @@ public class JwtService {
 	
 	/* 로그인 성공 시, 사용자 정보를 기반으로 JWT Token 생성 및 반환 */
 	public String create(User user) {
+		System.out.println("토큰 생성");
 		JwtBuilder jwtBuilder = Jwts.builder();
 		jwtBuilder.setHeaderParam("typ",  "JWT");	// 헤더 설정 => 토큰의 타입으로 고정 값 역할
 		jwtBuilder.setSubject("로그인 토큰") 			// 해당 토큰의 제목 설정

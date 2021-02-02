@@ -7,7 +7,7 @@
         <v-card-text>
             <v-text-field
               ref='email'
-              v-model='user.email'
+              v-model='user.uEmail'
               label ='이메일'
               prepend-icon="email"
               :rules="[rules.required, rules.email]"
@@ -17,7 +17,7 @@
 
             <v-text-field
               ref='password'
-              v-model="user.password"
+              v-model="user.uPassword"
               label="비밀번호"
               :rules="[rules.required, rules.min]"
               :type="showPassword ? 'text' : 'password'"
@@ -30,7 +30,7 @@
             
             <v-text-field
               ref="passwordConfirm"
-              v-model="user.passwordConfirm"
+              v-model="passwordConfirm"
               :rules="[rules.required, rules.min, passwordCheck]"
               label="비밀번호 확인"
               :type="showPassword2 ? 'text' : 'password'"
@@ -42,7 +42,7 @@
 
             <v-text-field
               ref='name'
-              v-model="user.name"
+              v-model="user.uName"
               required
               label="이름"
               :rules="[rules.required]"
@@ -51,7 +51,7 @@
             >
             </v-text-field>
 
-            <v-text-field
+            <!-- <v-text-field
               type ='date'
               value ='1950-01-01'
               min = '1950-01-01'
@@ -73,7 +73,7 @@
               label='전화번호'
               prepend-icon="phone"
             >
-            </v-text-field>
+            </v-text-field> -->
           </v-card-text>
             <v-card-actions>
                 <v-btn @click='submit' color="teal" rounded style='width:100%'>회원가입</v-btn>
@@ -90,13 +90,11 @@ export default {
     data: () => {
       return  {
         user: {
-          email : '',
-          password: '',
-          passwordConfirm: '',
-          name: '',
-          birthdate: '',
-          phone: '',
+          uEmail : '',
+          uPassword: '',
+          uName: '',
         },
+        passwordConfirm: '',
         showPassword: false,
         showPassword2: false,
         SignupFormHasError: false,
@@ -116,17 +114,19 @@ export default {
     },
     computed: {
         passwordCheck () { 
-          return () => (this.user.password === this.user.passwordConfirm) || '비밀번호가 일치하지 않습니다.'
+          return () => (this.user.uPassword === this.passwordConfirm) || '비밀번호가 일치하지 않습니다.'
+          // return () => (this.user.uPassword === this.passwordConfirm) || '비밀번호가 일치하지 않습니다.'
         },
     },
     methods: {
       submit () {
         if (this.$refs.form.validate()) {
           // sprin url 받기
-          axios.post(`http://localhost:8000/`, this.user)
+          axios.post(`http://localhost:8000/letsmeet/user/join`, this.user )
             .then(()=> {
-              this.$router.replace('/');
               alert('회원가입 완료되었습니다.')
+              this.$router.push({ name: 'Login'});
+
             })
             .catch(() => {
               alert('회원가입에 실패하셨습니다.')

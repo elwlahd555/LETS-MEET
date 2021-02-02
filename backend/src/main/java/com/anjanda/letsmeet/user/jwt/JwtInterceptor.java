@@ -27,8 +27,8 @@ public class JwtInterceptor implements HandlerInterceptor {
 	/* 인터셉터 메소드 실행. 요청의 토큰값 체킹(서비스의 check메소드 활용) */
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+		System.out.println("토큰생성에 들어옴");
 		// TODO Auto-generated method stub
-		
 		if (request.getMethod().contentEquals("OPTIONS")) {
 			return true;
 		}
