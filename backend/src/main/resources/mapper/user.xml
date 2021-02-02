@@ -13,13 +13,15 @@ INSERT INTO `letsmeet`.`user`
 (`u_no`,
 `u_email`,
 `u_password`,
-`u_name`
+`u_name`,
+`u_join_date`
 )
 VALUES
 (#{uNo },
 #{uEmail },
 #{uPassword },
-#{uName });
+#{uName },
+now());
 	</insert>
 
 <!-- R :: 로그인 / 회원 정보 상세 조회 -->
