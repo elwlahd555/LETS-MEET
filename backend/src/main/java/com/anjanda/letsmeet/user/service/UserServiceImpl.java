@@ -1,7 +1,6 @@
 package com.anjanda.letsmeet.user.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.anjanda.letsmeet.repository.dto.User;
@@ -48,6 +47,15 @@ public class UserServiceImpl implements UserService {
 //		String encPassword = encoder.encode(rawPassword); // 해쉬
 //		user.setuPassword(rawPassword);
 		return mapper.insertUser(user);
+	}
+
+	/* C :: 카카오 회원 가입 메소드 */
+	@Override
+	public int createKakaoUser(User user) throws Exception {
+//		String rawPassword = user.getuPassword(); // 비밀번호 원문
+//		String encPassword = encoder.encode(rawPassword); // 해쉬
+//		user.setuPassword(rawPassword);
+		return mapper.insertKakaoUser(user);
 	}
 	
 	/* R :: 회원 상세 조회 메소드 */

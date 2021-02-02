@@ -56,6 +56,7 @@ public class LoginController {
 	
 	/* 로그인 */
 	@PostMapping("/login")
+//	public String login(@RequestBody User user, HttpServletResponse response, HttpSession session) throws Exception {
 	public ResponseEntity<?> login(@RequestBody User user, HttpServletResponse response, HttpSession session) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 		User check = service.login(user);
@@ -71,15 +72,16 @@ public class LoginController {
 			resultMap.put("uDefaultLng", check.getuDefaultLng());
 			
 			return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+//			return "/main";
 		}
 		resultMap.put("message", "로그인에 실패하였습니다.");
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.NO_CONTENT);
+//		return "redirect:/";
 	}
 	
 	@GetMapping("/auth/kakao/callback")
-	@ResponseBody
+//	@ResponseBody
 	public String kakaoCallback(String code) { // Data를 return 해주는 controller method
-		System.out.println("들어옴");
 		System.out.println("카카오 인증 완료 : 코드값 : " + code);
 		
 		// POST방식으로 key=value 데이터를 요청 (카카오쪽으로)
@@ -97,8 +99,8 @@ public class LoginController {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("grant_type", "authorization_code");
 		params.add("client_id", "deace353f1fd1555201a07f914bc5598");
-		params.add("redirect_uri", "http://localhost:8080/auth/kakao/callback");
-		params.add("code", "code");
+		params.add("redirect_uri", "http://localhost:8000/letsmeet/auth/kakao/callback");
+		params.add("code", code);
 		
 		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
 		HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest =
@@ -111,6 +113,7 @@ public class LoginController {
 				kakaoTokenRequest,
 				String.class
 		);
+		System.out.println("카카오 토큰 요청에 대한 응답" + response.getBody());
 		
 		// Gson, Json Simple, ObjectMapper등의 라이브러리가 있다.
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -129,11 +132,11 @@ public class LoginController {
 		
 		// HttpHeader 오브젝트 생성
 		HttpHeaders headers2 = new HttpHeaders();
-		headers2.add("Authorization", "Bearer" + oauthToken.getAccess_token());
+		headers2.add("Authorization", "Bearer "+oauthToken.getAccess_token());
 		headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 		
 		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
-		HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest2 =
+		HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest2 = 
 				new HttpEntity<>(headers2);
 		
 		// Http 요청하기 - Post방식으로 - 그리고 response 변수의 응답 받음.
@@ -154,12 +157,14 @@ public class LoginController {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
+
+		// User 오브젝트 : username, password, email
+		System.out.println("카카오 아이디(번호) : "+kakaoProfile.getId());
+		System.out.println("카카오 이메일 : "+kakaoProfile.getKakao_account().getEmail());
 		
-		System.out.println("카카오 아이디(번호) : " + kakaoProfile.getId());
-		System.out.println("카카오 이메일 : " + kakaoProfile.getKakao_account().getEmail());
-		
-		System.out.println("레츠밋서버 유저네임 : " + kakaoProfile.getKakao_account().getEmail() + "_" + kakaoProfile.getId());
-		System.out.println("레츠밋서버 이메일 : " + kakaoProfile.getKakao_account().getEmail());
+		System.out.println("레츠밋서버 유저네임 : "+kakaoProfile.getKakao_account().getEmail()+"_"+kakaoProfile.getId());
+		System.out.println("레츠밋서버 이메일 : "+kakaoProfile.getKakao_account().getEmail());
+		// UUID란 -> 중복되지 않는 어떤 특정 값을 만들어내는 알고리즘
 //		UUID garbagePassword = UUID.randomUUID();
 		String garbagePassword = "kakaoPassword";
 		System.out.println("레츠밋서버 패스워드 : " + garbagePassword);
@@ -168,18 +173,21 @@ public class LoginController {
 		kakaoUser.setuEmail(kakaoProfile.getKakao_account().getEmail() + "_" + kakaoProfile.getId());
 		kakaoUser.setuPassword(garbagePassword.toString());
 		kakaoUser.setuName(kakaoProfile.getKakao_account().email);
-		
+		kakaoUser.setuProvider("kakao");
+//		kakaoUser.setuBirth(kakaoProfile.getKakao_account().getBirthday());
 		// 가입자 혹은 비가입자 체크해서 처리
 		try {
 			User originUser = service.selectUser(kakaoUser);
 			if(originUser == null) {
-				service.createUser(kakaoUser);
+				System.out.println(kakaoUser);
+				service.createKakaoUser(kakaoUser);
 			}
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 		
 		// 로그인 처리 넣어줘야한다.
+		System.out.println("성공");
 		
 		return "redirect:/";
 	}

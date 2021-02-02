@@ -21,10 +21,14 @@ public class KakaoProfile {
 		public Boolean profile_needs_agreement;
 		public Profile profile;
 		public Boolean has_email;
+		public Boolean has_birthday;
 		public Boolean email_needs_agreement;
+		public Boolean birthday_needs_agreement;
 		public Boolean is_email_valid;
 		public Boolean is_email_verified;
 		public String email;
+		public String birthday;
+		public String birthday_type;
 
 		@Data
 		public class Profile {
