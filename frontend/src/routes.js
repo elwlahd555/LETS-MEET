@@ -2,6 +2,7 @@ import Vue from "vue"
 import VueRouter from "vue-router"
 import Main from '@/views/main/Main'
 import Login from '@/views/user/Login'
+import KakaoCallback from '@/views/user/KakaoCallback'
 import Signup from '@/views/user/Signup'
 import MyPage from '@/views/user/MyPage'
 import MakeMeeting from '@/views/makemeeting/MakeMeeting'
@@ -41,6 +42,11 @@ const routes = [
         path: '/meetingroom',
         name: 'MeetingRoom',
         component: MeetingRoom
+    },
+    {
+        path: '/kakaocallback',
+        name: 'KakaoCallback',
+        component: KakaoCallback
     },
   ]
   
