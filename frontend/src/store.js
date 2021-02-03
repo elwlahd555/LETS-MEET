@@ -7,21 +7,21 @@ const axios = require('axios');
 
 export const store = new Vuex.Store({
   state: {
-    email: null,
-    name: null,
+    uEmail: null,
+    uName: null,
     isLogin: false,
     counter: 0
   },
   mutations: {
     SET_USER_AUTH_DATA(state, payload){
       state.isLogin = true;
-      state.email = payload['email']
-      state.name = payload['name']
+      state.uEmail = payload['uEmail']
+      state.uName = payload['uName']
     },
     SET_USER_AUTU_DATA_LOGOUT(state) {
       state.isLogin = false;
-      state.email = null
-      state.name = null
+      state.uEmail = null
+      state.uName = null
     }
   },
   actions: {

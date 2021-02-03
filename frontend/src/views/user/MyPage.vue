@@ -20,8 +20,8 @@
                 </v-avatar>
               </v-col>
               <v-col>
-                <div>username</div>
-                <div>email</div>
+                <div> {{uName}} </div>
+                <div> {{uEmail}} </div>
               </v-col>
             </v-row>
           </v-container>
@@ -72,10 +72,20 @@
     </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 
 export default {
     name: 'MyPage',
     components: {
+    },
+    method: {
+
+    },
+    computed: {
+      ...mapState([
+        'uEmail',
+        'uName'
+      ])
     },
     data: () => {
       return {

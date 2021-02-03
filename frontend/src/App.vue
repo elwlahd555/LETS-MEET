@@ -51,7 +51,7 @@
     </v-main>
 
     <v-bottom-navigation
-      :v-if='isLogin === true'
+      v-show='isLogin'
       :value="value"
       color="indigo accent-2"
       dense
@@ -94,6 +94,9 @@ export default {
   },
 
   methods: {
+  },
+  created() {
+    console.log(this.isLogin)
   },
   computed: {
     ...mapState(['isLogin'])
