@@ -8,21 +8,11 @@ import lombok.ToString;
 @Setter
 @ToString
 public class MeetingRoomUser {
-	int mruMrNo;
-	int mruUNo;
-	String mruUserLat;
-	String mruUserLng;
-	public MeetingRoomUser(int mruMrNo, int mruUNo, String mruUserLat, String mruUserLng) {
-		super();
-		this.mruMrNo = mruMrNo;
-		this.mruUNo = mruUNo;
-		this.mruUserLat = mruUserLat;
-		this.mruUserLng = mruUserLng;
-	}
-	public MeetingRoomUser() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	private int mruMrNo;
+	private int mruUNo;
+	private String mruUserLat;
+	private String mruUserLng;
+	private String mruUserDates;
 	public int getMruMrNo() {
 		return mruMrNo;
 	}
@@ -47,11 +37,17 @@ public class MeetingRoomUser {
 	public void setMruUserLng(String mruUserLng) {
 		this.mruUserLng = mruUserLng;
 	}
+	public String getMruUserDates() {
+		return mruUserDates;
+	}
+	public void setMruUserDates(String mruUserDates) {
+		this.mruUserDates = mruUserDates;
+	}
 	@Override
 	public String toString() {
 		return "MeetingRoomUser [mruMrNo=" + mruMrNo + ", mruUNo=" + mruUNo + ", mruUserLat=" + mruUserLat
-				+ ", mruUserLng=" + mruUserLng + "]";
+				+ ", mruUserLng=" + mruUserLng + ", mruUserDates=" + mruUserDates + "]";
 	}
-	
+
 	
 }
