@@ -7,12 +7,12 @@
 <!-- resultMap 사용 방법 -->
 
 
-<!-- C :: 회원 가입 -->
+<!-- C :: 약속방 생성하기 -->
 	<insert id="insertMeetingRoom" parameterType="meetingRoom">
-	INSERT INTO `letsmeet`.`user`
-		(`u_no`, `u_email`, `u_password`, `u_name`, `u_join_date`)
-	VALUES
-		(#{uNo}, #{uEmail}, #{uPassword}, #{uName}, now());
+	insert into meetingroom
+		('mr_no', 'mr_super_u_no', 'mr_name', 'mr_category', 'mr_date_start', 'mr_date_end')
+	values
+		(#{mrNo}, #{uNo}, #{mrName}, #{mrCategory}, #{mrDateStart}, #{mrDateEnd})
 	</insert>
 
 <!-- R :: 사용자의 약속방 전체 조회 -->

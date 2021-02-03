@@ -162,8 +162,8 @@ public class LoginController {
 		System.out.println("카카오 아이디(번호) : "+kakaoProfile.getId());
 		System.out.println("카카오 이메일 : "+kakaoProfile.getKakao_account().getEmail());
 		
-		System.out.println("레츠밋서버 유저네임 : "+kakaoProfile.getKakao_account().getEmail()+"_"+kakaoProfile.getId());
-		System.out.println("레츠밋서버 이메일 : "+kakaoProfile.getKakao_account().getEmail());
+		System.out.println("레츠밋서버 이메일(아이디) : "+kakaoProfile.getKakao_account().getEmail()+"_"+kakaoProfile.getId());
+		System.out.println("레츠밋서버 유저네임(닉네임) : "+kakaoProfile.getKakao_account().getProfile().getNickname());
 		// UUID란 -> 중복되지 않는 어떤 특정 값을 만들어내는 알고리즘
 //		UUID garbagePassword = UUID.randomUUID();
 		String garbagePassword = "kakaoPassword";
@@ -172,7 +172,7 @@ public class LoginController {
 		User kakaoUser = new User();
 		kakaoUser.setuEmail(kakaoProfile.getKakao_account().getEmail() + "_" + kakaoProfile.getId());
 		kakaoUser.setuPassword(garbagePassword.toString());
-		kakaoUser.setuName(kakaoProfile.getKakao_account().email);
+		kakaoUser.setuName(kakaoProfile.getKakao_account().getProfile().getNickname());
 		kakaoUser.setuProvider("kakao");
 //		kakaoUser.setuBirth(kakaoProfile.getKakao_account().getBirthday());
 		
