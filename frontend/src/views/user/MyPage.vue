@@ -72,6 +72,7 @@
     </div>
 </template>
 <script>
+// import { mapGetters } from 'vuex'
 // import { mapState } from 'vuex'
 
 export default {
@@ -82,15 +83,15 @@ export default {
 
     },
     // computed: {
-    //   ...mapState([
-    //     'uEmail',
-    //     'uName'
+    //   ...mapGetters([
+    //     'get_user_email',
+    //     'get_user_name'
     //   ])
     // },
     mounted() {
       console.log(this.$store.state)
-      this.uEmail = this.$store.state.email
-      this.uName= this.$store.state.name
+      this.uEmail = this.$store.state.uEmail
+      this.uName= this.$store.state.uName
     },
     data: () => {
       return {

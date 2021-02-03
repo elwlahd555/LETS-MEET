@@ -33,7 +33,7 @@
 
 
 <script>
-
+const axios = require('axios');
 export default {
     name: 'LoginForm',
 
@@ -45,21 +45,33 @@ export default {
         if (!this.$refs.form.validate()) return console.log('다 안채워짐')
         else {
           console.log('확인')
-          // this.axios.post(`http://localhost:8000/letsmeet/user/login`,{
-          //   email: this.email,
-          //   password: this.password
-          // })
-          this.$store // 현재 컴포넌트에서 저장소 접근하여
-            .dispatch('LOGIN', this.user) // 비동기적인 Actions에 접근한다 (현 컴포넌트의 user 데이터를 가지고, 저장소에 LOGIN이라는 Actions에 접근)
-            .then(() => this.$router.push({ name: 'Main'})) // 정상적으로 접근했다면 현 컴포넌트의 nextRoute url 값을 대체한다.???
-            .catch(() => alert('로그인에 실패했습니다.'));
+          localStorage.setItem('auth-token', '')
+          axios.post(`http://localhost:8000/letsmeet/login`, this.user)
+            .then((res) => {
+              let token = res.data['auth-token']
+              if (token === undefined) {
+                alert('비밀번호가 틀렸습니다.')}
+              else {
+                alert('로그인 되었습니다.')
+                // context.commit('SET_USER_AUTH_DATA', res.data)
+                localStorage.setItem('auth-token', token)
+                // axios default 헤더에 현재 token 적재
+                axios.defaults.headers.common['auth-token'] = window.localStorage.getItem("auth-token");
+                this.$store.commit('SET_USER_AUTH_DATA', res.data)
+
+                this.$router.push({ name: 'Main'})
+                }
+              })
+          // this.$store // 현재 컴포넌트에서 저장소 접근하여
+          //   .dispatch('LOGIN', this.user) // 비동기적인 Actions에 접근한다 (현 컴포넌트의 user 데이터를 가지고, 저장소에 LOGIN이라는 Actions에 접근)
+          //   .then((res) => 
+          //     console.log(res.data)
+              
+          //     // this.$router.push({ name: 'Main'})
+          //     ) // 정상적으로 접근했다면 현 컴포넌트의 nextRoute url 값을 대체한다.???
+          //   .catch(() => alert('로그인에 실패했습니다.'));
 
         }
-        // Object.keys(this.$refs).forEach(f => {
-        //   console.log(this.$refs[f].$options)
-          // if (!this.$refs[f].) this.formHasErrors = true
-          // this.$refs[f].validate(true)
-        // })
       }
     },
     data: () => {
