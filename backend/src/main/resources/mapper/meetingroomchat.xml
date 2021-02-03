@@ -11,7 +11,11 @@ FROM letsmeet.meetingroomchat
 where mrc_mr_no=#{mrcMrNo};
 
 </select>
+<insert id="insertChat">
+INSERT INTO letsmeet.meetingroomchat
+(mrc_mr_no, mrc_u_no, mrc_content, mrc_date)
+VALUES(#{mrcMrNo}, #{mrcUNo}, #{mrcContent}, now());
 
-
+</insert>
 
 </mapper>

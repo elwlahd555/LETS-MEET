@@ -21,4 +21,11 @@ public class ChatServiceImpl implements ChatService {
 		return mapper.selectChatByRno(mrcMrNo);
 	}
 
+
+	@Override
+	public int createMeetingRoomChat(MeetingRoomChat meetingRoomChat) {
+		// TODO Auto-generated method stub
+		return mapper.createMeetingRoomChat(meetingRoomChat);
+	}
+
 }

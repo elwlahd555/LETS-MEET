@@ -11,4 +11,6 @@ public interface MeetingRoomChatMapper {
 	
 	List<MeetingRoomChat> selectChatByRno(int mrcMrNo);
 
+	int createMeetingRoomChat(MeetingRoomChat meetingRoomChat);
+
 }
