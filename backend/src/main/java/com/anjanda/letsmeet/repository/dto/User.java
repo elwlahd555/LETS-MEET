@@ -9,16 +9,13 @@ public class User {
 	@Id // Primary key
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // 프로젝트에서 연결된 DB의 넘버링 전략을 따라간다.
 	private int uNo; // 시퀀스, auto_increment
-
 	private String uEmail;
 	private String uPassword;
 	private String uName;
-	private String uBirth;
-	private String uDefaultLat;
-	private String uDefaultLng;
 	private int uImageId;
 	private String uJoinDate;
 	private String uProvider;
+	
 	public int getuNo() {
 		return uNo;
 	}
@@ -43,24 +40,6 @@ public class User {
 	public void setuName(String uName) {
 		this.uName = uName;
 	}
-	public String getuBirth() {
-		return uBirth;
-	}
-	public void setuBirth(String uBirth) {
-		this.uBirth = uBirth;
-	}
-	public String getuDefaultLat() {
-		return uDefaultLat;
-	}
-	public void setuDefaultLat(String uDefaultLat) {
-		this.uDefaultLat = uDefaultLat;
-	}
-	public String getuDefaultLng() {
-		return uDefaultLng;
-	}
-	public void setuDefaultLng(String uDefaultLng) {
-		this.uDefaultLng = uDefaultLng;
-	}
 	public int getuImageId() {
 		return uImageId;
 	}
@@ -78,6 +57,11 @@ public class User {
 	}
 	public void setuProvider(String uProvider) {
 		this.uProvider = uProvider;
+	}
+	@Override
+	public String toString() {
+		return "User [uNo=" + uNo + ", uEmail=" + uEmail + ", uPassword=" + uPassword + ", uName=" + uName
+				+ ", uImageId=" + uImageId + ", uJoinDate=" + uJoinDate + ", uProvider=" + uProvider + "]";
 	}
 	
 	
