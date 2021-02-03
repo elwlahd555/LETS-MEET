@@ -3,6 +3,7 @@
     <Chat 
       :initial-feed="feed"
       :title="'My Best Team'"
+      :initial-author-id="authorId"
       @newOwnMessage="onNewOwnMessage"
     />
   </v-container>
@@ -23,7 +24,7 @@ export default {
   data() {
     return {
       authorId: 1,
-      authname: this.$store.state.name,
+      authname: '',
       toggleEmojiPicker: false,
       message: {
         id: 0,
@@ -33,38 +34,34 @@ export default {
         contents: '테스트 중',
         date: '16:30'
       },
+      user: {
+        1: "이성헌",
+        2: "Admin",
+        3: "People"
+      }
+      ,
       feed: [
-        // {
-        //   id: 1,
-        //   author: 'Person',
-        //   imageUrl: '',
-        //   contents: 'hi there',
-        //   date: '21-01-02 16:30'
-        // },
-        // {
-        //   id: 2,
-        //   author: 'Dog',
-        //   imageUrl: '',
-        //   contents: 'Wal Wal!!',
-        //   date: '21-01-02 16:32'
-        // },
-        // {
-        //   id: 0,
-        //   author: 'Me',
-        //   contents: 'hello',
-        //   date: '16:30'
-        // }
       ],
     }
   },
   created() {
-  // App.vue가 생성되면 소켓 연결을 시도합니다.
     this.connect()
+    this.authname = this.$store.state.name
+    console.log(this.$store.state)
+    if (this.authname === '이성헌') {
+      this.authorId = 1
+    } else if (this.authname === 'admin') {
+      this.authorId = 2
+    } else {
+      this.authorId = 3
+    }
+    console.log(this.authname + this.authorId)
   },
   methods: {
     onNewOwnMessage (message, image, imageUrl) {
       const newOwnMessage = {
         id: this.authorId,
+        author: this.authname,
         contents: message,
         image: image,
         imageUrl: imageUrl,
@@ -87,6 +84,7 @@ export default {
           mrcUNo: this.authorId,
           mrcContent: this.message.contents 
         };
+        console.log(msg)
         this.stompClient.send("/receive", JSON.stringify(msg), {});
       }
     },    
@@ -104,9 +102,10 @@ export default {
           // 서버의 메시지 전송 endpoint를 구독합니다.
           // 이런형태를 pub sub 구조라고 합니다.
           this.stompClient.subscribe("/send", res => {
-            console.log('구독으로 받은 메시지 입니다.', this.authname, JSON.parse(res.body).mrcContent);
+            console.log('구독으로 받은 메시지 입니다.', this.authname, JSON.parse(res.body));
             this.message = {
-              id: this.authorId,
+              id: JSON.parse(res.body).mrcUNo,
+              author: this.user[JSON.parse(res.body).mrcUNo],
               contents: JSON.parse(res.body).mrcContent,
               image: '',
               imageUrl: '',
