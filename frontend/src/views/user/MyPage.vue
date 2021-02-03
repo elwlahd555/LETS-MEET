@@ -72,7 +72,7 @@
     </div>
 </template>
 <script>
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 
 export default {
     name: 'MyPage',
@@ -81,15 +81,22 @@ export default {
     method: {
 
     },
-    computed: {
-      ...mapState([
-        'uEmail',
-        'uName'
-      ])
+    // computed: {
+    //   ...mapState([
+    //     'uEmail',
+    //     'uName'
+    //   ])
+    // },
+    mounted() {
+      console.log(this.$store.state)
+      this.uEmail = this.$store.state.email
+      this.uName= this.$store.state.name
     },
     data: () => {
       return {
         tab: null,
+        uEmail: '',
+        uName: '',
         items: [
           '친구목록',
           '찜한 장소'

@@ -4,24 +4,29 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 const axios = require('axios');
-
+import createPersistedState from 'vuex-persistedstate'
 export const store = new Vuex.Store({
+  plugins: [
+    createPersistedState()
+  ],
   state: {
-    uEmail: null,
-    uName: null,
+    email: null,
+    name: null,
     isLogin: false,
     counter: 0
   },
   mutations: {
     SET_USER_AUTH_DATA(state, payload){
       state.isLogin = true;
-      state.uEmail = payload['uEmail']
-      state.uName = payload['uName']
+      console.log(payload)
+      state.email = payload['uEmail']
+      state.name = payload['uName']
+      console.log(state)
     },
     SET_USER_AUTU_DATA_LOGOUT(state) {
       state.isLogin = false;
-      state.uEmail = null
-      state.uName = null
+      state.email = null
+      state.name = null
     }
   },
   actions: {
