@@ -66,17 +66,17 @@ public class LoginController {
 			
 			// 파라미터 1번째 것은 FE 대로 따라가기..
 			resultMap.put("auth-token", token);
+			resultMap.put("uNo", check.getuNo());
 			resultMap.put("uEmail", check.getuEmail()); 
+			resultMap.put("uPassword", check.getuPassword());
 			resultMap.put("uName", check.getuName());
-			resultMap.put("uDefaultLat", check.getuDefaultLat());
-			resultMap.put("uDefaultLng", check.getuDefaultLng());
-			
+			resultMap.put("uImageId", check.getuImageId());
+			resultMap.put("uJoinDate", check.getuJoinDate());
+			resultMap.put("uProvider", check.getuProvider());
 			return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
-//			return "/main";
 		}
 		resultMap.put("message", "로그인에 실패하였습니다.");
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.NO_CONTENT);
-//		return "redirect:/";
 	}
 	
 	@GetMapping("/auth/kakao/callback")
