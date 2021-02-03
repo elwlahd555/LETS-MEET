@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -58,7 +59,7 @@ public class LoginController {
 	@PostMapping("/login")
 //	public String login(@RequestBody User user, HttpServletResponse response, HttpSession session) throws Exception {
 	public ResponseEntity<?> login(@RequestBody User user, HttpServletResponse response, HttpSession session) throws Exception {
-//		System.out.println(user+"유저정보"+user.getuEmail()+user.getuPassword());
+		System.out.println(user+"유저정보"+user.getuEmail()+user.getuPassword());
 		Map<String, Object> resultMap = new HashMap<>();
 		User check = service.login(user);
 		if(check != null) {
