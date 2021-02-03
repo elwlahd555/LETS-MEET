@@ -42,7 +42,7 @@ public class BackendApplication implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
 		// 토큰이 필요한 곳은 user 관련된 url입니다. 단, 로그인 시와 비밀번호 찾기할 땐 로그인 되어있지 않은 상태이므로, 토큰 요하는 인터셉터에서 제외
 		registry.addInterceptor(jwtInterceptor).addPathPatterns("/user/**")
-												.excludePathPatterns(Arrays.asList("/user/login", "/user/forgot/**", "/user/join"));
+												.excludePathPatterns(Arrays.asList("/login", "/user/forgot/**", "/user/join"));
 	}
 	
 	/* 인터셉터를 이용하여 로그인 처리하므로, 전역의 Cors Origin 처리 해준다. */
