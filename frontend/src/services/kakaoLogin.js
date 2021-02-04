@@ -24,7 +24,7 @@ const getKakaoToken = async (code) => {
     }
 };
 const getKakaoUserInfo = async () => {
-    let data = '';
+    let data;
     await window.Kakao.API.request({
         url: "/v2/user/me",
         success: function (response) {
