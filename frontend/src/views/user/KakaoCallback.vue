@@ -45,12 +45,18 @@ export default {
             this.$router.replace('/');
         },
         async setUserInfo () {
-            getKakaoUserInfo();
+            let user_data = await getKakaoUserInfo();
             // 여기에 백으로 계정 정보 넘겨주면 된다.
-            // let data = getKakaoUserInfo();
-            // user.uEmail = data.kakao_account.email;
-            // user.uPassword = 'kakaoPassword';
-            // user.uName = data.properties.nickname;
+            this.user.uEmail = user_data.kakao_account.email+'_'+user_data.id;
+            this.user.uPassword = 'kakaoPassword';
+            this.user.uName = user_data.properties.nickname;
+            axios.post(`http://localhost:8000/letsmeet/auth/kakao/callback`, this.user)
+            .then(()=> {
+              this.$router.push({ name: 'Main'});
+            })
+            .catch((err) => {
+              console.log(err)
+            })
         },
         submit () {
             if (this.$refs.form.validate()) {
