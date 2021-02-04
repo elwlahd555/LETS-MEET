@@ -24,4 +24,7 @@ public interface StoreMapper {
 	/* '중간 좌표 값'으로 일정 반경 내 가게들 조회 */
 	public List<Store> selectStoreByMidPoint(String lat, String lng);
 
+	// 가게등록
+	public int createStore(Store store);
+
 }

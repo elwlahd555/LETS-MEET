@@ -37,10 +37,10 @@ public class StoreController {
 	public List<Store> reviewStoreByDong(String dong) throws Exception {
 		
 			System.out.println("dong값 받아오기");
-			System.out.println("data size : " + storeService.reviewStoreByDong(dong).size());
-			System.out.println("data size : " + storeService.reviewStoreByDong(dong).get(0).getsDong());
+			System.out.println("data size : " + storeService.StoreByDong(dong).size());
+			System.out.println("data size : " + storeService.StoreByDong(dong).get(0).getsDong());
 			
-			return storeService.reviewStoreByDong(dong);
+			return storeService.StoreByDong(dong);
 		
 	}
 	
@@ -50,9 +50,9 @@ public class StoreController {
 	public Store reviewStoreByPoint(String lat, String lng) throws Exception{
 
 			System.out.println("좌표값 받아오기");
-			System.out.println("data name : " + storeService.reviewStoreByPoint(lat,lng).getsName());
+			System.out.println("data name : " + storeService.StoreByPoint(lat,lng).getsName());
 			
-			return storeService.reviewStoreByPoint(lat,lng);
+			return storeService.StoreByPoint(lat,lng);
 
 	}
 
@@ -62,10 +62,10 @@ public class StoreController {
 	public List<Store> reviewStoreByMidPoint(String lat, String lng) throws Exception{
 		
 			System.out.println("중간 좌표값 받아오기");
-			System.out.println("data size : " + storeService.reviewStoreByMidPoint(lat,lng).size());
-			System.out.println("data size : " + storeService.reviewStoreByMidPoint(lat,lng).get(0).getsName());
+			System.out.println("data size : " + storeService.StoreByMidPoint(lat,lng).size());
+			System.out.println("data size : " + storeService.StoreByMidPoint(lat,lng).get(0).getsName());
 
-			return storeService.reviewStoreByMidPoint(lat,lng);
+			return storeService.StoreByMidPoint(lat,lng);
 
 	}
 }
