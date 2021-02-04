@@ -27,21 +27,18 @@ public class SocketController {
         int userNo = meetingRoomChat.getMrcUNo();
         // vo에서 setter로 content를 가져옵니다.
         String content = meetingRoomChat.getMrcContent();
-//        int mrNo=(int) session.getAttribute("mrNo");
-//        int uNo=(int) session.getAttribute("uNo");
+        int mrNo=meetingRoomChat.getMrcMrNo();
+        //        int uNo=(int) session.getAttribute("uNo");
         // 생성자로 반환값을 생성합니다.
         MeetingRoomChat result = new MeetingRoomChat();
         
-//        System.out.println("리퀘스트"+request.getAttribute("auth-token"));
-//        System.out.println("토큰"+token);
         System.out.println(userNo);
         System.out.println(content);
-//        System.out.println(mrNo);
-//        System.out.println(uNo);
+        System.out.println(mrNo);
         
         result.setMrcContent(content);
         result.setMrcUNo(userNo);
-        result.setMrcMrNo(1);
+        result.setMrcMrNo(mrNo);
 //      result.setMrcUNo(uNo);
         
         chatservice.createMeetingRoomChat(result);
