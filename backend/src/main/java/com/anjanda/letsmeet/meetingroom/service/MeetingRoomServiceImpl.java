@@ -59,4 +59,11 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 		return meetingRoomMapper.deleteMeetingRoom(mrNo) == 1;
 	}
 
+	//미팅룸에 사람 추가 하기
+	@Override
+	public int createMeetingRoomUser(int uNo) {
+		// TODO Auto-generated method stub
+		return meetingRoomMapper.createMeetingRoomUser(uNo);
+	}
+
 }

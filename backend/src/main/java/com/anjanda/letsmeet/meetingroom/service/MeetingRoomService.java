@@ -20,5 +20,8 @@ public interface MeetingRoomService {
 
 	/* D :: 약속방 삭제 */
 	public boolean deleteMeetingRoom(int mrNo);
+	
+	//미팅방유저추가
+	public int createMeetingRoomUser(int uNo);
 
 }
