@@ -13,7 +13,7 @@ import com.anjanda.letsmeet.repository.mapper.FriendMapper;
 public class FriendServiceImpl implements FriendService {
 	
 	@Autowired
-	private static FriendMapper friendMapper;
+	private FriendMapper friendMapper;
 	
 	/* C :: 사용자의 친구 추가 */
 	@Override

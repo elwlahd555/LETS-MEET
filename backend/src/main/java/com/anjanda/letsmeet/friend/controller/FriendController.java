@@ -22,7 +22,7 @@ public class FriendController {
 
 	/* Friend 서비스 객체 불러오기 */
 	@Autowired
-	private static FriendService friendService;
+	private FriendService friendService;
 	
 	/* C :: 사용자의 친구 추가 */
 	@PostMapping("")
