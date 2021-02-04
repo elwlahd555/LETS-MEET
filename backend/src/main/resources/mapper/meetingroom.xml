@@ -29,6 +29,14 @@
 		  from meetingroom
 		 where mr_no=#{mrNo}
 	</select>	
+	
+<!-- R :: 캘린더에 표시될 확정된 약속방 조회 -->
+	<select id="selectCertainMeetingRoom" resultType="meetingRoom">
+		select *
+		  from meetingroom inner join meetingroomuser
+		    on meetingroom.mr_no = meetingroomuser.mru_mr_no
+		 where meetingroomuser.mru_u_no = #{uNo} and mr_date is not null
+	</select>
 
 <!-- U :: 약속방 정보 수정 (방이름, 카데고리, 시작기간, 끝기간) -->
 	<update id="updateMeetingRoom" parameterType="meetingRoom">
