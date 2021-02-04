@@ -37,7 +37,7 @@ import com.anjanda.letsmeet.user.service.UserService;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-
+	
 	/* JWT 객체 불러오기 */
 	@Autowired
 	private JwtService jwtService;
