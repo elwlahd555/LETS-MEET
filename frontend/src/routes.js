@@ -39,20 +39,21 @@ const routes = [
         component: MyPage
     },
     {
-        path: '/meetingroom',
-        name: 'MeetingRoom',
-        component: MeetingRoom
-    },
-    {
         path: '/kakaocallback',
         name: 'KakaoCallback',
         component: KakaoCallback
     },
+    { 
+        path: '/meetingroom/:id', 
+        name: 'MeetingRoom',
+        component: MeetingRoom,
+        props: true
+    }
   ]
   
   const router = new VueRouter({
     base: process.env.BASE_URL,
-    mode: 'history',
+    // mode: 'history',
     routes
   })
 

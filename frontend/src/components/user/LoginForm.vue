@@ -58,7 +58,6 @@ export default {
                 // axios default 헤더에 현재 token 적재
                 axios.defaults.headers.common['auth-token'] = window.localStorage.getItem("auth-token");
                 this.$store.commit('SET_USER_AUTH_DATA', res.data)
-
                 this.$router.push({ name: 'Main'})
                 }
               })

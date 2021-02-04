@@ -8,7 +8,7 @@
 <script>
 import MakeRoom from "../../components/makemeeting/MakeRoom.vue";
 import MakeSchedule from "../../components/makemeeting/MakeSchedule.vue";
-
+const axios = require('axios');
 
 export default {
   name: "MakeMeeting",
@@ -44,8 +44,7 @@ export default {
       this.dates = data
     },
     confirmRoom() {
-      if (this.room_title && this.room_type && this.dates){
-        alert("방 생성이 완료 되었습니다.")
+      if (this.room_title && this.room_type && this.dates.length > 0){
         var tmp_end_day = ''
         if (this.dates.length == 2) {
           tmp_end_day = this.dates[1]
@@ -53,13 +52,21 @@ export default {
           tmp_end_day = this.dates[0]
         }
         const data = {
-          room_title: this.room_title,
-          room_type: this.room_type,
-          start_day: this.dates[0],
-          end_day: tmp_end_day
+          mrName: this.room_title,
+          mrCategory: this.room_type,
+          mrDateStart: this.dates[0],
+          mrDateEnd: tmp_end_day,
+          mrSuperUNo: this.$store.state.uNo
         }
         console.log(data)
-        this.$router.push({ name: 'Main'});
+        axios.post(`http://localhost:8000/letsmeet/meetingRoom/create`, data )
+          .then(()=> {
+            alert('방 생성이 완료되었습니다.')
+            this.$router.push({ name: 'Main'});
+          })
+          .catch(() => {
+            alert('방 생성에 실패하셨습니다.')
+          })
       }else {
         alert("데이터를 모두 입력해주세요.")
       }

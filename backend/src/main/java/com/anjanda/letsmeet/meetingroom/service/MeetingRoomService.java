@@ -7,24 +7,26 @@ import com.anjanda.letsmeet.repository.dto.MeetingRoom;
 public interface MeetingRoomService {
 
 	/* C :: 약속방 생성 메소드 */
-	public int createMeetingRoom(MeetingRoom meetingRoom) throws Exception;
+	int createMeetingRoom(MeetingRoom meetingRoom) throws Exception;
 
 	/* R :: 약속방 전체 조회 */
-	public List<MeetingRoom> reviewMyMeetingRoom(int uNo);
+	List<MeetingRoom> reviewMyMeetingRoom(int uNo) throws Exception;
 
 	/* R :: 약속방 상세 조회 */
-	public MeetingRoom reviewDetailMeetingRoom(int mrNo);
+	MeetingRoom reviewDetailMeetingRoom(int mrNo) throws Exception;
 
-	/* U :: 약속방 수정 */ // @Transcational ???
-	public boolean updateMeetingRoom(MeetingRoom meetingRoom);
+	/* R :: 캘린더에 표시될 확정된 약속 조회 */
+	List<MeetingRoom> reviewCertainMeetingRoom(int uNo) throws Exception;
+
+	/* U :: 약속방 수정 */
+	boolean updateMeetingRoom(MeetingRoom meetingRoom) throws Exception;
 
 	/* D :: 약속방 삭제 */
-	public boolean deleteMeetingRoom(int mrNo);
-	
-	//미팅방유저추가
-	public int createMeetingRoomUser(int mrNo,int uNo);
+	boolean deleteMeetingRoom(int mrNo) throws Exception;
 
-	//미팅룸 방장이 만든방 찾기
-	public int selectMeetingRoomBySuper(MeetingRoom meetingRoom);
+	//미팅룸에 사람 추가 하기
+	int createMeetingRoomUser(int mrNo, int uNo) throws Exception;
+
+	int selectMeetingRoomBySuper(MeetingRoom meetingRoom) throws Exception;
 
 }
