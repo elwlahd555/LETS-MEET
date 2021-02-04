@@ -47,13 +47,19 @@ public class MeetingRoomController {
 	
 	/* R :: 약속방 상세조회 */
 	@GetMapping("/meetingRoom/detail")
-	public ResponseEntity<MeetingRoom> reviewDetailMeetingRoom(@PathVariable int mrNo){
+	public ResponseEntity<MeetingRoom> reviewDetailMeetingRoom(@PathVariable int mrNo) throws Exception {
 		return new ResponseEntity<MeetingRoom>(meetingRoomService.reviewDetailMeetingRoom(mrNo), HttpStatus.OK);
+	}
+	
+	/* R :: 캘린더에 표시 될 사용자의 확정된 약속방 조회 */
+	@GetMapping("/calendar")
+	public ResponseEntity<List<MeetingRoom>> reviewCertainMeetingRoom(int uNo) throws Exception {
+		return new ResponseEntity<List<MeetingRoom>>(meetingRoomService.reviewCertainMeetingRoom(uNo), HttpStatus.OK);
 	}
 	
 	/* U :: 약속방 수정 */
 	@PutMapping("/meetingRoom/edit")
-	public ResponseEntity<String> updateMeetingRoom(@RequestBody MeetingRoom meetingRoom){
+	public ResponseEntity<String> updateMeetingRoom(@RequestBody MeetingRoom meetingRoom) throws Exception {
 		if(meetingRoomService.updateMeetingRoom(meetingRoom)) {
 			return new ResponseEntity<String>("약속방 수정 성공", HttpStatus.OK);
 		}
@@ -62,11 +68,10 @@ public class MeetingRoomController {
 	
 	/* D :: 약속방 삭제 */
 	@DeleteMapping("/meetingRoom/delete")
-	public ResponseEntity<String> deleteMeetingRoom(@PathVariable int mrNo){
+	public ResponseEntity<String> deleteMeetingRoom(@PathVariable int mrNo) throws Exception {
 		if(meetingRoomService.deleteMeetingRoom(mrNo)) {
 			return new ResponseEntity<String>("약속방 삭제 성공", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("약속방 삭제 실패", HttpStatus.NO_CONTENT);
 	}
-	
 }
