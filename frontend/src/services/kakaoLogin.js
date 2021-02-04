@@ -10,7 +10,7 @@ const getKakaoToken = async (code) => {
         const data = {
             grant_type: 'authorization_code',
             client_id: 'deace353f1fd1555201a07f914bc5598',
-            redirect_uri: 'http://localhost:8080/kakaocallback',
+            redirect_uri: 'http://i4d107.p.ssafy.io/kakaocallback',
             code: code,
         };
         const queryString = Object.keys(data)

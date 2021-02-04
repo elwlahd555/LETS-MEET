@@ -5,24 +5,23 @@
 <mapper namespace="com.anjanda.letsmeet.repository.mapper.FriendMapper">
 
 	<!-- C :: 친구 추가 -->
-	<insert id="insertFriend" parameterType="friend">
-		insert into friend
-			(`f_no`, `f_recv_u_no`, `f_send_u_no`)
-		values
-			(#{fNo}, #{uNoMyself}, #{uNoFriend})
+	<insert id="insertFriend">
+		insert into friend(f_recv_u_no, f_send_u_no)
+		values (#{uNo}, #{me})
 	</insert>
+	
 	<!-- R :: 친구 조회 -->
-	<select id="selectFriend" parameterType="friend" resultType="friend">
-		select u_email 'uEmail'
+	<select id="selectFriend">
+		select *
 		  from user inner join friend
 		    on user.u_no = friend.f_recv_u_no
-		 where friend.f_send_u_no = #{uNoMyself}
+		 where friend.f_send_u_no = #{uNo}
 	</select>
 	
 	<!-- D :: 친구 삭제 -->
-	<delete id="deleteFriend" parameterType="friend">
+	<delete id="deleteFriend">
 		delete
 		  from friend
-		 where f_send_u_no = #{uNoMyself} and f_recv_u_no = #{uNoFriend}
+		 where f_send_u_no = #{me} and f_recv_u_no = #{uNo}
 	</delete>
 </mapper>

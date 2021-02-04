@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-form ref='form'>
+    <v-form ref='form' @keyup.enter='submit'>
       <v-card-title>
         회원가입
       </v-card-title>
@@ -48,6 +48,7 @@
               :rules="[rules.required]"
               prepend-icon="mdi-account-circle"
               type='text'
+              @keyup.enter='submit'
             >
             </v-text-field>
 
@@ -74,10 +75,15 @@
               prepend-icon="phone"
             >
             </v-text-field> -->
+            
           </v-card-text>
+
             <v-card-actions>
-                <v-btn @click='submit' color="teal" rounded style='width:100%'>회원가입</v-btn>
+                <v-btn color="teal" rounded style='width:100%' @click="submit">회원가입</v-btn>
             </v-card-actions>
+          <v-card-actions class="pt-3 px-3">
+              <router-link class="ro" :to="{ name: 'Login' }"><v-icon large>mdi-arrow-left-circle</v-icon></router-link>
+          </v-card-actions>
     </v-form>
   </div>
 </template>
@@ -120,13 +126,13 @@ export default {
     },
     methods: {
       submit () {
+        console.log('???')
         if (this.$refs.form.validate()) {
           // sprin url 받기
-          axios.post(`http://localhost:8000/letsmeet/user/join`, this.user )
+          axios.post(`http://i4d107.p.ssafy.io/letsmeet/user/join`, this.user )
             .then(()=> {
               alert('회원가입 완료되었습니다.')
               this.$router.push({ name: 'Login'});
-
             })
             .catch(() => {
               alert('회원가입에 실패하셨습니다.')

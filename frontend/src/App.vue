@@ -51,7 +51,7 @@
     </v-main>
 
     <v-bottom-navigation
-      v-show='isLogin'
+      v-if='isLogin'
       :value="value"
       color="indigo accent-2"
       dense
