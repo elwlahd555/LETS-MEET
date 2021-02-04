@@ -23,6 +23,7 @@ const getKakaoToken = async (code) => {
         return e;
     }
 };
+
 const getKakaoUserInfo = async () => {
     let data;
     await window.Kakao.API.request({

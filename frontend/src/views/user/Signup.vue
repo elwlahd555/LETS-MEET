@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-form ref='form' @keyup.enter='submit'>
+    <v-form ref='form'>
       <v-card-title>
         회원가입
       </v-card-title>
