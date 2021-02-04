@@ -39,18 +39,18 @@ public class MeetingRoomController {
 	
 	/* R :: 사용자의 모든 약속방 조회 => 약속 기간 지난 것만 걸러서 따로 리스트 뽑아낼수 있겠지? */
 	@GetMapping("/main")
-	public ResponseEntity<List<MeetingRoom>> reviewMyMeetingRoom() throws Exception {
-		return new ResponseEntity<List<MeetingRoom>>(meetingRoomService.reviewMyMeetingRoom(), HttpStatus.OK);
+	public ResponseEntity<List<MeetingRoom>> reviewMyMeetingRoom(int uNo) throws Exception {
+		return new ResponseEntity<List<MeetingRoom>>(meetingRoomService.reviewMyMeetingRoom(uNo), HttpStatus.OK);
 	}
 	
 	/* R :: 약속방 상세조회 */
-	@GetMapping("/meetingRoom/{mrNo}/detail")
+	@GetMapping("/meetingRoom/detail")
 	public ResponseEntity<MeetingRoom> reviewDetailMeetingRoom(@PathVariable int mrNo){
 		return new ResponseEntity<MeetingRoom>(meetingRoomService.reviewDetailMeetingRoom(mrNo), HttpStatus.OK);
 	}
 	
 	/* U :: 약속방 수정 */
-	@PutMapping("/meetingRoom/{mrNo}/edit")
+	@PutMapping("/meetingRoom/edit")
 	public ResponseEntity<String> updateMeetingRoom(@RequestBody MeetingRoom meetingRoom){
 		if(meetingRoomService.updateMeetingRoom(meetingRoom)) {
 			return new ResponseEntity<String>("약속방 수정 성공", HttpStatus.OK);
@@ -59,7 +59,7 @@ public class MeetingRoomController {
 	}
 	
 	/* D :: 약속방 삭제 */
-	@DeleteMapping("/meetingRoom/{mrNo}/delete")
+	@DeleteMapping("/meetingRoom/delete")
 	public ResponseEntity<String> deleteMeetingRoom(@PathVariable int mrNo){
 		if(meetingRoomService.deleteMeetingRoom(mrNo)) {
 			return new ResponseEntity<String>("약속방 삭제 성공", HttpStatus.OK);

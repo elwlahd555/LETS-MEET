@@ -23,7 +23,7 @@ public interface MeetingRoomMapper {
 	public int insertMeetingRoom(MeetingRoom meetingRoom) throws Exception;
 	
 	/* R :: 사용자의 약속방 전체 조회 메소드 */
-	public List<MeetingRoom> selectMeetingRoom();
+	public List<MeetingRoom> selectMeetingRoom(int uNo);
 	
 	/* R :: 약속방 상세 조회 메소드 */
 	public MeetingRoom selectMeetingRoomByMrNo(int mrNo);
