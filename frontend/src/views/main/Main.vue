@@ -1,30 +1,67 @@
 <template>
   <div>
-    <v-card
-      class="mx-auto mt-3"
-      v-for="idx in list"
-      :key="idx"
+    <v-tabs
+      color="indigo accent-2"
+      centered
+      fixed-tabs
+      slider-color="indigo accent-2"
     >
-      <v-img 
-      height="200px"
-      src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-      style="filter: brightness(50%);">
-      </v-img>
-     <v-fade-transition>
-        <v-overlay
-          absolute >
-          <div class="d-flex flex-column mt-5">
-            <div class="d-flex justify-center"><v-icon class="mb-1">mdi-food</v-icon> 밥 약속</div>
-            <div class="d-flex justify-center"><h4>이모저모 런닝 모임</h4></div>
-            <div class="d-flex justify-center">2021.01.14</div>
-            <div class="d-flex justify-center">5명</div>
-          </div>
-        </v-overlay>
-      </v-fade-transition>
-    </v-card>
-    <infinite-loading @infinite="infiniteHandler"></infinite-loading>
+      <v-tab>진행중</v-tab>
+      <v-tab>완료</v-tab>
+
+      <v-tab-item>
+        <v-card
+          class="mx-auto mt-3"
+          v-for="(value, idx) in doing_temp"
+          :key="idx"
+        >
+          <v-img 
+          height="200px"
+          :src="type[value.mrCategory][1]"
+          style="filter: brightness(50%);">
+          </v-img>
+        <v-fade-transition>
+            <v-overlay
+              absolute >
+              <div class="d-flex flex-column mt-5">
+                <div class="d-flex justify-center"><v-icon class="mb-1">{{type[value.mrCategory][0]}} </v-icon> {{ value.mrCategory}} 약속</div>
+                <div class="d-flex justify-center"><h4>{{ value.mrName }}</h4></div>
+                <div class="d-flex justify-center">{{ value.mrDateStart }} ~ {{ value.mrDateEnd }}</div>
+                <div class="d-flex justify-center">5명</div>
+              </div>
+            </v-overlay>
+          </v-fade-transition>
+        </v-card>
+        <infinite-loading @infinite="doingInfiniteHandler"></infinite-loading>
+      </v-tab-item>
+      <v-tab-item>
+        <v-card
+          class="mx-auto mt-3"
+          v-for="(value, idx) in done_temp"
+          :key="idx"
+        >
+          <v-img 
+          height="200px"
+          :src="type[value.mrCategory][1]"
+          style="filter: brightness(50%);">
+          </v-img>
+        <v-fade-transition>
+            <v-overlay
+              absolute >
+              <div class="d-flex flex-column mt-5">
+                <div class="d-flex justify-center"><v-icon class="mb-1">{{type[value.mrCategory][0]}} </v-icon> {{ value.mrCategory}} 약속</div>
+                <div class="d-flex justify-center"><h4>{{ value.mrName }}</h4></div>
+                <div class="d-flex justify-center">{{ value.mrDateStart }} ~ {{ value.mrDateEnd }}</div>
+                <div class="d-flex justify-center">5명</div>
+              </div>
+            </v-overlay>
+          </v-fade-transition>
+        </v-card>
+        <infinite-loading @infinite="doneInfiniteHandler"></infinite-loading>
+      </v-tab-item>
+    </v-tabs>
     <div class="d-flex justify-center">
-      <back-to-top bottom="65px" right="">
+      <back-to-top bottom="65px" right="" style="display: block !important;">
         <v-btn fab dark small color="teal">
           <v-icon dark>mdi-chevron-up</v-icon>
         </v-btn>
@@ -36,29 +73,83 @@
 <script>
 import InfiniteLoading from 'vue-infinite-loading'
 import BackToTop from 'vue-backtotop'
+import moment from 'moment'
+const axios = require('axios');
 
 export default {
   name: "Main",
   data() {
     return {
-      list: [1, 2, 3]
+      list: [],
+      doing_list: [],
+      done_list: [],
+      temp: [],
+      doing_temp: [],
+      done_temp: [],
+      type: {
+        '밥': ['mdi-food', 'https://www.gyeongju.go.kr/upload/content/thumb/20200529/A42F50C69A8A4DDB94DA408C290735C1.jpg'],
+        '카페': [ 'mdi-coffee', 'http://www.lightingnews.net/images/theme/cafe_01.png'],
+        '술': ['mdi-glass-mug-variant', 'https://img.lovepik.com/photo/50011/5863.jpg_wh860.jpg'],
+        '스터디': ['mdi-book-open-page-variant', 'https://modo-phinf.pstatic.net/20180304_283/1520151276251GkP1Q_JPEG/mosaOtd1XG.jpeg?type=w720'],
+        '놀거리': ['mdi-snowboard', 'https://www.travel.taipei/image/65598/1024x768'],
+        '기타': ['mdi-dots-horizontal', 'http://img.rflogix.com/agm/main/1024/10_1_20200407112854.jpg'],
+      }
     };
   },
   components: {
     InfiniteLoading,
     BackToTop,
   },
-   methods: {
-    infiniteHandler($state) {
+  mounted() {
+    this.getRoomList()
+  },
+  methods: {
+    doingInfiniteHandler($state) {
       setTimeout(() => {
-        const temp = [];
-        for (let i = this.list.length + 1; i <= this.list.length + 3; i++) {
-          temp.push(i);
+        for (let i = 1; i <= 3; i++) {
+          if (this.doing_list.length > 0) {
+            this.doing_temp.push(this.doing_list.shift());
+          } else {
+            $state.complete();
+          }
         }
-        this.list = this.list.concat(temp);
         $state.loaded();
       }, 1000);
     },
+    doneInfiniteHandler($state) {
+      setTimeout(() => {
+        for (let i = 1; i <= 3; i++) {
+          if (this.done_list.length > 0) {
+            this.done_temp.push(this.done_list.shift());
+          } else {
+            $state.complete();
+          }
+        }
+        $state.loaded();
+      }, 1000);
+    },
+    getRoomList() {
+      console.log("AA")
+      axios.get(`http://localhost:8000/letsmeet/main?uNo=${this.$store.state.uNo}`)
+      .then((res)=> {
+        const data = res.data
+        for (var val of data) {
+          if (val.mrDateEnd < moment().format('YYYY-MM-DD')){
+            this.done_list.push(val)
+          } else {
+            this.doing_list.push(val)
+          }
+          this.list.push(val)
+        }
+        for (var i=0 ; i<3 ; i++) {
+          this.done_temp.push(this.done_list.shift());
+          this.doing_temp.push(this.doing_list.shift());
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
   },
 }
 </script>
