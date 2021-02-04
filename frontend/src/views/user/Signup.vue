@@ -129,7 +129,7 @@ export default {
         console.log('???')
         if (this.$refs.form.validate()) {
           // sprin url 받기
-          axios.post(`http://localhost:8000/letsmeet/user/join`, this.user )
+          axios.post(`http://i4d107.p.ssafy.io/letsmeet/user/join`, this.user )
             .then(()=> {
               alert('회원가입 완료되었습니다.')
               this.$router.push({ name: 'Login'});

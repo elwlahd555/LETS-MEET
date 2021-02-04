@@ -130,7 +130,7 @@ export default {
       }, 1000);
     },
     getRoomList() {
-      axios.get(`http://localhost:8000/letsmeet/main?uNo=${this.$store.state.uNo}`)
+      axios.get(`http://i4d107.p.ssafy.io/letsmeet/main?uNo=${this.$store.state.uNo}`)
       .then((res)=> {
         const data = res.data
         for (var val of data) {

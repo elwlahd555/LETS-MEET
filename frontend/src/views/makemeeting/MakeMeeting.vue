@@ -59,7 +59,7 @@ export default {
           mrSuperUNo: this.$store.state.uNo
         }
         console.log(data)
-        axios.post(`http://localhost:8000/letsmeet/meetingRoom/create`, data )
+        axios.post(`http://i4d107.p.ssafy.io/letsmeet/meetingRoom/create`, data )
           .then(()=> {
             alert('방 생성이 완료되었습니다.')
             this.$router.push({ name: 'Main'});

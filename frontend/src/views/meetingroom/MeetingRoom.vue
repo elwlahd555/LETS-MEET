@@ -113,7 +113,7 @@ export default {
   },
   methods: {
     getRoomInfo() {
-      axios.get(`http://localhost:8000/letsmeet/meetingRoom/detail?mrNo=${this.mrNo}`)
+      axios.get(`http://i4d107.p.ssafy.io/letsmeet/meetingRoom/detail?mrNo=${this.mrNo}`)
       .then((res)=> {
         this.roomInfo = res.data
         console.log(this.roomInfo)
