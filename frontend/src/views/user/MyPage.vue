@@ -4,9 +4,36 @@
           <div class='justify-center' style="border-bottom: 2px solid black">
               <h5> 마이페이지 </h5>
           </div>
-          <div class='justify-end'>
-            <v-icon color="indigo accent-2">mdi-cog</v-icon>
-          </div>
+              <!-- 톱니바퀴 -->
+              <div class='justify-end'>
+              <v-menu
+                  left
+                  bottom
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      icon
+                      style="color: black;"
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                        <v-icon color="indigo accent-2" >mdi-cog</v-icon>
+                      <!-- <v-icon>mdi-dots-vertical</v-icon> -->
+                    </v-btn>
+                  </template>
+
+                  <v-list>
+                    <v-list-item>
+                      <v-list-item-title> <router-link class="ro" :to="{ name: 'UserInfoChange' }"> 회원정보 수정 </router-link></v-list-item-title>
+                    </v-list-item>
+                    <v-list-item @click="logout">
+                      <v-list-item-title> 로그아웃 </v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </div>
+
+          <!-- 유저정보 -->
           <v-container class='pt-5'>
             <v-row>
               <v-col
@@ -65,22 +92,28 @@
 
           <v-tab-item>
             <v-card>
-              <h2>bye</h2>
+              <!-- 좋아하는 장소 -->
+              <MypageLikePlace />
             </v-card>
           </v-tab-item>
         </v-tabs-items>
     </div>
 </template>
 <script>
-// import { mapGetters } from 'vuex'
-// import { mapState } from 'vuex'
+import MypageLikePlace from "../../components/user/mypage/MypageLikePlace"
 
 export default {
     name: 'MyPage',
     components: {
+      MypageLikePlace
     },
-    method: {
-
+    methods: {
+      logout () {
+        this.$store.dispatch('LOGOUT')
+        .then(()=> {
+          this.$router.replace({ name: 'Login'})
+        })
+      }
     },
     // computed: {
     //   ...mapGetters([
@@ -88,8 +121,7 @@ export default {
     //     'get_user_name'
     //   ])
     // },
-    mounted() {
-      console.log(this.$store.state)
+    mounted() { 
       this.uEmail = this.$store.state.uEmail
       this.uName= this.$store.state.uName
     },
@@ -116,5 +148,9 @@ export default {
   }
   .account {
     padding-left:25px;
+  }
+  .ro {
+    text-decoration: none !important;
+    color: inherit !important;
   }
 </style>

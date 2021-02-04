@@ -31,7 +31,9 @@ public class MeetingRoomController {
 		System.out.println(meetingRoom.getMrName()+"이 생성되었습니다");
 		System.out.println(meetingRoom.getMrCategory() + meetingRoom.getMrName());
 		if(meetingRoomService.createMeetingRoom(meetingRoom) > 0) {
+			
 			int mrNo=meetingRoomService.selectMeetingRoomBySuper(meetingRoom);
+			System.out.println(mrNo+"미팅룸넘버");
 			meetingRoomService.createMeetingRoomUser(mrNo,meetingRoom.getMrSuperUNo());
 			return new ResponseEntity<String>("약속방 생성 성공", HttpStatus.OK);
 		}

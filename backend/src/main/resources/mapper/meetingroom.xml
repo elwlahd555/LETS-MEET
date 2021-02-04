@@ -60,10 +60,12 @@ VALUES
 (#{mrNo},#{uNo});
 	</insert>
 
-<select id="selectMeetingRoomBySuper">
+<select id="selectMeetingRoomBySuper" resultType="int">
 select `mr_no`
 from meetingroom
-where `mr_super_u_no`=#{mrSuperUNo} and `mr_name`=#{mrName} and `mr_category`=#{mrCategory};
+where `mr_super_u_no`=#{mrSuperUNo} and `mr_name`=#{mrName} and `mr_category`=#{mrCategory}
+order by `mr_no` desc
+limit 1;
 
 
 </select>
