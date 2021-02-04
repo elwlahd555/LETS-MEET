@@ -1,7 +1,7 @@
 <template>
   <div>
-    <MakeRoom v-show="isMake" @is_next="isNext"/>
-    <MakeSchedule v-show="isMake2" @is_prev="isPrev" />
+    <MakeRoom v-show="isMake" @is_next="isNext" @update_room_title="updateRoomTitle" @update_idx="updateIdx"/>
+    <MakeSchedule v-show="isMake2" @is_prev="isPrev" @update_dates="updateDates" @confirm_room="confirmRoom"/>
   </div>
 </template>
 
@@ -20,6 +20,9 @@ export default {
     return {
       isMake: true,
       isMake2: false,
+      room_title: '',
+      room_type: '',
+      dates: [],
     }
   },
   methods: {
@@ -30,6 +33,36 @@ export default {
     isPrev() {
       this.isMake = true,
       this.isMake2 = false
+    },
+    updateRoomTitle(data) {
+      this.room_title = data
+    },
+    updateIdx(data) {
+      this.room_type = data
+    },
+    updateDates(data) {
+      this.dates = data
+    },
+    confirmRoom() {
+      if (this.room_title && this.room_type && this.dates){
+        alert("방 생성이 완료 되었습니다.")
+        var tmp_end_day = ''
+        if (this.dates.length == 2) {
+          tmp_end_day = this.dates[1]
+        } else {
+          tmp_end_day = this.dates[0]
+        }
+        const data = {
+          room_title: this.room_title,
+          room_type: this.room_type,
+          start_day: this.dates[0],
+          end_day: tmp_end_day
+        }
+        console.log(data)
+        this.$router.push({ name: 'Main'});
+      }else {
+        alert("데이터를 모두 입력해주세요.")
+      }
     }
   },
 

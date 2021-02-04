@@ -31,8 +31,8 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 	
 	/* C :: 약속방 생성 메소드 */
 	@Override
-	public int createMeetingRoom(MeetingRoom meetingRoom) throws Exception {
-		return meetingRoomMapper.insertMeetingRoom(meetingRoom);
+	public void createMeetingRoom(MeetingRoom meetingRoom) throws Exception {
+		meetingRoomMapper.insertMeetingRoom(meetingRoom);
 	}
 	
 	/* R :: 약속방 전체 조회 */
