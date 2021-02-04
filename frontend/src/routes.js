@@ -77,6 +77,7 @@ const routes = [
     base: process.env.BASE_URL,
     // mode: 'history',
     routes
+    
   })
 
 export default router
