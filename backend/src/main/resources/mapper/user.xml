@@ -44,15 +44,15 @@
 	</update>
 	
 <!-- D :: 회원 탈퇴 -->
-	<delete id="deleteUser" parameterType="com.anjanda.letsmeet.repository.dto.User">
+	<delete id="deleteUser" parameterType="user">
 		delete 
 		  from user 
-		 where uEmail=#{uEmail}
+		 where u_Email=#{uEmail} and u_password=#{uPassword}
 	</delete>
 
 <!-- CRUD 외 추가 기능 -->
 <!-- 이메일 중복 체크 -->
-	<select id="existEmail" parameterType="com.anjanda.letsmeet.repository.dto.User" resultType="int">
+	<select id="existEmail" parameterType="user" resultType="int">
 		select count(*)
 		  from user
 		 where u_email = #{uEmail}
