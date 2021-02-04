@@ -5,6 +5,8 @@
 </template>
 
 <script>
+const axios = require('axios');
+
 import { getKakaoToken, getKakaoUserInfo, naverService } from "@/services/kakaoLogin";
 export default {
     name: 'KakaoCallback',
@@ -17,6 +19,15 @@ export default {
         if (this.$route.hash) {
             naverService().getUserInfo();
         }
+    },
+    data: () => {
+        return  {
+          user: {
+          uEmail : '',
+          uPassword: '',
+          uName: '',
+        }
+      }
     },
     methods: {
         async setKakaoToken () {
@@ -36,6 +47,25 @@ export default {
         async setUserInfo () {
             getKakaoUserInfo();
             // 여기에 백으로 계정 정보 넘겨주면 된다.
+            let data = getKakaoUserInfo();
+            user.uEmail = data.kakao_account.email;
+            user.uPassword = 'kakaoPassword';
+            user.uName = data.properties.nickname;
+        },
+        submit () {
+            if (this.$refs.form.validate()) {
+                // sprin url 받기
+                axios.post(`http://localhost:8000/letsmeet/auth/kakao/callback`, this.user ).then(()=> {
+                    alert('카카오 소셜 로그인 완료되었습니다.')
+                    this.$router.push({ name: 'Login'});
+                })
+                .catch(() => {
+                    alert('카카오 소셜 로그인에 실패하셨습니다.')
+                })
+            }
+            else {
+                console.log('카카오 소셜 로그인에 실패')
+            }
         },
         getInfo() {
             naverService().getUserInfo();
