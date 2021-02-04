@@ -27,7 +27,7 @@ import com.anjanda.letsmeet.repository.mapper.MeetingRoomMapper;
 public class MeetingRoomServiceImpl implements MeetingRoomService {
 	/* 미팅룸 매퍼 객체 불러오기 */
 	@Autowired
-	private static MeetingRoomMapper meetingRoomMapper;
+	private MeetingRoomMapper meetingRoomMapper;
 	
 	/* C :: 약속방 생성 메소드 */
 	@Override
