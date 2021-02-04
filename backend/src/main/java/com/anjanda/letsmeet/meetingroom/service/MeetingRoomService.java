@@ -7,7 +7,7 @@ import com.anjanda.letsmeet.repository.dto.MeetingRoom;
 public interface MeetingRoomService {
 
 	/* C :: 약속방 생성 메소드 */
-	int createMeetingRoom(MeetingRoom meetingRoom) throws Exception;
+	void createMeetingRoom(MeetingRoom meetingRoom) throws Exception;
 
 	/* R :: 약속방 전체 조회 */
 	List<MeetingRoom> reviewMyMeetingRoom();

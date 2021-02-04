@@ -21,6 +21,7 @@
             <v-text-field
               label="내용을 입력해주세요."
               single-line
+              v-model="room_title"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -96,6 +97,7 @@ export default {
   data() {
     return {
       image_idx: -1,
+      room_title: '',
       images: [
         {
           title:'밥',
@@ -135,6 +137,14 @@ export default {
       this.$emit('is_next')
     },
   },
+  watch: {
+    room_title() {
+      this.$emit('update_room_title', this.room_title)
+    },
+    image_idx() {
+      this.$emit('update_idx', this.images[this.image_idx].title)
+    }
+  }
 }
 </script>
 

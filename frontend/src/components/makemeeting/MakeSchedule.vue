@@ -81,7 +81,7 @@
             <v-btn
               color="green darken-1"
               text
-              @click="dialog = false"
+              @click="confirmRoom"
             >
               생성
             </v-btn>
@@ -113,13 +113,12 @@ export default {
     }
   },
   watch: {
-    dates() {
-      console.log(this.dates)
-    },
+
   },
   computed: {
     dateRangeText () {
       this.dateSort()
+      this.$emit('update_dates', this.dates)
       return this.dates.join(' ~ ')
     },
   },
@@ -146,6 +145,10 @@ export default {
         }
       }
     },
+    confirmRoom() {
+      this.dialog = false
+      this.$emit('confirm_room')
+    }
   },
 }
 </script>
