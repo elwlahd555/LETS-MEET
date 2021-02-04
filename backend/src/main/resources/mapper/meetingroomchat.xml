@@ -2,20 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.anjanda.letsmeet.repository.mapper.MeetingRoomChatMapper">
+<mapper
+	namespace="com.anjanda.letsmeet.repository.mapper.MeetingRoomChatMapper">
+	
+	<select id="selectChatByRno" resultType="MeetingRoomChat" parameterType="meetingRoomChat">
+	
+	select *
+	from meetingroomchat
+	where mrc_mr_no=#{mrcMrNo};
+	
+	</select>
 
-<select id="selectChatByRno" resultType="meetingRoomChat">
 
-SELECT mrc_no, mrc_mr_no, mrc_u_no, mrc_content, mrc_date
-FROM letsmeet.meetingroomchat
-where mrc_mr_no=#{mrcMrNo};
-
-</select>
-<insert id="insertChat">
-INSERT INTO letsmeet.meetingroomchat
-(mrc_mr_no, mrc_u_no, mrc_content, mrc_date)
-VALUES(#{mrcMrNo}, #{mrcUNo}, #{mrcContent}, now());
-
-</insert>
+	<insert id="createMeetingRoomChat" parameterType="meetingRoomChat">
+	INSERT INTO letsmeet.meetingroomchat
+	(mrc_mr_no, mrc_u_no, mrc_content, mrc_date)
+	VALUES(#{mrcMrNo}, #{mrcUNo}, #{mrcContent}, now());
+	
+	</insert>
 
 </mapper>
