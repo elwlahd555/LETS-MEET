@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.anjanda.letsmeet.repository.mapper.FriendMapper">
+
+	<!-- C :: 친구 추가 -->
+	<insert id="insertFriend" parameterType="friend">
+		insert into friend
+			(`f_no`, `f_recv_u_no`, `f_send_u_no`)
+		values
+			(#{fNo}, #{uNoMyself}, #{uNoFriend})
+	</insert>
+	<!-- R :: 친구 조회 -->
+	<select id="selectFriend" parameterType="friend" resultType="friend">
+		select u_email 'uEmail'
+		  from user inner join friend
+		    on user.u_no = friend.f_recv_u_no
+		 where friend.f_send_u_no = #{uNoMyself}
+	</select>
+	
+	<!-- D :: 친구 삭제 -->
+	<delete id="deleteFriend" parameterType="friend">
+		delete
+		  from friend
+		 where f_send_u_no = #{uNoMyself} and f_recv_u_no = #{uNoFriend}
+	</delete>
+</mapper>
