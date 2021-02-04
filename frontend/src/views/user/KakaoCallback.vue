@@ -47,10 +47,10 @@ export default {
         async setUserInfo () {
             getKakaoUserInfo();
             // 여기에 백으로 계정 정보 넘겨주면 된다.
-            let data = getKakaoUserInfo();
-            user.uEmail = data.kakao_account.email;
-            user.uPassword = 'kakaoPassword';
-            user.uName = data.properties.nickname;
+            // let data = getKakaoUserInfo();
+            // user.uEmail = data.kakao_account.email;
+            // user.uPassword = 'kakaoPassword';
+            // user.uName = data.properties.nickname;
         },
         submit () {
             if (this.$refs.form.validate()) {
