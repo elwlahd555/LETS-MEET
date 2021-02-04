@@ -39,9 +39,8 @@ export default {
   data: () => ({
     arrayEvents: null,
     // date2: new Date().toISOString().substr(0, 10),
-    date2: ['2021-02-01', '2021-02-02', '2021-02-03', '2021-02-04', '2021-02-05']
+    date2: []
   }),
-
   mounted () {
     this.arrayEvents = [...Array(6)].map(() => {
       const day = Math.floor(Math.random() * 30)

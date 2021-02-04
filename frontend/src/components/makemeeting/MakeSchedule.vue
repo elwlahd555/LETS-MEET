@@ -9,37 +9,6 @@
           cols="12"
           class="d-flex justify-start"
         >
-          <span>출발 장소</span>
-        </v-col>
-        <v-col
-          cols="6"
-          class="d-flex justify-start flex-column"
-        >
-          <v-btn block @click="geofind">
-            현재 위치
-          </v-btn>
-        </v-col>
-        <v-col
-          cols="6"
-          class="d-flex justify-start flex-column"
-        >
-          <v-btn block @click="directSelect">
-            직접 위치 선정
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-container>
-
-    <v-container v-show="direct">
-      <div id="map"></div>
-    </v-container>
-
-    <v-container>
-      <v-row class="d-flex align-center mx-0">
-        <v-col
-          cols="12"
-          class="d-flex justify-start"
-        >
           <span>약속 가능한 날짜</span>
         </v-col>
       </v-row>
@@ -131,15 +100,10 @@
 </template>
 
 <script>
-const KAKAO_API_KEY = process.env.VUE_APP_KAKAO_API_KEY
-
-var map = ''
 export default {
   name: "MakeSchedule",
   data () {
     return {
-      latitude: 36.1299968,
-      longitude: 128.34242559999998,
       textContent: '',
       dates: [],
       today: new Date().toISOString().substr(0, 10),
@@ -160,8 +124,7 @@ export default {
     },
   },
   mounted() { 
-    // window.kakao && window.kakao.maps ? this.initMap() : this.addKakaoMapScript()
-    this.addKakaoMapScript()
+    
   },
   methods: {
     is_prev(){
@@ -181,77 +144,6 @@ export default {
           this.dates[0] = this.dates[1]
           this.dates[1] = tmp
         }
-      }
-    },
-    geofind() {
-      if(!("geolocation" in navigator)) {
-      this.textContent = 'Geolocation is not available.'
-      return;
-      }
-      this.textContent = 'Locating...'
-      
-      navigator.geolocation.getCurrentPosition(pos => {
-        this.latitude = pos.coords.latitude
-        this.longitude = pos.coords.longitude
-        this.textContent = this.latitude + ', ' + this.longitude
-        console.log(this.textContent)
-      }, err => {
-        this.textContent = err.message
-      })
-      // this.initMap()
-    },
-    addKakaoMapScript() {
-      const script = document.createElement("script")
-      script.onload = () => kakao.maps.load()
-      script.src =
-        `http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${KAKAO_API_KEY}`
-      document.head.appendChild(script)
-    },
-    initMap() {
-      var container = document.getElementById("map");
-      container.style.width = '100%'
-      container.style.height = '300px'
-      var options = {
-        center: new kakao.maps.LatLng(this.latitude, this.longitude),
-        level: 4
-      }
-      map = new kakao.maps.Map(container, options)
-      var mapTypeControl = new kakao.maps.MapTypeControl()
-      map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT)
-      var zoomControl = new kakao.maps.ZoomControl()
-      map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT)
-      var markers = []
-      setTimeout(function() {
-        map.relayout()
-      }, 100)
-      addMarker(options['center'])
-      map.setCenter(options['center'])
-      setTimeout(function() {
-        map.relayout()
-      }, 100)
-
-      kakao.maps.event.addListener(map, 'click', function(mouseEvent) {  
-        map.relayout()
-        hideMarkers()
-        var latlng = mouseEvent.latLng
-        this.latitude = latlng.getLat()
-        this.longitude = latlng.getLng()
-        addMarker(latlng)
-      })
-      function setMarkers(map) {
-        for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(map)
-        }            
-      }
-      function hideMarkers() {
-        setMarkers(null)
-      }
-      function addMarker(position) {
-        var marker = new kakao.maps.Marker({
-            position: position
-        })
-        marker.setMap(map)
-        markers.push(marker)
       }
     },
   },
