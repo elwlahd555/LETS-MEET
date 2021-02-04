@@ -1,0 +1,81 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.2",
+    "axios": "^0.21.1",
+    "basic-vue-chat": "^0.3.5",
+    "bootstrap": "^4.6.0",
+    "bootstrap-vue": "^2.21.2",
+    "core-js": "^3.8.3",
+    "email-validator": "^2.0.4",
+    "install": "^0.13.0",
+    "jwt-decode": "^3.1.2",
+    "mdb-vue-ui-kit": "^1.0.0-alpha2",
+    "mdbvue": "^6.7.2",
+    "nodemailer": "^6.4.17",
+    "npm": "^6.14.11",
+    "password-validator": "^5.1.1",
+    "sockjs": "^0.3.21",
+    "vee-validate": "^4.1.11",
+    "vue": "^2.6.12",
+    "vue-backtotop": "^1.6.1",
+    "vue-cookie": "^1.1.4",
+    "vue-cookies": "^1.7.4",
+    "vue-delay": "^0.1.0",
+    "vue-geolocation-api": "^0.1.21",
+    "vue-infinite-loading": "^2.4.5",
+    "vue-router": "^3.4.9",
+    "vue-select-image": "^1.9.0",
+    "vuelidate": "^0.7.6",
+    "vuetify": "^2.4.3",
+    "vuex": "^3.6.0",
+    "vuex-persistedstate": "^4.0.0-beta.3",
+    "webstomp-client": "^1.2.6"
+  },
+  "devDependencies": {
+    "@nuxtjs/vuetify": "^1.11.3",
+    "@vue/cli-plugin-babel": "~4.5.11",
+    "@vue/cli-plugin-eslint": "~4.5.11",
+    "@vue/cli-plugin-router": "~4.5.11",
+    "@vue/cli-service": "~4.5.11",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.18.0",
+    "eslint-plugin-vue": "^7.5.0",
+    "material-design-icons-iconfont": "^6.1.0",
+    "sass": "^1.32.5",
+    "sass-loader": "^10.1.1",
+    "vue-cli-plugin-mdb5": "^1.0.0",
+    "vue-cli-plugin-vuetify": "~2.0.9",
+    "vue-template-compiler": "^2.6.12",
+    "vuetify-loader": "^1.6.0"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {},
+    "globals": {
+      "kakao": false
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
