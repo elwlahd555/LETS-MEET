@@ -6,7 +6,12 @@
 	namespace="com.anjanda.letsmeet.repository.mapper.StoreMapper">
 	
 	
-	<select id="reviewStoreByDong" parameterType="com.anjanda.letsmeet.repository.dto.Store" resultType="Store">
+	<select id="reviewStoreByDong" resultType="Store">
+		select *
+		  from store
+		 where s_dong = #{sDong}
+	</select>
+	<select id="selectStoreByDong" resultType="Store">
 		select *
 		  from store
 		 where s_dong = #{sDong}

@@ -42,7 +42,7 @@ export default {
             this.$cookies.set('access-token', data.access_token, '1d');
             this.$cookies.set('refresh-token', data.refresh_token, '1d');
             await this.setUserInfo();
-            this.$router.replace('/');
+
         },
         async setUserInfo () {
             let user_data = await getKakaoUserInfo();
@@ -51,7 +51,10 @@ export default {
             this.user.uPassword = 'kakaoPassword';
             this.user.uName = user_data.properties.nickname;
             axios.post(`http://localhost:8000/letsmeet/auth/kakao/callback`, this.user)
-            .then(()=> {
+            .then((res)=> {
+              console.log(res.data)
+              this.$store.commit('SET_USER_AUTH_DATA', res.data)
+
               this.$router.push({ name: 'Main'});
             })
             .catch((err) => {

@@ -28,7 +28,7 @@ import LoginForm from "../../components/user/LoginForm";
 import LoginKakao from '../../components/user/snsLogin/LoginKakao.vue';
 
 export default {
-  name: "Login",
+  name: "Login",  
   components: {
     LoginForm,
     LoginKakao,
