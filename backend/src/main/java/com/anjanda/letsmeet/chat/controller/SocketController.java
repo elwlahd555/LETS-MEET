@@ -39,7 +39,6 @@ public class SocketController {
         result.setMrcContent(content);
         result.setMrcUNo(userNo);
         result.setMrcMrNo(mrNo);
-//      result.setMrcUNo(uNo);
         
         chatservice.createMeetingRoomChat(result);
         // 반환
