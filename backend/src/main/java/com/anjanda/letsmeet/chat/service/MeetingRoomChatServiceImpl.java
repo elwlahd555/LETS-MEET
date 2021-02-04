@@ -9,22 +9,20 @@ import com.anjanda.letsmeet.repository.dto.MeetingRoomChat;
 import com.anjanda.letsmeet.repository.mapper.MeetingRoomChatMapper;
 
 @Service
-public class ChatServiceImpl implements ChatService {
+public class MeetingRoomChatServiceImpl implements MeetingRoomChatService {
 
 	@Autowired
-	private static MeetingRoomChatMapper mapper;
+	private MeetingRoomChatMapper mapper;
 	
 	
 	@Override
-	public List<MeetingRoomChat> selectChatByRno(int mrcMrNo) {
-		// TODO Auto-generated method stub
+	public List<MeetingRoomChat> selectChatByRno(int mrcMrNo) throws Exception {
 		return mapper.selectChatByRno(mrcMrNo);
 	}
 
 
 	@Override
-	public int createMeetingRoomChat(MeetingRoomChat meetingRoomChat) {
-		// TODO Auto-generated method stub
+	public int createMeetingRoomChat(MeetingRoomChat meetingRoomChat) throws Exception {
 		return mapper.createMeetingRoomChat(meetingRoomChat);
 	}
 

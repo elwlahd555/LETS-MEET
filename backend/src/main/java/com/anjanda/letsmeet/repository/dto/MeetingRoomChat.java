@@ -17,14 +17,6 @@ public class MeetingRoomChat {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public MeetingRoomChat(int mrcNo, int mrcMrNo, int mrcUNo, String mrcContent, String mrcDate) {
-		super();
-		this.mrcNo = mrcNo;
-		this.mrcMrNo = mrcMrNo;
-		this.mrcUNo = mrcUNo;
-		this.mrcContent = mrcContent;
-		this.mrcDate = mrcDate;
-	}
 	public int getMrcNo() {
 		return mrcNo;
 	}
