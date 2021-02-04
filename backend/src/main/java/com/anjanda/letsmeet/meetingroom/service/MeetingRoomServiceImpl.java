@@ -37,8 +37,8 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 	
 	/* R :: 약속방 전체 조회 */
 	@Override
-	public List<MeetingRoom> reviewMyMeetingRoom() {
-		return meetingRoomMapper.selectMeetingRoom();
+	public List<MeetingRoom> reviewMyMeetingRoom(int uNo) {
+		return meetingRoomMapper.selectMeetingRoom(uNo);
 	}
 	
 	/* R :: 약속방 상세 조회 */

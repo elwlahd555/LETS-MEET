@@ -10,7 +10,7 @@ public interface MeetingRoomService {
 	public int createMeetingRoom(MeetingRoom meetingRoom) throws Exception;
 
 	/* R :: 약속방 전체 조회 */
-	public List<MeetingRoom> reviewMyMeetingRoom();
+	public List<MeetingRoom> reviewMyMeetingRoom(int uNo);
 
 	/* R :: 약속방 상세 조회 */
 	public MeetingRoom reviewDetailMeetingRoom(int mrNo);
