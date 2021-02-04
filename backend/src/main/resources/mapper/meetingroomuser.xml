@@ -3,6 +3,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.anjanda.letsmeet.repository.mapper.MeetingRoomUserMapper">
+
 	<!-- C :: 약속방 내 멤버 추가 (일단 모두가 가능하도록..) 수정 무조건 필요함.. 방장이나 타인이 초대한다했을 때, 초대받은 사람이 직접 위치이런거 잡아야해서..-->
 	<insert id="insertMeetingRoomUser">
 	insert into meetingroomuser

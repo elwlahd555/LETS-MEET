@@ -7,6 +7,18 @@ import org.apache.ibatis.annotations.Mapper;
 import com.anjanda.letsmeet.repository.dto.MeetingRoomUser;
 import com.anjanda.letsmeet.repository.dto.User;
 
+/**
+ * 
+ * @Date : 2021. 2. 4.
+ * @Team : AnJanDa
+ * @author : 김지현
+ * @deploy : 김동빈
+ * @Project : 레쓰밋 :: backend
+ * @Function : MeetingRoomUser 관련 매퍼 인터페이스 클래스
+ * @Description : MeetingRoomUserService 및 meetingroomusermapper.xml 참고
+ * 
+ */
+
 @Mapper
 public interface MeetingRoomUserMapper {
 	/* C :: 약속방 내 멤버 추가 (일단 모두가 가능하도록..) */

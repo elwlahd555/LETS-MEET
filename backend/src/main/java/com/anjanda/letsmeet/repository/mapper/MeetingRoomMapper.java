@@ -8,14 +8,16 @@ import com.anjanda.letsmeet.repository.dto.MeetingRoom;
 
 /**
  * 
- * @Date : 2021. 2. 1.
+ * @Date : 2021. 2. 4.
  * @Team : AnJanDa
- * @author : 개발자명
+ * @author : 김지현
+ * @deploy : 김동빈
  * @Project : 레쓰밋 :: backend
- * @Function : 약속방 매퍼 인터페이스 클래스
- * @Description
- *	
+ * @Function : MeetingRoom 관련 매퍼 인터페이스 클래스
+ * @Description : MeetingRoomService 및 meetingroommapper.xml 참고
+ * 
  */
+
 @Mapper
 public interface MeetingRoomMapper {
 

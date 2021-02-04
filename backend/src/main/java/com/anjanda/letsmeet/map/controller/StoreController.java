@@ -16,9 +16,10 @@ import io.swagger.annotations.ApiOperation;
  * 
  * @Date 2021. 2. 1.
  * @Team AnJanDa
- * @author 개발자명
+ * @author 임호빈
+ * @deploy : 김동빈
  * @Project : backend
- * @Function :
+ * @Function : 가게 관련 컨트롤러 클래스
  * @Description : 
  *
  */
@@ -31,7 +32,7 @@ public class StoreController {
 	@Autowired
 	private StoreService storeService;
 	
-	/* '동 이름'으로 가게 조회하기 */
+	/* R :: '동 이름'으로 가게 조회 */
 	@ApiOperation(value="전체 동 조회", notes="동을 이용해서 조회")
 	@GetMapping("/dong")
 	public List<Store> reviewStoreByDong(String dong) throws Exception {
@@ -44,7 +45,7 @@ public class StoreController {
 		
 	}
 	
-	/* '좌표 값'으로 가게 조회하기 */
+	/* R :: '좌표 값'으로 가게 조회 */
 	@ApiOperation(value="좌표로 조회", notes="좌표를 이용해서 조회")
 	@GetMapping("/point")
 	public Store reviewStoreByPoint(String lat, String lng) throws Exception{
@@ -56,7 +57,7 @@ public class StoreController {
 
 	}
 
-	/* '중간 좌표 값' 으로 반경 내 가게 조회하기 */ // 나중에 알고리즘 이부분 추가해서 강,바다 걸러준다거나 일정 알고리즘 적용하면 될듯??
+	/* R :: '중간 좌표 값' 으로 반경 내 가게 조회 */
 	@ApiOperation(value="중간 좌표로 조회", notes="중간 좌표를 이용해서 조회")
 	@GetMapping("/midpoint")
 	public List<Store> reviewStoreByMidPoint(String lat, String lng) throws Exception{

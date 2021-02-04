@@ -18,6 +18,17 @@ import com.anjanda.letsmeet.repository.dto.MeetingRoomUser;
 import com.anjanda.letsmeet.repository.dto.User;
 import com.anjanda.letsmeet.user.service.UserService;
 
+/**
+ * 
+ * @Date : 2021. 2. 4.
+ * @Team : AnJanDa
+ * @author : 김지현
+ * @deploy : 김동빈
+ * @Project : 레쓰밋 :: backend
+ * @Function : 약속방에 구성된 멤버 관련 컨트롤러 클래스
+ * @Description
+ *	- 추가 수정 필요함
+ */
 @RestController
 @RequestMapping("/{uEmail}/{mrNo}")
 public class MeetingRoomUserController {

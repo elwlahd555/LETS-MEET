@@ -4,6 +4,18 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.anjanda.letsmeet.repository.dto.User;
 
+/**
+ * 
+ * @Date : 2021. 2. 4.
+ * @Team : AnJanDa
+ * @author : 김지현
+ * @deploy : 김동빈
+ * @Project : 레쓰밋 :: backend
+ * @Function : User 관련 매퍼 인터페이스 클래스
+ * @Description : UserService 및 usermapper.xml 참고
+ * 
+ */
+
 @Mapper
 public interface UserMapper {
 	/* C :: 회원 가입 메소드 */

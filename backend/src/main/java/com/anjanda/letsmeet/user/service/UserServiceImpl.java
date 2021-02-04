@@ -8,15 +8,14 @@ import com.anjanda.letsmeet.repository.mapper.UserMapper;
 
 /**
  * 
- * @Date : 2021. 2. 1.
+ * @Date : 2021. 2. 5.
  * @Team : AnJanDa
- * @author : 개발자명
+ * @author : 김동빈, 김지현, 임호빈
+ * @deploy : 김동빈
  * @Project : 레쓰밋 :: backend
  * @Function : 유저 서비스 클래스
  * @Description
- *	- 로그인
- *	- CRUD
- *	- 기타 작업 메소드
+ *
  */
 
 @Service

@@ -10,9 +10,10 @@ import com.anjanda.letsmeet.repository.mapper.MeetingRoomMapper;
 
 /**
  * 
- * @Date : 2021. 2. 1.
+ * @Date : 2021. 2. 4.
  * @Team : AnJanDa
- * @author : 개발자명
+ * @author : 김지현
+ * @deploy : 김동빈
  * @Project : 레쓰밋 :: backend
  * @Function : 약속방 서비스 클래스
  * @Description

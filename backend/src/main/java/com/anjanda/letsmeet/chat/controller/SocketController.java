@@ -8,19 +8,30 @@ import org.springframework.stereotype.Controller;
 import com.anjanda.letsmeet.chat.service.MeetingRoomChatService;
 import com.anjanda.letsmeet.repository.dto.MeetingRoomChat;
 
+/**
+ * 
+ * @Date : 2021. 2. 5.
+ * @Team : AnJanDa
+ * @author : 임호빈
+ * @deploy : 김동빈
+ * @Project : 레쓰밋 :: backend
+ * @Function : 채팅 기능 관련 소켓 클래스
+ * @Description
+ *	- 채팅을 위해선, 소켓 클래스 필요
+ */
+
 @Controller
 public class SocketController {
 	@Autowired
 	private MeetingRoomChatService chatservice;
 
-    // /receive를 메시지를 받을 endpoint로 설정합니다.
+    /* '/receive'를 메시지를 받을 endpoint로 설정 */
     @MessageMapping("/receive")
 
-    // /send로 메시지를 반환합니다.
+    /* '/send'로 메시지를 반환 */
     @SendTo("/send")
     
-
-    // SocketHandler는 1) /receive에서 메시지를 받고, /send로 메시지를 보내줍니다.
+    //SocketHandler는 1) /receive에서 메시지를 받고, /send로 메시지를 보내줍니다.
     // 정의한 SocketVO를 1) 인자값, 2) 반환값으로 사용합니다.
     public MeetingRoomChat SocketHandler(MeetingRoomChat meetingRoomChat) throws Exception {
         // vo에서 getter로 userName을 가져옵니다.

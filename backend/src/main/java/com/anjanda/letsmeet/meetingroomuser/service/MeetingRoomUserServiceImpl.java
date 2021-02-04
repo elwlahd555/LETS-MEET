@@ -9,6 +9,18 @@ import com.anjanda.letsmeet.repository.dto.MeetingRoomUser;
 import com.anjanda.letsmeet.repository.dto.User;
 import com.anjanda.letsmeet.repository.mapper.MeetingRoomUserMapper;
 
+/**
+ * 
+ * @Date : 2021. 2. 4.
+ * @Team : AnJanDa
+ * @author : 김지현
+ * @deploy : 김동빈
+ * @Project : 레쓰밋 :: backend
+ * @Function : 약속방 구성 멤버 서비스 클래스
+ * @Description
+ *
+ */
+
 @Service
 public class MeetingRoomUserServiceImpl implements MeetingRoomUserService {
 

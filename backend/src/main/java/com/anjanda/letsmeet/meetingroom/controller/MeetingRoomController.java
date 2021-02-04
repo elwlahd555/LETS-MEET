@@ -17,6 +17,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.anjanda.letsmeet.meetingroom.service.MeetingRoomService;
 import com.anjanda.letsmeet.repository.dto.MeetingRoom;
 
+/**
+ * 
+ * @Date : 2021. 2. 4.
+ * @Team : AnJanDa
+ * @author : 김지현
+ * @deploy : 김동빈
+ * @Project : 레쓰밋 :: backend
+ * @Function : 약속방 관련 클래스
+ * @Description
+ *	- 약속방 추가(C)/조회(R)/수정(U)/삭제(D)
+ *	- 캘린더에 보여야할 일정확정된 약속 조회
+ *	
+ */
+
 @RestController
 @RequestMapping("")
 public class MeetingRoomController {
