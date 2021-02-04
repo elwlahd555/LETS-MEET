@@ -178,15 +178,15 @@ public class LoginController {
 ////		kakaoUser.setuBirth(kakaoProfile.getKakao_account().getBirthday());
 		
 		// 가입자 혹은 비가입자 체크해서 처리
-		try {
-			User originUser = service.selectUser(kakaoUser);
-			if(originUser == null) {
-				System.out.println("카카오 아이디로 회원가입 성공");
-				service.createKakaoUser(kakaoUser);
-			}
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
+//		try {
+//			User originUser = service.selectUser(kakaoUser);
+//			if(originUser == null) {
+//				System.out.println("카카오 아이디로 회원가입 성공");
+//				service.createKakaoUser(kakaoUser);
+//			}
+//		} catch (Exception e1) {
+//			e1.printStackTrace();
+//		}
 		
 		// 로그인 처리 넣어줘야한다.
 		System.out.println("로그인 성공");
