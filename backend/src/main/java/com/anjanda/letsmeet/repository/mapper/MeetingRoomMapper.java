@@ -33,4 +33,6 @@ public interface MeetingRoomMapper {
 	
 	/* D :: 약속방 탈퇴 메소드 */
 	public int deleteMeetingRoom(int mrNo);
+
+	public int createMeetingRoomUser(int uNo);
 }

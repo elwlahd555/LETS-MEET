@@ -30,7 +30,8 @@ public class MeetingRoomController {
 	public ResponseEntity<String> createMeetingRoom(@RequestBody MeetingRoom meetingRoom) throws Exception{
 		System.out.println(meetingRoom.getMrName()+"이 생성되었습니다");
 		System.out.println(meetingRoom.getMrCategory() + meetingRoom.getMrName());
-		if(meetingRoomService.createMeetingRoom(meetingRoom) > 0) {	
+		if(meetingRoomService.createMeetingRoom(meetingRoom) > 0) {
+			meetingRoomService.createMeetingRoomUser(meetingRoom.getMrSuperUNo());
 			return new ResponseEntity<String>("약속방 생성 성공", HttpStatus.OK);
 		}
 			return new ResponseEntity<String>("약속방 생성 실패", HttpStatus.NO_CONTENT);
