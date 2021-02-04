@@ -114,7 +114,8 @@
 </template>
 
 <script>
-const KAKAO_API_KEY = process.env.VUE_APP_KAKAO_API_KEY
+// const KAKAO_API_KEY = process.env.VUE_APP_KAKAO_API_KEY
+const KAKAO_API_KEY = '71f77d07e68b0f6c0464d85d3df14e6c'
 
 var map = ''
 
