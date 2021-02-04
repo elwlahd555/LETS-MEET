@@ -8,11 +8,11 @@
 
 
 <!-- C :: 약속방 생성하기 -->
-	<insert id="insertMeetingRoom" parameterType="meetingRoom">
+	<insert id="insertMeetingRoom" parameterType="com.anjanda.letsmeet.repository.mapper.MeetingRoomMapper">
 	insert into meetingroom
-		('mr_no', 'mr_super_u_no', 'mr_name', 'mr_category', 'mr_date_start', 'mr_date_end')
+		(mr_super_u_no, mr_name, mr_category, mr_date_start, mr_date_end)
 	values
-		(#{mrNo}, #{uNo}, #{mrName}, #{mrCategory}, #{mrDateStart}, #{mrDateEnd})
+		(#{mrSuperUNo}, #{mrName}, #{mrCategory}, #{mrDateStart}, #{mrDateEnd})
 	</insert>
 
 <!-- R :: 사용자의 약속방 전체 조회 -->

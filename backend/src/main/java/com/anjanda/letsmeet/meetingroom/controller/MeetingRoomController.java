@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,20 +16,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.anjanda.letsmeet.meetingroom.service.MeetingRoomService;
 import com.anjanda.letsmeet.repository.dto.MeetingRoom;
-import com.anjanda.letsmeet.repository.dto.User;
 
 @RestController
-@RequestMapping("/{uEmail}")
+@RequestMapping("")
 public class MeetingRoomController {
 	
 	/* 약속방서비스 객체 불러오기 */
 	@Autowired
-	private static MeetingRoomService meetingRoomService;
+	private MeetingRoomService meetingRoomService;
 	
 	/* C :: 미팅룽 추가 */
 	@PostMapping("/meetingRoom/create")
 	public ResponseEntity<String> createMeetingRoom(@RequestBody MeetingRoom meetingRoom) throws Exception {
 		System.out.println(meetingRoom.getMrName()+"이 생성되었습니다");
+		System.out.println(meetingRoom.getMrCategory() + meetingRoom.getMrName());
 		if(meetingRoomService.createMeetingRoom(meetingRoom) > 0) {	
 			return new ResponseEntity<String>("약속방 생성 성공", HttpStatus.OK);
 		}
