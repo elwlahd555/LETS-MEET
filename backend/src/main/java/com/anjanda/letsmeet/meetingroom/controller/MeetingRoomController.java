@@ -49,7 +49,7 @@ public class MeetingRoomController {
 	
 	/* R :: 약속방 상세조회 */
 	@GetMapping("/meetingRoom/detail")
-	public ResponseEntity<MeetingRoom> reviewDetailMeetingRoom(@PathVariable int mrNo) throws Exception {
+	public ResponseEntity<MeetingRoom> reviewDetailMeetingRoom(int mrNo) throws Exception {
 		return new ResponseEntity<MeetingRoom>(meetingRoomService.reviewDetailMeetingRoom(mrNo), HttpStatus.OK);
 	}
 	

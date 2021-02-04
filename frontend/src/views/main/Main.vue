@@ -14,6 +14,7 @@
           class="mx-auto mt-3"
           v-for="(value, idx) in doing_temp"
           :key="idx"
+          @click="goDetail(value.mrNo)"
         >
           <v-img 
           height="200px"
@@ -39,6 +40,7 @@
           class="mx-auto mt-3"
           v-for="(value, idx) in done_temp"
           :key="idx"
+          @click="goDetail(value.mrNo)"
         >
           <v-img 
           height="200px"
@@ -80,10 +82,8 @@ export default {
   name: "Main",
   data() {
     return {
-      list: [],
       doing_list: [],
       done_list: [],
-      temp: [],
       doing_temp: [],
       done_temp: [],
       type: {
@@ -102,6 +102,7 @@ export default {
   },
   mounted() {
     this.getRoomList()
+    console.log(this.list)
   },
   methods: {
     doingInfiniteHandler($state) {
@@ -129,7 +130,6 @@ export default {
       }, 1000);
     },
     getRoomList() {
-      console.log("AA")
       axios.get(`http://localhost:8000/letsmeet/main?uNo=${this.$store.state.uNo}`)
       .then((res)=> {
         const data = res.data
@@ -139,7 +139,6 @@ export default {
           } else {
             this.doing_list.push(val)
           }
-          this.list.push(val)
         }
         for (var i=0 ; i<3 ; i++) {
           this.done_temp.push(this.done_list.shift());
@@ -149,6 +148,9 @@ export default {
       .catch((err) => {
         console.log(err)
       })
+    },
+    goDetail(mrNo) {
+      this.$router.push({name:"MeetingRoom", params:{"id":mrNo}})
     }
   },
 }

@@ -22,8 +22,6 @@ const onlyAuthUser = function usercheck (to, from, next){
     }
 }
 
-
-
 const routes = [
     {
         path : '/login',
@@ -68,6 +66,7 @@ const routes = [
     { 
         path: '/meetingroom/:id', 
         name: 'MeetingRoom',
+        beforeEnter: onlyAuthUser,
         component: MeetingRoom,
         props: true
     }
