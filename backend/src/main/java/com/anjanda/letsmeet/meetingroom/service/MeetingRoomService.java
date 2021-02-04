@@ -22,6 +22,9 @@ public interface MeetingRoomService {
 	public boolean deleteMeetingRoom(int mrNo);
 	
 	//미팅방유저추가
-	public int createMeetingRoomUser(int uNo);
+	public int createMeetingRoomUser(int mrNo,int uNo);
+
+	//미팅룸 방장이 만든방 찾기
+	public int selectMeetingRoomBySuper(MeetingRoom meetingRoom);
 
 }
