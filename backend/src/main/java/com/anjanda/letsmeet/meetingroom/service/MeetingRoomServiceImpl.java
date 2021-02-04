@@ -61,9 +61,15 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 
 	//미팅룸에 사람 추가 하기
 	@Override
-	public int createMeetingRoomUser(int uNo) {
+	public int createMeetingRoomUser(int mrNo, int uNo) {
 		// TODO Auto-generated method stub
-		return meetingRoomMapper.createMeetingRoomUser(uNo);
+		return meetingRoomMapper.createMeetingRoomUser(mrNo,uNo);
+	}
+
+	@Override
+	public int selectMeetingRoomBySuper(MeetingRoom meetingRoom) {
+		// TODO Auto-generated method stub
+		return meetingRoomMapper.selectMeetingRoomBySuper(meetingRoom);
 	}
 
 }

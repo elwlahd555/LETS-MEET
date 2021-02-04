@@ -45,8 +45,19 @@
 	</delete>
 
 <!-- CRUD 외 추가 기능 -->
+	<insert id="createMeetingRoomUser">
+	INSERT INTO `letsmeet`.`meetingroomuser`
+(`mru_mr_no`,`mru_u_no`)
+VALUES
+(#{mrNo},#{uNo});
+	</insert>
+
+<select id="selectMeetingRoomBySuper">
+select `mr_no`
+from meetingroom
+where `mr_super_u_no`=#{mrSuperUNo} and `mr_name`=#{mrName} and `mr_category`=#{mrCategory};
 
 
-
+</select>
 </mapper>
 	
