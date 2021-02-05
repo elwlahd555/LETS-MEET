@@ -100,9 +100,8 @@ export default {
     InfiniteLoading,
     BackToTop,
   },
-  mounted() {
+  created() {
     this.getRoomList()
-    console.log(this.list)
   },
   methods: {
     doingInfiniteHandler($state) {
@@ -133,6 +132,7 @@ export default {
       axios.get(`http://localhost:8000/letsmeet/main?uNo=${this.$store.state.uNo}`)
       .then((res)=> {
         const data = res.data
+        console.log(data)
         for (var val of data) {
           if (val.mrDateEnd < moment().format('YYYY-MM-DD')){
             this.done_list.push(val)
@@ -141,8 +141,12 @@ export default {
           }
         }
         for (var i=0 ; i<3 ; i++) {
-          this.done_temp.push(this.done_list.shift());
+          if (this.done_list.length > 0){
+            this.done_temp.push(this.done_list.shift());
+          }
+          if (this.doing_list.length > 0){
           this.doing_temp.push(this.doing_list.shift());
+          }
         }
       })
       .catch((err) => {

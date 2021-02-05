@@ -2,6 +2,7 @@
   <v-app>
     <div>
       <v-app-bar
+        v-if='isLogin'
         color="white"
         dense
         dark
