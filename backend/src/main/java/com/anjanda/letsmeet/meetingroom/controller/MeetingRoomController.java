@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.anjanda.letsmeet.meetingroom.service.MeetingRoomService;
+import com.anjanda.letsmeet.meetingroomuser.service.MeetingRoomUserService;
 import com.anjanda.letsmeet.repository.dto.MeetingRoom;
+import com.anjanda.letsmeet.repository.dto.MeetingRoomUser;
 
 /**
  * 
@@ -39,6 +41,9 @@ public class MeetingRoomController {
 	@Autowired
 	private MeetingRoomService meetingRoomService;
 	
+	@Autowired
+	private MeetingRoomUserService meetingRoomUserService;
+	
 	/* C :: 미팅룽 추가 */
 	@PostMapping("/meetingRoom/create")
 	public ResponseEntity<String> createMeetingRoom(@RequestBody MeetingRoom meetingRoom) throws Exception{
@@ -48,7 +53,10 @@ public class MeetingRoomController {
 			
 			int mrNo=meetingRoomService.selectMeetingRoomBySuper(meetingRoom);
 			System.out.println(mrNo+"미팅룸넘버");
-			meetingRoomService.createMeetingRoomUser(mrNo,meetingRoom.getMrSuperUNo());
+			MeetingRoomUser meetingRoomUser=new MeetingRoomUser();
+			meetingRoomUser.setMruMrNo(mrNo);
+			meetingRoomUser.setMruUNo(meetingRoom.getMrSuperUNo());
+			meetingRoomUserService.createMeetingRoomUser(meetingRoomUser);
 			return new ResponseEntity<String>("약속방 생성 성공", HttpStatus.OK);
 		}
 			return new ResponseEntity<String>("약속방 생성 실패", HttpStatus.NO_CONTENT);

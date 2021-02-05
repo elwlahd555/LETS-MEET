@@ -88,6 +88,7 @@ CREATE TABLE `meetingroom` (
   `mr_center_lat` varchar(300) DEFAULT NULL COMMENT '약속방 중간값 위도',
   `mr_center_lng` varchar(300) DEFAULT NULL COMMENT '약속방 중간값 경도',
   `mr_date` date DEFAULT NULL COMMENT '약속방 최종 날짜',
+  `mr_u_cnt` int NOT NULL COMMENT '약속방 인원',
   `mr_place` int DEFAULT NULL COMMENT '약속방 최종 장소 (상가 고유 번호)',
   PRIMARY KEY (`mr_no`),
   KEY `FK_MeetingRoom_mr_image_id_Image_image_id` (`mr_image_id`),
@@ -101,7 +102,7 @@ alter table `meetingroom` auto_increment =1;
 
 LOCK TABLES `meetingroom` WRITE;
 /*!40000 ALTER TABLE `meetingroom` DISABLE KEYS */;
-INSERT INTO `meetingroom` VALUES (1,1,'임시방','밥',NULL,'2010-10-10','2010-10-10',NULL,NULL,'2010-10-10',NULL);
+INSERT INTO `meetingroom` VALUES (1,1,'임시방','밥',NULL,'2010-10-10','2010-10-10',NULL,NULL,'2010-10-10',5,NULL);
 /*!40000 ALTER TABLE `meetingroom` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -266,6 +267,28 @@ LOCK TABLES `user` WRITE;
 INSERT INTO `user` VALUES (1,'admin@naver.com','admin','admin',NULL,'2021-02-02 08:25:37',NULL),(2,'2@naver.com','2','홍길동',NULL,'2021-02-02 08:26:14',NULL),(3,'3@naver.com','3','이순신',NULL,'2021-02-02 08:26:16',NULL),(4,'4@naver.com','4','김민수',NULL,'2021-02-02 08:27:00',NULL),(5,'5@naver.com','5','김민지',NULL,'2021-02-02 08:27:07',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `likestore`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE LikeStore
+(
+    `ls_u_no`     INT              NOT NULL    COMMENT '유저 고유 번호', 
+    `ls_s_no`     INT              NOT NULL    COMMENT '상가 고유 번호', 
+    `ls_comment`  VARCHAR(3000)    NULL        COMMENT '해당 상가의 본인 부가 코멘트', 
+    PRIMARY KEY (ls_u_no, ls_s_no)
+);
+
+ALTER TABLE LikeStore COMMENT '찜 DB';
+
+ALTER TABLE LikeStore
+    ADD CONSTRAINT FK_LikeStore_ls_s_no_Store_s_no FOREIGN KEY (ls_s_no)
+        REFERENCES Store (s_no) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE LikeStore
+    ADD CONSTRAINT FK_LikeStore_ls_u_no_User_u_no FOREIGN KEY (ls_u_no)
+        REFERENCES User (u_no) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

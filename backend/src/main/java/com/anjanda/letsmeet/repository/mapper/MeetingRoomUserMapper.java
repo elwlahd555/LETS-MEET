@@ -22,7 +22,7 @@ import com.anjanda.letsmeet.repository.dto.MeetingRoomUserInfo;
 @Mapper
 public interface MeetingRoomUserMapper {
 	/* C :: 약속방 내 멤버 추가 (일단 모두가 가능하도록..) */
-	int insertMeetingRoomUser(MeetingRoomUserMapper meetingRoomUser) throws Exception;
+	int insertMeetingRoomUser(MeetingRoomUser meetingRoomUser) throws Exception;
 
 	/* R :: 약속방 내 멤버 조회 */
 	List<MeetingRoomUserInfo> selectMyMeetingRoomUser(int mrNo);

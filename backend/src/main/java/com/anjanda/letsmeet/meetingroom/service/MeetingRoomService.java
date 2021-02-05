@@ -41,4 +41,8 @@ public interface MeetingRoomService {
 
 	int selectMeetingRoomBySuper(MeetingRoom meetingRoom) throws Exception;
 
+	void updateMeetingRoomCntUp(int mruMrNo);
+	
+	void updateMeetingRoomCntDown(int mruMrNo);
+
 }

@@ -30,5 +30,6 @@ public class MeetingRoom {
 	private String mrCenterLat;
 	private String mrCenterLng;
 	private String mrDate;
+	private int mrUCnt;
 	private int mrPlace;
 }
