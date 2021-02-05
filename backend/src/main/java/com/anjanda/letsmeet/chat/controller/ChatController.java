@@ -33,7 +33,7 @@ public class ChatController {
 	/* 해당 약속방의 채팅 불러오기 */
 	@GetMapping("/open")
 	public List<MeetingRoomChat> selectChatByRno(int mrcMrNo) throws Exception{
-		System.out.println(mrcMrNo);
+		System.out.println("방에 입장"+mrcMrNo);
 		return chatservice.selectChatByRno(mrcMrNo);
 	}
 	

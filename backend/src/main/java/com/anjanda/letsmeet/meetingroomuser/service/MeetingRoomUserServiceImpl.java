@@ -36,8 +36,8 @@ public class MeetingRoomUserServiceImpl implements MeetingRoomUserService {
 	
 	/* R :: 약속방 내 멤버 조회 */
 	@Override
-	public List<User> reviewMyMeetingRoomUser() {
-		return meetingRoomUserMapper.selectMyMeetingRoomUser();
+	public List<User> reviewMyMeetingRoomUser(int mrNo) {
+		return meetingRoomUserMapper.selectMyMeetingRoomUser(mrNo);
 	}
 	
 	/* U :: 약속방에 속한 본인의 위치 설정 */

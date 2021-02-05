@@ -13,11 +13,11 @@
 	</insert>
 
 	<!-- R :: 약속방 내 멤버 조회 .. 일단은 약속방에 속한 사람들의 이름만...-->
-	<select id="selectMyMeetingRoomUser" parameterType="meetingRoomUser" resultType="user">
-	select u_name
+	<select id="selectMyMeetingRoomUser" resultType="user">
+	select u_no, u_email, u_name, u_image_id
 	  from user inner join meetingroomuser
 	    on user.u_no = meetingroomuser.mru_u_no
-	 where mru_mr_no = #{mrNo}
+	 where mru_mr_no = #{mrNo};
 	</select>
 
 	<!-- U :: 약속방에 속한 본인의 위치 설정 -->
