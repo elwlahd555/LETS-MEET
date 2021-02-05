@@ -74,7 +74,8 @@
               color="#536DFE"
               full-width
               no-title
-              :min="today"
+              :min="min"
+              :max="max"
             ></v-date-picker>
           </v-col>
           <v-col
@@ -94,7 +95,7 @@
             <v-btn
               color="blue darken-1"
               outlined
-              @click="dialog = false"
+              @click="confirmPormise"
               class="mx-2"
             >
               확인
@@ -117,21 +118,27 @@
 // const KAKAO_API_KEY = process.env.VUE_APP_KAKAO_API_KEY
 const KAKAO_API_KEY = '71f77d07e68b0f6c0464d85d3df14e6c'
 var map = ''
+const axios = require('axios');
 
 export default {
   name: "MyPromise",
   data () {
     return {
+      mrNo: '',
       dialogm1: '',
       dialog: false,
-      latitude: '',
-      longitude: '',
+      latitude: '36.103764999999996',
+      longitude: '128.4204923',
       textContent: '',
       dates: [],
-      today: new Date().toISOString().substr(0, 10),
+      min: this.roomInfo.mrDateStart,
+      max: this.roomInfo.mrDateEnd,
       direct: false,
       flag: true,
     }
+  },
+  props: {
+    roomInfo: Array
   },
   watch: {
     dates() {
@@ -140,6 +147,7 @@ export default {
   },
   mounted() {
     this.addKakaoMapScript()
+    this.mrNo = this.$route.params.id
   },
   methods: {
     directSelect(){
@@ -164,9 +172,7 @@ export default {
       }, err => {
         this.textContent = err.message
       })
-
-
-      alert("현재 위치로 출발 장소를 설정하였습니다.")
+      this.dialogm1 = true
     },
     addKakaoMapScript() {
       const script = document.createElement("script")
@@ -176,6 +182,7 @@ export default {
       document.head.appendChild(script)
     },
     initMap() {
+      this.dialogm1 = true
       var container = document.getElementById("map");
       container.style.width = '100%'
       container.style.height = '300px'
@@ -215,6 +222,31 @@ export default {
         })
         marker.setMap(map)
         markers.push(marker)
+      }
+    },
+    confirmPormise() {
+      if (this.dialogm1 && this.dates.length > 0){
+        this.dialog = false
+        this.dates.sort()
+        const data = {
+          mruMrNo: this.mrNo,
+          mruUNo: this.$store.state.uNo,
+          mruUserDates: this.dates.join('/'),
+          mruUserLat: this.latitude,
+          mruUserLng: this.longitude
+        }
+        console.log(data)
+        axios.put(`http://localhost:8000/letsmeet/meetingRoomUser/set`, data)
+          .then(()=> {
+            alert('일정 선택이 완료되었습니다.')
+            this.$router.push({ name: 'Main'});
+            this.$emit('refresh')
+          })
+          .catch(() => {
+            alert('일정 선택이 실패했습니다.')
+          })
+      }else {
+        alert("데이터를 모두 입력해주세요.")
       }
     },
   },
