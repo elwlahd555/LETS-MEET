@@ -77,7 +77,7 @@ public class UserController {
 	/* U :: 수정 */
 	@PutMapping("/mypage/{uEmail}")	// uid로 해야하려나.. uEmail 이거 중복될걱같은데,,,
 	public ResponseEntity<String> updateUser(@RequestBody User user) throws Exception {
-//		System.out.println(user+"유저정보"+user.getuPassword());
+		System.out.println(user+"유저정보"+user.getuPassword());
 		if(userService.updateUser(user) >= 0) {
 			return new ResponseEntity<String>("업데이트 성공", HttpStatus.OK);
 		}
@@ -86,7 +86,7 @@ public class UserController {
 	
 	/* D :: 삭제 */
 	@DeleteMapping("/delete/{uEmail}")	// uid로..? uEmail로???
-	public ResponseEntity<?> deleteUser(@PathVariable String email) {
+	public ResponseEntity<?> deleteUser(@PathVariable("uEmail") String email) {
 		HttpStatus status = null;
 		Map<String, Object> resultMap = new HashMap<>();
 		
