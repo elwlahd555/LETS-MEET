@@ -46,7 +46,7 @@ export default {
   },
   created() {
     this.connect()
-    this.authname = this.$store.state.name
+    this.authname = this.$store.state.uName
     console.log(this.$store.state)
     if (this.authname === '이성헌') {
       this.authorId = 1

@@ -21,7 +21,7 @@
             prepend-icon="mdi-lock"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             @click:append="showPassword = !showPassword"
-            @keyup="loginsubmit"
+            @keyup.enter="loginsubmit"
         />
  
     </v-card-text>
