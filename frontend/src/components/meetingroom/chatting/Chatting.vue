@@ -22,7 +22,7 @@ export default {
     Chat,
   },
   props: {
-    mrNo: Number,
+    mrNo: String,
   },
   data() {
     return {
