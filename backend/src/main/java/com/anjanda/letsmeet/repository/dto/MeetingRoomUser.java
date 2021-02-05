@@ -19,7 +19,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class MeetingRoomUser {
+public class MeetingRoomUser{
+	
 	private int mruMrNo;
 	private int mruUNo;
 	private String mruUserLat;
@@ -55,11 +56,8 @@ public class MeetingRoomUser {
 	public void setMruUserDates(String mruUserDates) {
 		this.mruUserDates = mruUserDates;
 	}
-	@Override
-	public String toString() {
-		return "MeetingRoomUser [mruMrNo=" + mruMrNo + ", mruUNo=" + mruUNo + ", mruUserLat=" + mruUserLat
-				+ ", mruUserLng=" + mruUserLng + ", mruUserDates=" + mruUserDates + "]";
-	}
-
+	
+	
+	
 	
 }

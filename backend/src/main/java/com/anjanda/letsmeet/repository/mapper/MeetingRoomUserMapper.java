@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.anjanda.letsmeet.repository.dto.MeetingRoomUser;
-import com.anjanda.letsmeet.repository.dto.User;
+import com.anjanda.letsmeet.repository.dto.MeetingRoomUserInfo;
 
 /**
  * 
@@ -25,12 +25,13 @@ public interface MeetingRoomUserMapper {
 	int insertMeetingRoomUser(MeetingRoomUserMapper meetingRoomUser) throws Exception;
 
 	/* R :: 약속방 내 멤버 조회 */
-	List<User> selectMyMeetingRoomUser(int mrNo);
+	List<MeetingRoomUserInfo> selectMyMeetingRoomUser(int mrNo);
 
-	/* U :: 약속방에 속한 본인의 위치 설정 */
-	int updateMeetingRoomUserLocation(MeetingRoomUser meetingRoomUser);
+	/* U :: 약속방에 속한 본인의 위치와 일정 설정 */
+	int updateMeetingRoomUserSet(MeetingRoomUser meetingRoomUser);
 
-	/* U :: 약속방에 속 한 본인의 일정 설정 */
-	int updateMeetingRoomUserDate(MeetingRoomUser meetingRoomUser);
+	/* D :: 약속방에서 나가기 */
+	int deleteMeetingRoomUser(MeetingRoomUser meetingRoomUser);
+
 
 }
