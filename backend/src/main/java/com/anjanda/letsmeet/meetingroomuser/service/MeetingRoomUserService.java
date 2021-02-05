@@ -23,7 +23,7 @@ public interface MeetingRoomUserService {
 	int createMeetingRoomUser(MeetingRoomUser meetingRoomUser) throws Exception;
 
 	/* R :: 약속방 내 멤버 조회 */
-	List<User> reviewMyMeetingRoomUser();
+	List<User> reviewMyMeetingRoomUser(int mrNo);
 
 	/* U :: 약속방에 속한 본인의 위치 설정 */
 	boolean updateMeetingRoomUserLocation(MeetingRoomUser meetingRoomUser);

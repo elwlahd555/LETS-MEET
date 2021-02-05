@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.anjanda.letsmeet.chat.service.MeetingRoomChatService;
 import com.anjanda.letsmeet.repository.dto.MeetingRoomChat;
@@ -35,6 +37,7 @@ public class SocketController {
     // 정의한 SocketVO를 1) 인자값, 2) 반환값으로 사용합니다.
     public MeetingRoomChat SocketHandler(MeetingRoomChat meetingRoomChat) throws Exception {
         // vo에서 getter로 userName을 가져옵니다.
+//    	System.out.println(session.getAttributes().toString());
         int userNo = meetingRoomChat.getMrcUNo();
         // vo에서 setter로 content를 가져옵니다.
         String content = meetingRoomChat.getMrcContent();

@@ -30,7 +30,7 @@ import com.anjanda.letsmeet.user.service.UserService;
  *	- 추가 수정 필요함
  */
 @RestController
-@RequestMapping("/{uEmail}/{mrNo}")
+@RequestMapping("/meetingRoomUser")
 public class MeetingRoomUserController {
 	
 	/* 약속방에 부를 유저를 위한 객체 불러오기 */
@@ -55,9 +55,9 @@ public class MeetingRoomUserController {
 	}
 	
 	/* R :: 약속방 내 멤버 조회 */
-	@GetMapping("/reviewuser")
-	public ResponseEntity<List<User>> reviewMyMeetingRoomUser() throws Exception {
-		return new ResponseEntity<List<User>>(meetingRoomUserService.reviewMyMeetingRoomUser(), HttpStatus.OK);
+	@GetMapping("/userInfo")
+	public ResponseEntity<List<User>> reviewMyMeetingRoomUser(int mrNo) throws Exception {
+		return new ResponseEntity<List<User>>(meetingRoomUserService.reviewMyMeetingRoomUser(mrNo), HttpStatus.OK);
 	}
 	
 	/* U :: 약속방에 속한 본인의 위치 설정 */
