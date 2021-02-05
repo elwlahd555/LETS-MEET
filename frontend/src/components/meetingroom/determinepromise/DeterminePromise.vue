@@ -2,7 +2,7 @@
   <v-container>
     <v-subheader>내 약속 일정 선택</v-subheader>
     <v-container>
-      <MyPromise />
+      <MyPromise :roomInfo="roomInfo" @refresh="refresh"/>
     </v-container>
     <hr>
     <v-subheader>약속 가능 날짜</v-subheader>
@@ -38,6 +38,10 @@ export default {
   components: {
     MyPromise,
   },
+  props: {
+    roomInfo: Array,
+    mrUserInfo: Array
+  },
   data: () => ({
     arrayEvents: null,
     // date2: new Date().toISOString().substr(0, 10),
@@ -72,6 +76,9 @@ export default {
       .catch((err) => {
         console.log(err)
       })
+    },
+    refresh() {
+
     }
   },
 }

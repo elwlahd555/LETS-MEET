@@ -61,7 +61,7 @@ public class MeetingRoomUserController {
 	@GetMapping("/userInfo")
 	public ResponseEntity<List<MeetingRoomUserInfo>> reviewMyMeetingRoomUser(int mrNo) throws Exception {
 		
-		System.out.println(meetingRoomUserService.reviewMyMeetingRoomUser(mrNo).get(0).toString());
+//		System.out.println(meetingRoomUserService.reviewMyMeetingRoomUser(mrNo).get(0).toString());
 		return new ResponseEntity<List<MeetingRoomUserInfo>>(meetingRoomUserService.reviewMyMeetingRoomUser(mrNo), HttpStatus.OK);
 	}
 	
