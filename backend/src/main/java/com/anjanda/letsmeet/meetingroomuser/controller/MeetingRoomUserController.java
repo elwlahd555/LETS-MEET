@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.anjanda.letsmeet.meetingroom.service.MeetingRoomService;
 import com.anjanda.letsmeet.meetingroomuser.service.MeetingRoomUserService;
 import com.anjanda.letsmeet.repository.dto.MeetingRoomUser;
-import com.anjanda.letsmeet.repository.dto.User;
+import com.anjanda.letsmeet.repository.dto.MeetingRoomUserInfo;
 import com.anjanda.letsmeet.user.service.UserService;
 
 /**
@@ -56,25 +58,28 @@ public class MeetingRoomUserController {
 	
 	/* R :: 약속방 내 멤버 조회 */
 	@GetMapping("/userInfo")
-	public ResponseEntity<List<User>> reviewMyMeetingRoomUser(int mrNo) throws Exception {
-		return new ResponseEntity<List<User>>(meetingRoomUserService.reviewMyMeetingRoomUser(mrNo), HttpStatus.OK);
+	public ResponseEntity<List<MeetingRoomUserInfo>> reviewMyMeetingRoomUser(int mrNo) throws Exception {
+		
+		System.out.println(meetingRoomUserService.reviewMyMeetingRoomUser(mrNo).get(0).toString());
+		return new ResponseEntity<List<MeetingRoomUserInfo>>(meetingRoomUserService.reviewMyMeetingRoomUser(mrNo), HttpStatus.OK);
 	}
 	
-	/* U :: 약속방에 속한 본인의 위치 설정 */
-	@PutMapping("/settings/location")
-	public ResponseEntity<String> updateMeetingRoomUserLocation(@RequestBody MeetingRoomUser meetingRoomUser){
-		if(meetingRoomUserService.updateMeetingRoomUserLocation(meetingRoomUser)) {
-			return new ResponseEntity<String>("약속방의 본인 위치 설정 성공", HttpStatus.OK);
+	/* U :: 약속방에 속한 본인의 위치와 시간 설정 */
+	@PutMapping("/set")
+	public ResponseEntity<String> updateMeetingRoomUserSet(@RequestBody MeetingRoomUser meetingRoomUser){
+		if(meetingRoomUserService.updateMeetingRoomUserSet(meetingRoomUser)) {
+			return new ResponseEntity<String>("약속방의 본인 위치와 시간 성공", HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("약속방의 본인 위치 설정 실패", HttpStatus.NO_CONTENT);
+		return new ResponseEntity<String>("약속방의 본인 위치와 시간 설정 실패", HttpStatus.NO_CONTENT);
 	}
 	
-	/* U :: 약속방에 속 한 본인의 일정 설정 */
-	@PutMapping("/user/settings/date")
-	public ResponseEntity<String> updateMeetingRoomUserDate(@RequestBody MeetingRoomUser meetingRoomUser){
-		if(meetingRoomUserService.updateMeetingRoomUserDate(meetingRoomUser)) {
-			return new ResponseEntity<String>("약속방의 본인 일정 설정 성공", HttpStatus.OK);
+	/*D :: 약속방에서 나가기*/
+	@DeleteMapping("/delete")
+	public ResponseEntity<String> deleteMeetingRoomUser(@RequestBody MeetingRoomUser meetingRoomUser) throws Exception {
+		if(meetingRoomUserService.deleteMeetingRoomUser(meetingRoomUser)) {
+			return new ResponseEntity<String>("약속방 삭제 성공", HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("약속방의 본인 일정 설정 실 패", HttpStatus.NO_CONTENT);
+		return new ResponseEntity<String>("약속방 삭제 실패", HttpStatus.NO_CONTENT);
 	}
+	
 }

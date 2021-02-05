@@ -1,5 +1,9 @@
 package com.anjanda.letsmeet.repository.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 /**
  * 
  * @Date : 2021. 2. 5.
@@ -12,22 +16,10 @@ package com.anjanda.letsmeet.repository.dto;
  *	- 롬복 사용해서 getter, setter 사용함 (그래서 아래 메소드들 필요없음)
  */
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
-
 @Getter
 @Setter
 @ToString
-public class User {
-
-	@Id // Primary key
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // 프로젝트에서 연결된 DB의 넘버링 전략을 따라간다.
+public class MeetingRoomUserInfo{
 	private int uNo; // 시퀀스, auto_increment
 	private String uEmail;
 	private String uPassword;
@@ -35,6 +27,11 @@ public class User {
 	private int uImageId;
 	private String uJoinDate;
 	private String uProvider;
+	private int mruMrNo;
+	private int mruUNo;
+	private String mruUserLat;
+	private String mruUserLng;
+	private String mruUserDates;
 	public int getuNo() {
 		return uNo;
 	}
@@ -77,7 +74,36 @@ public class User {
 	public void setuProvider(String uProvider) {
 		this.uProvider = uProvider;
 	}
-	
+	public int getMruMrNo() {
+		return mruMrNo;
+	}
+	public void setMruMrNo(int mruMrNo) {
+		this.mruMrNo = mruMrNo;
+	}
+	public int getMruUNo() {
+		return mruUNo;
+	}
+	public void setMruUNo(int mruUNo) {
+		this.mruUNo = mruUNo;
+	}
+	public String getMruUserLat() {
+		return mruUserLat;
+	}
+	public void setMruUserLat(String mruUserLat) {
+		this.mruUserLat = mruUserLat;
+	}
+	public String getMruUserLng() {
+		return mruUserLng;
+	}
+	public void setMruUserLng(String mruUserLng) {
+		this.mruUserLng = mruUserLng;
+	}
+	public String getMruUserDates() {
+		return mruUserDates;
+	}
+	public void setMruUserDates(String mruUserDates) {
+		this.mruUserDates = mruUserDates;
+	}
 	
 	
 	
