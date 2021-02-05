@@ -116,7 +116,6 @@
 <script>
 // const KAKAO_API_KEY = process.env.VUE_APP_KAKAO_API_KEY
 const KAKAO_API_KEY = '71f77d07e68b0f6c0464d85d3df14e6c'
-
 var map = ''
 
 export default {
@@ -125,8 +124,8 @@ export default {
     return {
       dialogm1: '',
       dialog: false,
-      latitude: 36.1299968,
-      longitude: 128.34242559999998,
+      latitude: '',
+      longitude: '',
       textContent: '',
       dates: [],
       today: new Date().toISOString().substr(0, 10),
@@ -165,6 +164,9 @@ export default {
       }, err => {
         this.textContent = err.message
       })
+
+
+      alert("현재 위치로 출발 장소를 설정하였습니다.")
     },
     addKakaoMapScript() {
       const script = document.createElement("script")
@@ -187,14 +189,8 @@ export default {
       var zoomControl = new kakao.maps.ZoomControl()
       map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT)
       var markers = []
-      setTimeout(function() {
-        map.relayout()
-      }, 100)
       addMarker(options['center'])
       map.setCenter(options['center'])
-      setTimeout(function() {
-        map.relayout()
-      }, 100)
 
       kakao.maps.event.addListener(map, 'click', function(mouseEvent) {  
         map.relayout()
@@ -203,6 +199,7 @@ export default {
         this.latitude = latlng.getLat()
         this.longitude = latlng.getLng()
         addMarker(latlng)
+        console.log(latlng)
       })
       function setMarkers(map) {
         for (var i = 0; i < markers.length; i++) {
