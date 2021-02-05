@@ -24,9 +24,10 @@ import com.anjanda.letsmeet.user.service.UserService;
 
 /**
  * 
- * @Date : 2021. 2. 1.
+ * @Date : 2021. 2. 4.
  * @Team : AnJanDa
- * @author : 개발자명
+ * @author : 김지현
+ * @deploy : 김동빈
  * @Project : 레쓰밋 :: backend
  * @Function : 유저 컨트롤러 클래스
  * @Description

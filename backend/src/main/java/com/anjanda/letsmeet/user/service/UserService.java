@@ -4,11 +4,12 @@ import com.anjanda.letsmeet.repository.dto.User;
 
 /**
  * 
- * @Date : 2021. 2. 1.
+ * @Date : 2021. 2. 5.
  * @Team : AnJanDa
- * @author : 개발자명
+ * @author : 김동빈, 김지현, 임호빈
+ * @deploy : 김동빈
  * @Project : 레쓰밋 :: backend
- * @Function : 유저서비스 인터페이스 클래스
+ * @Function : 유저 서비스 클래스
  * @Description
  *
  */
