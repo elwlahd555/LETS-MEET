@@ -100,7 +100,7 @@ export default {
     InfiniteLoading,
     BackToTop,
   },
-  mounted() {
+  created() {
     this.getRoomList()
     console.log(this.list)
   },
@@ -141,8 +141,12 @@ export default {
           }
         }
         for (var i=0 ; i<3 ; i++) {
-          this.done_temp.push(this.done_list.shift());
-          this.doing_temp.push(this.doing_list.shift());
+          if (this.done_list.length > 0) {
+            this.done_temp.push(this.done_list.shift());
+          }
+          if (this.doing_list.length > 0) {
+            this.doing_temp.push(this.doing_list.shift());
+          }
         }
       })
       .catch((err) => {
