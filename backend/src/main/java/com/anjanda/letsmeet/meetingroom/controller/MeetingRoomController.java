@@ -15,7 +15,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.anjanda.letsmeet.meetingroom.service.MeetingRoomService;
+import com.anjanda.letsmeet.meetingroomuser.service.MeetingRoomUserService;
 import com.anjanda.letsmeet.repository.dto.MeetingRoom;
+import com.anjanda.letsmeet.repository.dto.MeetingRoomUser;
+
+/**
+ * 
+ * @Date : 2021. 2. 4.
+ * @Team : AnJanDa
+ * @author : 김지현
+ * @deploy : 김동빈
+ * @Project : 레쓰밋 :: backend
+ * @Function : 약속방 관련 클래스
+ * @Description
+ *	- 약속방 추가(C)/조회(R)/수정(U)/삭제(D)
+ *	- 캘린더에 보여야할 일정확정된 약속 조회
+ *	
+ */
 
 @RestController
 @RequestMapping("")
@@ -25,14 +41,22 @@ public class MeetingRoomController {
 	@Autowired
 	private MeetingRoomService meetingRoomService;
 	
+	@Autowired
+	private MeetingRoomUserService meetingRoomUserService;
+	
 	/* C :: 미팅룽 추가 */
 	@PostMapping("/meetingRoom/create")
 	public ResponseEntity<String> createMeetingRoom(@RequestBody MeetingRoom meetingRoom) throws Exception{
 		System.out.println(meetingRoom.getMrName()+"이 생성되었습니다");
 		System.out.println(meetingRoom.getMrCategory() + meetingRoom.getMrName());
 		if(meetingRoomService.createMeetingRoom(meetingRoom) > 0) {
+			
 			int mrNo=meetingRoomService.selectMeetingRoomBySuper(meetingRoom);
-			meetingRoomService.createMeetingRoomUser(mrNo,meetingRoom.getMrSuperUNo());
+			System.out.println(mrNo+"미팅룸넘버");
+			MeetingRoomUser meetingRoomUser=new MeetingRoomUser();
+			meetingRoomUser.setMruMrNo(mrNo);
+			meetingRoomUser.setMruUNo(meetingRoom.getMrSuperUNo());
+			meetingRoomUserService.createMeetingRoomUser(meetingRoomUser);
 			return new ResponseEntity<String>("약속방 생성 성공", HttpStatus.OK);
 		}
 			return new ResponseEntity<String>("약속방 생성 실패", HttpStatus.NO_CONTENT);
@@ -47,13 +71,19 @@ public class MeetingRoomController {
 	
 	/* R :: 약속방 상세조회 */
 	@GetMapping("/meetingRoom/detail")
-	public ResponseEntity<MeetingRoom> reviewDetailMeetingRoom(@PathVariable int mrNo){
+	public ResponseEntity<MeetingRoom> reviewDetailMeetingRoom(int mrNo) throws Exception {
 		return new ResponseEntity<MeetingRoom>(meetingRoomService.reviewDetailMeetingRoom(mrNo), HttpStatus.OK);
+	}
+	
+	/* R :: 캘린더에 표시 될 사용자의 확정된 약속방 조회 */
+	@GetMapping("/calendar")
+	public ResponseEntity<List<MeetingRoom>> reviewCertainMeetingRoom(int uNo) throws Exception {
+		return new ResponseEntity<List<MeetingRoom>>(meetingRoomService.reviewCertainMeetingRoom(uNo), HttpStatus.OK);
 	}
 	
 	/* U :: 약속방 수정 */
 	@PutMapping("/meetingRoom/edit")
-	public ResponseEntity<String> updateMeetingRoom(@RequestBody MeetingRoom meetingRoom){
+	public ResponseEntity<String> updateMeetingRoom(@RequestBody MeetingRoom meetingRoom) throws Exception {
 		if(meetingRoomService.updateMeetingRoom(meetingRoom)) {
 			return new ResponseEntity<String>("약속방 수정 성공", HttpStatus.OK);
 		}
@@ -62,11 +92,10 @@ public class MeetingRoomController {
 	
 	/* D :: 약속방 삭제 */
 	@DeleteMapping("/meetingRoom/delete")
-	public ResponseEntity<String> deleteMeetingRoom(@PathVariable int mrNo){
+	public ResponseEntity<String> deleteMeetingRoom(@PathVariable int mrNo) throws Exception {
 		if(meetingRoomService.deleteMeetingRoom(mrNo)) {
 			return new ResponseEntity<String>("약속방 삭제 성공", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("약속방 삭제 실패", HttpStatus.NO_CONTENT);
 	}
-	
 }

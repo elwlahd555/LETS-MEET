@@ -2,13 +2,14 @@
   <v-app>
     <div>
       <v-app-bar
+        v-if='isLogin'
         color="white"
         dense
         dark
         fixed
         style="z-index:10;"
       >
-        <v-toolbar-title><img src="./assets/images/logo.png" 
+        <v-toolbar-title class="d-flex justify-start"><img src="./assets/images/logo.png" 
         style="width: 35%; max-height: 50px; max-width: 200px;">
         </v-toolbar-title>
 

@@ -10,9 +10,10 @@ import com.anjanda.letsmeet.repository.mapper.MeetingRoomMapper;
 
 /**
  * 
- * @Date : 2021. 2. 1.
+ * @Date : 2021. 2. 4.
  * @Team : AnJanDa
- * @author : 개발자명
+ * @author : 김지현
+ * @deploy : 김동빈
  * @Project : 레쓰밋 :: backend
  * @Function : 약속방 서비스 클래스
  * @Description
@@ -24,7 +25,7 @@ import com.anjanda.letsmeet.repository.mapper.MeetingRoomMapper;
  */
 
 @Service
-public class MeetingRoomServiceImpl implements MeetingRoomService {
+public class MeetingRoomServiceImpl implements MeetingRoomService{
 	/* 미팅룸 매퍼 객체 불러오기 */
 	@Autowired
 	private MeetingRoomMapper meetingRoomMapper;
@@ -37,39 +38,57 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 	
 	/* R :: 약속방 전체 조회 */
 	@Override
-	public List<MeetingRoom> reviewMyMeetingRoom(int uNo) {
+	public List<MeetingRoom> reviewMyMeetingRoom(int uNo) throws Exception {
 		return meetingRoomMapper.selectMeetingRoom(uNo);
 	}
 	
 	/* R :: 약속방 상세 조회 */
 	@Override
-	public MeetingRoom reviewDetailMeetingRoom(int mrNo) {
+	public MeetingRoom reviewDetailMeetingRoom(int mrNo) throws Exception {
 		return meetingRoomMapper.selectMeetingRoomByMrNo(mrNo);
+	}
+	
+	/* R :: 캘린더에 표시될 확정된 약속 조회 */
+	@Override
+	public List<MeetingRoom> reviewCertainMeetingRoom(int uNo) throws Exception {
+		return meetingRoomMapper.selectCertainMeetingRoom(uNo);
 	}
 	
 	/* U :: 약속방 수정 */ 
 	@Override
-	public boolean updateMeetingRoom(MeetingRoom meetingRoom) {
+	public boolean updateMeetingRoom(MeetingRoom meetingRoom) throws Exception {
 		return meetingRoomMapper.updateMeetingRoom(meetingRoom) == 1;
 	}
 	
 	/* D :: 약속방 삭제 */
 	@Override
-	public boolean deleteMeetingRoom(int mrNo) {
+	public boolean deleteMeetingRoom(int mrNo) throws Exception {
 		return meetingRoomMapper.deleteMeetingRoom(mrNo) == 1;
 	}
 
 	//미팅룸에 사람 추가 하기
 	@Override
-	public int createMeetingRoomUser(int mrNo, int uNo) {
+	public int createMeetingRoomUser(int mrNo, int uNo) throws Exception {
 		// TODO Auto-generated method stub
 		return meetingRoomMapper.createMeetingRoomUser(mrNo,uNo);
 	}
 
 	@Override
-	public int selectMeetingRoomBySuper(MeetingRoom meetingRoom) {
+	public int selectMeetingRoomBySuper(MeetingRoom meetingRoom) throws Exception {
 		// TODO Auto-generated method stub
 		return meetingRoomMapper.selectMeetingRoomBySuper(meetingRoom);
+	}
+
+	@Override
+	public void updateMeetingRoomCntUp(int mruMrNo) {
+		meetingRoomMapper.updateMeetingRoomCntUp(mruMrNo);
+		
+	}
+
+	@Override
+	public void updateMeetingRoomCntDown(int mruMrNo) {
+		meetingRoomMapper.updateMeetingRoomCntDown(mruMrNo);
+		
 	}
 
 }

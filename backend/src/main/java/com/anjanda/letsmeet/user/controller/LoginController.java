@@ -20,13 +20,14 @@ import com.anjanda.letsmeet.user.service.UserService;
 
 /**
  * 
- * @Date : 2021. 2. 1.
+ * @Date : 2021. 2. 4.
  * @Team : AnJanDa
- * @author : 개발자명
+ * @author : 김동빈, 김지현
+ * @deploy : 김동빈
  * @Project : 레쓰밋 :: backend
- * @Function : 로그인 관련 컨트롤러
- * @Description 
- *	유저 관련된 것이지만, 로그인만 따로 처리해줄 필요성을 느껴 컨트롤러 부분만 뺌..(유저 컨트롤에 넣어도 되긴 함)
+ * @Function : 로그인 관련 컨트롤러 클래스
+ * @Description : 로그인 처리
+ *
  */
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)	// 이건 왜쓰지..

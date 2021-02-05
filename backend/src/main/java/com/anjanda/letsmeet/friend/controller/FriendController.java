@@ -16,6 +16,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.anjanda.letsmeet.friend.service.FriendService;
 import com.anjanda.letsmeet.repository.dto.User;
 
+/**
+ * 
+ * @Date : 2021. 2. 4.
+ * @Team : AnJanDa
+ * @author : 김지현
+ * @deploy : 김동빈
+ * @Project : 레쓰밋 :: backend
+ * @Function : 친구 추가/삭제를 위한 Friend 컨트롤러 클래스
+ * @Description
+ *	- 마이페이지에 들어간 후, 친구관리 목록에서 활용됨
+ *	- 이름or이메일 : 추가할 친구 입력값
+ *	- 수정필요함. 
+ */
+
 @RestController
 @RequestMapping("/mypage/friend")
 public class FriendController {

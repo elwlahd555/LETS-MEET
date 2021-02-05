@@ -14,6 +14,7 @@ export const store = new Vuex.Store({
     uName: null,
     isLogin: false,
     uImageid: null,
+    uNo: null,
   },
   getters: {
   },
@@ -23,11 +24,13 @@ export const store = new Vuex.Store({
       state.isLogin = true;
       state.uEmail = payload['uEmail']
       state.uName = payload['uName']
+      state.uNo = payload['uNo']
     },
     SET_USER_AUTU_DATA_LOGOUT(state) {
-      state.isLogin = false;
+      state.isLogin = false
       state.email = null
       state.name = null
+      state.uNo = null
     },
     SET_USER_NAME(state, uName) {
       state.uName = uName

@@ -8,14 +8,16 @@ import com.anjanda.letsmeet.repository.dto.MeetingRoom;
 
 /**
  * 
- * @Date : 2021. 2. 1.
+ * @Date : 2021. 2. 4.
  * @Team : AnJanDa
- * @author : 개발자명
+ * @author : 김지현
+ * @deploy : 김동빈
  * @Project : 레쓰밋 :: backend
- * @Function : 약속방 매퍼 인터페이스 클래스
- * @Description
- *	
+ * @Function : MeetingRoom 관련 매퍼 인터페이스 클래스
+ * @Description : MeetingRoomService 및 meetingroommapper.xml 참고
+ * 
  */
+
 @Mapper
 public interface MeetingRoomMapper {
 
@@ -23,18 +25,25 @@ public interface MeetingRoomMapper {
 	public int insertMeetingRoom(MeetingRoom meetingRoom) throws Exception;
 	
 	/* R :: 사용자의 약속방 전체 조회 메소드 */
-	public List<MeetingRoom> selectMeetingRoom(int uNo);
+	public List<MeetingRoom> selectMeetingRoom(int uNo) throws Exception;
 	
 	/* R :: 약속방 상세 조회 메소드 */
-	public MeetingRoom selectMeetingRoomByMrNo(int mrNo);
+	public MeetingRoom selectMeetingRoomByMrNo(int mrNo) throws Exception;
+	
+	/* R :: 캘린더에 표시될 날짜 확정된 약속방 조회 메소드 */
+	public List<MeetingRoom> selectCertainMeetingRoom(int uNo) throws Exception;
 	
 	/* U :: 약속방 수정 메소드 */
-	public int updateMeetingRoom(MeetingRoom meetingRoom);
+	public int updateMeetingRoom(MeetingRoom meetingRoom) throws Exception;
 	
 	/* D :: 약속방 탈퇴 메소드 */
-	public int deleteMeetingRoom(int mrNo);
+	public int deleteMeetingRoom(int mrNo) throws Exception;
 
-	public int createMeetingRoomUser(int mrNo, int uNo);
+	public int createMeetingRoomUser(int mrNo, int uNo) throws Exception;
 
-	public int selectMeetingRoomBySuper(MeetingRoom meetingRoom);
+	public int selectMeetingRoomBySuper(MeetingRoom meetingRoom) throws Exception;
+
+	public void updateMeetingRoomCntUp(int mruMrNo);
+	
+	public void updateMeetingRoomCntDown(int mruMrNo);
 }

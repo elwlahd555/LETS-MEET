@@ -8,6 +8,18 @@ import org.springframework.stereotype.Service;
 import com.anjanda.letsmeet.repository.dto.User;
 import com.anjanda.letsmeet.repository.mapper.FriendMapper;
 
+/**
+ * 
+ * @Date : 2021. 2. 4.
+ * @Team : AnJanDa
+ * @author : 김지현
+ * @deploy : 김동빈
+ * @Project : 레쓰밋 :: backend
+ * @Function : 친구 관련 서비스 클래스
+ * @Description
+ *
+ */
+
 @Service
 public class FriendServiceImpl implements FriendService {
 	

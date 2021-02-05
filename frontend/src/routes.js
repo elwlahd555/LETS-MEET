@@ -22,8 +22,6 @@ const onlyAuthUser = function usercheck (to, from, next){
     }
 }
 
-
-
 const routes = [
     {
         path : '/login',
@@ -55,12 +53,6 @@ const routes = [
         // component: () => import('@/views/user/MyPage.vue')
     },
     {
-        path: '/meetingroom',
-        name: 'MeetingRoom',
-        beforeEnter: onlyAuthUser,
-        component: MeetingRoom
-    },
-    {
         path: '/userinfochange',
         name: 'UserInfoChange',
         beforeEnter: onlyAuthUser,
@@ -71,11 +63,18 @@ const routes = [
         name: 'KakaoCallback',
         component: KakaoCallback
     },
+    { 
+        path: '/meetingroom/:id', 
+        name: 'MeetingRoom',
+        beforeEnter: onlyAuthUser,
+        component: MeetingRoom,
+        props: true
+    }
   ]
   
   const router = new VueRouter({
     base: process.env.BASE_URL,
-    mode: 'history',
+    // mode: 'history',
     routes
     
   })
