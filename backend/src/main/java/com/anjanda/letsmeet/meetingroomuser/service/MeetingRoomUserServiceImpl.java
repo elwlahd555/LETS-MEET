@@ -31,7 +31,7 @@ public class MeetingRoomUserServiceImpl implements MeetingRoomUserService {
 	/* C :: 약속방 내 멤버 추가 (일단 모두가 가능하도록..) */
 	@Override
 	public int createMeetingRoomUser(MeetingRoomUser meetingRoomUser) throws Exception {
-		return meetingRoomUserMapper.insertMeetingRoomUser(meetingRoomUserMapper);
+		return meetingRoomUserMapper.insertMeetingRoomUser(meetingRoomUser);
 	}
 	
 	/* R :: 약속방 내 멤버 조회 */

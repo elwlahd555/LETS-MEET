@@ -79,4 +79,16 @@ public class MeetingRoomServiceImpl implements MeetingRoomService{
 		return meetingRoomMapper.selectMeetingRoomBySuper(meetingRoom);
 	}
 
+	@Override
+	public void updateMeetingRoomCntUp(int mruMrNo) {
+		meetingRoomMapper.updateMeetingRoomCntUp(mruMrNo);
+		
+	}
+
+	@Override
+	public void updateMeetingRoomCntDown(int mruMrNo) {
+		meetingRoomMapper.updateMeetingRoomCntDown(mruMrNo);
+		
+	}
+
 }

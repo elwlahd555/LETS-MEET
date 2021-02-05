@@ -42,4 +42,8 @@ public interface MeetingRoomMapper {
 	public int createMeetingRoomUser(int mrNo, int uNo) throws Exception;
 
 	public int selectMeetingRoomBySuper(MeetingRoom meetingRoom) throws Exception;
+
+	public void updateMeetingRoomCntUp(int mruMrNo);
+	
+	public void updateMeetingRoomCntDown(int mruMrNo);
 }

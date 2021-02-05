@@ -50,7 +50,8 @@ public class MeetingRoomUserController {
 	/* C :: 약속방 내 멤버 추가 (일단 모두가 가능하도록..) */
 	@PostMapping("/adduser")
 	public ResponseEntity<String> createMeetingRoomUser(@RequestBody MeetingRoomUser user) throws Exception {
-		if(meetingRoomUserService.createMeetingRoomUser(user) > 0) {	
+		if(meetingRoomUserService.createMeetingRoomUser(user) > 0) {
+			meetingRoomService.updateMeetingRoomCntUp(user.getMruMrNo());
 			return new ResponseEntity<String>("약속방 내 멤버 추가 성공", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("약속방 내 멤버 추가 실패", HttpStatus.NO_CONTENT);
@@ -77,6 +78,7 @@ public class MeetingRoomUserController {
 	@DeleteMapping("/delete")
 	public ResponseEntity<String> deleteMeetingRoomUser(@RequestBody MeetingRoomUser meetingRoomUser) throws Exception {
 		if(meetingRoomUserService.deleteMeetingRoomUser(meetingRoomUser)) {
+			meetingRoomService.updateMeetingRoomCntDown(meetingRoomUser.getMruMrNo());
 			return new ResponseEntity<String>("약속방 삭제 성공", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("약속방 삭제 실패", HttpStatus.NO_CONTENT);
