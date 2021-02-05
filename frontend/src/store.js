@@ -16,21 +16,20 @@ export const store = new Vuex.Store({
     uImageid: null,
     uNo: null,
   },
-  getters: {
-  },
-
   mutations: {
     SET_USER_AUTH_DATA(state, payload){
       state.isLogin = true;
       state.uEmail = payload['uEmail']
       state.uName = payload['uName']
       state.uNo = payload['uNo']
+      state.uImageid = payload['uImageId']
     },
-    SET_USER_AUTU_DATA_LOGOUT(state) {
+    SET_USER_AUTH_DATA_LOGOUT(state) {
       state.isLogin = false
       state.email = null
       state.name = null
       state.uNo = null
+      state.uImageid= null
     },
     SET_USER_NAME(state, uName) {
       state.uName = uName
@@ -45,11 +44,15 @@ export const store = new Vuex.Store({
       context.commit('SET_USER_NAME', uName)
     },
     FETCH_USER_IMAGE(context, uImageid){
-      context.commit('SET_USER_IMAGE', uImageid)  
+      context.commit('SET_USER_IMAGE', uImageid) 
     },
     LOGOUT(context) {
-      context.commit('SET_USER_AUTU_DATA_LOGOUT')
+      context.commit('SET_USER_AUTH_DATA_LOGOUT')
+      localStorage.removeItem('auth-token')
+    },
+    DELETE_ACCOUNT(context) {
+      context.commit('SET_USER_AUTH_DATA_LOGOUT')
       localStorage.removeItem('auth-token')
     }
-    },
+    }
 });

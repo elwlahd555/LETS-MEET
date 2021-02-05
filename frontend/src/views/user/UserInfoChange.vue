@@ -9,8 +9,7 @@
             <v-text-field
               ref='name'
               v-model="user.uName"
-              required
-              :label="this.user.uName"
+              label="이름"
               prepend-icon="mdi-account-circle"
               type='text'
               @keyup.enter='submit'
@@ -20,7 +19,7 @@
           <v-file-input
             accept="image/*"
             label="이미지 등록"
-            v-model='user.uImageid'
+            v-model='uImageId'
           ></v-file-input>
 
           <!-- 비밀번호 변경부분 -->
@@ -64,10 +63,45 @@
 
               </v-text-field>
             </div>
-          
-          
           </v-card-text>
 
+            <div class= 'd-flex justify-end px-3'>
+              <v-dialog
+                v-model="dialog"
+                persistent
+                max-width="290"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <div v-on="on" v-bind="attrs" style="font-size: 14px;">
+                    회원 탈퇴 
+                  </div>
+                </template>
+                <v-card>
+                  <v-card-title class="headline">
+                    회원 탈퇴
+                  </v-card-title>
+                  <v-card-text>letsmeet 서비스를 이용하시는데 불편함이 있으셨나요? 이용 불편 및 각종 문의 사항은 고객센터로 문의 주시면 성심 성의껏 답변 드리겠습니다.</v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      color="green darken-1"
+                      text
+                      @click="dialog = false"
+                    >
+                      아니요
+                    </v-btn>
+                    <v-btn
+                      color="green darken-1"
+                      text
+                      @click="deleteUser"
+                    >
+                      예
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </div>
+            
             <v-card-actions>
                 <v-btn color="teal" rounded style='width:100%' @click="modifyinfo"> 정보 수정 </v-btn>
             </v-card-actions>
@@ -80,17 +114,21 @@
 <script>
 const axios = require('axios');
 import jwt_decode from "jwt-decode";
+const config = {
+          headers: { 'auth-token': window.localStorage.getItem('auth-token') },
+      }
 
 export default {
     name: 'UserInfoChange',
     data: () => {
       return  {
-        uEmail : "",
+        uImageId: '',
         user: {
+          uEmail : "",
           uPassword: '',
           uName: '',
-          uImageid: '',
         },
+        dialog: false,
         newPassword:'',
         beforepw: '',
         nowpw: '',
@@ -100,8 +138,7 @@ export default {
         showPassword2: false,
         showPassword3: false,
         rules: {
-            required: value => !!value, 
-            // counter: value => value.length <= 20 || '최대 20자까지 가능합니다.',
+            required: value => !!value,
         },
       }
     },
@@ -117,7 +154,7 @@ export default {
       }
     },
     mounted() { 
-      this.uEmail = this.$store.state.uEmail
+      this.user.uEmail = this.$store.state.uEmail
       this.user.uName= this.$store.state.uName
       let token = localStorage.getItem('auth-token')
       let decode = jwt_decode(token); 
@@ -126,29 +163,36 @@ export default {
 
     methods: {
       passwordchange(){
-        this.passwordModify=true;
+        return this.passwordModify=!this.passwordModify;
       },
       modifyinfo () {
         if (this.user.uPassword === '') {
           this.user.uPassword = this.beforepw
         }
-        const config = {
-          headers: { 'auth-token': window.localStorage.getItem('auth-token') },
-          }
-          // 회원정보 수정 uEmail 에서 userid로 바꿀 예정 
-          axios.put(`http://localhost:8000/letsmeet/user/mypage/${this.uEmail}`, this.user, config )
+        // 회원정보 수정 uEmail 에서 userid로 바꿀 예정 
+        axios.put(`http://localhost:8000/letsmeet/user/mypage/${this.user.uEmail}`, this.user, config )
             .then(()=> {
               alert('회원정보 수정이 되었습니다.')
               this.$store.dispatch('FETCH_USER_NAME', this.user.uName);
-              this.$store.dispatch('FETCH_USER_IMAGE', this.user.uImageid);
+              this.$store.dispatch('FETCH_USER_IMAGE', this.uImageId);
               this.$router.replace({ name: 'MyPage'})
             })
             .catch(() => {
               alert('회원정보 수정이 실패하였습니다.')
             })
-        
+      },
+      deleteUser() {
+        if (this.user.uPassword === '') {
+          this.user.uPassword = this.beforepw
+        }
+        const userdelete = { uEmail: this.user.uEmail, uPassword:  this.user.uPassword}
+        axios.delete(`http://localhost:8000/letsmeet/user/delete/${this.user.uEmail}`, userdelete, config)
+        .then(()=> {
+          alert('회원 탈퇴가 되었습니다.')
+          this.$store.dispatch('DELETE_ACCOUNT')
+          this.$router.replace({ name: 'Login' })
 
-
+        })
       }
     },
 } 
