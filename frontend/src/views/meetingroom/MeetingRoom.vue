@@ -27,7 +27,7 @@
         <v-container v-show="show">
           <v-divider></v-divider>
           약속 유형 : {{ roomInfo.mrCategory }} <br>
-          멤버 : 홍길동 외 4명 <br>
+          멤버 : {{ mrUserInfo[0].uName }} 외 {{ mrUserInfo.length - 1 }}명 <br>
           시간 : {{ roomInfo.mrDateStart }} ~ {{ roomInfo.mrDateEnd }} <br>
           장소 : 미정 <br>
         </v-container>
@@ -62,7 +62,7 @@
 
     <v-tabs-items v-model="tab">
       <v-tab-item>
-        <DeterminePromise/>
+        <DeterminePromise :roomInfo="roomInfo" :mrUserInfo="mrUserInfo"/>
       </v-tab-item>
       <v-tab-item>
         22
@@ -71,7 +71,7 @@
         <Chatting :mrNo="mrNo"/>
       </v-tab-item>
       <v-tab-item>
-        <Member />
+        <Member :mrUserInfo="mrUserInfo"/>
       </v-tab-item>
     </v-tabs-items>
   </v-sheet>
@@ -105,6 +105,7 @@ export default {
         '놀거리': ['mdi-snowboard', 'https://www.travel.taipei/image/65598/1024x768'],
         '기타': ['mdi-dots-horizontal', 'http://img.rflogix.com/agm/main/1024/10_1_20200407112854.jpg'],
       },
+      mrUserInfo: [],
     }
   },
   mounted() {
@@ -117,6 +118,14 @@ export default {
       .then((res)=> {
         this.roomInfo = res.data
         console.log(this.roomInfo)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      axios.get(`http://localhost:8000/letsmeet/meetingRoomUser/userInfo?mrNo=${this.mrNo}`)
+      .then((res)=> {
+        this.mrUserInfo = res.data
+        console.log(this.mrUserInfo)
       })
       .catch((err) => {
         console.log(err)
