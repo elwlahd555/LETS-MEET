@@ -35,15 +35,15 @@ public class MeetingRoomUserController {
 	
 	/* 약속방에 부를 유저를 위한 객체 불러오기 */
 	@Autowired
-	private static UserService userService;
+	private UserService userService;
 	
 	/* 약속방 객체 불러오기 (추후 계산을 위한?) */
 	@Autowired
-	private static MeetingRoomService meetingRoomService;
+	private MeetingRoomService meetingRoomService;
 	
 	/* 약속방 유저 객체 불러오기 */
 	@Autowired
-	private static MeetingRoomUserService meetingRoomUserService;
+	private MeetingRoomUserService meetingRoomUserService;
 	
 	/* C :: 약속방 내 멤버 추가 (일단 모두가 가능하도록..) */
 	@PostMapping("/adduser")

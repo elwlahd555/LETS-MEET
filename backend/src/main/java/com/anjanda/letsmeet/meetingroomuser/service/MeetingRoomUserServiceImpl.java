@@ -26,7 +26,7 @@ public class MeetingRoomUserServiceImpl implements MeetingRoomUserService {
 
 	/* 미팅룸 매퍼 객체 불러오기 */
 	@Autowired
-	private static MeetingRoomUserMapper meetingRoomUserMapper;
+	private MeetingRoomUserMapper meetingRoomUserMapper;
 	
 	/* C :: 약속방 내 멤버 추가 (일단 모두가 가능하도록..) */
 	@Override
