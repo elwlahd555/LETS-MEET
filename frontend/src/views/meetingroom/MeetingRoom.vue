@@ -62,13 +62,13 @@
 
     <v-tabs-items v-model="tab">
       <v-tab-item>
-        <DeterminePromise />
+        <DeterminePromise/>
       </v-tab-item>
       <v-tab-item>
         22
       </v-tab-item>
       <v-tab-item>
-        <Chatting />
+        <Chatting :mrNo="mrNo"/>
       </v-tab-item>
       <v-tab-item>
         <Member />

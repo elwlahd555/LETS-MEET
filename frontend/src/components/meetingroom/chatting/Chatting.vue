@@ -2,7 +2,7 @@
   <v-container>
     <Chat 
       :initial-feed="feed"
-      :title="'My Best Team'"
+      :title="'Chat Room'+ ' (' +(mrUserInfo.length)+ '명)'"
       :initial-author-id="authorId"
       @newOwnMessage="onNewOwnMessage"
     />
@@ -14,12 +14,15 @@ import Chat from 'basic-vue-chat'
 import moment from 'moment'
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
-
+const axios = require('axios');
 
 export default {
   name: "Chatting",
   components: {
     Chat,
+  },
+  props: {
+    mrNo: Number,
   },
   data() {
     return {
@@ -35,27 +38,18 @@ export default {
         date: '16:30'
       },
       user: {
-        1: "이성헌",
-        2: "Admin",
-        3: "People"
       }
       ,
       feed: [
       ],
+      mrUserInfo: [],
     }
   },
   created() {
     this.connect()
     this.authname = this.$store.state.uName
-    console.log(this.$store.state)
-    if (this.authname === '이성헌') {
-      this.authorId = 1
-    } else if (this.authname === 'admin') {
-      this.authorId = 2
-    } else {
-      this.authorId = 3
-    }
-    console.log(this.authname + this.authorId)
+    this.authorId = this.$store.state.uNo
+    console.log("B")
   },
   methods: {
     onNewOwnMessage (message, image, imageUrl) {
@@ -82,13 +76,46 @@ export default {
       if (this.stompClient && this.stompClient.connected) {
         const msg = { 
           mrcUNo: this.authorId,
-          mrcContent: this.message.contents 
+          mrcContent: this.message.contents,
         };
         console.log(msg)
         this.stompClient.send("/receive", JSON.stringify(msg), {});
       }
     },    
     connect() {
+      axios.get(`http://localhost:8000/letsmeet/meetingRoomUser/userInfo?mrNo=${this.mrNo}`)
+      .then((res)=> {
+        this.mrUserInfo = res.data
+        console.log(this.mrUserInfo)
+        for (var i=0; i < this.mrUserInfo.length; i++) {
+          this.user[this.mrUserInfo[i].uNo] = this.mrUserInfo[i].uName
+        }
+        console.log(this.user)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
+      axios.get(`http://localhost:8000/letsmeet/chat/open?mrcMrNo=${this.mrNo}`)
+      .then((res)=> {
+        console.log(res.data)
+        for (var re of res.data){
+          var tmp_date = re.mrcDate
+          const feed_data = {
+            id: re.mrcUNo,
+            author: this.user[re.mrcUNo],
+            imageUrl: '',
+            image: '',
+            contents: re.mrcContent,
+            date: tmp_date.substring(12,20),
+          }
+          this.feed.push(feed_data)
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
       const serverURL = "http://localhost:8000/letsmeet/websocket"
       let socket = new SockJS(serverURL);
       this.stompClient = Stomp.over(socket);

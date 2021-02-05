@@ -31,6 +31,8 @@
 
 <script>
 import MyPromise from "./MyPromise.vue";
+const axios = require('axios');
+
 export default {
   name: "DeterminePromise",
   components: {
@@ -48,6 +50,7 @@ export default {
       d.setDate(day)
       return d.toISOString().substr(0, 10)
     })
+    this.departure()
   },
 
   methods: {
@@ -57,6 +60,19 @@ export default {
       if ([1, 2, 4, 5].includes(parseInt(day, 10))) return ['green accent-3']
       return false
     },
+    departure() {
+      axios.get(`https://dapi.kakao.com/v2/local/geo/coord2address.json?x=127.423084873712&y=37.0789561558879&input_coord=WGS84`, {
+        headers: {
+          Authorization: `KakaoAK 005fbdb435b40b9acf0eabc1b2010e7b`
+        }
+      })
+      .then((res)=> {
+        console.log(res.data.documents[0].address.address_name)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
   },
 }
 </script>
