@@ -123,7 +123,8 @@
 const KAKAO_API_KEY = '71f77d07e68b0f6c0464d85d3df14e6c'
 var map = ''
 const axios = require('axios');
-
+var latitude = '36.108883399999996'
+var longitude = '128.4113509'
 export default {
   name: "MyPromise",
   data () {
@@ -131,8 +132,6 @@ export default {
       mrNo: '',
       dialogm1: '',
       dialog: false,
-      latitude: '36.103764999999996',
-      longitude: '128.4204923',
       textContent: '',
       dates: [],
       min: this.roomInfo.mrDateStart,
@@ -168,13 +167,13 @@ export default {
       this.textContent = 'Locating...'
       
       navigator.geolocation.getCurrentPosition(pos => {
-        this.latitude = pos.coords.latitude
-        this.longitude = pos.coords.longitude
-        this.textContent = this.latitude + ', ' + this.longitude
+        latitude = pos.coords.latitude
+        longitude = pos.coords.longitude
       }, err => {
         this.textContent = err.message
       })
       this.dialogm1 = true
+      alert("현재 위치로 설정하였습니다.")
     },
     addKakaoMapScript() {
       const script = document.createElement("script")
@@ -189,7 +188,7 @@ export default {
       container.style.width = '100%'
       container.style.height = '300px'
       var options = {
-        center: new kakao.maps.LatLng(this.latitude, this.longitude),
+        center: new kakao.maps.LatLng(latitude, longitude),
         level: 4
       }
       map = new kakao.maps.Map(container, options)
@@ -205,10 +204,12 @@ export default {
         map.relayout()
         hideMarkers()
         var latlng = mouseEvent.latLng
-        this.latitude = latlng.getLat()
-        this.longitude = latlng.getLng()
+        latitude = latlng.getLat()
+        longitude = latlng.getLng()
         addMarker(latlng)
       })
+
+      map.relayout()
       function setMarkers(map) {
         for (var i = 0; i < markers.length; i++) {
             markers[i].setMap(map)
@@ -223,7 +224,7 @@ export default {
         })
         marker.setMap(map)
         markers.push(marker)
-      }
+      } 
     },
     confirmPormise() {
       if (this.dialogm1 && this.dates.length > 0){
@@ -233,9 +234,10 @@ export default {
           mruMrNo: this.mrNo,
           mruUNo: this.$store.state.uNo,
           mruUserDates: this.dates.join('/'),
-          mruUserLat: this.latitude,
-          mruUserLng: this.longitude
+          mruUserLat: latitude,
+          mruUserLng: longitude
         }
+        console.log(data)
         axios.put(`http://localhost:8000/letsmeet/meetingRoomUser/set`, data)
           .then(()=> {
             alert('일정 선택이 완료되었습니다.')
@@ -250,8 +252,8 @@ export default {
               mruName: this.$store.state.uName,
               mruUNo: this.$store.state.uNo,
               mruUserDates: this.dates.join('/'),
-              mruUserLat: this.latitude,
-              mruUserLng: this.longitude,
+              mruUserLat: latitude,
+              mruUserLng: longitude,
             }
             this.$emit('refresh', ref_data)
           })

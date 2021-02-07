@@ -25,8 +25,8 @@
     <hr>
     <v-subheader>출발 장소</v-subheader>
     <v-container v-if="userDeparture">
-      <span v-for="(value, idx) in userDeparture" :key="idx"> 
-        <v-icon color="indigo deep-2">mdi-flag-checkered</v-icon>{{ value[0] }} : {{ value[1] }}<br>
+      <span v-for="(value, idx) in userDeparture" :key="idx" class="text-start"> 
+        <v-icon color="indigo deep-2">mdi-flag-checkered</v-icon>{{ value[1] }} : {{ value[2] }}<br>
       </span>
     </v-container>
   </v-container>
@@ -78,7 +78,7 @@ export default {
         return ['red']
       }
     },
-    departure(name, Lng, Lat) {
+    departure(id, name, Lng, Lat) {
       axios.get(`https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${Lng}&y=${Lat}&input_coord=WGS84`, {
         headers: {
           Authorization: `KakaoAK 005fbdb435b40b9acf0eabc1b2010e7b`
@@ -86,7 +86,7 @@ export default {
       })
       .then((res)=> {
         var tmp = res.data.documents[0].address.address_name
-        this.userDeparture.push([name, tmp])
+        this.userDeparture.push([id, name, tmp])
       })
       .catch((err) => {
         console.log(err)
@@ -96,7 +96,7 @@ export default {
       var li = this.mrUserInfo
       for(var i of li){
           if(i.mruUserLat !== null){
-            this.departure(i.uName, i.mruUserLng, i.mruUserLat)
+            this.departure(i.uNo, i.uName, i.mruUserLng, i.mruUserLat)
           }
       }
     },
@@ -128,7 +128,6 @@ export default {
           this.availDates[key] = ['red']
         }
       }
-      console.log(this.availDates)
       this.functionEvents()
     },
     refresh(ref_data) {
@@ -136,12 +135,16 @@ export default {
       var li = this.mrUserInfo
       for(var i=0; i < li.length; i++){
           if(li[i].uNo === this.$store.state.uNo){
-            this.userDeparture.splice(i,i)
             this.userInfo[i].mruUserDates = ref_data.mruUserDates
             break
           }
       }
-      this.departure(ref_data.mruName, ref_data.mruUserLng, ref_data.mruUserLat)
+      for(var j=0; j < this.userDeparture.length; j++){
+          if(this.userDeparture[j][0] === this.$store.state.uNo){
+            this.userDeparture.splice(j,1)
+          }
+      }
+      this.departure(ref_data.mruNo, ref_data.mruName, ref_data.mruUserLng, ref_data.mruUserLat)
       this.getAvailableDates()
     }
   },
