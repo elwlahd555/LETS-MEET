@@ -57,9 +57,10 @@ public class FriendController {
 
 	/* R :: 사용자의 친구 검색 조회 */
 	@GetMapping("/search")
-	public ResponseEntity<List<User>> reviewSearchFriend(String searchEmail) throws Exception {
-		System.out.println("검색할 친구 이메일 : " + searchEmail);
-		return new ResponseEntity<List<User>>(friendService.reviewSearchFriend(searchEmail), HttpStatus.OK);
+	public ResponseEntity<List<User>> reviewSearchFriend(String uEmail) throws Exception {
+		System.out.println("검색할 친구 이메일 : " + uEmail);
+		System.out.println(friendService.reviewSearchFriend(uEmail).toString());
+		return new ResponseEntity<List<User>>(friendService.reviewSearchFriend(uEmail), HttpStatus.OK);
 	}
 	
 	
