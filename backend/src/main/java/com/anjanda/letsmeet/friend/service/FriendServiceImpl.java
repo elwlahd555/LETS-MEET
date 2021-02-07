@@ -38,6 +38,12 @@ public class FriendServiceImpl implements FriendService {
 		return friendMapper.selectFriend(user);
 	}
 	
+	/* R :: 사용자가 검색한 친구 목록 */
+	@Override
+	public List<User> reviewSearchFriend(String searchEmail) throws Exception {
+		return friendMapper.selectSearchFriend(searchEmail);
+	}
+	
 	/* D :: 사용자의 친구 삭제 */
 	@Override
 	public boolean deleteFriend(int me, User user) throws Exception {

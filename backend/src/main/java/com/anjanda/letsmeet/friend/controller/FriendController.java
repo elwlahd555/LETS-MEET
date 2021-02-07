@@ -54,6 +54,14 @@ public class FriendController {
 	public ResponseEntity<List<User>> reviewFriend(@RequestBody User user) throws Exception {
 		return new ResponseEntity<List<User>>(friendService.reviewFriend(user), HttpStatus.OK);
 	}
+
+	/* R :: 사용자의 친구 검색 조회 */
+	@GetMapping("/search")
+	public ResponseEntity<List<User>> reviewSearchFriend(String searchEmail) throws Exception {
+		System.out.println("검색할 친구 이메일 : " + searchEmail);
+		return new ResponseEntity<List<User>>(friendService.reviewSearchFriend(searchEmail), HttpStatus.OK);
+	}
+	
 	
 	/* D :: 사용자의 친구 삭제 */
 	@DeleteMapping("/delete")

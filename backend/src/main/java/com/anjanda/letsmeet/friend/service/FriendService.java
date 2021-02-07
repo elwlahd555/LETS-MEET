@@ -24,6 +24,9 @@ public interface FriendService {
 	/* R :: 사용자의 친구 조회 */
 	List<User> reviewFriend(User user) throws Exception;
 
+	/* R :: 사용자가 검색한 친구 목록 조회 */
+	public List<User> reviewSearchFriend(String searchEmail) throws Exception;
+	
 	/* D :: 사용자의 친구 삭제 */
 	boolean deleteFriend(int me, User user) throws Exception;
 
