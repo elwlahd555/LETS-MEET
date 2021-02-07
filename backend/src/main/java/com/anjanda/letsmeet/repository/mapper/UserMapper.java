@@ -40,4 +40,9 @@ public interface UserMapper {
 	/* 이메일 중복 체크 메소드 */
 	public int existEmail(User user) throws Exception;
 
+	/* 토큰에서 얻은 uNo 활용 메소드 */
+	public User selectUserByUNo(int uNoInToken) throws Exception;
+
+	/* 로그인 시, salt를 먼저 얻기 위한 메소드 */
+	public String getuSaltByEmail(String getuEmail);
 }

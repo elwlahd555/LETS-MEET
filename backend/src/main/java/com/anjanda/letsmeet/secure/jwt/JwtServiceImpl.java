@@ -1,23 +1,27 @@
-package com.anjanda.letsmeet.user.jwt;
+package com.anjanda.letsmeet.secure.jwt;
 
 import java.util.Date;
-import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.h2.util.StringUtils;
 import org.springframework.stereotype.Component;
 
 import com.anjanda.letsmeet.repository.dto.User;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.UnsupportedJwtException;
 
 /**
  * 
  * @Date : 2021. 2. 1.
  * @Team : AnJanDa
- * @author : 개발자명
+ * @author : 김지현
  * @Project : 레쓰밋 :: backend
  * @Function : JWT 서비스
  * @Description : JWT 토큰 생성 및 암호화 처리 후, 메소드 선언
@@ -25,12 +29,13 @@ import io.jsonwebtoken.SignatureAlgorithm;
  */
 
 @Component
-public class JwtService {
+public class JwtServiceImpl implements JwtService {
 	
 	/* 암호화 설정을 위한 임의 문자열 변수 */
 	private String signature = "LetsMeet";
 	
 	/* 로그인 성공 시, 사용자 정보를 기반으로 JWT Token 생성 및 반환 */
+	@Override
 	public String create(User user) {
 		System.out.println("토큰 생성");
 		JwtBuilder jwtBuilder = Jwts.builder();
@@ -46,19 +51,41 @@ public class JwtService {
 	}
 	
 	/* 생성되어 전달받은 토큰 확인 처리 => 토큰 문제 발생 시, RuntimeException 처리된다 */
-	public void checkValid(String jwt) {
-		Jwts.parser().setSigningKey(signature.getBytes()).parseClaimsJws(jwt);
+	@Override
+	public boolean checkValid(String jwt) {
+		if(!StringUtils.isNullOrEmpty(jwt)) {
+			try {
+				Jwts.parser().setSigningKey(signature).parseClaimsJws(jwt);
+				return true;
+			} catch (MalformedJwtException e) {
+            	e.printStackTrace();
+            } catch (ExpiredJwtException e) {
+            	e.printStackTrace();
+            } catch (UnsupportedJwtException e) {
+            	e.printStackTrace();
+            } catch (IllegalArgumentException e) {
+            	e.printStackTrace();
+            }
+		}
+		return false;
 	}
 	
 	/* JWT Token 분석해서 필요한 정보 반환하기 */
-	public Map<String, Object> get(String jwt) {
-		Jws<Claims> claims = null;
-		try {
-			claims = Jwts.parser().setSigningKey(signature.getBytes()).parseClaimsJws(jwt);
-		} catch(final Exception e) {
-			throw new RuntimeException();
+	@Override
+	public int get(String jwt) {
+		Claims claims = Jwts.parser().setSigningKey(signature).parseClaimsJws(jwt).getBody();
+		return Integer.parseInt(claims.getSubject());
+	}
+
+	/* http 요청을 파라미터로 받아 토큰 반환 */
+	@Override
+	public String parseTokenString(HttpServletRequest request) {
+		String parsingToken = request.getHeader("Authorization");
+		if (parsingToken != null && parsingToken.startsWith("Parsing ")) {
+			return parsingToken.substring(8);
 		}
-		return claims.getBody();
+		return null;
+
 	}
 
 }

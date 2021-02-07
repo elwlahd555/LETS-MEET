@@ -7,9 +7,9 @@
 	<!-- C :: 회원 가입 -->
 	<insert id="insertUser" parameterType="user">
 	insert into user
-		(`u_no`, `u_email`, `u_password`, `u_name`, `u_join_date`)
+		(u_no, u_email, u_password, u_name, u_join_date, u_salt)
 	values
-		(#{uNo}, #{uEmail}, #{uPassword}, #{uName}, now());
+		(#{uNo}, #{uEmail}, #{uPassword}, #{uName}, now(), #{uSalt});
 	</insert>
 
 	<!-- C :: 카카오 회원 가입 -->
@@ -30,7 +30,7 @@
 	<select id="selectUser" parameterType="user" resultType="user">
 		select *
 		  from user
-		 where u_email=#{uEmail}
+		 where u_email=#{uEmail} and u_password = #{uPassword}
 	</select>
 
 	<!-- U :: 회원 정보 수정 image 정보 뺌 --> 
@@ -60,4 +60,20 @@
 		  from user
 		 where u_email=#{uEmail} and u_name=#{uName}
 	</select>
+	
+	<!-- 토큰에서 받은 uNo로 검색 -->
+	<select id="selectUserByUNo" parameterType="int" resultType="user">
+		select *
+		  from user
+		 where u_no = #{uNoInToken}
+	</select>
+	
+	<!-- 로그인 시, 최초 salt를 얻기위함 -->
+	<select id="getuSaltByEmail">
+		select u_salt
+		  from user
+		 where u_email = #{getuEmail}
+	</select>
+	
+	
 </mapper>

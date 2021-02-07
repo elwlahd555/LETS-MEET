@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.anjanda.letsmeet.repository.dto.User;
-import com.anjanda.letsmeet.user.jwt.JwtService;
+import com.anjanda.letsmeet.secure.encrypt.SHA256SALT;
+import com.anjanda.letsmeet.secure.jwt.JwtService;
 import com.anjanda.letsmeet.user.service.UserService;
 
 /**
@@ -33,6 +34,8 @@ import com.anjanda.letsmeet.user.service.UserService;
  * @Description
  *	- 유저 관련 컨트롤러 클래스
  *	- REST API 적용
+ *	- 이메일 인증 적용
+ *	- 회원가입시, SALT 및 암호화 비밀번호 생성
  */
 
 @RestController
@@ -47,15 +50,19 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	/* C :: 회원 가입 */
+	/* C :: 회원 가입 => 여기서, salt 값 생성해서 넣어주고, salt값으로 sha256 암호화한 비번 데이터까지 넣어서 회원 가입시켜야함. */
 	@CrossOrigin(origins="*")
 	@PostMapping("/join")
-	public ResponseEntity<String> createUser(@RequestBody User user) throws Exception {
-		System.out.println(user+"유저정보"+user.getuName());
-		if(userService.createUser(user) > 0) {	// 해당 메소드가 int형이기에, 유저가 추가되는 순간 1이 뜨므로, > 0 으로 처리..
+	public ResponseEntity<String> createUser(User user) throws Exception {
+		// 이메일 인증 확인 절차 받아야만 가능하다는걸 처리해주어야함....?
+		
+		System.out.println("가입할 유저 email" + user.getuEmail());
+		
+		if(userService.createUser(user) > 0) {	
 			return new ResponseEntity<String>("회원가입 성공", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("회원가입 실패", HttpStatus.NO_CONTENT);
+
 	}
 	
 	/* R :: 회원 개인 정보 조회 */
@@ -65,7 +72,6 @@ public class UserController {
 		Map<String, Object> resultMap = new HashMap<>();
 		
 		try {
-			resultMap.putAll(jwtService.get(request.getHeader("auth-token")));
 			status = HttpStatus.ACCEPTED;
 		} catch (RuntimeException e) {
 			resultMap.put("message", e.getMessage());

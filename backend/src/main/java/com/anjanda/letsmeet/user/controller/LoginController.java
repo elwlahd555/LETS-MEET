@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.anjanda.letsmeet.repository.dto.User;
-import com.anjanda.letsmeet.user.jwt.JwtService;
+import com.anjanda.letsmeet.secure.jwt.JwtService;
 import com.anjanda.letsmeet.user.service.UserService;
 
 /**

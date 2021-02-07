@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.anjanda.letsmeet.repository.dto.User;
 import com.anjanda.letsmeet.repository.mapper.UserMapper;
+import com.anjanda.letsmeet.secure.encrypt.SHA256SALT;
 
 /**
  * 
@@ -25,13 +26,18 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserMapper mapper;
 	
-//	/* 비밀번호를 해쉬로 저장하기 위한 인코더 */
-//	@Autowired
-//	private BCryptPasswordEncoder encoder;
-	
 	/* 로그인 메소드 */
 	@Override
 	public User login(User user) throws Exception {
+		// 로그인 시도 횟수 제한 일단 뺌.
+		
+		String salt = mapper.getuSaltByEmail(user.getuEmail());
+		String password = user.getuPassword();
+		
+		password = SHA256SALT.getEncrypt(password, salt);
+		
+		user.setuPassword(password);
+		
 		User check = mapper.selectUser(user);
 		if(user.getuPassword().equals(check.getuPassword()))
 			return check;
@@ -42,9 +48,19 @@ public class UserServiceImpl implements UserService {
 	/* C :: 회원 가입 메소드 */
 	@Override
 	public int createUser(User user) throws Exception {
-//		String rawPassword = user.getuPassword(); // 비밀번호 원문
-//		String encPassword = encoder.encode(rawPassword); // 해쉬
-//		user.setuPassword(rawPassword);
+		
+		// 1. 가입할 회원의 고유 salt 생성 및 저장
+		String salt = SHA256SALT.generateSalt(); 
+		user.setuSalt(salt); 
+		
+		// 2. 입력된 password + 생성된 salt 활용해서 암호화된 password 생성
+		String password = user.getuPassword();
+		password = SHA256SALT.getEncrypt(password, salt);
+		
+		// 3. 입력된 비번 삽입
+		user.setuPassword(password);
+		
+		// 4. 남은 유저 정보 삽입
 		return mapper.insertUser(user);
 	}
 
@@ -86,6 +102,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int existEmail(User user) throws Exception {
 		return mapper.existEmail(user);
+	}
+	
+	/* 토큰에서 얻은 uNo로 유저 검색  */
+	public User selectUserByUNo(int uNoInToken) throws Exception {
+		return mapper.selectUserByUNo(uNoInToken);
 	}
 }
 

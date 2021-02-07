@@ -32,12 +32,15 @@ public interface UserService {
 	public User selectUser(User user) throws Exception;
 
 	/* U :: 회원 정보 수정 메소드 */
-	int updateUser(User user) throws Exception;
+	public int updateUser(User user) throws Exception;
 
 	/* D :: 회원 탈퇴 메소드 */
-	int deleteUser(User user) throws Exception;
+	public int deleteUser(User user) throws Exception;
 
 	// CRUD 외 추가 기능 
 	/* 이메일 중복 체크 */
-	int existEmail(User user) throws Exception;
+	public int existEmail(User user) throws Exception;
+
+	/* 토큰에서 얻은 uNo로 유저 검색  */
+	public User selectUserByUNo(int uNoInToken) throws Exception;
 }

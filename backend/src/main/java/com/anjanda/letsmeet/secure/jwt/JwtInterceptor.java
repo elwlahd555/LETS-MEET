@@ -1,4 +1,4 @@
-package com.anjanda.letsmeet.user.jwt;
+package com.anjanda.letsmeet.secure.jwt;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
