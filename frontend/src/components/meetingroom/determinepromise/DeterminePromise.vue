@@ -1,28 +1,33 @@
 <template>
   <v-container>
-    <v-subheader>내 약속 일정 선택</v-subheader>
-    <v-container>
-      <MyPromise :roomInfo="roomInfo" @refresh="refresh"/>
-    </v-container>
+    <div>
+      <MyPromise :roomInfo="roomInfo" :mrUserInfo="mrUserInfo" @refresh="refresh"/>
+    </div>
     <hr>
     <v-subheader>약속 가능 날짜</v-subheader>
     <v-date-picker
-      v-model="date2"
-      :event-color="date => date[9] % 2 ? 'red' : 'yellow'"
+      v-model="dates"
+      :event-color="date => 'date[9] % 2' ? 'red' : 'yellow'"
       :events="functionEvents"
       full-width
       no-title
       color="#536DFE"
-      readonly
-      min="2021-02-01"
-      max="2021-02-05"
+      :min="min"
+      :max="max"
+      :picker-date="min"
+      multiple
     ></v-date-picker>
+    <v-container class="ml-2 text-start">
+      <v-icon color="green">mdi-circle-medium</v-icon> : 모두 가능 <br>
+      <v-icon color="yellow">mdi-circle-medium</v-icon> : 일부 가능 <br>
+      <v-icon color="red">mdi-circle-medium</v-icon> : 모두 불가능
+    </v-container>
     <hr>
     <v-subheader>출발 장소</v-subheader>
-    <v-container>
-      홍길동 : 인동초등학교 <br>
-      임꺽정 : 삼성전자 <br>
-      춘향 : IWC <br>
+    <v-container v-if="userDeparture">
+      <span v-for="(value, idx) in userDeparture" :key="idx"> 
+        <v-icon color="indigo deep-2">mdi-flag-checkered</v-icon>{{ value[0] }} : {{ value[1] }}<br>
+      </span>
     </v-container>
   </v-container>
 </template>
@@ -39,46 +44,105 @@ export default {
     MyPromise,
   },
   props: {
-    roomInfo: Array,
-    mrUserInfo: Array
+    roomInfo: Object,
+    mrUserInfo: Array,
   },
-  data: () => ({
-    arrayEvents: null,
-    // date2: new Date().toISOString().substr(0, 10),
-    date2: []
-  }),
+  data() {
+    return {
+      arrayEvents: null,
+      dates: [],
+      userDeparture: [],
+      min: this.roomInfo.mrDateStart,
+      max: this.roomInfo.mrDateEnd,
+      availDates: {},
+      userInfo: [],
+    }
+  },
   mounted () {
-    this.arrayEvents = [...Array(6)].map(() => {
-      const day = Math.floor(Math.random() * 30)
-      const d = new Date()
-      d.setDate(day)
-      return d.toISOString().substr(0, 10)
-    })
-    this.departure()
+    this.getUserDeparture()
+    this.min = this.roomInfo.mrDateStart
+    this.max = this.roomInfo.mrDateEnd
+    this.userInfo = this.mrUserInfo
+    this.getAvailableDates()
   },
-
   methods: {
     functionEvents (date) {
-      const [,, day] = date.split('-')
-      if ([1, 2, 3].includes(parseInt(day, 10))) return true
-      if ([1, 2, 4, 5].includes(parseInt(day, 10))) return ['green accent-3']
-      return false
+      const keys = Object.keys(this.availDates)
+      for (let i = 0; i < keys.length; i++) {
+        const key = keys[i]
+        if (key === date){
+          return this.availDates[key]
+        }
+      }
+      if (this.min <= date && date <= this.max){
+        return ['red']
+      }
     },
-    departure() {
-      axios.get(`https://dapi.kakao.com/v2/local/geo/coord2address.json?x=127.423084873712&y=37.0789561558879&input_coord=WGS84`, {
+    departure(name, Lng, Lat) {
+      axios.get(`https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${Lng}&y=${Lat}&input_coord=WGS84`, {
         headers: {
           Authorization: `KakaoAK 005fbdb435b40b9acf0eabc1b2010e7b`
         }
       })
       .then((res)=> {
-        console.log(res.data.documents[0].address.address_name)
+        var tmp = res.data.documents[0].address.address_name
+        this.userDeparture.push([name, tmp])
       })
       .catch((err) => {
         console.log(err)
       })
     },
-    refresh() {
-
+    getUserDeparture() {
+      var li = this.mrUserInfo
+      for(var i of li){
+          if(i.mruUserLat !== null){
+            this.departure(i.uName, i.mruUserLng, i.mruUserLat)
+          }
+      }
+    },
+    getAvailableDates() {
+      this.availDates = {}
+      var li = this.userInfo
+      var cnt = 0
+      for(var i of li){
+        if (i.mruUserDates) {
+          cnt ++
+          var tmp_li = i.mruUserDates.split('/')
+          for(var j of tmp_li){
+            if (!this.availDates[j]){
+              this.availDates[j] = 1
+            } else {
+              this.availDates[j] += 1
+            }
+          }
+        }
+      }
+      const keys = Object.keys(this.availDates)
+      for (var k = 0; k < keys.length; k++) {
+        const key = keys[k]
+        if (this.availDates[key] === cnt){
+          this.availDates[key] = ['green']
+        } else if (0 < this.availDates[key] < cnt){
+          this.availDates[key] = ['yellow']
+        } else {
+          this.availDates[key] = ['red']
+        }
+      }
+      console.log(this.availDates)
+      this.functionEvents()
+    },
+    refresh(ref_data) {
+      console.log(ref_data)
+      var li = this.mrUserInfo
+      for(var i=0; i < li.length; i++){
+          if(li[i].uNo === this.$store.state.uNo){
+            this.userDeparture.splice(i,i)
+            this.userInfo[i].mruUserDates = ref_data.mruUserDates
+            break
+          }
+      }
+      this.departure(ref_data.mruName, ref_data.mruUserLng, ref_data.mruUserLat)
+      this.getAvailableDates()
     }
   },
 }

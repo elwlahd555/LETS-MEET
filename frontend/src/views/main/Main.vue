@@ -28,7 +28,7 @@
                 <div class="d-flex justify-center"><v-icon class="mb-1">{{type[value.mrCategory][0]}} </v-icon> {{ value.mrCategory}} 약속</div>
                 <div class="d-flex justify-center"><h4>{{ value.mrName }}</h4></div>
                 <div class="d-flex justify-center">{{ value.mrDateStart }} ~ {{ value.mrDateEnd }}</div>
-                <div class="d-flex justify-center">5명</div>
+                <div class="d-flex justify-center">{{ value.mrUCnt }}명</div>
               </div>
             </v-overlay>
           </v-fade-transition>
@@ -54,7 +54,7 @@
                 <div class="d-flex justify-center"><v-icon class="mb-1">{{type[value.mrCategory][0]}} </v-icon> {{ value.mrCategory}} 약속</div>
                 <div class="d-flex justify-center"><h4>{{ value.mrName }}</h4></div>
                 <div class="d-flex justify-center">{{ value.mrDateStart }} ~ {{ value.mrDateEnd }}</div>
-                <div class="d-flex justify-center">5명</div>
+                <div class="d-flex justify-center">{{ value.mrUCnt }}명</div>
               </div>
             </v-overlay>
           </v-fade-transition>

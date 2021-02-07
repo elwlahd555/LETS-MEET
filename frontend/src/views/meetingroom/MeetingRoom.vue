@@ -1,10 +1,11 @@
 <template>
-  <v-container>
+  <v-container v-if="mrUserInfo">
     <v-card
       class="mx-auto mb-5"
       max-width="100%"
     >
       <v-img
+        v-if="roomInfo.mrCategory"
         :src="type[roomInfo.mrCategory][1]"
         height="200px"
       ></v-img>
@@ -96,7 +97,7 @@ export default {
       show: false,
       tab: 'tab-1',
       mrNo: 0,
-      roomInfo: [],
+      roomInfo: {},
       type: {
         '밥': ['mdi-food', 'https://www.gyeongju.go.kr/upload/content/thumb/20200529/A42F50C69A8A4DDB94DA408C290735C1.jpg'],
         '카페': [ 'mdi-coffee', 'http://www.lightingnews.net/images/theme/cafe_01.png'],
@@ -105,7 +106,7 @@ export default {
         '놀거리': ['mdi-snowboard', 'https://www.travel.taipei/image/65598/1024x768'],
         '기타': ['mdi-dots-horizontal', 'http://img.rflogix.com/agm/main/1024/10_1_20200407112854.jpg'],
       },
-      mrUserInfo: [],
+      mrUserInfo: null,
     }
   },
   mounted() {
@@ -117,7 +118,7 @@ export default {
       axios.get(`http://localhost:8000/letsmeet/meetingRoom/detail?mrNo=${this.mrNo}`)
       .then((res)=> {
         this.roomInfo = res.data
-        console.log(this.roomInfo)
+        // console.log(this.roomInfo)
       })
       .catch((err) => {
         console.log(err)
@@ -125,7 +126,7 @@ export default {
       axios.get(`http://localhost:8000/letsmeet/meetingRoomUser/userInfo?mrNo=${this.mrNo}`)
       .then((res)=> {
         this.mrUserInfo = res.data
-        console.log(this.mrUserInfo)
+        // console.log(this.mrUserInfo)
       })
       .catch((err) => {
         console.log(err)
