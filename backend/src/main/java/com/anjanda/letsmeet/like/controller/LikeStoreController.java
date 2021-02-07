@@ -51,7 +51,7 @@ public class LikeStoreController {
 	
 	/* R :: 유저의 가게 찜 목록 조회 */
 	@GetMapping("")
-	public ResponseEntity<List<LikeStore>> reviewLikeStore(int uNo) throws Exception {
+	public ResponseEntity<List<LikeStore>> reviewLikeStore(@RequestBody int uNo) throws Exception {
 		return new ResponseEntity<List<LikeStore>> (likeStoreService.selectLikeStore(uNo), HttpStatus.OK);
 	}
 	
