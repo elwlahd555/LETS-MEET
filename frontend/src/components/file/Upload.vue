@@ -7,10 +7,15 @@
 <script>
 export default {
   name: "Upload",
+  data(){
+      return {
+          imgFile: '',
+      }
+  },
 
 // 파일 첨부시 Change이벤트
 $fileSelect : function $fileSelect() {
-    this.scndhandReg.imgFile = this.$refs.imgFile.files[0];
+    this.imgFile = this.$refs.imgFile.files[0];
 },
 
 // 저장
@@ -19,8 +24,8 @@ $executeSave : function $executeSave() {
 
     //Object To FormData 변환
     var formData = new FormData();
-    if(this.scndhandReg.imgFile != "") {
-        formData.append("imgFile", this.scndhandReg.imgFile); // 이미지 파일
+    if(this.imgFile != "") {
+        formData.append("imgFile", this.imgFile); // 이미지 파일
     }
 
     // 파일 업로드시 경로, FormData, Header 설정
@@ -28,7 +33,6 @@ $executeSave : function $executeSave() {
         response => {
             if(!!response && response.status === 200) {
                 commonUtils.$alert('업로드 완료');
-                this.scndhandReg = Object.assign({}, this.defScndhangReg);
             }
         }
     ).catch(error => {
