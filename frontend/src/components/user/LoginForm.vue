@@ -26,7 +26,7 @@
  
     </v-card-text>
     <v-card-actions>
-        <v-btn @click='loginsubmit' color="success" rounded style='width:100%'>Login</v-btn>
+        <v-btn @click='loginsubmit' class="text-white" color="indigo accent-2" rounded style='width:100%'>Login</v-btn>
     </v-card-actions>
     </v-form>
   </div>

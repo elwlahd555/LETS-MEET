@@ -79,10 +79,10 @@
           </v-card-text>
 
             <v-card-actions>
-                <v-btn color="teal" rounded style='width:100%' @click="submit">회원가입</v-btn>
+                <v-btn color="indigo accent-2" class="text-white" rounded style='width:100%' @click="submit">회원가입</v-btn>
             </v-card-actions>
           <v-card-actions class="pt-3 px-3">
-              <router-link class="ro" :to="{ name: 'Login' }"><v-icon large>mdi-arrow-left-circle</v-icon></router-link>
+              <router-link class="ro" :to="{ name: 'Login' }"><v-icon large color="indigo accent-2">mdi-arrow-left-circle</v-icon></router-link>
           </v-card-actions>
     </v-form>
   </div>
@@ -105,6 +105,7 @@ export default {
         showPassword2: false,
         SignupFormHasError: false,
         rules: {
+          // 8자 이상으로
             required: value => !!value, 
             phone: value => {
               const pattern = /[0-9]{3}-[0-9]{4}-[0-9]{4}/
