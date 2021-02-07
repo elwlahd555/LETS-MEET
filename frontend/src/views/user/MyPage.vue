@@ -78,6 +78,7 @@
                   persistent
                   max-width="290"
                   >
+                  
                   <template v-slot:activator="{ on, attrs }">
                     <div class='text-center' v-bind="attrs" v-on="on">
                       <h5><v-icon>mdi-plus-circle</v-icon>&nbsp; 친구 추가</h5>
@@ -115,7 +116,7 @@
                       
                       <div v-if="showNoResults === false">
                         <ul v-for="(friend, i) in searchFriendList" :key="i">
-                          <li>{{friend.uName}}&nbsp;&nbsp; {{friend.uEmail}}</li>
+                          <li @click="addMyFriendList">{{friend.uName}}&nbsp;&nbsp; {{friend.uEmail}}</li>
                         </ul>
                       </div>
 
@@ -130,14 +131,14 @@
                         text
                         @click="dialog = false"
                       >
-                        Disagree
+                        취소
                       </v-btn>
                       <v-btn
                         color="green darken-1"
                         text
                         @click="dialog = false"
                       >
-                        Agree
+                        확인
                       </v-btn>
                     </v-card-actions>
                   </v-card>
@@ -154,7 +155,7 @@
                     >
                   </v-avatar>
                   {{ friend }}
-                  <div class="d-inline-flex"><v-icon>mdi-letter-x-circle-outline</v-icon></div>
+                  <div class="d-inline-flex" @click="deleteFriend"><v-icon>mdi-letter-x-circle-outline</v-icon></div>
                 </div>
               </div>
             </div>
@@ -181,25 +182,40 @@ export default {
     components: {
       MypageLikePlace
     },
-    created: {
-      
+    created: () => {
+      // 친구목록 조회
+        axios.get(`http://localhost:8000/letsmeet/mypage/friend/`, config)
+          .then((res)=> {
+            console.log(res.data)
+          })
+          .catch(()=> {
+            console.log('data 못받아옴')
+          })
     },
     methods: {
+      addMyFriendList () {
+        //친구 추가 
+      },
+      deleteFriend () {
+        // 친구 삭제
+      },
       searchUserData() {
         if (this.addFriend.length > 0) {
-          axios.get(`http://localhost:8000/letsmeet/mypage/friend/`, this.addFriend, config)
+          axios.get(`http://localhost:8000/letsmeet/mypage/friend/search`, this.addFriend, config)
           .then((res)=> {
-            // 비어 있지않을 때
-            this.searchFriendList = res.data
+            console.log(res.data)
+            // // 비어 있지않을 때
 
-            // 비어 있을 때 보여줄 list
-            this.showNoResults = !this.showNoResults
+            // this.searchFriendList = res.data
+
+            // // 비어 있을 때 보여줄 list
+            // this.showNoResults = !this.showNoResults
       
           })
           .catch(()=> {
           })
         } else{
-          this.searchFriendList = []
+          // this.searchFriendList = []
         }
       },
 

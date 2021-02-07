@@ -25,6 +25,7 @@ const onlyAuthUser = function usercheck (to, from, next){
 const LoginUser = function LoginUserCheck (to, from, next) {
     if (store.state.isLogin === true) {
         alert('로그인이 되어있는 상태입니다.')
+        next({ path: '/main'})
     } else {
         next();
     }
