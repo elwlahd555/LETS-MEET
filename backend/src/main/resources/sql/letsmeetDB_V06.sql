@@ -23,17 +23,16 @@ DROP TABLE IF EXISTS `friend`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `friend` (
-  `f_no` int NOT NULL AUTO_INCREMENT COMMENT '친구관계 고유 번호',
   `f_recv_u_no` int NOT NULL COMMENT '친구관계의 발신자 (유저 고유 번호)',
   `f_send_u_no` int NOT NULL COMMENT '친구관계의 수신자 (유저 고유 번호)',
-  PRIMARY KEY (`f_no`),
+  PRIMARY KEY (`f_recv_u_no`,`f_send_u_no`),
   KEY `FK_Friend_f_recv_u_no_User_u_no` (`f_recv_u_no`),
   KEY `FK_Friend_f_send_u_no_User_u_no` (`f_send_u_no`),
   CONSTRAINT `FK_Friend_f_recv_u_no_User_u_no` FOREIGN KEY (`f_recv_u_no`) REFERENCES `user` (`u_no`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Friend_f_send_u_no_User_u_no` FOREIGN KEY (`f_send_u_no`) REFERENCES `user` (`u_no`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='유저의 친구 DB';
 /*!40101 SET character_set_client = @saved_cs_client */;
-alter table `friend` auto_increment =1;
+
 --
 -- Dumping data for table `friend`
 --
@@ -60,7 +59,7 @@ CREATE TABLE `image` (
   PRIMARY KEY (`image_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='이미지 관리 DB (해당 데이터 바탕으로 AWS 활용)';
 /*!40101 SET character_set_client = @saved_cs_client */;
-alter table `image` auto_increment =1;
+
 --
 -- Dumping data for table `image`
 --
@@ -68,6 +67,33 @@ alter table `image` auto_increment =1;
 LOCK TABLES `image` WRITE;
 /*!40000 ALTER TABLE `image` DISABLE KEYS */;
 /*!40000 ALTER TABLE `image` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `likestore`
+--
+
+DROP TABLE IF EXISTS `likestore`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `likestore` (
+  `ls_u_no` int NOT NULL COMMENT '유저 고유 번호',
+  `ls_s_no` int NOT NULL COMMENT '상가 고유 번호',
+  `ls_comment` varchar(3000) DEFAULT NULL COMMENT '해당 상가의 본인 부가 코멘트',
+  PRIMARY KEY (`ls_u_no`,`ls_s_no`),
+  KEY `FK_LikeStore_ls_s_no_Store_s_no` (`ls_s_no`),
+  CONSTRAINT `FK_LikeStore_ls_s_no_Store_s_no` FOREIGN KEY (`ls_s_no`) REFERENCES `store` (`s_no`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `FK_LikeStore_ls_u_no_User_u_no` FOREIGN KEY (`ls_u_no`) REFERENCES `user` (`u_no`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='찜 DB';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `likestore`
+--
+
+LOCK TABLES `likestore` WRITE;
+/*!40000 ALTER TABLE `likestore` DISABLE KEYS */;
+/*!40000 ALTER TABLE `likestore` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -88,20 +114,21 @@ CREATE TABLE `meetingroom` (
   `mr_center_lat` varchar(300) DEFAULT NULL COMMENT '약속방 중간값 위도',
   `mr_center_lng` varchar(300) DEFAULT NULL COMMENT '약속방 중간값 경도',
   `mr_date` date DEFAULT NULL COMMENT '약속방 최종 날짜',
+  `mr_u_cnt` int NOT NULL COMMENT '약속방 인원',
   `mr_place` int DEFAULT NULL COMMENT '약속방 최종 장소 (상가 고유 번호)',
   PRIMARY KEY (`mr_no`),
   KEY `FK_MeetingRoom_mr_image_id_Image_image_id` (`mr_image_id`),
   CONSTRAINT `FK_MeetingRoom_mr_image_id_Image_image_id` FOREIGN KEY (`mr_image_id`) REFERENCES `image` (`image_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='약속방 DB';
 /*!40101 SET character_set_client = @saved_cs_client */;
-alter table `meetingroom` auto_increment =1;
+
 --
 -- Dumping data for table `meetingroom`
 --
 
 LOCK TABLES `meetingroom` WRITE;
 /*!40000 ALTER TABLE `meetingroom` DISABLE KEYS */;
-INSERT INTO `meetingroom` VALUES (1,1,'임시방','밥',NULL,'2010-10-10','2010-10-10',NULL,NULL,'2010-10-10',NULL);
+INSERT INTO `meetingroom` VALUES (1,1,'임시방','밥',NULL,'2010-10-10','2010-10-10',NULL,NULL,'2010-10-10',5,NULL);
 /*!40000 ALTER TABLE `meetingroom` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -125,7 +152,7 @@ CREATE TABLE `meetingroomchat` (
   CONSTRAINT `FK_MeetingRoomChat_mrc_u_no_User_u_no` FOREIGN KEY (`mrc_u_no`) REFERENCES `user` (`u_no`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='채팅 DB (이거 DB말고 TXT형식도 고려해볼 것) -> 즉 불필요한 db이기도함.';
 /*!40101 SET character_set_client = @saved_cs_client */;
-alter table `meetingroomchat` auto_increment =1;
+
 --
 -- Dumping data for table `meetingroomchat`
 --
@@ -155,7 +182,7 @@ CREATE TABLE `meetingroomuser` (
   CONSTRAINT `FK_MeetingRoomUser_mru_u_no_User_u_no` FOREIGN KEY (`mru_u_no`) REFERENCES `user` (`u_no`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='약속방 구성 유저 테이블';
 /*!40101 SET character_set_client = @saved_cs_client */;
-alter table `meetingroomuser` auto_increment =1;
+
 --
 -- Dumping data for table `meetingroomuser`
 --
@@ -192,7 +219,7 @@ CREATE TABLE `store` (
   CONSTRAINT `FK_Store_s_image_id_Image_image_id` FOREIGN KEY (`s_image_id`) REFERENCES `image` (`image_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB AUTO_INCREMENT=10319 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='상가 DB (파싱)';
 /*!40101 SET character_set_client = @saved_cs_client */;
-alter table `store` auto_increment =1;
+
 --
 -- Dumping data for table `store`
 --
@@ -224,7 +251,7 @@ CREATE TABLE `storereview` (
   CONSTRAINT `FK_StoreReview_sr_u_no_User_u_no` FOREIGN KEY (`sr_u_no`) REFERENCES `user` (`u_no`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='상가 리뷰 관리 테이블';
 /*!40101 SET character_set_client = @saved_cs_client */;
-alter table `storereview` auto_increment =1;
+
 --
 -- Dumping data for table `storereview`
 --
@@ -245,27 +272,41 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `u_no` int NOT NULL AUTO_INCREMENT COMMENT '유저 고유 번호',
   `u_email` varchar(300) NOT NULL COMMENT '유저 이메일',
-  `u_password` varchar(300) NOT NULL COMMENT '유저 비밀번호',
+  `u_password` varchar(3000) NOT NULL COMMENT '유저 비밀번호',
   `u_name` varchar(300) NOT NULL COMMENT '유저 이름',
   `u_image_id` int DEFAULT NULL COMMENT '유저 이미지 (이미지 파일 고유값)',
   `u_join_date` timestamp NOT NULL COMMENT '유저 가입일',
   `u_provider` varchar(300) DEFAULT NULL COMMENT '유저 SNS 연동 제공자',
+  `u_is_account_non_expired` tinyint(1) DEFAULT NULL,
+  `u_is_account_non_locked` tinyint(1) DEFAULT NULL,
+  `u_is_credentials_non_expired` tinyint(1) DEFAULT NULL,
+  `u_is_enabled` tinyint(1) DEFAULT NULL,
+  `u_authority` varchar(45) NOT NULL DEFAULT 'customer' COMMENT '유저 / 관리자 구분 컬럼 (default = customer = 유저)',
+  `u_salt` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`u_no`),
   UNIQUE KEY `u_email_UNIQUE` (`u_email`),
   KEY `FK_User_u_image_id_Image_image_id` (`u_image_id`),
   CONSTRAINT `FK_User_u_image_id_Image_image_id` FOREIGN KEY (`u_image_id`) REFERENCES `image` (`image_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='유저 DB';
 /*!40101 SET character_set_client = @saved_cs_client */;
-alter table `user` auto_increment =1;
+
 --
 -- Dumping data for table `user`
 --
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin@naver.com','admin','admin',NULL,'2021-02-02 08:25:37',NULL),(2,'2@naver.com','2','홍길동',NULL,'2021-02-02 08:26:14',NULL),(3,'3@naver.com','3','이순신',NULL,'2021-02-02 08:26:16',NULL),(4,'4@naver.com','4','김민수',NULL,'2021-02-02 08:27:00',NULL),(5,'5@naver.com','5','김민지',NULL,'2021-02-02 08:27:07',NULL);
+INSERT INTO `user` VALUES (1,'admin@naver.com','admin','admin',NULL,'2021-02-02 08:25:37',NULL,NULL,NULL,NULL,NULL,'customer',NULL),(2,'2@naver.com','2','홍길동',NULL,'2021-02-02 08:26:14',NULL,NULL,NULL,NULL,NULL,'customer',NULL),(3,'3@naver.com','3','이순신',NULL,'2021-02-02 08:26:16',NULL,NULL,NULL,NULL,NULL,'customer',NULL),(4,'4@naver.com','4','김민수',NULL,'2021-02-02 08:27:00',NULL,NULL,NULL,NULL,NULL,'customer',NULL),(5,'5@naver.com','5','김민지',NULL,'2021-02-02 08:27:07',NULL,NULL,NULL,NULL,NULL,'customer',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'letsmeet'
+--
+
+--
+-- Dumping routines for database 'letsmeet'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -276,4 +317,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-02-04 19:55:50
+-- Dump completed on 2021-02-08  1:03:45

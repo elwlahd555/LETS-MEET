@@ -33,18 +33,18 @@
 		 where u_email=#{uEmail}
 	</select>
 
-	<!-- U :: 회원 정보 수정 -->
+	<!-- U :: 회원 정보 수정 image 정보 뺌 --> 
 	<update id="updateUser" parameterType="user">
 		update user
-		   set u_password=#{uPassword}, u_name=#{uName}, u_image_id=#{uImageId} 
+		   set u_password=#{uPassword}, u_name=#{uName}
 		 where u_email=#{uEmail}
 	</update>
 	
-	<!-- D :: 회원 탈퇴 -->
+	<!-- D :: 회원 탈퇴  and u_password=#{uPassword} 빼줌  -->
 	<delete id="deleteUser" parameterType="user">
 		delete 
 		  from user 
-		 where u_Email=#{uEmail} and u_password=#{uPassword}
+		 where u_Email=#{uEmail}
 	</delete>
 
 	<!-- 이메일 중복 체크 -->
