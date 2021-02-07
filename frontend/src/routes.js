@@ -32,7 +32,7 @@ const LoginUser = function LoginUserCheck (to, from, next) {
 
 const routes = [
     {
-        path : '/login',
+        path : '/',
         name : 'Login',
         beforeEnter: LoginUser,
         component : Login
