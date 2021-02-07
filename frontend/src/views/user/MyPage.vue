@@ -72,9 +72,79 @@
         <v-tabs-items v-model="tab"> 
           <v-tab-item>
             <div class= 'p-3'>
-              <div class='text-center'>
-                <h5><v-icon>mdi-plus-circle</v-icon>&nbsp; 친구 추가</h5>
-              </div>
+              <!-- 친구추가 팝업창 -->
+               <v-dialog
+                  v-model="dialog"
+                  persistent
+                  max-width="290"
+                  >
+                  <template v-slot:activator="{ on, attrs }">
+                    <div class='text-center' v-bind="attrs" v-on="on">
+                      <h5><v-icon>mdi-plus-circle</v-icon>&nbsp; 친구 추가</h5>
+                    </div>
+                  </template>
+                  <v-card>
+                    <v-card-title class="headline">
+                      친구 추가
+                    </v-card-title>
+                    <v-card-text>이메일 혹은 이름을 입력해주세요.</v-card-text>
+                    
+                    <v-card-text>
+
+                      <!-- <div id="autocomplete" class="autocomplete">
+                        <input class="autocomplete-input" v-model='addFriend' @keyup="checkFriend"
+                          placeholder="Search for a country"
+                          aria-label="Search for a country"
+                        >
+                        <ul class="autocomplete-result-list"></ul>
+                        <ul id="no-results" class="autocomplete-result-list" visible="false">
+                          <li class="autocomplete-result">
+                            No results found
+                          </li>
+                        </ul>
+                      </div> -->
+                      <v-text-field
+                      v-model="addFriend"
+                      @keypress.enter="searchUserData"
+                      append-icon="mdi-magnify"
+                      single-line
+                      hide-details
+                      >
+                      </v-text-field>
+                      </v-card-text>
+                      
+                      <div v-if="showNoResults === false">
+                        <ul v-for="(friend, i) in searchFriendList" :key="i">
+                          <li>{{friend.uName}}&nbsp;&nbsp; {{friend.uEmail}}</li>
+                        </ul>
+                      </div>
+
+                      <div v-else>
+                        <div> 결과 정보가 없습니다.</div>
+                      </div>
+
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        color="green darken-1"
+                        text
+                        @click="dialog = false"
+                      >
+                        Disagree
+                      </v-btn>
+                      <v-btn
+                        color="green darken-1"
+                        text
+                        @click="dialog = false"
+                      >
+                        Agree
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+
+
+
               <div class='p-2' v-for="friend in friends" :key="friend">
                 <div>
                   <v-avatar>
@@ -100,6 +170,10 @@
     </div>
 </template>
 <script>
+const axios = require('axios');
+const config = {
+          headers: { 'auth-token': window.localStorage.getItem('auth-token') },
+      }
 import MypageLikePlace from "../../components/user/mypage/MypageLikePlace"
 
 export default {
@@ -107,7 +181,28 @@ export default {
     components: {
       MypageLikePlace
     },
+    created: {
+      
+    },
     methods: {
+      searchUserData() {
+        if (this.addFriend.length > 0) {
+          axios.get(`http://localhost:8000/letsmeet/mypage/friend/`, this.addFriend, config)
+          .then((res)=> {
+            // 비어 있지않을 때
+            this.searchFriendList = res.data
+
+            // 비어 있을 때 보여줄 list
+            this.showNoResults = !this.showNoResults
+      
+          })
+          .catch(()=> {
+          })
+        } else{
+          this.searchFriendList = []
+        }
+      },
+
       logout () {
         this.$store.dispatch('LOGOUT')
         .then(()=> {
@@ -115,12 +210,6 @@ export default {
         })
       }
     },
-    // computed: {
-    //   ...mapGetters([
-    //     'get_user_email',
-    //     'get_user_name'
-    //   ])
-    // },
     mounted() { 
       this.uEmail = this.$store.state.uEmail
       this.uName= this.$store.state.uName
@@ -128,6 +217,10 @@ export default {
     data: () => {
       return {
         tab: null,
+        addFriend: '',
+        searchFriendList: [],
+        showNoResults: false,
+        dialog: false,
         uEmail: '',
         uName: '',
         items: [
@@ -152,5 +245,29 @@ export default {
   .ro {
     text-decoration: none !important;
     color: inherit !important;
+  }
+  #autocomplete {
+  max-width: 400px;
+  margin: 0 auto;
+}
+  #no-results {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    top: 100%;
+  }
+
+  .no-results #no-results {
+    display: block;
+  }
+
+  .no-results .autocomplete-input.focused {
+    border-bottom-color: transparent;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .no-results .autocomplete-input:not(.focused) ~ #no-results {
+    display: none;
   }
 </style>

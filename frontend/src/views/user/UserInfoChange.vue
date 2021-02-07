@@ -101,7 +101,7 @@
                 </v-card>
               </v-dialog>
             </div>
-            
+
             <v-card-actions>
                 <v-btn color="teal" rounded style='width:100%' @click="modifyinfo"> 정보 수정 </v-btn>
             </v-card-actions>
