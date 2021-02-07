@@ -116,7 +116,7 @@
                       
                       <div v-if="showNoResults === false">
                         <ul v-for="(friend, i) in searchFriendList" :key="i">
-                          <li @click="addMyFriendList">{{friend.uName}}&nbsp;&nbsp; {{friend.uEmail}}</li>
+                          <li>{{friend[1]}}&nbsp;&nbsp; {{friend[2]}} <v-icon @click="addMyFriendList(friend)">mdi-plus</v-icon></li>
                         </ul>
                       </div>
 
@@ -143,24 +143,10 @@
                     </v-card-actions>
                   </v-card>
                 </v-dialog>
-
-
-
-              <div class='p-2' v-for="friend in friends" :key="friend">
-                <div>
-                  <v-avatar>
-                    <img
-                      src="https://cdn.vuetifyjs.com/images/john.jpg"
-                      alt="John"
-                    >
-                  </v-avatar>
-                  {{ friend }}
-                  <div class="d-inline-flex" @click="deleteFriend"><v-icon>mdi-letter-x-circle-outline</v-icon></div>
-                </div>
-              </div>
+            
+            <MypageFriendList :dbfriend='this.dbfriend'/>
             </div>
           </v-tab-item>
-
           <v-tab-item>
             <v-card>
               <!-- 좋아하는 장소 -->
@@ -174,39 +160,46 @@
 const axios = require('axios');
 const config = {
           headers: { 'auth-token': window.localStorage.getItem('auth-token') },
-      }
+      };
 import MypageLikePlace from "../../components/user/mypage/MypageLikePlace"
+import MypageFriendList from "../../components/user/mypage/MypageFriendList"
 
 export default {
     name: 'MyPage',
     components: {
-      MypageLikePlace
-    },
-    created: () => {
-      // 친구목록 조회
-        axios.get(`http://localhost:8000/letsmeet/mypage/friend/`, config)
-          .then((res)=> {
-            console.log(res.data)
-          })
-          .catch(()=> {
-            console.log('data 못받아옴')
-          })
+      MypageLikePlace,
+      MypageFriendList,
     },
     methods: {
-      addMyFriendList () {
-        //친구 추가 
+      addMyFriendList (friend) {
+        axios.post(`http://localhost:8000/letsmeet/mypage/friend/add?friend=${friend[0]}&myUNo=${this.$store.state.uNo}`, config)
+          .then(()=> {
+            console.log(friend)
+            this.dbfriend = []
+            this.dbfriend.push(friend[0], friend[2], friend[1])
+          })
+          .catch(()=> {
+            console.log('못드감')
+          })
       },
-      deleteFriend () {
-        // 친구 삭제
-      },
-      searchUserData() {
-        if (this.addFriend.length > 0) {
-          axios.get(`http://localhost:8000/letsmeet/mypage/friend/search`, this.addFriend, config)
-          .then((res)=> {
-            console.log(res.data)
-            // // 비어 있지않을 때
 
-            // this.searchFriendList = res.data
+      // deleteFriend () {
+      //   // 친구 삭제
+      // },
+      searchUserData() {
+        this.searchFriendList = []
+        if (this.addFriend.length > 0) {
+          axios.get(`http://localhost:8000/letsmeet/mypage/friend/search?uEmail=${this.addFriend}`, config)
+          .then((res)=> {
+            // // 비어 있지않을 때
+            // console.log(res.data)
+            const array = res.data
+            array.forEach(li => {
+              console.log(li)
+              this.searchFriendList.push([li.uNo, li.uEmail, li.uName])
+            });
+            console.log(this.searchFriendList)
+            this.addFriend = ''
 
             // // 비어 있을 때 보여줄 list
             // this.showNoResults = !this.showNoResults
@@ -232,7 +225,9 @@ export default {
     },
     data: () => {
       return {
+        UserNo: null,
         tab: null,
+        dbfriend : [],
         addFriend: '',
         searchFriendList: [],
         showNoResults: false,
@@ -242,9 +237,6 @@ export default {
         items: [
           '친구목록',
           '찜한 장소'
-        ],
-        friends: [
-          '지현', '동빈', '성헌', '주이', '호빈'
         ],
       }
     }

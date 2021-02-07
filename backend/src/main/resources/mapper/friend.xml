@@ -7,9 +7,7 @@
 	<!-- C :: 친구 추가 -->
 	<insert id="insertFriend">
 		insert into friend(f_recv_u_no, f_send_u_no)
-		values (
-			(select uNo from user where uEmail = #{uEmail})
-		, #{uNo})
+		values (#{friend}, #{myUNo})
 	</insert>
 	
 	<!-- R :: 친구 조회 -->
@@ -17,12 +15,13 @@
 		select *
 		  from user inner join friend
 		    on user.u_no = friend.f_recv_u_no
-		 where friend.f_send_u_no = #{uNo}
+		 where friend.f_send_u_no = #{myUNo}
+		 
 	</select>
 
 	<!-- R :: 사용자가 검색한 친구 목록 조회 -->
 	<select id="selectSearchFriend" resultType="user">
-		select u_name, u_email
+		select *
 		  from user
 		 where u_email like concat('%',#{uEmail},'%')
 	</select>
@@ -31,6 +30,6 @@
 	<delete id="deleteFriend">
 		delete
 		  from friend
-		 where f_send_u_no = #{me} and f_recv_u_no = #{uNo}
+		 where f_send_u_no = #{myUNo} and f_recv_u_no = #{friend}
 	</delete>
 </mapper>
