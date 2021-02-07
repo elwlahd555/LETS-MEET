@@ -28,14 +28,14 @@ public class FriendServiceImpl implements FriendService {
 	
 	/* C :: 사용자의 친구 추가 */
 	@Override
-	public int createFriend(int me, User user) throws Exception {
-		return friendMapper.insertFriend(me, user);
+	public int createFriend(int myUNo, int friend) throws Exception {
+		return friendMapper.insertFriend(myUNo, friend);
 	}
 	
 	/* R :: 사용자의 친구 조회 */
 	@Override
-	public List<User> reviewFriend(User user) throws Exception {
-		return friendMapper.selectFriend(user);
+	public List<User> reviewFriend(int myUNo) throws Exception {
+		return friendMapper.selectFriend(myUNo);
 	}
 	
 	/* R :: 사용자가 검색한 친구 목록 */
@@ -46,7 +46,7 @@ public class FriendServiceImpl implements FriendService {
 	
 	/* D :: 사용자의 친구 삭제 */
 	@Override
-	public boolean deleteFriend(int me, User user) throws Exception {
-		return friendMapper.deleteFriend(me, user) == 1;
+	public boolean deleteFriend(int myUNo, int friend) throws Exception {
+		return friendMapper.deleteFriend(myUNo, friend) == 1;
 	}
 }
