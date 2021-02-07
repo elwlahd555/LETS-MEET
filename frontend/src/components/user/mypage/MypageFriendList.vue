@@ -10,9 +10,9 @@
               alt="John"
             >
           </v-avatar>
-            <v-col>{{ friend[1] }}</v-col>
-            <v-col>{{ friend[2] }}</v-col>
-            <v-col class="text-right" @click='deleteFriend(i, friend[0])'><v-icon>mdi-trash-can</v-icon></v-col>
+            <v-col cols="3" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ friend[1] }}</v-col>
+            <v-col style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ friend[2] }}</v-col>
+            <v-col cols="2" class="text-right" @click='deleteFriend(i, friend[0])'><v-icon>mdi-trash-can</v-icon></v-col>
           </v-row>
         </v-container>
          <!-- <div class="d-inline-flex pl-3">
@@ -41,17 +41,19 @@ export default {
   },
   watch: {
     dbfriend(db) {
-      this.allmyfriendlist.push(db)
+      for(let i=0; i<db.length; i++) {
+        console.log('aaaa', db[i])
+        if (i === db.length-1) {
+          this.allmyfriendlist.push(db[i])
+        }
+      }
     },
-    // allmyfriendlist() {
-    //   this.$emit('refresh')
-    // } 
   },
-  computed: {
-    checkitall: function () {
-      return this.allmyfriendlist
-    }
-  },
+  // computed: {
+  //   checkitall: function () {
+  //     return this.allmyfriendlist
+  //   }
+  // },
   methods: {
     friendList(){
      axios.get(`http://localhost:8000/letsmeet/mypage/friend?myUNo=${this.$store.state.uNo}`)
@@ -65,6 +67,7 @@ export default {
       .catch(()=> {
         console.log('data 못받아옴')
       })
+      this.$emit('get_freind_list', this.allmyfriendlist)
     },
     deleteFriend(index, friend) {
       this.allmyfriendlist.splice(index, 1)

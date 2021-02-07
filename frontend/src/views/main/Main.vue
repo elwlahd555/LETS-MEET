@@ -64,7 +64,7 @@
     </v-tabs>
     <div class="d-flex justify-center">
       <back-to-top bottom="65px" right="" style="display: block !important;">
-        <v-btn fab dark small color="teal">
+        <v-btn fab dark small color="indigo accent-2">
           <v-icon dark>mdi-chevron-up</v-icon>
         </v-btn>
       </back-to-top>

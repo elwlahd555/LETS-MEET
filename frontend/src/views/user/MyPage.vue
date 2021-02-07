@@ -71,12 +71,12 @@
 
         <v-tabs-items v-model="tab"> 
           <v-tab-item>
-            <div class= 'p-3'>
+            <div class='p-3'>
               <!-- 친구추가 팝업창 -->
                <v-dialog
                   v-model="dialog"
                   persistent
-                  max-width="290"
+                  max-width="90%"
                   >
                   
                   <template v-slot:activator="{ on, attrs }">
@@ -85,28 +85,44 @@
                     </div>
                   </template>
                   <v-card>
-                    <v-card-title class="headline">
+                    <!-- <v-card-title class="headline">
+                    </v-card-title> -->
+                    <h4 class="p-3 text-center">
                       친구 추가
-                    </v-card-title>
-                    <v-card-text>이메일 혹은 이름을 입력해주세요.</v-card-text>
-                    
-                    <v-card-text>
+                    </h4>
 
-                      <!-- <div id="autocomplete" class="autocomplete">
-                        <input class="autocomplete-input" v-model='addFriend' @keyup="checkFriend"
-                          placeholder="Search for a country"
-                          aria-label="Search for a country"
-                        >
-                        <ul class="autocomplete-result-list"></ul>
-                        <ul id="no-results" class="autocomplete-result-list" visible="false">
-                          <li class="autocomplete-result">
-                            No results found
-                          </li>
-                        </ul>
-                      </div> -->
+
+                    <v-container v-if="tmplist.length > 0">
+                      <div>
+                        <v-container>
+                          <v-row>
+                            <v-col cols='3' v-for="(friend, i) in tmplist" :key="i">
+                              <v-row>
+                                <v-avatar>
+                                  <img
+                                    src="https://cdn.vuetifyjs.com/images/john.jpg"
+                                    alt="John"
+                                  >
+                                </v-avatar>
+                              </v-row>
+                              <v-row class="d-flex align-center" style="font-size: 0.9rem;">{{ friend[1] }}
+                                <v-col class="d-flex align-center" cols='2'><v-icon @click="deleteTemporaryList(i)">mdi-close-circle-outline</v-icon></v-col>
+                              </v-row>
+                            </v-col>
+                          </v-row>
+          
+                        </v-container>
+                      </div>
+                    </v-container>
+
+                    
+
+                    <v-card-text>
                       <v-text-field
                       v-model="addFriend"
+                      placeholder="이메일 혹은 이름을 입력해주세요."
                       @keypress.enter="searchUserData"
+                      @click="searchUserData"
                       append-icon="mdi-magnify"
                       single-line
                       hide-details
@@ -115,9 +131,30 @@
                       </v-card-text>
                       
                       <div v-if="showNoResults === false">
-                        <ul v-for="(friend, i) in searchFriendList" :key="i">
-                          <li>{{friend[1]}}&nbsp;&nbsp; {{friend[2]}} <v-icon @click="addMyFriendList(friend)">mdi-plus</v-icon></li>
-                        </ul>
+                        <v-container>
+                          <div v-for="(friend, i) in searchFriendList" :key="i">
+                              <v-container>
+
+                              <v-row>
+                                <v-col cols='2'>
+                                <v-avatar>
+                                  <img
+                                    src="https://cdn.vuetifyjs.com/images/john.jpg"
+                                    alt="John"
+                                  >
+                                </v-avatar>
+                                </v-col>
+                                <v-col class="d-flex align-center pl-2" cols='5' 
+                                style="font-size: 0.9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                                >{{ friend[1] }}</v-col>
+                                <v-col class="d-flex align-center" cols='3' 
+                                style="font-size: 0.9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                                >{{ friend[2] }}</v-col>
+                                <v-col class="d-flex align-center" cols='2'><v-icon @click="addTemporaryList(friend)">mdi-plus</v-icon></v-col>
+                              </v-row>
+                              </v-container>
+                          </div>
+                        </v-container>
                       </div>
 
                       <div v-else>
@@ -127,16 +164,16 @@
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn
-                        color="green darken-1"
+                        color="indigo darken-1"
                         text
-                        @click="dialog = false"
+                        @click="cancelAdd"
                       >
                         취소
                       </v-btn>
                       <v-btn
-                        color="green darken-1"
+                        color="indigo darken-1"
                         text
-                        @click="dialog = false"
+                        @click="addMyFriendList"
                       >
                         확인
                       </v-btn>
@@ -144,7 +181,7 @@
                   </v-card>
                 </v-dialog>
             
-            <MypageFriendList :dbfriend='this.dbfriend'/>
+            <MypageFriendList :dbfriend='this.dbfriend' @get_freind_list="getFreindList"/>
             </div>
           </v-tab-item>
           <v-tab-item>
@@ -171,16 +208,33 @@ export default {
       MypageFriendList,
     },
     methods: {
-      addMyFriendList (friend) {
-        axios.post(`http://localhost:8000/letsmeet/mypage/friend/add?friend=${friend[0]}&myUNo=${this.$store.state.uNo}`, config)
+      addTemporaryList(friend) {
+        for (var fr of this.friendlist){
+          if (friend[1] === fr[2]){
+            alert("이미 추가된 친구입니다!")
+            return
+          }
+        }
+        this.tmplist.push([friend[0], friend[2], friend[1]])
+      },
+      addMyFriendList () {
+        this.dbfriend = []
+        var dbfriend2 = []
+        // console.log(this.tmplist)
+        for(let fr of this.tmplist) {
+          axios.post(`http://localhost:8000/letsmeet/mypage/friend/add?friend=${fr[0]}&myUNo=${this.$store.state.uNo}`, config)
           .then(()=> {
-            console.log(friend)
-            this.dbfriend = []
-            this.dbfriend.push(friend[0], friend[2], friend[1])
+            dbfriend2.push(fr)
           })
           .catch(()=> {
             console.log('못드감')
           })
+        }
+        this.dialog = false
+        console.log(this.dbfriend)
+        console.log(dbfriend2)
+        this.dbfriend = dbfriend2
+        this.tmplist = []
       },
 
       // deleteFriend () {
@@ -217,6 +271,16 @@ export default {
         .then(()=> {
           this.$router.replace({ name: 'Login'})
         })
+      },
+      cancelAdd() {
+        this.tmplist = []
+        this.dialog = false
+      },
+      deleteTemporaryList(idx) {
+        this.tmplist.splice(idx, 1)
+      },
+      getFreindList(data) {
+        this.friendlist = data
       }
     },
     mounted() { 
@@ -225,6 +289,8 @@ export default {
     },
     data: () => {
       return {
+        tmplist: [],
+        friendlist: [],
         UserNo: null,
         tab: null,
         dbfriend : [],
