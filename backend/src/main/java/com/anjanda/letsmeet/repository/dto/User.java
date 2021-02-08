@@ -35,13 +35,9 @@ public class User {
 	private int uImageId;
 	private String uJoinDate;
 	private String uProvider;
-	private boolean uIsAccountNonExpired;
-	private boolean uIsAccountNonLocked;
-	private boolean uIsCredentialsNonExpired;
-	private boolean uIsEnabled;
 	private String uAuthority;
 	private String uSalt;
-	
+	private String uJwt;
 	public int getuNo() {
 		return uNo;
 	}
@@ -84,30 +80,6 @@ public class User {
 	public void setuProvider(String uProvider) {
 		this.uProvider = uProvider;
 	}
-	public boolean isuIsAccountNonExpired() {
-		return uIsAccountNonExpired;
-	}
-	public void setuIsAccountNonExpired(boolean uIsAccountNonExpired) {
-		this.uIsAccountNonExpired = uIsAccountNonExpired;
-	}
-	public boolean isuIsAccountNonLocked() {
-		return uIsAccountNonLocked;
-	}
-	public void setuIsAccountNonLocked(boolean uIsAccountNonLocked) {
-		this.uIsAccountNonLocked = uIsAccountNonLocked;
-	}
-	public boolean isuIsCredentialsNonExpired() {
-		return uIsCredentialsNonExpired;
-	}
-	public void setuIsCredentialsNonExpired(boolean uIsCredentialsNonExpired) {
-		this.uIsCredentialsNonExpired = uIsCredentialsNonExpired;
-	}
-	public boolean isuIsEnabled() {
-		return uIsEnabled;
-	}
-	public void setuIsEnabled(boolean uIsEnabled) {
-		this.uIsEnabled = uIsEnabled;
-	}
 	public String getuAuthority() {
 		return uAuthority;
 	}
@@ -120,5 +92,13 @@ public class User {
 	public void setuSalt(String uSalt) {
 		this.uSalt = uSalt;
 	}
+	public String getuJwt() {
+		return uJwt;
+	}
+	public void setuJwt(String uJwt) {
+		this.uJwt = uJwt;
+	}
+	
+	
 	
 }
