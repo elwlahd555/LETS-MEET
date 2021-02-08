@@ -5,60 +5,96 @@
         회원가입
       </v-card-title>
         <v-card-text>
-            <v-text-field
-              ref='email'
-              v-model='user.uEmail'
-              label ='이메일'
-              prepend-icon="email"
-              :rules="[rules.required, rules.email, dodo1, dodo2]"
-              required
-              >
-            </v-text-field>
+          <v-container>
+            <v-row>
+              <v-col cols='10' class="p-0">
+                <v-text-field
+                  ref='email'
+                  v-model='user.uEmail'
+                  label ='이메일'
+                  prepend-icon="email"
+                  :rules="[rules.required, rules.email, dodo2]"
+                  required
+                  >
+                </v-text-field>
+              </v-col>
             
             <!-- 이메일 인증 팝업창 -->
-            <v-row justify="end" class="px-4 py-1">
+            <v-col cols='2' class="d-flex align-center p-0">
               <v-dialog
                   v-model="dialog"
                   persistent
-                  max-width="290"
+                  max-width="400"
                 >
                   <template v-slot:activator="{ on, attrs }">
-                      <v-btn id ='dupid' text @click='dupchch'> 중복 </v-btn>
-                      <v-btn id ='dupauth' class="pt-0 px-1" v-bind="attrs" v-on="on" text> 인증 </v-btn>                    
+                      <v-btn class="pt-0 px-1" v-bind="attrs" v-on="on" text :color="auth_button_color"> 인증 </v-btn>                    
                   </template>
   
                   <v-card>
-                    <div class="text-center p-3" style="font-size:20px;">
-                      이메일 인증
-                    </div>
                     
-                    <v-text-field class="px-4 pt-0" v-model="authCode" @keypress.enter="authCodeCheck">
-                    </v-text-field>
-                      <div class="px-5 pt-0 text-end" @click ="sendCode(user.uEmail)" style="font-size:14px; color:#546E7A;">
-                        인증코드 보내기
-                      </div>
+                    <v-container class="pt-3">
+                      <v-row>
+                        <v-col cols='10' class="px-5 py-4">
+                          <v-text-field
+                            label="중복 확인을 해주세요."
+                            v-model='user.uEmail'
+                            persistent-hint
+                          ></v-text-field>
+                          
+                          <!-- <v-text-field class="px-4 pt-0 pr-0" :placeholder="this.user.uEmail" v-model="authCode" @keypress.enter="authCodeCheck">
+                          </v-text-field> -->
+                        </v-col>
+                        <v-col cols='2' class="d-flex pl-0 align-center">
+                          <v-btn
+                            x-small
+                            outlined
+                            fab
+                            :color="button_color"
+                          >
+                            <v-icon @click='emailDoubleCheck'>mdi-check</v-icon>
+                          </v-btn>
+                        </v-col>
+                      </v-row>
+                        <!-- <div class="px-5 pt-0 text-end" @click ="sendCode(user.uEmail)" style="font-size:14px; color:#546E7A;">
+                          인증코드 보내기
+                        </div> -->
+
+                      <v-row>
+                        <v-col cols='10' class="px-5 pb-2">
+                          <v-text-field
+                            label="인증 번호를 입력해주세요."
+                            v-model='authCode'
+                            persistent-hint
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols='2' class='d-flex pl-0 align-center'>
+                          <v-btn
+                            x-small
+                            outlined
+                            fab
+                            color="blue-grey lighten-1"
+                            >
+                            <v-icon @click='authCodeCheck'>mdi-send</v-icon>
+                          </v-btn>
+                        </v-col>
+                      </v-row>
+                     </v-container>
 
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn
-                        color="green darken-1"
+                        color="indigo accent-2"
                         text
                         @click="disagree"
                       >
-                        취소
-                      </v-btn>
-                      <v-btn
-                        color="green darken-1"
-                        text
-                        :disabled='!authCodeIsRight'
-                        @click="agree"
-                      >
-                        확인
+                      확인
                       </v-btn>
                     </v-card-actions>
                   </v-card>
                 </v-dialog>
-              </v-row>
+              </v-col>
+            </v-row>
+          </v-container>
             
             
             
@@ -156,8 +192,10 @@ export default {
         SignupFormHasError: false,
         authCodeIsRight: false,
         authCode: '',
-        dup1: false,
-        dup2: false,
+        button_color: 'blue-grey lighten-1',
+        emailNotDup : false,
+        auth_button_color: 'blue-grey lighten-1',
+        dup2: false,  
         rules: {
           // 8자 이상으로
             required: value => !!value, 
@@ -173,9 +211,6 @@ export default {
       }
     },
     computed: {
-        dodo1 () {
-          return this.dup1 === true || '중복체크가 필요합니다.' 
-        },
         dodo2 () {
           return this.dup2 === true || '인증체크가 필요합니다.'
         },
@@ -186,21 +221,17 @@ export default {
     },
     methods: {
       //이메일 중복 체크
-        dupchch() {
+        emailDoubleCheck() {
           if (pattern.test(this.user.uEmail)) {
             axios.get(`http://localhost:8000/letsmeet/user/checkemail?email=${this.user.uEmail}`)
             .then((res)=> {
-              const dupid = document.getElementById('dupid')
-              console.log(res)
               if (res.data === true) {
                 // 사용가능한 아이디
-                dupid.style.color = '#3949AB'
-                this.dup1 = true
-
+                this.sendCode(this.user.uEmail)
+                this.emailNotDup = true
               } else {
-                dupid.style.color = 'red'
                 alert('중복된 아이디입니다!')
-                this.dup1 = false
+                this.emailNotDup = false
               }
             })
             .catch((error)=> {
@@ -215,7 +246,8 @@ export default {
       submit () {
         if (this.$refs.form.validate()) {
           // sprin url 받기
-          axios.post(`http://localhost:8000/letsmeet/user/join`, this.user )
+
+          axios.post(`http://localhost:8000/letsmeet/user/join?uEmail=${this.user.uEmail}&uName=${this.user.uName}&uPassword=${this.user.uPassword}`, this.user)
             .then(()=> {
               alert('회원가입 완료되었습니다.')
               this.$router.push({ name: 'Login'});
@@ -234,23 +266,30 @@ export default {
         axios.post(`http://localhost:8000/letsmeet/user/join/service/mail?uEmail=${email}`)
         .then(() => {
           console.log('코드 전송 성공')
-          
+          this.button_color = 'indigo accent-2'
+          alert('인증 번호가 발송되었습니다. 확인해주세요.')
         })
         .catch(() => {
           console.log('코드 전송 실패 ')
         })
       },
+
       // 인증이메일 코드가 맞는지 확인
     authCodeCheck () {
-
       if (this.authCode.length > 0) {
         axios.post(`http://localhost:8000/letsmeet/user/join/service/verifyCode?code=${this.authCode}`)
         .then((res) => {
           if (res.data === '코드 인증 성공'){
             this.authCodeIsRight = true
+            if (this.emailNotDup === true && this.authCodeIsRight === true) {
+              this.dialog = false
+              this.dup2 = true
+              this.auth_button_color = 'indigo accent-2'
+            }
           }
           else {
             this.authCodeIsRight = false
+            alert('인증 코드가 맞지 않습니다.')
           }
         })
       .catch(() => {
@@ -258,22 +297,10 @@ export default {
       })
       }
     },
-    agree() {
-      const dupauth = document.getElementById('dupauth')
-      this.dialog = false
-      this.dup2 = true
-      this.authCode = ''  
-      dupauth.style.color = '#3949AB'
-      this.authCodeIsRight = false
-    },
     disagree() {
-      const dupauth = document.getElementById('dupauth')
       this.dup2 = false
       this.dialog = false
       this.authCode = ''
-      dupauth.style.color = 'black'
-      alert('이메일 인증이 필요합니다!')
-      this.authCodeIsRight = false
     }
   }
 }
