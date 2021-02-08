@@ -48,7 +48,7 @@ public class StoreController {
 	/* R :: '좌표 값'으로 가게 조회 */
 	@ApiOperation(value="좌표로 조회", notes="좌표를 이용해서 조회")
 	@GetMapping("/point")
-	public Store reviewStoreByPoint(String lat, String lng) throws Exception{
+	public Store StoreByPoint(String lat, String lng) throws Exception{
 
 			System.out.println("좌표값 받아오기");
 			System.out.println("data name : " + storeService.StoreByPoint(lat,lng).getsName());
@@ -60,7 +60,7 @@ public class StoreController {
 	/* R :: '중간 좌표 값' 으로 반경 내 가게 조회 */
 	@ApiOperation(value="중간 좌표로 조회", notes="중간 좌표를 이용해서 조회")
 	@GetMapping("/midpoint")
-	public List<Store> reviewStoreByMidPoint(Store store) throws Exception{
+	public List<Store> StoreByMidPoint(Store store) throws Exception{
 		
 			System.out.println("중간 좌표값 받아오기");
 			System.out.println("data size : " + storeService.StoreByMidPoint(store).get(0));

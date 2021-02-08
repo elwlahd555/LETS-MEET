@@ -32,6 +32,8 @@ public interface MeetingRoomService {
 
 	/* U :: 약속방 수정 */
 	boolean updateMeetingRoom(MeetingRoom meetingRoom) throws Exception;
+	
+	boolean updateMeetingRoomMidpoint(MeetingRoom meetingRoom);
 
 	/* D :: 약속방 삭제 */
 	boolean deleteMeetingRoom(int mrNo) throws Exception;
@@ -44,5 +46,6 @@ public interface MeetingRoomService {
 	void updateMeetingRoomCntUp(int mruMrNo);
 	
 	void updateMeetingRoomCntDown(int mruMrNo);
+
 
 }

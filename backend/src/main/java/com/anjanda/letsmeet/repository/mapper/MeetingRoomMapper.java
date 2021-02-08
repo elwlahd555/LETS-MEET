@@ -36,6 +36,9 @@ public interface MeetingRoomMapper {
 	/* U :: 약속방 수정 메소드 */
 	public int updateMeetingRoom(MeetingRoom meetingRoom) throws Exception;
 	
+	/* U :: 약속방 수정 (중간좌표)메소드 */
+	public int updateMeetingRoomMidpoint(MeetingRoom meetingRoom);
+	
 	/* D :: 약속방 탈퇴 메소드 */
 	public int deleteMeetingRoom(int mrNo) throws Exception;
 
