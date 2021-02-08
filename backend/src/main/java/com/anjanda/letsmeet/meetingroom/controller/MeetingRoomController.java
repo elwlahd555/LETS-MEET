@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.anjanda.letsmeet.map.service.StoreService;
 import com.anjanda.letsmeet.meetingroom.service.MeetingRoomService;
 import com.anjanda.letsmeet.meetingroomuser.service.MeetingRoomUserService;
 import com.anjanda.letsmeet.repository.dto.MeetingRoom;
 import com.anjanda.letsmeet.repository.dto.MeetingRoomUser;
+import com.anjanda.letsmeet.repository.dto.Store;
 
 /**
  * 
@@ -43,6 +45,9 @@ public class MeetingRoomController {
 	
 	@Autowired
 	private MeetingRoomUserService meetingRoomUserService;
+	
+	@Autowired
+	private StoreService storeService;
 	
 	/* C :: 미팅룽 추가 */
 	@PostMapping("/meetingRoom/create")
@@ -88,6 +93,21 @@ public class MeetingRoomController {
 			return new ResponseEntity<String>("약속방 수정 성공", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("약속방 수정 실패", HttpStatus.NO_CONTENT);
+	}
+	
+	/* U :: 약속방 수정 */
+	@PutMapping("/meetingRoom/editmidpoint")
+	public List<Store> updateMeetingRoomMidpoint(@RequestBody MeetingRoom meetingRoom) throws Exception {
+		
+		if(meetingRoomService.updateMeetingRoomMidpoint(meetingRoom)) {
+			Store store = new Store();
+			store.setsCategory(meetingRoom.getMrCategory());
+			store.setsLat(meetingRoom.getMrCenterLat());
+			store.setsLng(meetingRoom.getMrCenterLng());
+			
+			return storeService.StoreByMidPoint(store);
+		}
+		return null;
 	}
 	
 	/* D :: 약속방 삭제 */

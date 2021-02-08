@@ -60,6 +60,12 @@ public class MeetingRoomServiceImpl implements MeetingRoomService{
 		return meetingRoomMapper.updateMeetingRoom(meetingRoom) == 1;
 	}
 	
+	@Override
+	public boolean updateMeetingRoomMidpoint(MeetingRoom meetingRoom) {
+		// TODO Auto-generated method stub
+		return meetingRoomMapper.updateMeetingRoomMidpoint(meetingRoom)==1;
+	}
+	
 	/* D :: 약속방 삭제 */
 	@Override
 	public boolean deleteMeetingRoom(int mrNo) throws Exception {
@@ -90,5 +96,7 @@ public class MeetingRoomServiceImpl implements MeetingRoomService{
 		meetingRoomMapper.updateMeetingRoomCntDown(mruMrNo);
 		
 	}
+
+
 
 }

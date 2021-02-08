@@ -3,7 +3,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.anjanda.letsmeet.repository.mapper.StoreMapper">
-	
+
 	<!-- 동입력을 통한 가게 조회 -->
 	<select id="selectStoreByDong" resultType="Store">
 		select *
@@ -17,25 +17,37 @@
 		  from store
 		 where s_dong = #{sDong}
 	</select>
-
-	<!-- 좌표를 참고한 해당 가게의 리뷰 조회 -->	
-	<select id="reviewStoreByPoint" parameterType="com.anjanda.letsmeet.repository.dto.Store" resultType="Store">
+	
+	
+	<select id="selectStoreByPoint" parameterType="Store" resultType="Store">
 		select *
 		  from store
 		 where s_lat = #{sLat} and s_lng = #{sLng}
 	</select>
 	
 	
-	<!-- 중간 좌표를 참고한 일정 반경 내 리뷰 조회 -->	<!-- 유형으로 거르는 등 나중에 수정 필요 -->
-	<select id="reviewStoreByMidPoint" parameterType="com.anjanda.letsmeet.repository.dto.Store" resultType="Store">
+
+	<select id="selectStoreByMidPoint" parameterType="Store" resultType="Store">
 		select *
 		  from store
-		 where (s_lat between (#{sLat} - 0.003) and (#{sLng} + 0.003))
+		 where (s_lat between (#{sLat} - 0.005) and (#{sLat} + 0.005))
 		 	   and 
-		 	   (s_lng between (#{sLng} - 0.003) and (#{sLng} + 0.003))
+		 	   (s_lng between (#{sLng} - 0.005) and (#{sLng} + 0.005))
+               and s_category =#{sCategory}
+		order by s_score desc
+        limit 10;
 	</select>
 	
-
+	<insert id="createStore" parameterType="Store">
+	INSERT INTO `letsmeet`.`store`
+(`s_name`,`s_category`,`s_dong`,`s_road`,`s_bunji_main`,`s_bunji_sub`,`s_building_name`,`s_road_address`,
+`s_lat`,`s_lng`,`s_image_id`,`s_score`)
+VALUES
+(#{sName},#{sCategory},#{sDong},#{sRoad},#{sBunjiMain},#{sBunjiSub},#{sBuildingName},#{sRoadAddress},
+#{sLat},#{sLng},#{sImageId},#{sScore});
+	</insert>
+	
+	
 	<!-- 문자->숫자 : CAST('문자열' AS INT) -->
 	<!-- 숫자->문자 : CAST(숫자 AS CHAR(10) -->
 </mapper>
