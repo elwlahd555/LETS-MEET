@@ -4,6 +4,18 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.anjanda.letsmeet.repository.dto.User;
 
+/**
+ * 
+ * @Date : 2021. 2. 4.
+ * @Team : AnJanDa
+ * @author : 김지현
+ * @deploy : 김동빈
+ * @Project : 레쓰밋 :: backend
+ * @Function : User 관련 매퍼 인터페이스 클래스
+ * @Description : UserService 및 usermapper.xml 참고
+ * 
+ */
+
 @Mapper
 public interface UserMapper {
 	/* C :: 회원 가입 메소드 */
@@ -18,14 +30,21 @@ public interface UserMapper {
 	/* R :: 회원상세정보조회 메소드 */
 	public User selectUser(User user) throws Exception;
 
-	/* U :: 회원정보 수정 메소드 */
-	public int updateUser(User user) throws Exception;
+	/* U :: 회원 비밀번호 변경 메소드 */
+	public int updateUserPassword(User user) throws Exception;
+	
+	/* U :: 회원 비밀번호 변경 메소드 */
+	public int updateUserName(User user) throws Exception;
 	
 	/* D :: 회원 탈퇴 메소드 */
 	public int deleteUser(User user) throws Exception;
 	
 	// CRUD 외 추가 기능
 	/* 이메일 중복 체크 메소드 */
-	public int existEmail(User user) throws Exception;
+	public int existEmail(String email) throws Exception;
+
+	/* 로그인 시, 이메일로 맞는 salt 값 받아오기 */
+	public String getuSaltByEmail(String uEmail) throws Exception;
+
 
 }

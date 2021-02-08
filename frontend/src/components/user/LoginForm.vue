@@ -21,11 +21,12 @@
             prepend-icon="mdi-lock"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             @click:append="showPassword = !showPassword"
+            @keyup.enter='loginsubmit'
         />
  
     </v-card-text>
     <v-card-actions>
-        <v-btn @click='loginsubmit' color="success" rounded style='width:100%'>Login</v-btn>
+        <v-btn @click='loginsubmit' class="text-white" color="indigo accent-2" rounded style='width:100%'>Login</v-btn>
     </v-card-actions>
     </v-form>
   </div>
@@ -58,7 +59,6 @@ export default {
                 // axios default 헤더에 현재 token 적재
                 axios.defaults.headers.common['auth-token'] = window.localStorage.getItem("auth-token");
                 this.$store.commit('SET_USER_AUTH_DATA', res.data)
-
                 this.$router.push({ name: 'Main'})
                 }
               })

@@ -17,7 +17,7 @@
         <img @click="googleLogin" src="../../assets/images/snsLogin/google.png" style='width:13%;' alt="">
         <img src="../../assets/images/snsLogin/naver.png" style='width:13%;' alt="">
       </div>
-      <a href="" style="color:slateGray">비밀번호 찾기</a>
+      <router-link :to= "{ name: 'PasswordSearch'}" style='color:slateGray'>비밀번호 찾기</router-link>
       <router-link :to="{ name: 'Signup' }" style="color:slateGray">회원가입</router-link>
     </div>
   </div>
@@ -28,7 +28,7 @@ import LoginForm from "../../components/user/LoginForm";
 import LoginKakao from '../../components/user/snsLogin/LoginKakao.vue';
 
 export default {
-  name: "Login",
+  name: "Login",  
   components: {
     LoginForm,
     LoginKakao,
@@ -36,7 +36,7 @@ export default {
   methods: {
     googleLogin(){
       //구글 인증 서버로 인증코드 발급 요청
-      window.location.replace("https://accounts.google.com/o/oauth2/v2/auth?client_id=1098557365559-ptkvaq1kb4bkh75f3344mste8qce2c0e.apps.googleusercontent.com&redirect_uri=http://localhost:8080/login/google/auth&response_type=code&scope=email%20profile%20openid&access_type=offline")
+      window.location.replace("https://accounts.google.com/o/oauth2/v2/auth?client_id=1098557365559-ptkvaq1kb4bkh75f3344mste8qce2c0e.apps.googleusercontent.com&redirect_uri=http://i4d107.p.ssafy.io/login/google/auth&response_type=code&scope=email%20profile%20openid&access_type=offline")
     }
   }
 }

@@ -2,13 +2,14 @@
   <v-app>
     <div>
       <v-app-bar
+        v-if='isLogin'
         color="white"
         dense
         dark
         fixed
         style="z-index:10;"
       >
-        <v-toolbar-title><img src="./assets/images/logo.png" 
+        <v-toolbar-title class="d-flex justify-start"><img src="./assets/images/logo.png" 
         style="width: 35%; max-height: 50px; max-width: 200px;">
         </v-toolbar-title>
 
@@ -51,7 +52,7 @@
     </v-main>
 
     <v-bottom-navigation
-      v-show='isLogin'
+      v-if='isLogin'
       :value="value"
       color="indigo accent-2"
       dense
@@ -69,7 +70,7 @@
         <router-link class="ro" :to="{ name: 'MakeMeeting' }"><v-icon>mdi-plus-circle</v-icon></router-link>
       </v-btn>
       <v-btn>
-        <v-icon>mdi-bell</v-icon>
+        <router-link class="ro" :to="{ name: 'Alarm' }"><v-icon>mdi-bell</v-icon></router-link>
       </v-btn>
       <v-btn>
         <router-link class="ro" :to="{ name: 'MyPage' }"><v-icon>mdi-account-circle</v-icon></router-link>
