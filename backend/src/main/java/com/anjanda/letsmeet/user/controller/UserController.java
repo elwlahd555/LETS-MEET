@@ -75,6 +75,8 @@ public class UserController {
 	/* U :: 비번 변경 전, 현재비밀번호 체크하기 */
 	@GetMapping("/mypage/updatecheckpassword")
 	public ResponseEntity<String> updateCheckPassword(User user, String pastPassword) throws Exception {
+		System.out.println("로그인 되어있는 아이디 " + user.toString());
+		System.out.println(pastPassword.toString());
 		if(userService.updateCheckPassword(user, pastPassword))
 			return new ResponseEntity<String>("현재 비번 일치", HttpStatus.OK);
 		return new ResponseEntity<String>("현재 비번 불일치", HttpStatus.NO_CONTENT);
