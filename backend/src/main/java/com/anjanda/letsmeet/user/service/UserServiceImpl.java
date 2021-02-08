@@ -60,6 +60,7 @@ public class UserServiceImpl implements UserService {
 		
 		// 2. 입력된 password + 생성된 salt 활용해서 암호화된 password 생성
 		String password = user.getuPassword();
+		System.out.println("출력" + password);
 		password = SaltSHA256.getEncrypt(password, salt);
 		
 		// 3. 입력된 비번 삽입

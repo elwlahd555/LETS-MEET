@@ -17,57 +17,90 @@
             </v-text-field>
             
           <v-file-input
-            accept="image/*"
-            label="이미지 등록"
-            v-model='uImageId'
-          ></v-file-input>
+              accept="image/*"
+              label="이미지 등록"
+              v-model='uImageId'
+            ></v-file-input>
+          </v-card-text>
 
           <!-- 비밀번호 변경부분 -->
-            <div @click="passwordchange" class='pt-2'>
-                <v-icon>mdi-lock</v-icon>
-                <h6 class='d-inline'>&nbsp;&nbsp;&nbsp;비밀번호 변경</h6>
-            </div>
-
-            <div class = 'p-2' v-if='passwordModify' style='border: 2px'>
-              <v-text-field 
-              label='현재 비밀번호'
-              v-model="nowpw"
-              :rules="[NowPasswordCheck]"
-              :type="showPassword1 ? 'text' : 'password'"
-              append-icon="showPassword1 ? 'mdi-eye' : 'mdi-eye-off'"
-              @click:append="showPassword1 = !showPassword1"
-              >
-
-              </v-text-field>
-
-
-              <v-text-field label='새 비밀번호'
-                ref='newPassword'
-                v-model="user.uPassword"
-                :rules="[rules.required, NewPasswordCheck]"
-                :type="showPassword2 ? 'text' : 'password'"
-                :append-icon="showPassword2 ? 'mdi-eye' : 'mdi-eye-off'"
-                @click:append="showPassword2 = !showPassword2"
-               
-              >
-              </v-text-field>
-              
-              <v-text-field 
-                label='비밀번호 다시 입력'
-                v-model="newpasswordconfirm"
-                :rules="[rules.required, NewDoublePasswordCheck]"
-                :type="showPassword3 ? 'text' : 'password'"
-                :append-icon="showPassword3 ? 'mdi-eye' : 'mdi-eye-off'"
-                @click:append="showPassword3 = !showPassword3"
+             <v-row class='px-5 mb-5'>
+                <v-dialog
+                  v-model="dialog1"
+                  persistent
+                  max-width="400"
                 >
+                  <template v-slot:activator="{ on, attrs }">
+                    <div class='pt-1 px-3' v-bind="attrs" v-on="on">
+                      <v-icon>mdi-lock</v-icon>
+                      <h6 class='d-inline'>&nbsp;&nbsp;&nbsp;비밀번호 변경</h6>
+                    </div>
+                  </template>
 
-              </v-text-field>
-            </div>
-          </v-card-text>
+                  <v-card class="p-3">
+                    <v-container>
+                      <v-row>
+                        <v-text-field 
+                          label='현재 비밀번호'
+                          v-model="nowpw"
+                          @keyup="nowpwcheck"
+                          :rules="[NowPasswordCheck]"
+                          :type="showPassword1 ? 'text' : 'password'"
+                          append-icon="showPassword1 ? 'mdi-eye' : 'mdi-eye-off'"
+                          @click:append="showPassword1 = !showPassword1"
+                          >
+                          </v-text-field>
+                      </v-row>
+                      <v-row>
+                        <v-text-field label='새 비밀번호'
+                            ref='newPassword'
+                            v-model="user.uPassword"
+                            :rules="[rules.required, NewPasswordCheck]"
+                            :type="showPassword2 ? 'text' : 'password'"
+                            :append-icon="showPassword2 ? 'mdi-eye' : 'mdi-eye-off'"
+                            @click:append="showPassword2 = !showPassword2"
+                          
+                          >
+                          </v-text-field>
+                      </v-row>
+                      <v-row>
+                           <v-text-field 
+                            label='비밀번호 다시 입력'
+                            v-model="newpasswordconfirm"
+                            :rules="[rules.required, NewDoublePasswordCheck]"
+                            :type="showPassword3 ? 'text' : 'password'"
+                            :append-icon="showPassword3 ? 'mdi-eye' : 'mdi-eye-off'"
+                            @click:append="showPassword3 = !showPassword3"
+                            >
+
+                          </v-text-field>
+                      </v-row>
+                    </v-container>
+
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        color="green darken-1"
+                        text
+                        @click="dialog1 = false"
+                      >
+                        Disagree
+                      </v-btn>
+                      <v-btn
+                        color="green darken-1"
+                        text
+                        @click="dialog1 = false"
+                      >
+                        Agree
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </v-row>
 
             <div class= 'd-flex justify-end px-3'>
               <v-dialog
-                v-model="dialog"
+                v-model="dialog2"
                 persistent
                 max-width="290"
               >
@@ -108,8 +141,10 @@
           <v-card-actions class="pt-3 px-3">
               <router-link class="ro" :to="{ name: 'MyPage' }"><v-icon large>mdi-arrow-left-circle</v-icon></router-link>
           </v-card-actions>
-    </v-form>
+      </v-form>
     </div>
+
+
 </template>
 <script>
 const axios = require('axios');
@@ -128,7 +163,8 @@ export default {
           uPassword: '',
           uName: '',
         },
-        dialog: false,
+        dialog1: false,
+        dialog2: false,
         newPassword:'',
         beforepw: '',
         nowpw: '',
@@ -162,6 +198,9 @@ export default {
     },
 
     methods: {
+      nowpwcheck() {
+
+      },
       passwordchange(){
         return this.passwordModify=!this.passwordModify;
       },
