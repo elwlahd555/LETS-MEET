@@ -35,7 +35,9 @@ public class UserServiceImpl implements UserService {
 	public User login(User user) throws Exception {
 		
 		// 완전한 암호화 보안은 로그인 횟수까지 작업해야함 (나중에 시간 여유보고 작업할 것)
+		System.out.println("로그인할 아이디 : " + user.getuEmail());
 		String salt = mapper.getuSaltByEmail(user.getuEmail());
+		System.out.println("출력 : " + salt);
 		String password = user.getuPassword();
 		
 		password = SaltSHA256.getEncrypt(password, salt);
@@ -88,10 +90,24 @@ public class UserServiceImpl implements UserService {
 		return mapper.selectUser(user);
 	}
 	
-	/* U :: 회원 정보 수정 메소드 */
+	/* U :: 회원 비밀번호 수정 메소드 */
 	@Override
-	public int updateUser(User user) throws Exception {
-		return mapper.updateUser(user);
+	public int updateUserPassword(User user) throws Exception {
+		String salt = SaltSHA256.generateSalt(); 
+		user.setuSalt(salt); 
+		
+		String password = user.getuPassword();
+		password = SaltSHA256.getEncrypt(password, salt);
+		
+		user.setuPassword(password);
+		
+		return mapper.updateUserPassword(user);
+	}
+	
+	/* U :: 회원 이름 수정 메소드 */
+	@Override
+	public int updateUserName(User user) throws Exception {
+		return mapper.updateUserName(user);
 	}
 	
 	/* D :: 회원 탈퇴 메소드 */
@@ -105,6 +121,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int existEmail(String email) throws Exception {
 		return mapper.existEmail(email);
+	}
+	
+	/* 로그인 시, 이메일로 맞는 salt 값 받아오기 */
+	public String getuSaltByEmail(String getuEmail) throws Exception {
+		return mapper.getuSaltByEmail(getuEmail);
 	}
 }
 

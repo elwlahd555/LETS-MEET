@@ -72,11 +72,21 @@ public class UserController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
-	/* U :: 수정 */
-	@PutMapping("/mypage/{uEmail}") // uid로 해야하려나.. uEmail 이거 중복될걱같은데,,,
+	/* U :: 유저 비밀번호 변경 */
+	@PutMapping("/mypage/updatepassword") // uid로 해야하려나.. uEmail 이거 중복될걱같은데,,,
 	public ResponseEntity<String> updateUser(@RequestBody User user) throws Exception {
 		System.out.println(user + "유저정보" + user.getuPassword());
-		if (userService.updateUser(user) >= 0) {
+		if (userService.updateUserPassword(user) >= 0) {
+			return new ResponseEntity<String>("업데이트 성공", HttpStatus.OK);
+		}
+		return new ResponseEntity<String>("업데이트 실패", HttpStatus.NO_CONTENT);
+	}
+
+	/* U :: 유저 이름 변경 */
+	@PutMapping("/mypage/updatename")
+	public ResponseEntity<String> updateUserPassword(@RequestBody User user) throws Exception {
+		System.out.println(user + "유저정보" + user.getuPassword());
+		if (userService.updateUserName(user) >= 0) {
 			return new ResponseEntity<String>("업데이트 성공", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("업데이트 실패", HttpStatus.NO_CONTENT);
@@ -110,11 +120,18 @@ public class UserController {
 	/* 유저 이메일 중복체크 */
 	@GetMapping("/checkemail")
 	public ResponseEntity<?> checkEmail(String email) throws Exception {
-
+		
 		if (userService.existEmail(email) == 0) { // 이메일 중복한 게 없으면 0
 			return new ResponseEntity<>("true", HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>("false", HttpStatus.OK);
 		}
 	}
+	
+//	/* 유저 이메일 찾기 */
+//	@GetMapping("/forgot/email")
+//	
+//	/* 유저 비밀번호 찾기 */
+//	@GetMapping("/forgot/password")
+	
 }
