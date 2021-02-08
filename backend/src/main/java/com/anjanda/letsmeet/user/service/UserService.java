@@ -31,8 +31,11 @@ public interface UserService {
 	/* R :: 회원 상세 조회 메소드 */
 	public User selectUser(User user) throws Exception;
 
-	/* U :: 회원 정보 수정 메소드 */
-	int updateUser(User user) throws Exception;
+	/* U :: 회원 비밀번호 변경 메소드 */
+	int updateUserPassword(User user) throws Exception;
+	
+	/* U :: 회원 이름 변경 메소드 */
+	int updateUserName(User user) throws Exception;
 
 	/* D :: 회원 탈퇴 메소드 */
 	int deleteUser(User user) throws Exception;
@@ -40,4 +43,5 @@ public interface UserService {
 	// CRUD 외 추가 기능 
 	/* 이메일 중복 체크 */
 	int existEmail(String email) throws Exception;
+	
 }
