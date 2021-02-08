@@ -5,9 +5,17 @@
 <mapper namespace = "com.anjanda.letsmeet.repository.mapper.ImageMapper">
 
 	<!-- C :: 이미지 추가 -->
-	<insert id="insertImage" parameterType="Image">
-	insert into images
-		()
+	<insert id="insertImage" parameterType="image">
+	insert into image
+		(i__id, i_name, i_username, i_path)
 	values
-		();
+		(#{iId}, #{iName}, #{iUserName}, #{iPath});
 	</insert>
+	
+	<!-- R :: 이미지 조회 -->
+	<select id="selectUser" parameterType="image" resultType="image">
+		select *
+		  from image
+		 where i_type=#{iType}
+	</select>
+</mapper>

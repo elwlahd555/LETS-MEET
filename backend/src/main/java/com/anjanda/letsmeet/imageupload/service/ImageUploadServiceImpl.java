@@ -1,5 +1,7 @@
 package com.anjanda.letsmeet.imageupload.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,11 @@ public class ImageUploadServiceImpl implements ImageUploadService {
 	@Override
 	public int InsertImage(Image image) throws Exception {
 		return mapper.insertImage(image);
+	}
+
+	@Override
+	public List<Image> getImageList() {
+		return mapper.getImageList();
 	}
 
 }
