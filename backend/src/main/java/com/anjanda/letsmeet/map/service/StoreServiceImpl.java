@@ -41,9 +41,9 @@ public class StoreServiceImpl implements StoreService {
 
 	/* R :: '중간 좌표 값'으로 일정 반경 내 가게들 조회 */
 	@Override
-	public List<Store> StoreByMidPoint(String lat, String lng) {
+	public List<Store> StoreByMidPoint(Store store) {
 		// TODO Auto-generated method stub
-		return mapper.selectStoreByMidPoint(lat,lng);
+		return mapper.selectStoreByMidPoint(store);
 	}
 	
 	// 가게 등록

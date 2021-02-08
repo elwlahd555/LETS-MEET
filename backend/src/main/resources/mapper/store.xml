@@ -30,9 +30,12 @@
 	<select id="selectStoreByMidPoint" parameterType="Store" resultType="Store">
 		select *
 		  from store
-		 where (s_lat between (#{sLat} - 0.003) and (#{sLng} + 0.003))
+		 where (s_lat between (#{sLat} - 0.005) and (#{sLat} + 0.005))
 		 	   and 
-		 	   (s_lng between (#{sLng} - 0.003) and (#{sLng} + 0.003))
+		 	   (s_lng between (#{sLng} - 0.005) and (#{sLng} + 0.005))
+               and s_category =#{sCategory}
+		order by s_score desc
+        limit 10;
 	</select>
 	
 	<insert id="createStore" parameterType="Store">

@@ -60,13 +60,12 @@ public class StoreController {
 	/* R :: '중간 좌표 값' 으로 반경 내 가게 조회 */
 	@ApiOperation(value="중간 좌표로 조회", notes="중간 좌표를 이용해서 조회")
 	@GetMapping("/midpoint")
-	public List<Store> reviewStoreByMidPoint(String lat, String lng) throws Exception{
+	public List<Store> reviewStoreByMidPoint(Store store) throws Exception{
 		
 			System.out.println("중간 좌표값 받아오기");
-			System.out.println("data size : " + storeService.StoreByMidPoint(lat,lng).size());
-			System.out.println("data size : " + storeService.StoreByMidPoint(lat,lng).get(0).getsName());
+			System.out.println("data size : " + storeService.StoreByMidPoint(store).get(0));
 
-			return storeService.StoreByMidPoint(lat,lng);
+			return storeService.StoreByMidPoint(store);
 
 	}
 }
