@@ -48,10 +48,10 @@
 	</delete>
 
 	<!-- 이메일 중복 체크 -->
-	<select id="existEmail" parameterType="user" resultType="int">
+	<select id="existEmail" resultType="int">
 		select count(*)
 		  from user
-		 where u_email = #{uEmail}
+		 where u_email = #{email}
 	</select>
 	
 	<!-- 비밀번호 찾기 -->

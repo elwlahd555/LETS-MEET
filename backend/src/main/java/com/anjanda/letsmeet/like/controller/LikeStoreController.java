@@ -31,7 +31,7 @@ import com.anjanda.letsmeet.repository.dto.User;
  */
 
 @RestController
-@RequestMapping("")
+@RequestMapping("/mypage/likestore")
 public class LikeStoreController {
 
 	/* 찜 서비스 객체 불러오기 */

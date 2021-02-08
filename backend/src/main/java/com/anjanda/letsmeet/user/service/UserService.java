@@ -39,5 +39,5 @@ public interface UserService {
 
 	// CRUD 외 추가 기능 
 	/* 이메일 중복 체크 */
-	int existEmail(User user) throws Exception;
+	int existEmail(String email) throws Exception;
 }

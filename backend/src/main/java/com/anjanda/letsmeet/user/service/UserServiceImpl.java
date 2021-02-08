@@ -103,8 +103,8 @@ public class UserServiceImpl implements UserService {
 	// CRUD 외 추가 기능 
 	/* 이메일 중복 체크 */
 	@Override
-	public int existEmail(User user) throws Exception {
-		return mapper.existEmail(user);
+	public int existEmail(String email) throws Exception {
+		return mapper.existEmail(email);
 	}
 }
 
