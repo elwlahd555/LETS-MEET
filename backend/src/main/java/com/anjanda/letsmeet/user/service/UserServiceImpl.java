@@ -90,6 +90,22 @@ public class UserServiceImpl implements UserService {
 		return mapper.selectUser(user);
 	}
 	
+	/* U :: 비번 변경 전, 현재비밀번호 체크하기 */
+	@Override
+	public boolean updateCheckPassword(User user, String pastPassword) throws Exception {
+		
+		String salt = mapper.getuSaltByEmail(user.getuEmail());
+		System.out.println("출력 : " + salt);
+		String password = user.getuPassword();
+		
+		password = SaltSHA256.getEncrypt(password, salt);
+		String past = SaltSHA256.getEncrypt(pastPassword, salt);
+		if(past.equals(password))
+			return true;
+		else
+			return false;
+	}
+	
 	/* U :: 회원 비밀번호 수정 메소드 */
 	@Override
 	public int updateUserPassword(User user) throws Exception {
@@ -128,7 +144,6 @@ public class UserServiceImpl implements UserService {
 		return mapper.getuSaltByEmail(getuEmail);
 	}
 }
-
 
 
 
