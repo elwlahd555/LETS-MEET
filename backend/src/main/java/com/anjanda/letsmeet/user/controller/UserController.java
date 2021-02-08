@@ -72,6 +72,14 @@ public class UserController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
+	/* U :: 비번 변경 전, 현재비밀번호 체크하기 */
+	@GetMapping("/mypage/updatecheckpassword")
+	public ResponseEntity<String> updateCheckPassword(User user, String pastPassword) throws Exception {
+		if(userService.updateCheckPassword(user, pastPassword))
+			return new ResponseEntity<String>("현재 비번 일치", HttpStatus.OK);
+		return new ResponseEntity<String>("현재 비번 불일치", HttpStatus.NO_CONTENT);
+	}
+	
 	/* U :: 유저 비밀번호 변경 */
 	@PutMapping("/mypage/updatepassword") // uid로 해야하려나.. uEmail 이거 중복될걱같은데,,,
 	public ResponseEntity<String> updateUser(@RequestBody User user) throws Exception {

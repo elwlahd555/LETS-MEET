@@ -30,7 +30,10 @@ public interface UserService {
 	
 	/* R :: 회원 상세 조회 메소드 */
 	public User selectUser(User user) throws Exception;
-
+	
+	/* U :: 비번 변경 전, 현재비밀번호 체크하기 */
+	boolean updateCheckPassword(User user, String pastPassword) throws Exception;
+	
 	/* U :: 회원 비밀번호 변경 메소드 */
 	int updateUserPassword(User user) throws Exception;
 	
@@ -43,5 +46,6 @@ public interface UserService {
 	// CRUD 외 추가 기능 
 	/* 이메일 중복 체크 */
 	int existEmail(String email) throws Exception;
+
 	
 }
