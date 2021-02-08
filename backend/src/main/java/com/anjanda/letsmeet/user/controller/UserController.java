@@ -120,7 +120,7 @@ public class UserController {
 	/* 유저 이메일 중복체크 */
 	@GetMapping("/checkemail")
 	public ResponseEntity<?> checkEmail(String email) throws Exception {
-
+		
 		if (userService.existEmail(email) == 0) { // 이메일 중복한 게 없으면 0
 			return new ResponseEntity<>("true", HttpStatus.OK);
 		} else {

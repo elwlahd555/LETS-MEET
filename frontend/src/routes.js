@@ -6,6 +6,7 @@ import KakaoCallback from '@/views/user/KakaoCallback'
 import Signup from '@/views/user/Signup'
 import { store } from "./store"
 import MyPage from '@/views/user/MyPage';
+import PasswordSearch from '@/views/user/PasswordSearch';
 import UserInfoChange from '@/views/user/UserInfoChange';
 import MakeMeeting from '@/views/makemeeting/MakeMeeting'
 import MeetingRoom from '@/views/meetingroom/MeetingRoom'
@@ -38,7 +39,13 @@ const routes = [
         name : 'Login',
         beforeEnter: LoginUser,
         component : Login
-    },  
+    },
+    {
+        path : '/passwordsearch',
+        name : 'PasswordSearch',
+        // beforeEnter: LoginUser,
+        component : PasswordSearch
+    },
     {
         path : '/main',
         name : 'Main',

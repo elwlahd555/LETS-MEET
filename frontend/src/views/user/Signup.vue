@@ -10,11 +10,59 @@
               v-model='user.uEmail'
               label ='이메일'
               prepend-icon="email"
-              :rules="[rules.required, rules.email]"
+              :rules="[rules.required, rules.email, dodo1, dodo2]"
               required
               >
             </v-text-field>
+            
+            <!-- 이메일 인증 팝업창 -->
+            <v-row justify="end" class="px-4 py-1">
+              <v-dialog
+                  v-model="dialog"
+                  persistent
+                  max-width="290"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                      <v-btn id ='dupid' text @click='dupchch'> 중복 </v-btn>
+                      <v-btn id ='dupauth' class="pt-0 px-1" v-bind="attrs" v-on="on" text> 인증 </v-btn>                    
+                  </template>
+  
+                  <v-card>
+                    <div class="text-center p-3" style="font-size:20px;">
+                      이메일 인증
+                    </div>
+                    
+                    <v-text-field class="px-4 pt-0" v-model="authCode" @keypress.enter="authCodeCheck">
+                    </v-text-field>
+                      <div class="px-5 pt-0 text-end" @click ="sendCode(user.uEmail)" style="font-size:14px; color:#546E7A;">
+                        인증코드 보내기
+                      </div>
 
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        color="green darken-1"
+                        text
+                        @click="disagree"
+                      >
+                        취소
+                      </v-btn>
+                      <v-btn
+                        color="green darken-1"
+                        text
+                        :disabled='!authCodeIsRight'
+                        @click="agree"
+                      >
+                        확인
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </v-row>
+            
+            
+            
+            
             <v-text-field
               ref='password'
               v-model="user.uPassword"
@@ -91,6 +139,7 @@
 <script>
 const axios = require('axios');
 
+const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 export default {
     name: 'Signup',
     data: () => {
@@ -100,10 +149,15 @@ export default {
           uPassword: '',
           uName: '',
         },
+        dialog: false,
         passwordConfirm: '',
         showPassword: false,
         showPassword2: false,
         SignupFormHasError: false,
+        authCodeIsRight: false,
+        authCode: '',
+        dup1: false,
+        dup2: false,
         rules: {
           // 8자 이상으로
             required: value => !!value, 
@@ -113,21 +167,52 @@ export default {
             },
             // counter: value => value.length <= 20 || '최대 20자까지 가능합니다.',
             email: value => {
-              const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
               return pattern.test(value) || '이메일 형식이 아닙니다.'
               },
         },
       }
     },
     computed: {
+        dodo1 () {
+          return this.dup1 === true || '중복체크가 필요합니다.' 
+        },
+        dodo2 () {
+          return this.dup2 === true || '인증체크가 필요합니다.'
+        },
         passwordCheck () { 
           return () => (this.user.uPassword === this.passwordConfirm) || '비밀번호가 일치하지 않습니다.'
           // return () => (this.user.uPassword === this.passwordConfirm) || '비밀번호가 일치하지 않습니다.'
         },
     },
     methods: {
+      //이메일 중복 체크
+        dupchch() {
+          if (pattern.test(this.user.uEmail)) {
+            axios.get(`http://localhost:8000/letsmeet/user/checkemail?email=${this.user.uEmail}`)
+            .then((res)=> {
+              const dupid = document.getElementById('dupid')
+              console.log(res)
+              if (res.data === true) {
+                // 사용가능한 아이디
+                dupid.style.color = '#3949AB'
+                this.dup1 = true
+
+              } else {
+                dupid.style.color = 'red'
+                alert('중복된 아이디입니다!')
+                this.dup1 = false
+              }
+            })
+            .catch((error)=> {
+              console.log(error+'안됨')
+            })
+          } else {
+            return false
+          }
+        }, 
+
+      // 회원가입 제출
       submit () {
-        console.log('???')
         if (this.$refs.form.validate()) {
           // sprin url 받기
           axios.post(`http://localhost:8000/letsmeet/user/join`, this.user )
@@ -143,8 +228,54 @@ export default {
           console.log('정보가 다 안채워짐')
         }
 
+      },
+      // 인증코드 보내기
+      sendCode (email) {
+        axios.post(`http://localhost:8000/letsmeet/user/join/service/mail?uEmail=${email}`)
+        .then(() => {
+          console.log('코드 전송 성공')
+          
+        })
+        .catch(() => {
+          console.log('코드 전송 실패 ')
+        })
+      },
+      // 인증이메일 코드가 맞는지 확인
+    authCodeCheck () {
+
+      if (this.authCode.length > 0) {
+        axios.post(`http://localhost:8000/letsmeet/user/join/service/verifyCode?code=${this.authCode}`)
+        .then((res) => {
+          if (res.data === '코드 인증 성공'){
+            this.authCodeIsRight = true
+          }
+          else {
+            this.authCodeIsRight = false
+          }
+        })
+      .catch(() => {
+        console.log('불일치')
+      })
       }
     },
+    agree() {
+      const dupauth = document.getElementById('dupauth')
+      this.dialog = false
+      this.dup2 = true
+      this.authCode = ''  
+      dupauth.style.color = '#3949AB'
+      this.authCodeIsRight = false
+    },
+    disagree() {
+      const dupauth = document.getElementById('dupauth')
+      this.dup2 = false
+      this.dialog = false
+      this.authCode = ''
+      dupauth.style.color = 'black'
+      alert('이메일 인증이 필요합니다!')
+      this.authCodeIsRight = false
+    }
+  }
 }
 
 </script>
