@@ -51,11 +51,12 @@
                           >
                           </v-text-field>
                       </v-row>
+
                       <v-row>
                         <v-text-field label='새 비밀번호'
                             ref='newPassword'
                             v-model="user.uPassword"
-                            :rules="[rules.required, NewPasswordCheck]"
+                            :rules="[NewPasswordCheck]"
                             :type="showPassword2 ? 'text' : 'password'"
                             :append-icon="showPassword2 ? 'mdi-eye' : 'mdi-eye-off'"
                             @click:append="showPassword2 = !showPassword2"
@@ -89,9 +90,9 @@
                       <v-btn
                         color="green darken-1"
                         text
-                        @click="dialog1 = false"
+                        @click="PasswordChangeMethod"
                       >
-                        Agree
+                        비밀번호 수정 확인
                       </v-btn>
                     </v-card-actions>
                   </v-card>
@@ -161,7 +162,8 @@ export default {
         user: {
           uEmail : "",
           uPassword: '',
-          uName: '',
+          // uName: '',
+          uSalt: '',
         },
         dialog1: false,
         dialog2: false,
@@ -173,6 +175,7 @@ export default {
         showPassword1: false,
         showPassword2: false,
         showPassword3: false,
+        Nowpassword : false,
         rules: {
             required: value => !!value,
         },
@@ -180,7 +183,7 @@ export default {
     },
     computed: {
       NowPasswordCheck () {
-        return () => (this.beforepw === this.nowpw) || '현재 비밀번호와 일치하지 않습니다.'
+        return this.Nowpassword === true || '현재 비밀번호와 일치하지 않습니다.'
       },
       NewPasswordCheck () {
         return () => (this.nowpw !== this.user.uPassword) || '이전 비밀번호와 일치합니다. 다시 입력해주세요.'
@@ -191,35 +194,56 @@ export default {
     },
     mounted() { 
       this.user.uEmail = this.$store.state.uEmail
-      this.user.uName= this.$store.state.uName
+      this.user.uSalt = this.$store.state.uSalt
+      // this.user.uName= this.$store.state.uName
       let token = localStorage.getItem('auth-token')
-      let decode = jwt_decode(token); 
+      let decode = jwt_decode(token);
       this.beforepw = decode.user.uPassword
     },
 
     methods: {
       nowpwcheck() {
+        axios.get(`http://localhost:8000/letsmeet/user/mypage/updatecheckpassword?pastPassword=${this.nowpw}&uEmail=${this.user.uEmail}&uPassword=${this.beforepw}`)
+        .then((res)=> {
+          console.log(res.data)
+          this.Nowpassword = true
+        })
+        .catch(()=> {
+          console.log('안되나아???')
+          this.Nowpassword = false
+        })
 
       },
-      passwordchange(){
-        return this.passwordModify=!this.passwordModify;
+      // passwordchange(){
+      //   return this.passwordModify=!this.passwordModify;
+      // },
+      PasswordChangeMethod() {
+        axios.put(`http://localhost:8000/letsmeet/user/mypage/updatepassword`, this.user, config)
+        .then((res)=> {
+          console.log(res)
+          this.dialog1 = false
+        })
+        .catch(() => {
+          console.log('비밀번호 변경 실패')
+        })
       },
-      modifyinfo () {
-        if (this.user.uPassword === '') {
-          this.user.uPassword = this.beforepw
-        }
-        // 회원정보 수정 uEmail 에서 userid로 바꿀 예정 
-        axios.put(`http://localhost:8000/letsmeet/user/mypage/${this.user.uEmail}`, this.user, config )
-            .then(()=> {
-              alert('회원정보 수정이 되었습니다.')
-              this.$store.dispatch('FETCH_USER_NAME', this.user.uName);
-              this.$store.dispatch('FETCH_USER_IMAGE', this.uImageId);
-              this.$router.replace({ name: 'MyPage'})
-            })
-            .catch(() => {
-              alert('회원정보 수정이 실패하였습니다.')
-            })
-      },
+
+      // modifyinfo () {
+      //   if (this.user.uPassword === '') {
+      //     this.user.uPassword = this.beforepw
+      //   }
+      //   // 회원정보 수정 uEmail 에서 userid로 바꿀 예정 
+      //   axios.put(`http://localhost:8000/letsmeet/user/mypage/${this.user.uEmail}`, this.user, config )
+      //       .then(()=> {
+      //         alert('회원정보 수정이 되었습니다.')
+      //         this.$store.dispatch('FETCH_USER_NAME', this.user.uName);
+      //         this.$store.dispatch('FETCH_USER_IMAGE', this.uImageId);
+      //         this.$router.replace({ name: 'MyPage'})
+      //       })
+      //       .catch(() => {
+      //         alert('회원정보 수정이 실패하였습니다.')
+      //       })
+      // },
       deleteUser() {
         if (this.user.uPassword === '') {
           this.user.uPassword = this.beforepw

@@ -15,6 +15,7 @@ export const store = new Vuex.Store({
     isLogin: false,
     uImageid: null,
     uNo: null,
+    uSalt: null,
   },
   mutations: {
     SET_USER_AUTH_DATA(state, payload){
@@ -23,6 +24,8 @@ export const store = new Vuex.Store({
       state.uName = payload['uName']
       state.uNo = payload['uNo']
       state.uImageid = payload['uImageId']
+      state.uSalt = payload['uSalt']
+      console.log(state.uSalt)
     },
     SET_USER_AUTH_DATA_LOGOUT(state) {
       state.isLogin = false
@@ -30,6 +33,7 @@ export const store = new Vuex.Store({
       state.name = null
       state.uNo = null
       state.uImageid= null
+      state.uSalt = null
     },
     SET_USER_NAME(state, uName) {
       state.uName = uName

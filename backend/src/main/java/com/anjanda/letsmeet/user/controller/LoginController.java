@@ -62,6 +62,7 @@ public class LoginController {
 			resultMap.put("uImageId", check.getuImageId());
 			resultMap.put("uJoinDate", check.getuJoinDate());
 			resultMap.put("uProvider", check.getuProvider());
+			resultMap.put("uSalt", check.getuSalt());
 			return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 		}
 		resultMap.put("message", "로그인에 실패하였습니다.");

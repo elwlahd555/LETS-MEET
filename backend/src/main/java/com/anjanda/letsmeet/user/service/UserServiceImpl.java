@@ -94,15 +94,14 @@ public class UserServiceImpl implements UserService {
 	/* U :: 비번 변경 전, 현재비밀번호 체크하기 */
 	@Override
 	public boolean updateCheckPassword(User user, String pastPassword) throws Exception {
-		
-		String salt = mapper.getuSaltByEmail(user.getuEmail());
+		String salt = mapper.getuSaltByEmail(user.getuEmail()); // 사용자의 이메일로 salt 받아오기
 		System.out.println("출력 : " + salt);
-		String password = user.getuPassword();
 		
-		password = SaltSHA256.getEncrypt(password, salt);
-		String past = SaltSHA256.getEncrypt(pastPassword, salt);
-		if(past.equals(password))
+		String checkPassword = SaltSHA256.getEncrypt(pastPassword, salt);
+		if(checkPassword.equals(user.getuPassword())) {
+			System.out.println("일치일치일치!!");
 			return true;
+		}
 		else
 			return false;
 	}
