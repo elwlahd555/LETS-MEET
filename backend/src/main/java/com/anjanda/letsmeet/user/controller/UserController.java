@@ -50,7 +50,7 @@ public class UserController {
 	/* C :: 회원 가입 */
 	@CrossOrigin(origins="*")
 	@PostMapping("/join")
-	public ResponseEntity<String> createUser(@RequestBody User user) throws Exception {
+	public ResponseEntity<String> createUser(User user) throws Exception {
 		System.out.println(user+"유저정보"+user.getuName());
 		if(userService.createUser(user) > 0) {	// 해당 메소드가 int형이기에, 유저가 추가되는 순간 1이 뜨므로, > 0 으로 처리..
 			return new ResponseEntity<String>("회원가입 성공", HttpStatus.OK);
