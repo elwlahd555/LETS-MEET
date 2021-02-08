@@ -112,8 +112,8 @@ public class UserController {
 	
 	//기본 CRUD 외 추가 기능
 	/* 유저 이메일 중복체크 */
-	@GetMapping("/join/check/email/{uEmail}")
-	public ResponseEntity<?> checkEmail(@PathVariable(name="email") String email) {
+	@GetMapping("/join/check/email/{email}")
+	public ResponseEntity<?> checkEmail(@PathVariable("email") String email) {
 		User check = new User();
 		check.setuEmail(email);
 		try {

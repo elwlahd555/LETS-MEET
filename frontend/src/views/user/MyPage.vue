@@ -72,6 +72,7 @@
         <v-tabs-items v-model="tab"> 
           <v-tab-item>
             <div class='p-3'>
+              
               <!-- 친구추가 팝업창 -->
                <v-dialog
                   v-model="dialog"
@@ -85,32 +86,32 @@
                     </div>
                   </template>
                   <v-card>
-                    <!-- <v-card-title class="headline">
-                    </v-card-title> -->
                     <h4 class="p-3 text-center">
                       친구 추가
                     </h4>
 
 
-                    <v-container v-if="tmplist.length > 0">
+                    <v-container v-if="tmplist.length > 0" class="p-3">
                       <div>
                         <v-container>
                           <v-row>
                             <v-col cols='3' v-for="(friend, i) in tmplist" :key="i">
                               <v-row>
-                                <v-avatar>
+                                <v-col class="d-flex align-center p-1">
+                                <v-avatar  style="text-center">
                                   <img
                                     src="https://cdn.vuetifyjs.com/images/john.jpg"
                                     alt="John"
                                   >
                                 </v-avatar>
+                                </v-col>
                               </v-row>
-                              <v-row class="d-flex align-center" style="font-size: 0.9rem;">{{ friend[1] }}
-                                <v-col class="d-flex align-center" cols='2'><v-icon @click="deleteTemporaryList(i)">mdi-close-circle-outline</v-icon></v-col>
+                              <v-row class="d-flex align-center" style="text-center font-size: 0.9rem;">
+                                <v-col cols='6' class="d-flex align-center p-0">{{ friend[1] }} </v-col>
+                                <v-col class="d-flex-inline align-center p-0" cols='2'><v-icon @click="deleteTemporaryList(i)">mdi-close-circle-outline</v-icon></v-col>
                               </v-row>
                             </v-col>
                           </v-row>
-          
                         </v-container>
                       </div>
                     </v-container>
@@ -130,7 +131,7 @@
                       </v-text-field>
                       </v-card-text>
                       
-                      <div v-if="showNoResults === false">
+                      <div>
                         <v-container>
                           <div v-for="(friend, i) in searchFriendList" :key="i">
                               <v-container>
@@ -155,10 +156,6 @@
                               </v-container>
                           </div>
                         </v-container>
-                      </div>
-
-                      <div v-else>
-                        <div> 결과 정보가 없습니다.</div>
                       </div>
 
                     <v-card-actions>
@@ -237,32 +234,26 @@ export default {
         this.tmplist = []
       },
 
-      // deleteFriend () {
-      //   // 친구 삭제
-      // },
       searchUserData() {
         this.searchFriendList = []
         if (this.addFriend.length > 0) {
           axios.get(`http://localhost:8000/letsmeet/mypage/friend/search?uEmail=${this.addFriend}`, config)
           .then((res)=> {
-            // // 비어 있지않을 때
-            // console.log(res.data)
+            // 비어 있지않을 때
             const array = res.data
-            array.forEach(li => {
-              console.log(li)
-              this.searchFriendList.push([li.uNo, li.uEmail, li.uName])
-            });
+            if (array.length) {
+              array.forEach(li => {
+                if(li.uNo === this.$store.state.uNo) return
+                this.searchFriendList.push([li.uNo, li.uEmail, li.uName])
+              });
             console.log(this.searchFriendList)
             this.addFriend = ''
-
-            // // 비어 있을 때 보여줄 list
-            // this.showNoResults = !this.showNoResults
-      
+            } else {
+              alert('검색 결과가 없습니다.')
+            }
           })
           .catch(()=> {
           })
-        } else{
-          // this.searchFriendList = []
         }
       },
 
