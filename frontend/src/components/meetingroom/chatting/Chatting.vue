@@ -77,9 +77,10 @@ export default {
         const msg = { 
           mrcUNo: this.authorId,
           mrcContent: this.message.contents,
+          mrcMrNo: this.mrNo
         };
         console.log(msg)
-        this.stompClient.send("/receive", JSON.stringify(msg), {});
+        this.stompClient.send("/pub/receive", JSON.stringify(msg), {});
       }
     },    
     connect() {
@@ -107,7 +108,7 @@ export default {
             imageUrl: '',
             image: '',
             contents: re.mrcContent,
-            date: tmp_date.substring(12,20),
+            date: tmp_date.substring(11,20),
           }
           this.feed.push(feed_data)
         }
@@ -132,17 +133,28 @@ export default {
             console.log('구독으로 받은 메시지 입니다.', this.authname, JSON.parse(res.body));
             this.message = {
               id: JSON.parse(res.body).mrcUNo,
+              roomNo: JSON.parse(res.body).mrcMrNo,
               author: this.user[JSON.parse(res.body).mrcUNo],
               contents: JSON.parse(res.body).mrcContent,
               image: '',
               imageUrl: '',
               date: moment().format('HH:mm:ss')
             }
+            if(this.message.roomNo==this.mrNo){
+              console.log("방번호가 일치합니다.")
             console.log(this.message)
             // 받은 데이터를 json으로 파싱하고 리스트에 넣어줍니다.
             this.feed.push(this.message)
             // this.recvList.push(JSON.parse(res.body))
+            }
           });
+          const msg = { 
+          mrcUNo: this.authorId,
+          mrcContent: this.message.contents,
+          mrcMrNo: this.mrNo
+        };
+        console.log(msg)
+        this.stompClient.send("/pub", JSON.stringify(msg), {});
         },
         error => {
           // 소켓 연결 실패

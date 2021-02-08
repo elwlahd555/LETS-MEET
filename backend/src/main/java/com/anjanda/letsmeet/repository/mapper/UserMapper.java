@@ -38,6 +38,9 @@ public interface UserMapper {
 	
 	// CRUD 외 추가 기능
 	/* 이메일 중복 체크 메소드 */
-	public int existEmail(User user) throws Exception;
+	public int existEmail(String email) throws Exception;
+
+	/* 로그인 시, 이메일로 맞는 salt 값 받아오기 */
+	public String getuSaltByEmail(String getuEmail) throws Exception;
 
 }

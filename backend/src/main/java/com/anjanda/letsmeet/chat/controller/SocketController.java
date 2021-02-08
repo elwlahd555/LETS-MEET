@@ -48,11 +48,11 @@ public class SocketController {
         
         System.out.println(userNo);
         System.out.println(content);
-        System.out.println(mrNo);
+        System.out.println(mrNo+"방번호");
         
         result.setMrcContent(content);
         result.setMrcUNo(userNo);
-        result.setMrcMrNo(1);
+        result.setMrcMrNo(mrNo);
         
         chatservice.createMeetingRoomChat(result);
         // 반환
