@@ -30,8 +30,11 @@ public interface UserMapper {
 	/* R :: 회원상세정보조회 메소드 */
 	public User selectUser(User user) throws Exception;
 
-	/* U :: 회원정보 수정 메소드 */
-	public int updateUser(User user) throws Exception;
+	/* U :: 회원 비밀번호 변경 메소드 */
+	public int updateUserPassword(User user) throws Exception;
+	
+	/* U :: 회원 비밀번호 변경 메소드 */
+	public int updateUserName(User user) throws Exception;
 	
 	/* D :: 회원 탈퇴 메소드 */
 	public int deleteUser(User user) throws Exception;
@@ -41,6 +44,7 @@ public interface UserMapper {
 	public int existEmail(String email) throws Exception;
 
 	/* 로그인 시, 이메일로 맞는 salt 값 받아오기 */
-	public String getuSaltByEmail(String getuEmail) throws Exception;
+	public String getuSaltByEmail(String uEmail) throws Exception;
+
 
 }
