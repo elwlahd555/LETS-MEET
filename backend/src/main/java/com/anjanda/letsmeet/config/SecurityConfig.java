@@ -1,4 +1,16 @@
 package com.anjanda.letsmeet.config;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.anjanda.letsmeet.user.jwt.JwtRequestFilter;
+
 /**
  * 
  * @Date : 2021. 2. 4.
@@ -12,35 +24,46 @@ package com.anjanda.letsmeet.config;
  *	- 후순위 작업임 (할수도, 안할수도)
  */
 
-public class SecurityConfig{
-	
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private JwtRequestFilter jwtRequestFilter;
+    
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .antMatchers("/guest/**").permitAll()
+                .antMatchers("/user/**").permitAll()
+                .and()
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .httpBasic()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/manager/**").hasRole("MANAGER")
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/swagger-resources/**").permitAll() //swagger
+                .antMatchers("/swagger-ui.html").permitAll()
+                .antMatchers("/v2/api-docs").permitAll()
+                .antMatchers("/webjars/**").permitAll()
+                .anyRequest().authenticated();
+
+        http.exceptionHandling().accessDeniedPage("/accessDenied");
+        
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        
+
+    }
+    
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+
+        auth.inMemoryAuthentication()
+                .withUser("manager")
+                .password("{noop}1111")
+                .roles("MANAGER");
+    }
 }
-//@EnableWebSecurity
-//public class SecurityConfig extends WebSecurityConfigurerAdapter {
-//
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//                .antMatchers("/guest/**").permitAll()
-//                .antMatchers("/manager/**").hasRole("MANAGER")
-//                .antMatchers("/admin/**").hasRole("ADMIN")
-//                .antMatchers("/swagger-resources/**").permitAll() //swagger
-//                .antMatchers("/swagger-ui.html").permitAll()
-//                .antMatchers("/v2/api-docs").permitAll()
-//                .antMatchers("/webjars/**").permitAll();
-//
-//        http.formLogin();
-//        http.exceptionHandling().accessDeniedPage("/accessDenied");
-//        http.logout().logoutUrl("/logout").invalidateHttpSession(true);
-//
-//    }
-//    
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//
-//        auth.inMemoryAuthentication()
-//                .withUser("manager")
-//                .password("{noop}1111")
-//                .roles("MANAGER");
-//    }
-//}
