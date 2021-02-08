@@ -45,7 +45,7 @@
 	<!-- U :: 약속방 정보 수정 (중간좌표) -->
 	<update id="updateMeetingRoomMidpoint" parameterType="meetingRoom">
 		update meetingroom
-		   set mr_Center_lat=#{mrCenterLat}, mr_Center_lat=#{mrCenterLat}
+		   set mr_center_lat=#{mrCenterLat}, mr_center_lng=#{mrCenterLng}
 		 where mr_no = #{mrNo}
 
 	</update>

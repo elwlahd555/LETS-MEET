@@ -103,6 +103,7 @@ public class MeetingRoomController {
 			Store store = new Store();
 			store.setsCategory(meetingRoom.getMrCategory());
 			store.setsLat(meetingRoom.getMrCenterLat());
+//			System.out.println(meetingRoom.getMrCenterLng());
 			store.setsLng(meetingRoom.getMrCenterLng());
 			
 			return storeService.StoreByMidPoint(store);
