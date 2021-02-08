@@ -87,21 +87,18 @@ export default {
           this.members.splice(i, 1)
         }
       }
-      const data = {
-        mruMrNo: parseInt(this.rNo),
-        mruUNo: parseInt(uNo),
-      }
-      console.log(data)
-      axios.delete(`http://localhost:8000/letsmeet/meetingRoomUser/delete`, {'mruUNo': 3})
+      axios.delete(`http://localhost:8000/letsmeet/meetingRoomUser/delete?mrNo=${parseInt(this.rNo)}&uNo=${parseInt(uNo)}`)
       .then(()=> {
+        this.$emit('addMember')
         console.log('성공')
       })
-      .catch((err)=> {
-        console.log(err)
+      .catch(()=> {
+        console.log("실패")
       })
     },
     addMember(data) {
       this.members.push(data)
+      this.$emit('addMember')
     },
   },
 }

@@ -24,24 +24,28 @@
     </v-container>
     <hr>
     <v-subheader>출발 장소</v-subheader>
-    <v-container v-if="userDeparture">
-      <span v-for="(value, idx) in userDeparture" :key="idx" class="text-start"> 
-        <v-icon color="indigo deep-2">mdi-flag-checkered</v-icon>{{ value[1] }} : {{ value[2] }}<br>
+    <v-container v-if="userDeparture" class="text-start" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+      <span v-for="(value, idx) in userDeparture" :key="idx"> 
+        <v-icon color="indigo deep-2">
+          mdi-flag-checkered</v-icon>{{ value[1] }} : {{ value[2] }}<br>
       </span>
-    </v-container>
+    </v-container><hr>
+    <v-subheader>중간 지점</v-subheader>
+    <MiddlePoint :mrUserInfo="mrUserInfo" />
   </v-container>
 </template>
 
 
-
 <script>
 import MyPromise from "./MyPromise.vue";
+import MiddlePoint from "./MiddlePoint.vue";
 const axios = require('axios');
 
 export default {
   name: "DeterminePromise",
   components: {
     MyPromise,
+    MiddlePoint,
   },
   props: {
     roomInfo: Object,
@@ -146,6 +150,7 @@ export default {
       }
       this.departure(ref_data.mruNo, ref_data.mruName, ref_data.mruUserLng, ref_data.mruUserLat)
       this.getAvailableDates()
+      this.$emit('refresh')
     }
   },
 }

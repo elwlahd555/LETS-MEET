@@ -9,6 +9,7 @@ import MyPage from '@/views/user/MyPage';
 import UserInfoChange from '@/views/user/UserInfoChange';
 import MakeMeeting from '@/views/makemeeting/MakeMeeting'
 import MeetingRoom from '@/views/meetingroom/MeetingRoom'
+import Alarm from '@/views/alarm/Alarm'
 
 Vue.use(VueRouter)
 Vue.use(store)
@@ -79,6 +80,12 @@ const routes = [
         beforeEnter: onlyAuthUser,
         component: MeetingRoom,
         props: true
+    },
+    { 
+        path: '/alarm', 
+        name: 'Alarm',
+        beforeEnter: onlyAuthUser,
+        component: Alarm,
     }
   ]
   

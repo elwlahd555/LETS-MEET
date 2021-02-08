@@ -11,13 +11,9 @@
         </div>
       </template>
       <v-card>
-        <!-- <v-card-title class="headline">
-        </v-card-title> -->
         <h4 class="p-3 text-center">
           멤버 추가
         </h4>
-
-
         <v-container v-if="tmplist.length > 0">
           <div>
             <v-container>
@@ -36,25 +32,46 @@
                   </v-row>
                 </v-col>
               </v-row>
-
             </v-container>
           </div>
         </v-container>
 
-        
-
         <v-card-text>
           <v-text-field
-          v-model="addFriend"
-          placeholder="이메일 혹은 이름을 입력해주세요."
+          v-model="search"
           append-icon="mdi-magnify"
+          label="이메일 혹은 이름을 입력해주세요."
           single-line
           hide-details
+          @input="searchInput"
           >
           </v-text-field>
         </v-card-text>
-          
-        <v-container>
+        <v-container v-if="search">
+          <div v-for="(friend, i) in searchmyfriendlist" :key="i">
+            <v-container>
+              <v-row>
+                <v-col cols='2'>
+                <v-avatar>
+                  <img
+                    src="https://cdn.vuetifyjs.com/images/john.jpg"
+                    alt="John"
+                  >
+                </v-avatar>
+                </v-col>
+                <v-col class="d-flex align-center pl-2" cols='2' 
+                style="font-size: 0.9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                >{{ friend[1] }}</v-col>
+                <v-col class="d-flex align-center" cols='6' 
+                style="font-size: 0.9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                >{{ friend[2] }}</v-col>
+                <v-col class="d-flex align-center" cols='2'><v-icon @click="addTemporaryList(friend)">mdi-plus</v-icon></v-col>
+              </v-row>
+            </v-container>
+          </div>
+        </v-container>
+
+        <v-container v-else>
           <div v-for="(friend, i) in allmyfriendlist" :key="i">
             <v-container>
               <v-row>
@@ -110,7 +127,9 @@ export default {
       tmplist: [],
       addFriend: '',
       dialog: false,
-      allmyfriendlist: []
+      allmyfriendlist: [],
+      search: '',
+      searchmyfriendlist: [],
     }
   },
   props: {
@@ -135,15 +154,13 @@ export default {
       this.tmplist.push([friend[0], friend[2], friend[1]])
     },
     addMyFriendList () {
-      // console.log(this.tmplist)
       for(let mb of this.tmplist) {
         const data = {
           mruMrNo: this.$route.params.id,
           mruUNo: mb[0],
         }
         axios.post(`http://localhost:8000/letsmeet/meetingRoomUser/adduser`, data)
-        .then((res)=> {
-          console.log(res)
+        .then(()=> {
           var data = {
             icon: false,
             uName: mb[2],
@@ -151,9 +168,7 @@ export default {
             avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
             uNo: mb[0]
           }
-          console.log(mb[1], mb[2])
           this.$emit('addMember', data)
-          console.log(this.allmyfriendlist)
         })
         .catch(()=> {
           console.log('못드감')
@@ -181,7 +196,20 @@ export default {
       .catch(()=> {
         console.log('data 못받아옴')
       })
-    }
+    },
+    searchInput() { 
+      if(this.search.length !== 0){ clearTimeout(this.debounce); 
+        this.debounce = setTimeout(() => { 
+          const filteredList = this.allmyfriendlist.filter(item => item[1].includes(this.search))
+          const filteredList2 = this.allmyfriendlist.filter(item => item[2].includes(this.search))
+          this.searchmyfriendlist = filteredList2.concat(filteredList)
+        }, 10)
+      }else{ 
+        clearTimeout(this.debounce); 
+        this.debounce = setTimeout(() => { this.searchmyfriendlist = []
+        }, 10)
+      }
+    },
   },
 }
 </script>
