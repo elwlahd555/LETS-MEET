@@ -40,4 +40,7 @@ public interface UserMapper {
 	/* 이메일 중복 체크 메소드 */
 	public int existEmail(User user) throws Exception;
 
+	/* 로그인 시, 이메일로 맞는 salt 값 받아오기 */
+	public String getuSaltByEmail(String getuEmail) throws Exception;
+
 }
