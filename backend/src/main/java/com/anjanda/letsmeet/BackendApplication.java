@@ -49,7 +49,7 @@ public class BackendApplication implements WebMvcConfigurer {
 	/* 인터셉터를 이용하여 로그인 처리하므로, 전역의 Cors Origin 처리 해준다. */
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**")
+		registry.addMapping("http://localhost:8080/")
 				.allowedOrigins("*")
 				.allowedMethods("*")
 				.allowedHeaders("*")
