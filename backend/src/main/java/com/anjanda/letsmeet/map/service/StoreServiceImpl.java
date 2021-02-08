@@ -28,22 +28,47 @@ public class StoreServiceImpl implements StoreService {
 
 	/* R :: '동 이름'으로 가게 전체 조회 */
 	@Override
-	public List<Store> reviewStoreByDong(String dong) throws Exception {
+	public List<Store> StoreByDong(String dong) throws Exception {
 		return mapper.selectStoreByDong(dong);
 	}
 
 	/* R :: '좌표 값' 으로 해당 가게 조회 */
 	@Override
-	public Store reviewStoreByPoint(String lat, String lng) throws Exception {
+	public Store StoreByPoint(String lat, String lng) throws Exception {
 		// TODO Auto-generated method stub
 		return mapper.selectStoreByPoint(lat, lng);
 	}
 
 	/* R :: '중간 좌표 값'으로 일정 반경 내 가게들 조회 */
 	@Override
+	public List<Store> StoreByMidPoint(Store store) {
+		// TODO Auto-generated method stub
+		return mapper.selectStoreByMidPoint(store);
+	}
+	
+	// 가게 등록
+	@Override
+	public int createStore(Store store) throws Exception {
+		// TODO Auto-generated method stub
+		return mapper.createStore(store);
+	}
+
+	@Override
+	public List<Store> reviewStoreByDong(String dong) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Store reviewStoreByPoint(String lat, String lng) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public List<Store> reviewStoreByMidPoint(String lat, String lng) {
 		// TODO Auto-generated method stub
-		return mapper.selectStoreByMidPoint(lat,lng);
+		return null;
 	}
 
 }

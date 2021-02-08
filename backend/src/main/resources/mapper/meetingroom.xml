@@ -41,6 +41,14 @@
 		   set mr_name=#{mrName}, mr_category=#{mrCategory}, mr_date_start=#{mrDateStart}, mr_date_end=#{mrDateEnd}
 		 where mr_no = #{mrNo}
 	</update>
+	
+	<!-- U :: 약속방 정보 수정 (중간좌표) -->
+	<update id="updateMeetingRoomMidpoint" parameterType="meetingRoom">
+		update meetingroom
+		   set mr_center_lat=#{mrCenterLat}, mr_center_lng=#{mrCenterLng}
+		 where mr_no = #{mrNo}
+
+	</update>
 
 	<!-- D :: 약속방 삭제 -->
 	<delete id="deleteMeetingRoom" parameterType="int">
