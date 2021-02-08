@@ -70,7 +70,7 @@
         <router-link class="ro" :to="{ name: 'MakeMeeting' }"><v-icon>mdi-plus-circle</v-icon></router-link>
       </v-btn>
       <v-btn>
-        <v-icon>mdi-bell</v-icon>
+        <router-link class="ro" :to="{ name: 'Alarm' }"><v-icon>mdi-bell</v-icon></router-link>
       </v-btn>
       <v-btn>
         <router-link class="ro" :to="{ name: 'MyPage' }"><v-icon>mdi-account-circle</v-icon></router-link>

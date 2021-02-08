@@ -63,7 +63,7 @@
 
     <v-tabs-items v-model="tab">
       <v-tab-item>
-        <DeterminePromise :roomInfo="roomInfo" :mrUserInfo="mrUserInfo"/>
+        <DeterminePromise :roomInfo="roomInfo" :mrUserInfo="mrUserInfo" @refresh="refresh" />
       </v-tab-item>
       <v-tab-item>
         22
@@ -72,7 +72,7 @@
         <Chatting :mrNo="mrNo"/>
       </v-tab-item>
       <v-tab-item>
-        <Member :mrUserInfo="mrUserInfo"/>
+        <Member :roomInfo="roomInfo" :mrUserInfo="mrUserInfo" @addMember="addMember"/>
       </v-tab-item>
     </v-tabs-items>
   </v-sheet>
@@ -132,6 +132,12 @@ export default {
         console.log(err)
       })
     },
+    addMember() {
+      this.getRoomInfo()
+    },
+    refresh() {
+      this.getRoomInfo()
+    }
   }
 }
 </script>

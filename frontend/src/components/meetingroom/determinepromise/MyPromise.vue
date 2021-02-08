@@ -173,7 +173,7 @@ export default {
         this.textContent = err.message
       })
       this.dialogm1 = true
-      alert("현재 위치로 설정하였습니다.")
+      alert(`현재 위치로 설정하였습니다. \n(위도: ${latitude}, 경도: ${longitude})`)
     },
     addKakaoMapScript() {
       const script = document.createElement("script")
