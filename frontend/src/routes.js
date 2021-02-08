@@ -11,6 +11,7 @@ import UserInfoChange from '@/views/user/UserInfoChange';
 import MakeMeeting from '@/views/makemeeting/MakeMeeting'
 import MeetingRoom from '@/views/meetingroom/MeetingRoom'
 import Alarm from '@/views/alarm/Alarm'
+import Upload from '@/components/file/Upload'
 
 Vue.use(VueRouter)
 Vue.use(store)
@@ -93,6 +94,11 @@ const routes = [
         name: 'Alarm',
         beforeEnter: onlyAuthUser,
         component: Alarm,
+    },
+    {
+        path: '/image/upload',
+        name: 'Upload',
+        component: Upload
     }
   ]
   
