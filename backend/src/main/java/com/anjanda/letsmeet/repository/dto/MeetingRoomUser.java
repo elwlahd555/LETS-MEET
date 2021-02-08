@@ -16,9 +16,7 @@ import lombok.ToString;
  *	- 롬복 사용해서 getter, setter 사용함 (그래서 아래 메소드들 필요없음)
  */
 
-@Getter
-@Setter
-@ToString
+
 public class MeetingRoomUser{
 	
 	private int mruMrNo;

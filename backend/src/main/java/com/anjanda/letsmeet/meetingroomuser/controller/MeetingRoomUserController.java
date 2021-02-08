@@ -76,11 +76,14 @@ public class MeetingRoomUserController {
 	
 	/*D :: 약속방에서 나가기*/
 	@DeleteMapping("/delete")
-	public ResponseEntity<String> deleteMeetingRoomUser(@RequestBody MeetingRoomUser meetingRoomUser) throws Exception {
-		if(meetingRoomUserService.deleteMeetingRoomUser(meetingRoomUser)) {
-			meetingRoomService.updateMeetingRoomCntDown(meetingRoomUser.getMruMrNo());
-			return new ResponseEntity<String>("약속방 삭제 성공", HttpStatus.OK);
-		}
+	public ResponseEntity<String> deleteMeetingRoomUser(String mruUNo) throws Exception {
+		System.out.println(mruUNo+"임시방번호");
+		System.out.println("미팅룸삭제");
+//		System.out.println(meetingRoomUser.getMruMrNo()+"미팅룸넘버"+meetingRoomUser.getMruUNo()+"유저넘버");
+//		if(meetingRoomUserService.deleteMeetingRoomUser(meetingRoomUser)) {
+//			meetingRoomService.updateMeetingRoomCntDown(meetingRoomUser.getMruMrNo());
+//			return new ResponseEntity<String>("약속방 삭제 성공", HttpStatus.OK);
+//		}
 		return new ResponseEntity<String>("약속방 삭제 실패", HttpStatus.NO_CONTENT);
 	}
 	

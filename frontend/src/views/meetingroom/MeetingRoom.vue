@@ -72,7 +72,7 @@
         <Chatting :mrNo="mrNo"/>
       </v-tab-item>
       <v-tab-item>
-        <Member :mrUserInfo="mrUserInfo"/>
+        <Member :roomInfo="roomInfo" :mrUserInfo="mrUserInfo"/>
       </v-tab-item>
     </v-tabs-items>
   </v-sheet>
