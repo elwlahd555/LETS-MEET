@@ -76,7 +76,7 @@
 	</select>
 	
 	<!-- 유저 아이디 찾기 -->
-	<select id="selectEmailByName" parameterType="string">
+	<select id="selectEmailByName" parameterType="string" resultType="string">
 		select u_email
 		  from user
 		 where u_name = #{uName}
