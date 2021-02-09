@@ -16,6 +16,7 @@ export const store = new Vuex.Store({
     uImageid: null,
     uNo: null,
     uSalt: null,
+    mrNo: null,
   },
   mutations: {
     SET_USER_AUTH_DATA(state, payload){

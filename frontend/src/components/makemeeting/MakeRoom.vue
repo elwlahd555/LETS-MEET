@@ -66,10 +66,14 @@
             sm="6"
             class="d-flex justify-start"
           >
-            <v-file-input
+            <!-- <v-file-input
               accept="image/*"
               label="사진을 등록해주세요(선택)"
-            ></v-file-input>
+              type="file" 
+              ref="iFile"
+              @change="$fileSelect()"
+            ></v-file-input> -->
+            <input v-on:change="$fileSelect()" type="file" ref="iFile" />
           </v-col>
         </v-row>
       </v-container>
@@ -124,7 +128,8 @@ export default {
           src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh0mHD7fn22OJEHGTfN99M4oTs17kcf9Gz6A&usqp=CAU'
         }
       ],
-      mainProps: { width: '100%', height: '100%'}
+      mainProps: { width: '100%', height: '100%'},
+      iFile: '',
     };
   },
   components: {
@@ -135,6 +140,11 @@ export default {
     },
     is_next(){
       this.$emit('is_next')
+    },
+    $fileSelect : function $fileSelect() {
+      console.log(this.$refs);
+      this.iFile = this.$refs.iFile.files[0];
+      this.$emit("upload_img", this.iFile)
     },
   },
   watch: {

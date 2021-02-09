@@ -61,15 +61,16 @@
       </v-tab>
     </v-tabs>
 
-    <v-tabs-items v-model="tab">
+    <v-tabs-items v-model="tab" touchless>
       <v-tab-item>
-        <DeterminePromise :roomInfo="roomInfo" :mrUserInfo="mrUserInfo" @refresh="refresh" />
+        <DeterminePromise :roomInfo="roomInfo" :mrUserInfo="mrUserInfo"
+         @refresh="refresh" @rec_place="getPlace" />
       </v-tab-item>
       <v-tab-item>
-        22
+        <RecommendPlace :roomInfo="roomInfo" :recPlace="recPlace" />
       </v-tab-item>
       <v-tab-item>
-        <Chatting :mrNo="mrNo"/>
+        <Chatting :mrNo="mrNo" :mrUserInfo="mrUserInfo"/>
       </v-tab-item>
       <v-tab-item>
         <Member :roomInfo="roomInfo" :mrUserInfo="mrUserInfo" @addMember="addMember"/>
@@ -83,6 +84,7 @@
 import Member from "../../components/meetingroom/member/Member.vue";
 import DeterminePromise from "../../components/meetingroom/determinepromise/DeterminePromise.vue";
 import Chatting from "../../components/meetingroom/chatting/Chatting.vue";
+import RecommendPlace from "../../components/meetingroom/recommendplace/RecommendPlace.vue";
 const axios = require('axios');
 
 export default {
@@ -91,6 +93,7 @@ export default {
     Member,
     DeterminePromise,
     Chatting,
+    RecommendPlace,
   },
   data () {
     return {
@@ -107,6 +110,7 @@ export default {
         '기타': ['mdi-dots-horizontal', 'http://img.rflogix.com/agm/main/1024/10_1_20200407112854.jpg'],
       },
       mrUserInfo: null,
+      recPlace: [],
     }
   },
   mounted() {
@@ -137,9 +141,13 @@ export default {
     },
     refresh() {
       this.getRoomInfo()
+    },
+    getPlace(data) {
+      this.recPlace = data
     }
   }
 }
 </script>
 <style scoped>
+
 </style>
