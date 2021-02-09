@@ -1,6 +1,7 @@
 package com.anjanda.letsmeet.user.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.anjanda.letsmeet.repository.dto.MeetingRoom;
 import com.anjanda.letsmeet.repository.dto.User;
 import com.anjanda.letsmeet.user.jwt.JwtService;
 import com.anjanda.letsmeet.user.service.UserService;
@@ -138,10 +140,20 @@ public class UserController {
 		}
 	}
 	
-//	/* 유저 이메일 찾기 */
-//	@GetMapping("/forgot/email")
-//	
-//	/* 유저 비밀번호 찾기 */
-//	@GetMapping("/forgot/password")
+	/* 유저 이메일 찾기 */
+	@GetMapping("/find/email")
+	public ResponseEntity<List<User>> findEmail(String uName) throws Exception {
+		System.out.println("검색 이름 : " + uName);
+		return new ResponseEntity<List<User>>(userService.findEmailByName(uName) , HttpStatus.OK);
+	}
+	
+	/* 유저 비밀번호 찾기 */
+	@GetMapping("/find/password")
+	public ResponseEntity<String> findPassword(String uEmail) throws Exception {
+		System.out.println("입력받은 정보 : " + uEmail);
+		if(userService.findPasswordByEmail(uEmail) > 0)
+			return new ResponseEntity<String>("임시비밀번호 발급 성공", HttpStatus.OK);
+		return new ResponseEntity<String>("임시비밀번호 발급 실패", HttpStatus.NO_CONTENT);
+	}
 	
 }
