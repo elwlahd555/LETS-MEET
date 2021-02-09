@@ -47,6 +47,7 @@
           >
           </v-text-field>
         </v-card-text>
+        
         <v-container v-if="search">
           <div v-for="(friend, i) in searchmyfriendlist" :key="i">
             <v-container>
