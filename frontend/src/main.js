@@ -24,7 +24,6 @@ Vue.use(IconsPlugin)
 Vue.use(VueGeolocationApi/*, { ...options } */)
 Vue.config.productionTip = false
 Vue.use(VueCookies)
-
 Vue.$cookies.config("7d")
 
 new Vue({

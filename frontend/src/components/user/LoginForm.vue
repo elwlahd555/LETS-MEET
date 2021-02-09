@@ -62,6 +62,10 @@ export default {
                 this.$router.push({ name: 'Main'})
                 }
               })
+            .catch((err) => {
+              console.log(err)
+              alert('로그인에 실패하셨습니다.')
+            })
           // this.$store // 현재 컴포넌트에서 저장소 접근하여
           //   .dispatch('LOGIN', this.user) // 비동기적인 Actions에 접근한다 (현 컴포넌트의 user 데이터를 가지고, 저장소에 LOGIN이라는 Actions에 접근)
           //   .then((res) => 

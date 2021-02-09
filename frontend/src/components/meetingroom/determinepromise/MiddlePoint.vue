@@ -4,7 +4,9 @@
   </v-container>
 </template>
 
+
 <script>
+const axios = require('axios');
 const KAKAO_API_KEY = '71f77d07e68b0f6c0464d85d3df14e6c'
 var map = ''
 // const axios = require('axios');
@@ -16,12 +18,14 @@ export default {
   name: "MiddlePoint",
   props: {
     mrUserInfo: Array,
+    roomInfo: Object,
   },
   data () {
     return {
       dialog: false,
       positions: [],
-      count: 0
+      count: 0,
+      recPlace: [],
     }
   },
   watch: {
@@ -72,9 +76,32 @@ export default {
           this.positions.push(tmp)
         }
       }
+      if (this.count > 0) {
+        longitude = longitude / this.count
+        latitude = latitude / this.count
 
-      longitude = longitude / this.count
-      latitude = latitude / this.count
+        // axois
+        const data = {
+          mrCategory: this.roomInfo.mrCategory,
+          mrCenterLat: latitude,
+          mrCenterLng: longitude,
+          mrNo: this.roomInfo.mrNo
+        }
+
+        axios.put(`http://localhost:8000/letsmeet/meetingRoom/editmidpoint`, data)
+        .then((res)=> {
+          console.log(res.data)
+          this.recPlace = res.data
+          this.$emit('rec_place', this.recPlace)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+
+      } else {
+        longitude = 128
+        latitude = 37
+      }
       console.log(latitude, longitude)
 
       var container = document.getElementById("map2");
@@ -130,16 +157,29 @@ export default {
 
       polygon.setMap(map)
 
-      var imageSrc2 = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"
-      var imageSize2 = new kakao.maps.Size(24, 35)
-      var markerImage2 = new kakao.maps.MarkerImage(imageSrc2, imageSize2)
-      new kakao.maps.Marker({
-        map: map,
-        position: new kakao.maps.LatLng(latitude, longitude),
-        title : "중간지점 : " + latitude + ", " + longitude,
-        image : markerImage2
-      });
+      if (this.count > 0) {
+        var imageSrc2 = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"
+        var imageSize2 = new kakao.maps.Size(24, 35)
+        var markerImage2 = new kakao.maps.MarkerImage(imageSrc2, imageSize2)
+        new kakao.maps.Marker({
+          map: map,
+          position: new kakao.maps.LatLng(latitude, longitude),
+          title : "중간지점 : " + latitude + ", " + longitude,
+          image : markerImage2
+        });
+      }
       map.relayout()
+
+
+      // var places = new kakao.maps.services.Places();
+
+      // var callback = function(result, status) {
+      //     if (status === kakao.maps.services.Status.OK) {
+      //         console.log(result);
+      //     }
+      // };
+
+      // places.keywordSearch('판교 치킨', callback);
     },
   },
 }

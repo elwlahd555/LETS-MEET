@@ -8,7 +8,7 @@
     >
       <v-tab>진행중</v-tab>
       <v-tab>완료</v-tab>
-
+      
       <v-tab-item>
         <v-card
           class="mx-auto mt-3"
@@ -16,14 +16,45 @@
           :key="idx"
           @click="goDetail(value.mrNo)"
         >
+          <div style="z-index: 9999; position: absolute; right:0;">
+            <v-menu
+              left
+              bottom
+              style="z-index: 9999;"
+              z-index=9999
+              absolute
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  icon
+                  style="color: black; z-index: 9999;"
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  <v-icon color=white>mdi-dots-vertical</v-icon>
+                </v-btn>
+              </template>
+
+              <v-list>
+                <v-list-item>
+                  <v-list-item-title>수정</v-list-item-title>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>삭제</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </div>
           <v-img 
           height="200px"
           :src="type[value.mrCategory][1]"
           style="filter: brightness(50%);">
           </v-img>
-        <v-fade-transition>
+          <v-fade-transition>
             <v-overlay
-              absolute >
+              z-index=5
+              absolute 
+              >
               <div class="d-flex flex-column mt-5">
                 <div class="d-flex justify-center"><v-icon class="mb-1">{{type[value.mrCategory][0]}} </v-icon> {{ value.mrCategory}} 약속</div>
                 <div class="d-flex justify-center"><h4>{{ value.mrName }}</h4></div>
@@ -47,7 +78,7 @@
           :src="type[value.mrCategory][1]"
           style="filter: brightness(50%);">
           </v-img>
-        <v-fade-transition>
+          <v-fade-transition>
             <v-overlay
               absolute >
               <div class="d-flex flex-column mt-5">

@@ -151,6 +151,12 @@ export default {
           return
         }
       }
+      for (var mb2 of this.tmplist){
+        if (friend[2] === mb2[1]){
+          alert("이미 추가된 멤버입니다!")
+          return
+        }
+      }
       this.tmplist.push([friend[0], friend[2], friend[1]])
     },
     addMyFriendList () {
@@ -202,7 +208,8 @@ export default {
         this.debounce = setTimeout(() => { 
           const filteredList = this.allmyfriendlist.filter(item => item[1].includes(this.search))
           const filteredList2 = this.allmyfriendlist.filter(item => item[2].includes(this.search))
-          this.searchmyfriendlist = filteredList2.concat(filteredList)
+          const sumlist = filteredList2.concat(filteredList)
+          this.searchmyfriendlist = sumlist.filter((item, pos) => sumlist.indexOf(item) === pos)
         }, 10)
       }else{ 
         clearTimeout(this.debounce); 

@@ -31,9 +31,10 @@
       </span>
     </v-container><hr>
     <v-subheader>중간 지점</v-subheader>
-    <MiddlePoint :mrUserInfo="mrUserInfo" />
+    <MiddlePoint :mrUserInfo="mrUserInfo" :roomInfo="roomInfo" @rec_place="getPlace"/>
   </v-container>
 </template>
+
 
 
 <script>
@@ -151,6 +152,9 @@ export default {
       this.departure(ref_data.mruNo, ref_data.mruName, ref_data.mruUserLng, ref_data.mruUserLat)
       this.getAvailableDates()
       this.$emit('refresh')
+    },
+    getPlace(data) {
+      this.$emit('rec_place', data)
     }
   },
 }

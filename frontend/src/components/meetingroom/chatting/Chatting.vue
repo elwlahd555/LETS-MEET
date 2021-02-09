@@ -5,6 +5,8 @@
       :title="'Chat Room'+ ' (' +(mrUserInfo.length)+ '명)'"
       :initial-author-id="authorId"
       @newOwnMessage="onNewOwnMessage"
+      :toggle-emoji-picker="toggleEmojiPicker"
+      @openEmojiPicker="onOpenEmojiPicker"
     />
   </v-container>
 </template>
@@ -14,7 +16,7 @@ import Chat from 'basic-vue-chat'
 import moment from 'moment'
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
-const axios = require('axios');
+const axios = require('axios')
 
 export default {
   name: "Chatting",
@@ -23,12 +25,12 @@ export default {
   },
   props: {
     mrNo: String,
+    mrUserInfo: Array,
   },
   data() {
     return {
       authorId: 1,
       authname: '',
-      toggleEmojiPicker: false,
       message: {
         id: 0,
         author: 'Person',
@@ -42,14 +44,13 @@ export default {
       ,
       feed: [
       ],
-      mrUserInfo: [],
+      toggleEmojiPicker: true,
     }
   },
   created() {
     this.connect()
     this.authname = this.$store.state.uName
     this.authorId = this.$store.state.uNo
-    console.log("B")
   },
   methods: {
     onNewOwnMessage (message, image, imageUrl) {
@@ -84,19 +85,9 @@ export default {
       }
     },    
     connect() {
-      axios.get(`http://localhost:8000/letsmeet/meetingRoomUser/userInfo?mrNo=${this.mrNo}`)
-      .then((res)=> {
-        this.mrUserInfo = res.data
-        console.log(this.mrUserInfo)
-        for (var i=0; i < this.mrUserInfo.length; i++) {
-          this.user[this.mrUserInfo[i].uNo] = this.mrUserInfo[i].uName
-        }
-        console.log(this.user)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-
+      for (var i=0; i < this.mrUserInfo.length; i++) {
+        this.user[this.mrUserInfo[i].uNo] = this.mrUserInfo[i].uName
+      }
       axios.get(`http://localhost:8000/letsmeet/chat/open?mrcMrNo=${this.mrNo}`)
       .then((res)=> {
         console.log(res.data)
@@ -111,6 +102,11 @@ export default {
             date: tmp_date.substring(11,20),
           }
           this.feed.push(feed_data)
+          setTimeout(function () {
+            var scrollContainer = document.getElementById('window__messages__container')
+            var isScrolledToBottom = scrollContainer.scrollHeight - scrollContainer.clientHeight <= scrollContainer.scrollTop + 1
+            if (!isScrolledToBottom) { scrollContainer.scrollTop = scrollContainer.scrollHeight }
+          }, 201)
         }
       })
       .catch((err) => {
@@ -143,9 +139,13 @@ export default {
             if(this.message.roomNo==this.mrNo){
               console.log("방번호가 일치합니다.")
             console.log(this.message)
+            setTimeout(function () {
+              var scrollContainer = document.getElementById('window__messages__container')
+              var isScrolledToBottom = scrollContainer.scrollHeight - scrollContainer.clientHeight <= scrollContainer.scrollTop + 1
+              if (!isScrolledToBottom) { scrollContainer.scrollTop = scrollContainer.scrollHeight }
+            }, 201)
             // 받은 데이터를 json으로 파싱하고 리스트에 넣어줍니다.
             this.feed.push(this.message)
-            // this.recvList.push(JSON.parse(res.body))
             }
           });
           const msg = { 
