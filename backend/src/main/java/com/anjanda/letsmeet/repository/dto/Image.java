@@ -17,11 +17,9 @@ import lombok.Data;
 
 @Data
 public class Image {
-	private int iId;
+	private int iNo;
 	private String iName;
-	private String iUserName;
-	private String iPath;
-	private String iType;
+	private String iMrNo;
 
 	public Image() {
 		super();

@@ -41,6 +41,13 @@
 		delete 
 		  from meetingroomuser
 		 where mru_mr_no=#{mruMrNo} and mru_u_no=#{mruUNo};
+		 
+	</delete>
+	<!-- D :: 약속방 삭제 -->
+	<delete id="deleteMeetingRoomUserAll">
+	delete 
+	from meetingroomuser 
+	where mru_mr_no=#{mrNo};
 	</delete>
 
 </mapper>

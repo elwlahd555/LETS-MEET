@@ -59,7 +59,7 @@ public class LoginController {
 			resultMap.put("uEmail", check.getuEmail()); 
 			resultMap.put("uPassword", check.getuPassword());
 			resultMap.put("uName", check.getuName());
-			resultMap.put("uImageId", check.getuImageId());
+			resultMap.put("uImage", check.getuImage());
 			resultMap.put("uJoinDate", check.getuJoinDate());
 			resultMap.put("uProvider", check.getuProvider());
 			resultMap.put("uSalt", check.getuSalt());

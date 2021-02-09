@@ -27,7 +27,11 @@ public interface MeetingRoomUserService {
 
 	/* U :: 약속방에 속한 본인의 위치 설정 */
 	boolean updateMeetingRoomUserSet(MeetingRoomUser meetingRoomUser);
-
+	
+	/* D :: 유저 한명 삭제*/
 	boolean deleteMeetingRoomUser(MeetingRoomUser meetingRoomUser);
+	
+	/* D :: 방이 삭제되어 전부 삭제*/
+	boolean deleteMeetingRoomUserAll(int mrNo);
 
 }

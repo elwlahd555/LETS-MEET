@@ -24,7 +24,7 @@ public class Store {
 	private String sRoadAddress;
 	private String sLat;
 	private String sLng;
-	private int sImageId;
+	private int sImage;
 	private int sScore;
 	public int getsNo() {
 		return sNo;
@@ -92,11 +92,11 @@ public class Store {
 	public void setsLng(String sLng) {
 		this.sLng = sLng;
 	}
-	public int getsImageId() {
-		return sImageId;
+	public int getsImage() {
+		return sImage;
 	}
-	public void setsImageId(int sImageId) {
-		this.sImageId = sImageId;
+	public void setsImage(int sImage) {
+		this.sImage = sImage;
 	}
 	public int getsScore() {
 		return sScore;

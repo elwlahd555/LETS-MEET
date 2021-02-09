@@ -113,8 +113,9 @@ public class MeetingRoomController {
 	
 	/* D :: 약속방 삭제 */
 	@DeleteMapping("/meetingRoom/delete")
-	public ResponseEntity<String> deleteMeetingRoom(@PathVariable int mrNo) throws Exception {
+	public ResponseEntity<String> deleteMeetingRoom(int mrNo) throws Exception {
 		if(meetingRoomService.deleteMeetingRoom(mrNo)) {
+//			meetingRoomUserService.deleteMeetingRoomUserAll(mrNo);
 			return new ResponseEntity<String>("약속방 삭제 성공", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("약속방 삭제 실패", HttpStatus.NO_CONTENT);
