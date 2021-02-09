@@ -11,9 +11,16 @@
 	values
 		(#{iId}, #{iName}, #{iUserName}, #{iPath});
 	</insert>
+
+	<!-- U :: 유저 프로필사진 업데이트 -->
+	<update id="updateProfile" parameterType="user">
+	update user
+	   set u_image=#{uImage}
+	 where u_email=#{uEmail}
+	</update>
 	
 	<!-- R :: 이미지 조회 -->
-	<select id="selectUser" parameterType="image" resultType="image">
+	<select id="selectImageList" parameterType="image" resultType="image">
 		select *
 		  from image
 		 where i_type=#{iType}
