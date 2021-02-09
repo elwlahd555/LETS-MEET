@@ -32,7 +32,7 @@ public class User {
 	private String uEmail;
 	private String uPassword;
 	private String uName;
-	private int uImage;
+	private String uImage;
 	private String uJoinDate;
 	private String uProvider;
 	private String uAuthority;
@@ -62,10 +62,10 @@ public class User {
 	public void setuName(String uName) {
 		this.uName = uName;
 	}
-	public int getuImage() {
+	public String getuImage() {
 		return uImage;
 	}
-	public void setuImageId(int uImage) {
+	public void setuImageId(String uImage) {
 		this.uImage = uImage;
 	}
 	public String getuJoinDate() {
