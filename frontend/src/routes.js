@@ -7,7 +7,8 @@ import Signup from '@/views/user/Signup'
 import { store } from "./store"
 import MyPage from '@/views/user/MyPage';
 import PasswordSearch from '@/views/user/PasswordSearch';
-import UserInfoChange from '@/views/user/UserInfoChange';
+import PasswordChange from '@/views/user/PasswordChange';
+import MyCalendar from '@/views/calendar/MyCalendar';
 import MakeMeeting from '@/views/makemeeting/MakeMeeting'
 import MeetingRoom from '@/views/meetingroom/MeetingRoom'
 import Alarm from '@/views/alarm/Alarm'
@@ -48,6 +49,12 @@ const routes = [
         component : PasswordSearch
     },
     {
+        path : '/passwordchange',
+        name : 'PasswordChange',
+        // beforeEnter: LoginUser,
+        component : PasswordChange
+    },
+    {
         path : '/main',
         name : 'Main',
         beforeEnter: onlyAuthUser,
@@ -72,12 +79,6 @@ const routes = [
         // component: () => import('@/views/user/MyPage.vue')
     },
     {
-        path: '/userinfochange',
-        name: 'UserInfoChange',
-        beforeEnter: onlyAuthUser,
-        component: UserInfoChange
-    },
-    {
         path: '/kakaocallback',
         name: 'KakaoCallback',
         component: KakaoCallback
@@ -99,6 +100,11 @@ const routes = [
         path: '/image/upload',
         name: 'Upload',
         component: Upload
+    },
+    {
+        path: '/mycalendar',
+        name: 'MyCalendar',
+        component: MyCalendar
     }
   ]
   

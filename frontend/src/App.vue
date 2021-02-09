@@ -64,7 +64,7 @@
         <router-link class="ro" :to="{ name: 'Main' }"><v-icon>mdi-home</v-icon></router-link>
       </v-btn>
       <v-btn>
-        <v-icon>mdi-calendar</v-icon>
+        <router-link class="ro" :to="{ name: 'MyCalendar'}"><v-icon>mdi-calendar</v-icon></router-link>
       </v-btn>
       <v-btn>
         <router-link class="ro" :to="{ name: 'MakeMeeting' }"><v-icon>mdi-plus-circle</v-icon></router-link>
