@@ -26,7 +26,7 @@ import com.anjanda.letsmeet.user.jwt.JwtInterceptor;
  *	
  */
 
-@PropertySource("config.properties")
+@PropertySource("classpath:/config.properties")
 @SpringBootApplication
 @MapperScan(basePackages ="com.anjanda.letsmeet.repository.mapper")
 public class BackendApplication implements WebMvcConfigurer {
