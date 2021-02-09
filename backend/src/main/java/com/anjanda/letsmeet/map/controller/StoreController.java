@@ -32,18 +32,18 @@ public class StoreController {
 	@Autowired
 	private StoreService storeService;
 	
-	/* R :: '동 이름'으로 가게 조회 */
-	@ApiOperation(value="전체 동 조회", notes="동을 이용해서 조회")
-	@GetMapping("/dong")
-	public List<Store> reviewStoreByDong(String dong) throws Exception {
-		
-			System.out.println("dong값 받아오기");
-			System.out.println("data size : " + storeService.StoreByDong(dong).size());
-			System.out.println("data size : " + storeService.StoreByDong(dong).get(0).getsDong());
-			
-			return storeService.StoreByDong(dong);
-		
-	}
+//	/* R :: '동 이름'으로 가게 조회 */
+//	@ApiOperation(value="전체 동 조회", notes="동을 이용해서 조회")
+//	@GetMapping("/dong")
+//	public List<Store> reviewStoreByDong(String dong) throws Exception {
+//		
+//			System.out.println("dong값 받아오기");
+//			System.out.println("data size : " + storeService.StoreByDong(dong).size());
+//			System.out.println("data size : " + storeService.StoreByDong(dong).get(0).getsDong());
+//			
+//			return storeService.StoreByDong(dong);
+//		
+//	}
 	
 	/* R :: '좌표 값'으로 가게 조회 */
 	@ApiOperation(value="좌표로 조회", notes="좌표를 이용해서 조회")
