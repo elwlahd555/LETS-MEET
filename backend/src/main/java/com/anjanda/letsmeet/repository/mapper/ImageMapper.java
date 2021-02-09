@@ -12,4 +12,10 @@ public interface ImageMapper {
 	public int insertImage(Image image) throws Exception;
 	
 	public List<Image> getImageList();
+
+	public int insertProfile(String uImage) throws Exception;
+
+	public int insertMeetingroomImage(String mrImage) throws Exception;
+
+	public int insertGalleryImage(String gImage) throws Exception;
 }
