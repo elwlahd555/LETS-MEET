@@ -33,8 +33,8 @@ public class ImageUploadController {
 		String imgPath = "C:/" + file.getOriginalFilename();
 		Image image = new Image();
 		image.setIName(file.getOriginalFilename());
-		image.setIPath(imgPath);
-		image.setIUserName(userName);
+//		image.setIPath(imgPath);
+//		image.setIUserName(userName);
 		File dest = new File(imgPath);
 		file.transferTo(dest);
 		

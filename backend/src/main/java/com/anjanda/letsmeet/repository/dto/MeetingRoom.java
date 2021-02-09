@@ -24,7 +24,7 @@ public class MeetingRoom {
 	private int mrSuperUNo;
 	private String mrName;
 	private String mrCategory;
-	private int mrImageId;
+	private int mrImage;
 	private String mrDateStart;	 
 	private String mrDateEnd;
 	private String mrCenterLat;

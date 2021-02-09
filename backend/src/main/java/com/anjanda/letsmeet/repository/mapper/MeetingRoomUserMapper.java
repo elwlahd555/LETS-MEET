@@ -33,5 +33,8 @@ public interface MeetingRoomUserMapper {
 	/* D :: 약속방에서 나가기 */
 	int deleteMeetingRoomUser(MeetingRoomUser meetingRoomUser);
 
+	/* D :: 약속방삭제 */
+	int deleteMeetingRoomUserAll(int mrNo);
+
 
 }

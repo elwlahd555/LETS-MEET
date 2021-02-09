@@ -52,4 +52,10 @@ public class MeetingRoomUserServiceImpl implements MeetingRoomUserService {
 		return meetingRoomUserMapper.deleteMeetingRoomUser(meetingRoomUser) == 1;
 	}
 
+	@Override
+	public boolean deleteMeetingRoomUserAll(int mrNo) {
+		// TODO Auto-generated method stub
+		return meetingRoomUserMapper.deleteMeetingRoomUserAll(mrNo) == 1;
+	}
+
 }
