@@ -1,5 +1,7 @@
 package com.anjanda.letsmeet.user.service;
 
+import java.util.List;
+
 import com.anjanda.letsmeet.repository.dto.User;
 
 /**
@@ -47,5 +49,9 @@ public interface UserService {
 	/* 이메일 중복 체크 */
 	int existEmail(String email) throws Exception;
 
+	/* 아이디 찾기 */
+	public List<User> findEmailByName(String uName) throws Exception;
 	
+	/* 비밀번호 찾기 */
+	public int findPasswordByEmail(String uEmail) throws Exception;
 }

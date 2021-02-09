@@ -1,5 +1,7 @@
 package com.anjanda.letsmeet.repository.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.anjanda.letsmeet.repository.dto.User;
@@ -45,6 +47,12 @@ public interface UserMapper {
 
 	/* 로그인 시, 이메일로 맞는 salt 값 받아오기 */
 	public String getuSaltByEmail(String uEmail) throws Exception;
+	
+	/* 아이디 찾기 */
+	public List<User> selectEmailByName(String uName) throws Exception;
+	
+	/* 비밀번호 찾기 */
+	public int selectPasswordByEmail(String uEmail, String tempPassword) throws Exception;
 
 
 }

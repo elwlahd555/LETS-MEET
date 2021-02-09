@@ -74,4 +74,19 @@
 		  from user
 		 where u_email = #{uEmail}
 	</select>
+	
+	<!-- 유저 아이디 찾기 -->
+	<select id="selectEmailByName" parameterType="string">
+		select u_email
+		  from user
+		 where u_name = #{uName}
+	</select>
+
+	<!-- 비밀번호 찾기(정확히는 임시비번으로 변경) -->
+	<update id="selectPasswordByEmail" parameterType="string">
+		update user
+		   set u_password = #{tempPassword}
+		 where u_email = #{uEmail}
+	</update>
+
 </mapper>

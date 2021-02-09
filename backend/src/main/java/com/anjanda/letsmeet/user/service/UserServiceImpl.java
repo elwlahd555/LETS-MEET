@@ -1,5 +1,7 @@
 package com.anjanda.letsmeet.user.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -142,6 +144,23 @@ public class UserServiceImpl implements UserService {
 	/* 로그인 시, 이메일로 맞는 salt 값 받아오기 */
 	public String getuSaltByEmail(String getuEmail) throws Exception {
 		return mapper.getuSaltByEmail(getuEmail);
+	}
+	
+	/* 아이디 찾기 */
+	public List<User> findEmailByName(String uName) throws Exception {
+		return mapper.selectEmailByName(uName);
+	}
+	
+	/* 비밀번호 찾기 */
+	public int findPasswordByEmail(String uEmail) throws Exception {
+		
+		String salt = mapper.getuSaltByEmail(uEmail);
+		System.out.println("해당 고객 salt : " + salt);
+		
+		String tempPassword = "1234";
+		tempPassword = SaltSHA256.getEncrypt(tempPassword, salt);
+		
+		return mapper.selectPasswordByEmail(uEmail, tempPassword);
 	}
 }
 
