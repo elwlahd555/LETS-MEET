@@ -25,7 +25,7 @@ public class Store {
 	private String sLat;
 	private String sLng;
 	private int sImage;
-	private int sScore;
+	private double sScore;
 	public int getsNo() {
 		return sNo;
 	}
@@ -98,10 +98,10 @@ public class Store {
 	public void setsImage(int sImage) {
 		this.sImage = sImage;
 	}
-	public int getsScore() {
+	public double getsScore() {
 		return sScore;
 	}
-	public void setsScore(int sScore) {
+	public void setsScore(double sScore) {
 		this.sScore = sScore;
 	}
 }
