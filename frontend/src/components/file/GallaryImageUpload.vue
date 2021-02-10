@@ -12,7 +12,7 @@ export default {
   data(){
       return {
           iFile: '',
-          iNo: '', // 사진첩 번호
+          gMrNo: '', // 사진첩 번호
       }
   },
   methods: {
@@ -31,7 +31,7 @@ export default {
           var formData = new FormData();
           if(this.iFile != "") {
               formData.append("iFile", this.iFile); // 이미지 파일
-              formData.append("gNo", this.$store.state.uEmail) // 사진첩 번호
+              formData.append("gMrNo", this.$store.state.uEmail) // 사진첩 번호
           }
       
           // * FormData객체는 그 자체를 로깅하면 빈 객체만을 리턴한다.

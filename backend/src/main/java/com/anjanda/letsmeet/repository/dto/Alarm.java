@@ -7,13 +7,26 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-
 public class Alarm {
 	private int aNo;
 	private int aUNo;
 	private String aTitle;
 	private String aContent;
 	private String aTime;
+	private String aImage;
+	public Alarm() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Alarm(int aNo, int aUNo, String aTitle, String aContent, String aTime, String aImage) {
+		super();
+		this.aNo = aNo;
+		this.aUNo = aUNo;
+		this.aTitle = aTitle;
+		this.aContent = aContent;
+		this.aTime = aTime;
+		this.aImage = aImage;
+	}
 	public int getaNo() {
 		return aNo;
 	}
@@ -44,17 +57,10 @@ public class Alarm {
 	public void setaTime(String aTime) {
 		this.aTime = aTime;
 	}
-	public Alarm() {
-		super();
-		// TODO Auto-generated constructor stub
+	public String getaImage() {
+		return aImage;
 	}
-	public Alarm(int aNo, int aUNo, String aTitle, String aContent, String aTime) {
-		super();
-		this.aNo = aNo;
-		this.aUNo = aUNo;
-		this.aTitle = aTitle;
-		this.aContent = aContent;
-		this.aTime = aTime;
+	public void setaImage(String aImage) {
+		this.aImage = aImage;
 	}
-	
 }

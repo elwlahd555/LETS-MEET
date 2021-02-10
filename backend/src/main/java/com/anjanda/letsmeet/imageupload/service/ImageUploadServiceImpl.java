@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.anjanda.letsmeet.repository.dto.Image;
+import com.anjanda.letsmeet.repository.dto.Gallery;
+import com.anjanda.letsmeet.repository.dto.MeetingRoom;
+import com.anjanda.letsmeet.repository.dto.User;
 import com.anjanda.letsmeet.repository.mapper.ImageMapper;
 
 /**
@@ -26,28 +28,28 @@ public class ImageUploadServiceImpl implements ImageUploadService {
 	private ImageMapper mapper;
 
 	@Override
-	public int InsertImage(Image image) throws Exception {
+	public int InsertImage(Gallery image) throws Exception {
 		return mapper.insertImage(image);
 	}
 
 	@Override
-	public List<Image> getImageList() {
-		return mapper.getImageList();
+	public List<Gallery> selectImageList() {
+		return mapper.selectImageList();
 	}
 
 	@Override
-	public int InsertProfile(String uImage) throws Exception {
-		return mapper.insertProfile(uImage);
+	public int InsertGalleryImage(Gallery gallery) throws Exception {
+		return mapper.insertGalleryImage(gallery);
 	}
 
 	@Override
-	public int InsertMeetingroomImage(String mrImage) throws Exception {
-		return mapper.insertMeetingroomImage(mrImage);
+	public int UpdateProfile(User user) throws Exception {
+		return mapper.updateProfile(user);
 	}
 
 	@Override
-	public int InsertGalleryImage(String gImage) throws Exception {
-		return mapper.insertGalleryImage(gImage);
+	public int UpdateMeetingroomImage(MeetingRoom meetingroom) throws Exception {
+		return mapper.updateMeetingroomImage(meetingroom);
 	}
 
 }

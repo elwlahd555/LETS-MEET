@@ -43,7 +43,7 @@ public interface UserService {
 	int updateUserName(User user) throws Exception;
 
 	/* D :: 회원 탈퇴 메소드 */
-	int deleteUser(String email) throws Exception;
+	public int deleteUser(String email) throws Exception;
 
 	// CRUD 외 추가 기능 
 	/* 이메일 중복 체크 */

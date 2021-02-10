@@ -8,13 +8,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.anjanda.letsmeet.imageupload.service.ImageUploadService;
-import com.anjanda.letsmeet.repository.dto.Image;
+import com.anjanda.letsmeet.repository.dto.Gallery;
+import com.anjanda.letsmeet.repository.dto.MeetingRoom;
+import com.anjanda.letsmeet.repository.dto.User;
 
 /**
  * 
@@ -39,50 +42,53 @@ public class ImageUploadController {
 	@Autowired
 	private ImageUploadService imageUploadService;
 
-	@PostMapping("/profileUpload")
-	public String InsertProfile(@RequestParam("iFile") MultipartFile file, @RequestParam("iUserEmail") String userEmail) throws Exception {
+	@PutMapping("/profileUpload")
+	public String UpdateProfile(@RequestParam("iFile") MultipartFile file, @RequestParam("iUserEmail") String userEmail) throws Exception {
 //		String uImage = path + "/" + userEmail + "-" + file.getOriginalFilename();
 		String uImage = "C:/" + userEmail + "-" + file.getOriginalFilename();
-//		Image image = new Image();
-//		image.setIName(file.getOriginalFilename());
-//		image.setIPath(imgPath);
-//		image.setIUserName(userName);
+
 		File dest = new File(uImage);
 		file.transferTo(dest);
 		
-		return imageUploadService.InsertProfile(uImage) > 0 ? "OK" : "FAIL";
+		User user = new User();
+		user.setuImage(uImage);
+		user.setuEmail(userEmail);
+		
+		return imageUploadService.UpdateProfile(user) > 0 ? "OK" : "FAIL";
 	}
 	
-	@PostMapping("/meetingroomImageUpload")
-	public String InsertMeetingroomImageUpload(@RequestParam("iFile") MultipartFile file, @RequestParam("mrNo") String mrNo) throws Exception {
+	@PutMapping("/meetingroomImageUpload")
+	public String UpdateMeetingroomImageUpload(@RequestParam("iFile") MultipartFile file, @RequestParam("mrNo") int mrNo) throws Exception {
 //		String mrImage = path + "/" + "mr-" + mrNo + "-" + file.getOriginalFilename();
 		String mrImage = "C:/" + "mr-" + mrNo + "-" + file.getOriginalFilename();
-//		Image image = new Image();
-//		image.setIName(file.getOriginalFilename());
-//		image.setIPath(imgPath);
-//		image.setIUserName(userName);
+
 		File dest = new File(mrImage);
 		file.transferTo(dest);
 		
-		return imageUploadService.InsertMeetingroomImage(mrImage) > 0 ? "OK" : "FAIL";
+		MeetingRoom meetingroom = new MeetingRoom();
+		meetingroom.setMrNo(mrNo);
+		meetingroom.setMrImage(mrImage);
+		
+		return imageUploadService.UpdateMeetingroomImage(meetingroom) > 0 ? "OK" : "FAIL";
 	}
 
-	@PostMapping("/galleryImageUpload")
-	public String InsertGalleryImage(@RequestParam("iFile") MultipartFile file, @RequestParam("gNo") String gNo) throws Exception {
-//		String gImage = path + "/" + "gallery-" + gNo + "-"  + file.getOriginalFilename();
-		String gImage = "C:/" + "gallery-" + gNo + "-" + file.getOriginalFilename();
-//		Image image = new Image();
-//		image.setIName(file.getOriginalFilename());
-//		image.setIPath(imgPath);
-//		image.setIUserName(userName);
+	@PutMapping("/galleryImageUpload")
+	public String InsertGalleryImage(@RequestParam("iFile") MultipartFile file, @RequestParam("gMrNo") String gMrNo) throws Exception {
+//		String gImage = path + "/" + "gallery-" + gMrNo + "-"  + file.getOriginalFilename();
+		String gImage = "C:/" + "gallery-" + gMrNo + "-" + file.getOriginalFilename();
+		
 		File dest = new File(gImage);
 		file.transferTo(dest);
+
+		Gallery gallery = new Gallery();
+		gallery.setGName(gImage);
+		gallery.setGMrNo(gMrNo);
 		
-		return imageUploadService.InsertGalleryImage(gImage) > 0 ? "OK" : "FAIL";
+		return imageUploadService.InsertGalleryImage(gallery) > 0 ? "OK" : "FAIL";
 	}
 
 	@GetMapping("/getImageList")
-	public List<Image> getImageList() {
-		return imageUploadService.getImageList();
+	public List<Gallery> getImageList() {
+		return imageUploadService.selectImageList();
 	}
 }

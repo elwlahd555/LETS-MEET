@@ -4,18 +4,20 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.anjanda.letsmeet.repository.dto.Image;
+import com.anjanda.letsmeet.repository.dto.Gallery;
+import com.anjanda.letsmeet.repository.dto.MeetingRoom;
+import com.anjanda.letsmeet.repository.dto.User;
 
 @Mapper
 public interface ImageMapper {
 	/* C :: 이미지 추가 */
-	public int insertImage(Image image) throws Exception;
+	public int insertImage(Gallery image) throws Exception;
 	
-	public List<Image> getImageList();
+	public List<Gallery> selectImageList();
 
-	public int insertProfile(String uImage) throws Exception;
+	public int updateProfile(User user) throws Exception;
 
-	public int insertMeetingroomImage(String mrImage) throws Exception;
+	public int updateMeetingroomImage(MeetingRoom meetingroom) throws Exception;
 
-	public int insertGalleryImage(String gImage) throws Exception;
+	public int insertGalleryImage(Gallery gallery) throws Exception;
 }
