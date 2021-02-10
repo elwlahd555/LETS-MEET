@@ -6,10 +6,10 @@
 	<insert id="insertAlarm" parameterType="string">
 		INSERT INTO alarm
 			(a_u_no, 
-			a_title, a_content, a_time)
+			a_title, a_content, a_time, a_image)
 		VALUES
 			((select u_no from user where u_email = #{uEmail}),
-			#{aTitle}, #{aContent}, #{aTime})
+			#{aTitle}, #{aContent}, #{aTime}, #{aImage})
 	</insert>
 	
 	<select id="selectAlarm" parameterType="string">
