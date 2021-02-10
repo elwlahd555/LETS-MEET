@@ -16,6 +16,8 @@ export default {
       }
   },
   methods: {
+      // 파일 업로드하고 확인 버튼 누르면 emit 해야함
+
       // 파일 첨부시 Change이벤트
       $fileSelect : function $fileSelect() {
           console.log(this.$refs);
