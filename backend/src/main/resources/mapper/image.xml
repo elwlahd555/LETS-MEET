@@ -11,6 +11,14 @@
 	values
 		(#{iId}, #{iName}, #{iUserName}, #{iPath});
 	</insert>
+	
+	<!-- U :: 사진첩 사진 추가 -->
+	<insert id="insertProfile" parameterType="gallery">
+	insert into gallery
+		(g_no, g_image)
+	values 
+		(#{gNo}, #{gImage})
+	</insert>
 
 	<!-- R :: 이미지 조회 -->
 	<select id="selectImageList" parameterType="image" resultType="image">
@@ -19,13 +27,6 @@
 		 where i_type=#{iType}
 	</select>
 	
-	<!-- U :: 유저 프로필사진 업데이트 -->
-	<update id="updateProfile" parameterType="user">
-	update user
-	   set u_image=#{uImage}
-	 where u_email=#{uEmail}
-	</update>
-
 	<!-- U :: 유저 프로필사진 업데이트 -->
 	<update id="updateProfile" parameterType="user">
 	update user

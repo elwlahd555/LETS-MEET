@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.anjanda.letsmeet.imageupload.service.ImageUploadService;
-import com.anjanda.letsmeet.repository.dto.Image;
+import com.anjanda.letsmeet.repository.dto.Gallery;
 import com.anjanda.letsmeet.repository.dto.MeetingRoom;
 import com.anjanda.letsmeet.repository.dto.User;
 
@@ -73,21 +73,22 @@ public class ImageUploadController {
 	}
 
 	@PutMapping("/galleryImageUpload")
-	public String UpdateGalleryImage(@RequestParam("iFile") MultipartFile file, @RequestParam("gNo") String gNo) throws Exception {
-//		String gImage = path + "/" + "gallery-" + gNo + "-"  + file.getOriginalFilename();
-		String gImage = "C:/" + "gallery-" + gNo + "-" + file.getOriginalFilename();
-//		Image image = new Image();
-//		image.setIName(file.getOriginalFilename());
-//		image.setIPath(imgPath);
-//		image.setIUserName(userName);
+	public String InsertGalleryImage(@RequestParam("iFile") MultipartFile file, @RequestParam("gMrNo") String gMrNo) throws Exception {
+//		String gImage = path + "/" + "gallery-" + gMrNo + "-"  + file.getOriginalFilename();
+		String gImage = "C:/" + "gallery-" + gMrNo + "-" + file.getOriginalFilename();
+		
 		File dest = new File(gImage);
 		file.transferTo(dest);
+
+		Gallery gallery = new Gallery();
+		gallery.setGName(gImage);
+		gallery.setGMrNo(gMrNo);
 		
-		return imageUploadService.UpdateGalleryImage(gImage) > 0 ? "OK" : "FAIL";
+		return imageUploadService.InsertGalleryImage(gallery) > 0 ? "OK" : "FAIL";
 	}
 
 	@GetMapping("/getImageList")
-	public List<Image> getImageList() {
+	public List<Gallery> getImageList() {
 		return imageUploadService.selectImageList();
 	}
 }
