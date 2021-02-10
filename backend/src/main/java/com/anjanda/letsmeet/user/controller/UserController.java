@@ -110,11 +110,8 @@ public class UserController {
 		HttpStatus status = null;
 		Map<String, Object> resultMap = new HashMap<>();
 
-		User check = new User();
-		check.setuEmail(email);
-
 		try {
-			if (userService.deleteUser(check) >= 0) {
+			if (userService.deleteUser(email) > 0) {
 				resultMap.put("message", "회원이 삭제되었습니다.");
 				status = HttpStatus.ACCEPTED;
 			} else {

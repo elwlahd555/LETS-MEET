@@ -48,7 +48,7 @@
 	</update>
 	
 	<!-- D :: 회원 탈퇴  and u_password=#{uPassword} 빼줌  -->
-	<delete id="deleteUser" parameterType="user">
+	<delete id="deleteUser" parameterType="string">
 		delete 
 		  from user 
 		 where u_Email=#{uEmail}
