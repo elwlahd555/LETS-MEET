@@ -1,6 +1,9 @@
 package com.anjanda.letsmeet.repository.dto;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 
@@ -16,31 +19,53 @@ import lombok.Data;
  */
 
 @Data
+@Getter
+@Setter
+@ToString
+
 public class Gallery {
 	private int gNo;
+	private int gMrNo;
+	private int gUNo;
 	private String gName;
-	private String gMrNo;
-
+	
+	
+	public int getgNo() {
+		return gNo;
+	}
+	public void setgNo(int gNo) {
+		this.gNo = gNo;
+	}
+	public int getgMrNo() {
+		return gMrNo;
+	}
+	public void setgMrNo(int gMrNo) {
+		this.gMrNo = gMrNo;
+	}
+	public int getgUNo() {
+		return gUNo;
+	}
+	public void setgUNo(int gUNo) {
+		this.gUNo = gUNo;
+	}
+	public String getgName() {
+		return gName;
+	}
+	public void setgName(String gName) {
+		this.gName = gName;
+	}
+	public Gallery(int gNo, int gMrNo, int gUNo, String gName) {
+		super();
+		this.gNo = gNo;
+		this.gMrNo = gMrNo;
+		this.gUNo = gUNo;
+		this.gName = gName;
+	}
 	public Gallery() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	public int hashCode() {
-		// TODO Auto-generated method stub
-		return super.hashCode();
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		return super.equals(obj);
-	}
-
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
-	}
-
+	
+	
+	
 }   

@@ -5,7 +5,7 @@ import com.anjanda.letsmeet.repository.dto.Alarm;
 
 public interface AlarmMapper {
 	/* C :: 알람 1줄 생성 */
-	public int insertAlarm(String uEmail) throws Exception;
+	public int insertAlarm(Alarm alarm) throws Exception;
 	
 	/* R :: 사용자의 알람 전체 조회 */
 	public List<Alarm> selectAlarm(String uEmail) throws Exception;

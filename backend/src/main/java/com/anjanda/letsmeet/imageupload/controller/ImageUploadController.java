@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -73,7 +72,7 @@ public class ImageUploadController {
 	}
 
 	@PutMapping("/galleryImageUpload")
-	public String InsertGalleryImage(@RequestParam("iFile") MultipartFile file, @RequestParam("gMrNo") String gMrNo) throws Exception {
+	public String InsertGalleryImage(@RequestParam("iFile") MultipartFile file, @RequestParam("gMrNo") int gMrNo) throws Exception {
 //		String gImage = path + "/" + "gallery-" + gMrNo + "-"  + file.getOriginalFilename();
 		String gImage = "C:/" + "gallery-" + gMrNo + "-" + file.getOriginalFilename();
 		
@@ -81,9 +80,8 @@ public class ImageUploadController {
 		file.transferTo(dest);
 
 		Gallery gallery = new Gallery();
-		gallery.setGName(gImage);
-		gallery.setGMrNo(gMrNo);
-		
+		gallery.setgName(gImage);
+		gallery.setgMrNo(gMrNo);
 		return imageUploadService.InsertGalleryImage(gallery) > 0 ? "OK" : "FAIL";
 	}
 
