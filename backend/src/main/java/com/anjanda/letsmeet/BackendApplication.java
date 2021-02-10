@@ -45,7 +45,7 @@ public class BackendApplication implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(jwtInterceptor).addPathPatterns("/user/**")
-												.excludePathPatterns(Arrays.asList("/login", "/user/forgot/**", "/user/join/**","/user/checkemail", "/user/mypage/**", "/user/find/**"));
+												.excludePathPatterns(Arrays.asList("/login", "/user/forgot/**", "/user/join/**","/user/checkemail", "/user/mypage/**", "/user/find/**", "/user/delete/**"));
 	}
 	
 	/* 인터셉터를 이용하여 로그인 처리하므로, 전역의 Cors Origin 처리 해준다. */

@@ -34,6 +34,7 @@
         :weekdays="weekday"
         :type="type"
         :events="events"
+        @click:event ='showEvent'
         :event-overlap-mode="mode"
         :event-overlap-threshold="30"
         :event-color="getEventColor"
@@ -49,6 +50,7 @@ const axios = require('axios');
 export default {
     name: 'MyCalendar',
 data: () => ({
+      selectedEvent: {},
       type: 'month',
       month: '',
       mode: 'stack',
@@ -74,9 +76,13 @@ data: () => ({
       this.month = month
     },
     methods: {
+      showEvent({ event }){
+        this.$router.push({ name: 'MeetingRoom', params: {'id': event.number}})
+      },
       getDate() {
         axios.get(`http://localhost:8000/letsmeet/main?uNo=${this.$store.state.uNo}`)
         .then((res)=> {
+          console.log(res.data)
           const events = []
           const date = res.data
           date.forEach(el => {
@@ -85,7 +91,7 @@ data: () => ({
                 name: el.mrName,
                   // name: this.names[this.rnd(0, this.names.length - 1)],
                   start: el.mrDate,
-                  // end: second,
+                  number: el.mrNo,
                   color: this.colors[this.rnd(0, this.colors.length - 1)],
                 })
             }

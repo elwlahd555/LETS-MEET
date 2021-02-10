@@ -63,35 +63,32 @@
                 cols='3'>
                   <v-badge @click.native="showImageDialog" icon="mdi-plus" bordered color="indigo accent-2" overlap bottom>
                     <v-avatar>
-                        <img
+                      <img class="product-thumb" v-bind:src="'file:////var/lib/anjanda-image'+filename" />
+                        <!-- <img
                           src="https://cdn.vuetifyjs.com/images/john.jpg"
                           alt="John"
-                        >
+                        > -->
                     </v-avatar>
                   </v-badge>
 
                 <v-dialog v-model="ImageDialog" max-width="290" persistent>
                     <!-- 이미지 변경 모달 -->
                   <v-card class="p-3">
-                    <v-card-header class="mb-5" style="font-size:18px">
-                      이미지 변경
-                    </v-card-header>
-                    <v-file-input
-                      class="pt-5"
-                      accept="image/*"
-                      label="이미지 등록"
-                      v-model='uImageId'
-                    ></v-file-input>
-                         <v-card-actions>
+                    <h5 class="pb-5">이미지 변경</h5>
+
+                    <ProfileUpload/>
+                         <v-card-actions class="pr-0 mb-0 pb-0 mt-3">
                           <v-spacer></v-spacer>
                           <v-btn
                             color="green darken-1"
                             text
                             @click="ImageDialog = false"
+                            class="pr-0"
                           >
                             취소
                           </v-btn>
                           <v-btn
+                            class="pr-0"
                             color="green darken-1"
                             text
                             @click="ImageDialog = false"
@@ -293,12 +290,14 @@ const config = {
       };
 import MypageLikePlace from "../../components/user/mypage/MypageLikePlace"
 import MypageFriendList from "../../components/user/mypage/MypageFriendList"
+import ProfileUpload from "../../components/file/ProfileUpload"
 
 export default {
     name: 'MyPage',
     components: {
       MypageLikePlace,
       MypageFriendList,
+      ProfileUpload
     },
     methods: {
       showImageDialog () {
