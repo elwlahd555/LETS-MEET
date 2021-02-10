@@ -51,7 +51,7 @@
 	<delete id="deleteUser" parameterType="string">
 		delete 
 		  from user 
-		 where u_Email=#{uEmail}
+		 where u_email=#{uEmail}
 	</delete>
 
 	<!-- 이메일 중복 체크 -->

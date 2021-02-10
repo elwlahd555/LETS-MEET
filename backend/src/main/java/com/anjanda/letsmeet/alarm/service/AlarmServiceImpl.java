@@ -16,8 +16,8 @@ public class AlarmServiceImpl implements AlarmService {
 	
 	/* C :: 알람 1줄 생성 */
 	@Override
-	public int createAlarm(String uEmail) throws Exception {
-		return alarmMapper.insertAlarm(uEmail);
+	public int createAlarm(Alarm alarm) throws Exception {
+		return alarmMapper.insertAlarm(alarm);
 	}
 	
 	/* R :: 사용자의 알람 전체 조회 */

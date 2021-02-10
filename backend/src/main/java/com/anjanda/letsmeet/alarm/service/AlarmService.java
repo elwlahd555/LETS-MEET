@@ -7,7 +7,7 @@ import com.anjanda.letsmeet.repository.dto.Alarm;
 public interface AlarmService {
 
 	/* C :: 알람 1줄 생성 */
-	int createAlarm(String uEmail) throws Exception;
+	int createAlarm(Alarm alarm) throws Exception;
 
 	/* R :: 사용자의 알람 전체 조회 */
 	List<Alarm> reviewAlarm(String uEmail) throws Exception;

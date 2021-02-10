@@ -130,8 +130,8 @@ public class UserServiceImpl implements UserService {
 	
 	/* D :: 회원 탈퇴 메소드 */
 	@Override
-	public int deleteUser(String email) throws Exception {
-		return mapper.deleteUser(email);
+	public int deleteUser(String uEmail) throws Exception {
+		return mapper.deleteUser(uEmail);
 	}
 	
 	// CRUD 외 추가 기능 
