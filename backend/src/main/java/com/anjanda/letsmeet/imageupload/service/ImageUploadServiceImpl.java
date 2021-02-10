@@ -33,7 +33,7 @@ public class ImageUploadServiceImpl implements ImageUploadService {
 	}
 
 	@Override
-	public List<Image> getImageList() {
+	public List<Image> selectImageList() {
 		return mapper.selectImageList();
 	}
 

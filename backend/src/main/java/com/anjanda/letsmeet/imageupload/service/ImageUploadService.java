@@ -22,7 +22,7 @@ public interface ImageUploadService {
 
 	public int InsertImage(Image image) throws Exception;
 
-	public List<Image> getImageList();
+	public List<Image> selectImageList();
 
 	public int UpdateProfile(User user) throws Exception;
 

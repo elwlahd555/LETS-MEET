@@ -88,6 +88,6 @@ public class ImageUploadController {
 
 	@GetMapping("/getImageList")
 	public List<Image> getImageList() {
-		return imageUploadService.getImageList();
+		return imageUploadService.selectImageList();
 	}
 }
