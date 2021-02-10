@@ -16,12 +16,12 @@ import lombok.Data;
  */
 
 @Data
-public class Image {
-	private int iNo;
-	private String iName;
-	private String iMrNo;
+public class Gallery {
+	private int gNo;
+	private String gName;
+	private String gMrNo;
 
-	public Image() {
+	public Gallery() {
 		super();
 	}
 

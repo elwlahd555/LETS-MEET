@@ -65,7 +65,7 @@ public class User {
 	public String getuImage() {
 		return uImage;
 	}
-	public void setuImageId(String uImage) {
+	public void setuImage(String uImage) {
 		this.uImage = uImage;
 	}
 	public String getuJoinDate() {
