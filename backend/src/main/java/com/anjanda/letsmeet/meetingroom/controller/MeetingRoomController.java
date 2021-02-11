@@ -51,20 +51,19 @@ public class MeetingRoomController {
 	
 	/* C :: 미팅룽 추가 */
 	@PostMapping("/meetingRoom/create")
-	public ResponseEntity<String> createMeetingRoom(@RequestBody MeetingRoom meetingRoom) throws Exception{
+	public ResponseEntity<Integer> createMeetingRoom(@RequestBody MeetingRoom meetingRoom) throws Exception{
 		System.out.println(meetingRoom.getMrName()+"이 생성되었습니다");
 		System.out.println(meetingRoom.getMrCategory() + meetingRoom.getMrName());
 		if(meetingRoomService.createMeetingRoom(meetingRoom) > 0) {
-			
 			int mrNo=meetingRoomService.selectMeetingRoomBySuper(meetingRoom);
 			System.out.println(mrNo+"미팅룸넘버");
 			MeetingRoomUser meetingRoomUser=new MeetingRoomUser();
 			meetingRoomUser.setMruMrNo(mrNo);
 			meetingRoomUser.setMruUNo(meetingRoom.getMrSuperUNo());
 			meetingRoomUserService.createMeetingRoomUser(meetingRoomUser);
-			return new ResponseEntity<String>("약속방 생성 성공", HttpStatus.OK);
+			return new ResponseEntity<Integer>(mrNo, HttpStatus.OK);
 		}
-			return new ResponseEntity<String>("약속방 생성 실패", HttpStatus.NO_CONTENT);
+			return new ResponseEntity<Integer>(0, HttpStatus.NO_CONTENT);
 
 	}
 	
