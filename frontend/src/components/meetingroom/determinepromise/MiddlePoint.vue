@@ -9,7 +9,6 @@
 const axios = require('axios');
 const KAKAO_API_KEY = '71f77d07e68b0f6c0464d85d3df14e6c'
 var map = ''
-// const axios = require('axios');
 var latitude = 0
 var longitude = 0
 
@@ -156,6 +155,14 @@ export default {
       });
 
       polygon.setMap(map)
+      
+      var bounds = new kakao.maps.LatLngBounds();
+      for (var j=0; j<this.positions.length; j++) {
+          bounds.extend(this.positions[j].latlng);
+      }       
+      // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+      map.setBounds(bounds);
+
 
       if (this.count > 0) {
         var imageSrc2 = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"
@@ -167,6 +174,7 @@ export default {
           title : "중간지점 : " + latitude + ", " + longitude,
           image : markerImage2
         });
+        
       }
       map.relayout()
 
