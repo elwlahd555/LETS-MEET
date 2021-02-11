@@ -5,7 +5,7 @@
 <mapper namespace="com.anjanda.letsmeet.repository.mapper.MeetingRoomMapper">
 
 	<!-- C :: 약속방 생성하기 -->
-	<insert id="insertMeetingRoom" parameterType="MeetingRoom">
+	<insert id="insertMeetingRoom" useGeneratedKeys="true" keyProperty="mrNo">
 	insert into meetingroom
 		(mr_super_u_no, mr_name, mr_category, mr_date_start, mr_date_end, mr_u_cnt)
 	values
