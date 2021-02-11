@@ -23,6 +23,7 @@ import com.anjanda.letsmeet.user.jwt.JwtInterceptor;
  * @Function : Backend Boot run
  * @Description :
  * 	- 시작 시, 로그인과 관련된 jwt 토큰 설정하기 위한 객체 불러오기 + 시작
+ * 	- 토큰 접속 관련 처리
  *	
  */
 

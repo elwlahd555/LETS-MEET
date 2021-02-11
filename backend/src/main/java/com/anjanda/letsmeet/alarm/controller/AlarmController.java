@@ -23,9 +23,9 @@ public class AlarmController {
 	
 	/* C :: 알람 1줄 생성 */
 	@PostMapping("/create")
-	public ResponseEntity<String> createAlarm(String uEmail) throws Exception {
-		System.out.println(uEmail + "님의 알람 1줄이 생성되는 것입니다.");
-		if(alarmService.createAlarm(uEmail) > 0) {
+	public ResponseEntity<String> createAlarm(Alarm alarm) throws Exception {
+		System.out.println(alarm.toString());
+		if(alarmService.createAlarm(alarm) > 0) {
 			return new ResponseEntity<String>("알람 생성 성공", HttpStatus.OK);
 		}
 			return new ResponseEntity<String>("알람 생성 실패", HttpStatus.NO_CONTENT);

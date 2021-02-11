@@ -106,23 +106,15 @@ public class UserController {
 
 	/* D :: 삭제 */
 	@DeleteMapping("/delete/{uEmail}") // uid로..? uEmail로???
-	public ResponseEntity<?> deleteUser(@PathVariable("uEmail") String email) {
+	public ResponseEntity<String> deleteUser(@PathVariable("uEmail") String uEmail) throws Exception {
 		HttpStatus status = null;
 		Map<String, Object> resultMap = new HashMap<>();
 
-		try {
-			if (userService.deleteUser(email) > 0) {
-				resultMap.put("message", "회원이 삭제되었습니다.");
-				status = HttpStatus.ACCEPTED;
-			} else {
-				resultMap.put("message", "회원 삭제하는데 문제가 발생하였습니다.");
-				status = HttpStatus.INTERNAL_SERVER_ERROR;
-			}
-		} catch (Exception e) {
-			resultMap.put("message", e.getMessage());
-			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		if(userService.deleteUser(uEmail) > 0) {
+			return new ResponseEntity<String>(uEmail+"님이 삭제되었습니다.", HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("회원삭제처리", status);
+
+		return new ResponseEntity<String>("회원삭제처리 실패", HttpStatus.NO_CONTENT);
 	}
 
 	// 기본 CRUD 외 추가 기능

@@ -3,19 +3,18 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="com.anjanda.letsmeet.repository.mapper.AlarmMapper">
-	<insert id="insertAlarm" parameterType="string">
-		INSERT INTO alarm
-			(a_u_no, 
-			a_title, a_content, a_time, a_image)
-		VALUES
-			((select u_no from user where u_email = #{uEmail}),
-			#{aTitle}, #{aContent}, #{aTime}, #{aImage})
+
+	<insert id="insertAlarm">
+		insert into alarm
+			(a_no, a_title, a_recv_u_no, a_content, a_sender_image, a_time)
+		values
+			(#{aNo}, #{aTitle}, #{aRecvUNo}, #{aContent}, #{aSenderImage}, now())
 	</insert>
 	
 	<select id="selectAlarm" parameterType="string">
 		SELECT *
 		  FROM alarm
-		 WHERE a_u_no = (select u_no from user where u_email = #{uEmail})
+		 WHERE a_recv_u_no = (select u_no from user where u_email = #{uEmail})
 	</select>
 
 	<delete id="deleteAlarm">
@@ -23,5 +22,6 @@
 		  FROM alarm
 		 WHERE a_no = #{aNo}
 	</delete>
+	
 </mapper>
 
