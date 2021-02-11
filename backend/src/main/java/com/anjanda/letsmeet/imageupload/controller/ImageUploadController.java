@@ -72,7 +72,7 @@ public class ImageUploadController {
 	}
 
 	@PutMapping("/galleryImageUpload")
-	public String InsertGalleryImage(@RequestParam("iFile") MultipartFile file, @RequestParam("gMrNo") int gMrNo) throws Exception {
+	public String InsertGalleryImage(@RequestParam("iFile") MultipartFile file, @RequestParam("gMrNo") int gMrNo, @RequestParam("gUNo") int gUNo) throws Exception {
 //		String gImage = path + "/" + "gallery-" + gMrNo + "-"  + file.getOriginalFilename();
 		String gImage = "C:/" + "gallery-" + gMrNo + "-" + file.getOriginalFilename();
 		
@@ -82,6 +82,7 @@ public class ImageUploadController {
 		Gallery gallery = new Gallery();
 		gallery.setgName(gImage);
 		gallery.setgMrNo(gMrNo);
+		gallery.setgUNo(gUNo);
 		return imageUploadService.InsertGalleryImage(gallery) > 0 ? "OK" : "FAIL";
 	}
 
