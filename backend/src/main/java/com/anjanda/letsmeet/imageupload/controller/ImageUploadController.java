@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -42,7 +44,7 @@ public class ImageUploadController {
 	private ImageUploadService imageUploadService;
 
 	@PutMapping("/profileUpload")
-	public String UpdateProfile(@RequestParam("iFile") MultipartFile file, @RequestParam("iUserEmail") String userEmail) throws Exception {
+	public ResponseEntity<?> UpdateProfile(@RequestParam("iFile") MultipartFile file, @RequestParam("iUserEmail") String userEmail) throws Exception {
 //		String uImage = path + "/" + userEmail + "-" + file.getOriginalFilename();
 		String uImage = "C:/" + userEmail + "-" + file.getOriginalFilename();
 
@@ -53,7 +55,10 @@ public class ImageUploadController {
 		user.setuImage(uImage);
 		user.setuEmail(userEmail);
 		
-		return imageUploadService.UpdateProfile(user) > 0 ? "OK" : "FAIL";
+		if(imageUploadService.UpdateProfile(user) > 0)
+			return new ResponseEntity<User>(user, HttpStatus.OK);
+		
+		return new ResponseEntity<User> (user, HttpStatus.NO_CONTENT);
 	}
 	
 	@PutMapping("/meetingroomImageUpload")
