@@ -13,6 +13,7 @@ import MakeMeeting from '@/views/makemeeting/MakeMeeting'
 import MeetingRoom from '@/views/meetingroom/MeetingRoom'
 import Alarm from '@/views/alarm/Alarm'
 import Upload from '@/components/file/Upload'
+import Gallery from '@/views/gallery/Gallery'
 
 Vue.use(VueRouter)
 Vue.use(store)
@@ -105,6 +106,11 @@ const routes = [
         path: '/mycalendar',
         name: 'MyCalendar',
         component: MyCalendar
+    },
+    {
+        path: '/gallery',
+        name: 'Gallery',
+        component: Gallery
     }
   ]
   
