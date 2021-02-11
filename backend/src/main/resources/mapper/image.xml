@@ -13,7 +13,7 @@
 	</insert>
 	
 	<!-- U :: 사진첩 사진 추가 -->
-	<insert id="insertProfile" parameterType="gallery">
+	<insert id="insertGalleryImage" parameterType="gallery">
 	insert into gallery
 		(g_no, g_image)
 	values 
