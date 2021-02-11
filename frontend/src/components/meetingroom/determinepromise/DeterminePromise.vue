@@ -21,7 +21,17 @@
       <v-icon color="green">mdi-circle-medium</v-icon> : 모두 가능 <br>
       <v-icon color="yellow">mdi-circle-medium</v-icon> : 일부 가능 <br>
       <v-icon color="red">mdi-circle-medium</v-icon> : 모두 불가능
+      <div>
+        <br><br>
+        <v-icon color="indigo deep-2">mdi-vote</v-icon>가장 많이 되는 날
+        <h6 v-for="(value, idx) in Object.keys(voteDates)" :key="idx" >
+          <span v-if="idx <= 3"> 
+            - {{ Object.keys(voteDates)[idx] }} : {{ voteDates[Object.keys(voteDates)[idx]] }}명
+          </span>
+        </h6>
+      </div>
     </v-container>
+
     <hr>
     <v-subheader>출발 장소</v-subheader>
     <v-container v-if="userDeparture" class="text-start" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
@@ -60,11 +70,13 @@ export default {
       min: this.roomInfo.mrDateStart,
       max: this.roomInfo.mrDateEnd,
       availDates: {},
+      voteDates: {},
       userInfo: [],
     }
   },
   mounted () {
     this.getUserDeparture()
+    console.log(this.roomInfo)
     this.min = this.roomInfo.mrDateStart
     this.max = this.roomInfo.mrDateEnd
     this.userInfo = this.mrUserInfo
@@ -107,6 +119,7 @@ export default {
     },
     getAvailableDates() {
       this.availDates = {}
+      this.voteDates = {}
       var li = this.userInfo
       var cnt = 0
       for(var i of li){
@@ -120,6 +133,7 @@ export default {
               this.availDates[j] += 1
             }
           }
+          this.voteDates = JSON.parse(JSON.stringify(this.availDates))
         }
       }
       const keys = Object.keys(this.availDates)
@@ -144,14 +158,10 @@ export default {
             break
           }
       }
-      for(var j=0; j < this.userDeparture.length; j++){
-          if(this.userDeparture[j][0] === this.$store.state.uNo){
-            this.userDeparture.splice(j,1)
-          }
-      }
       this.departure(ref_data.mruNo, ref_data.mruName, ref_data.mruUserLng, ref_data.mruUserLat)
       this.getAvailableDates()
       this.$emit('refresh')
+      this.getUserDeparture()
     },
     getPlace(data) {
       this.$emit('rec_place', data)

@@ -67,7 +67,7 @@
          @refresh="refresh" @rec_place="getPlace" />
       </v-tab-item>
       <v-tab-item>
-        <RecommendPlace :roomInfo="roomInfo" :recPlace="recPlace" />
+        <RecommendPlace :roomInfo="roomInfo" :mrUserInfo="mrUserInfo" :recPlace="recPlace" />
       </v-tab-item>
       <v-tab-item>
         <Chatting :mrNo="mrNo" :mrUserInfo="mrUserInfo"/>
