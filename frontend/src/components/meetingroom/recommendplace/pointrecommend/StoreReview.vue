@@ -23,6 +23,7 @@
             <v-rating
               :value="item.rating"
               color="yellow darken-3"
+              background-color="yellow"
               dense
               readonly
               size="1rem"
@@ -47,6 +48,7 @@
         label="comments"
         style="position: relative; top: 1.2rem;"
         rows="3"
+        v-model="comment"
       ></v-textarea>
       <v-row class="d-flex align-center">
         <v-col cols=7 class="d-flex justify-center">
@@ -63,6 +65,7 @@
             class="ma-2"
             outlined
             color="indigo"
+            @click="writeReview"
           >
             리뷰 작성
           </v-btn>
@@ -73,6 +76,7 @@
 </template>
 
 <script>
+const axios = require('axios')
 export default {
   name: "StoreReview",
   data () {
@@ -80,106 +84,17 @@ export default {
       page: 1,
       rating: 5,
       items: [],
-      len: '',
+      len: 0,
+      comment: '',
       comments: [
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-          title: '성헌',
-          rating: 5,
-          subtitle: `맛이 매우 좋네요`,
-        },
-        { divider: true, inset: true },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-          title: '성헌',
-          rating: 5,
-          subtitle: `맛이 매우 좋네요`,
-        },
-        { divider: true, inset: true },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-          title: '성헌',
-          rating: 5,
-          subtitle: `맛이 매우 좋네요`,
-        },
-        { divider: true, inset: true },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-          title: '성헌',
-          rating: 5,
-          subtitle: `맛이 매우 좋네요`,
-        },
-        { divider: true, inset: true },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-          title: '성헌',
-          rating: 5,
-          subtitle: `맛이 매우 좋네요`,
-        },
-        { divider: true, inset: true },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-          title: '성헌',
-          rating: 5,
-          subtitle: `맛이 매우 좋네요`,
-        },
-        { divider: true, inset: true },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-          title: '성헌',
-          rating: 5,
-          subtitle: `맛이 매우 좋네요`,
-        },
-        { divider: true, inset: true },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-          title: '성헌',
-          rating: 5,
-          subtitle: `맛이 매우 좋네요`,
-        },
-        { divider: true, inset: true },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-          title: '성헌',
-          rating: 5,
-          subtitle: `맛이 매우 좋네요`,
-        },
-        { divider: true, inset: true },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-          title: '성헌',
-          rating: 5,
-          subtitle: `맛이 매우 좋네요`,
-        },
-        { divider: true, inset: true },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-          title: '성헌',
-          rating: 5,
-          subtitle: `맛이 매우 좋네요`,
-        },
-        { divider: true, inset: true },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-          title: '성헌',
-          rating: 5,
-          subtitle: `맛이 매우 좋네요`,
-        },
-        { divider: true, inset: true },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-          title: '성헌',
-          rating: 5,
-          subtitle: `맛이 매우 좋네요`,
-        },
       ],
     }
   },
   created() {
+    this.getComments()
+  },
+  mounted() {
     this.items = this.comments.slice((this.page-1)*10, this.page*10-1)
-      console.log(this.items)
-    this.len = parseInt(this.comments.length / 10) + 1
-    console.log(this.len)
   },
   props: {
     place: Object
@@ -188,6 +103,51 @@ export default {
     page() {
       this.items = this.comments.slice((this.page-1)*10, this.page*10-1)
       console.log(this.items)
+    },
+    comments() {
+      this.items = this.comments.slice((this.page-1)*10, this.page*10-1)
+    }
+  },
+  methods: {
+    getComments() {
+      axios.get(`http://localhost:8000/letsmeet/store/detail/review?srSNo=${this.place.sNo}`)
+      .then((res)=> {
+        this.comments = []
+        for (var da of res.data) {
+          var com = {
+            avatar: da.srImg,
+            title: da.srUName,
+            rating: da.srScore,
+            subtitle: da.srContent,
+          }
+          this.comments.push(com)
+          this.comments.push({ divider: true, inset: true })
+        }
+        this.len = parseInt(parseInt(this.comments.length) / 10) + 1
+      })
+      .catch(()=> {
+        console.log('못드감')
+      })
+    },
+    writeReview() {
+      if (this.comment === '') {
+        alert("내용을 입력헤주세요.")
+        return
+      }
+      var imgUrl = 'https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/436/8142f53e51d2ec31bc0fa4bec241a919_crop.jpeg'
+      if (this.$store.state.uImage) {
+        imgUrl = this.$store.state.uImage
+      }
+      axios.post(`http://localhost:8000/letsmeet/store/detail/review/add?srContent=${this.comment}&srImg=${imgUrl}&srSNo=${this.place.sNo}&srScore=${this.rating}&srUNo=${this.$store.state.uNo}&srUName=${this.$store.state.uName}`)
+      .then((res)=> {
+        console.log(res.data)
+        this.getComments()
+      })
+      .catch(()=> {
+        console.log('못드감')
+      })
+      this.rating= 5
+      this.comment = ''
     }
   }
 }

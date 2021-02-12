@@ -26,12 +26,14 @@ public class StoreReview {
 	private String srContent;
 	private int srScore;
 	private String srTime;
+	private String srImg;
+	private String srUName;
 	
 	public StoreReview() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public StoreReview(int srNo, int srSNo, int srUNo, String srContent, int srScore, String srTime) {
+	public StoreReview(int srNo, int srSNo, int srUNo, String srContent, int srScore, String srTime, String srImg, String srUName) {
 		super();
 		this.srNo = srNo;
 		this.srSNo = srSNo;
@@ -39,6 +41,8 @@ public class StoreReview {
 		this.srContent = srContent;
 		this.srScore = srScore;
 		this.srTime = srTime;
+		this.srImg = srImg;
+		this.srUName = srUName;
 	}
 	
 	

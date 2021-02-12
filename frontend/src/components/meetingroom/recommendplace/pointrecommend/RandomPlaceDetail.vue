@@ -13,7 +13,7 @@
           <v-col cols=2 class="d-flex align-center">
             <v-row>
               <v-col class="m-0 p-0 d-flex justify-center" cols=12>
-                <v-icon color="red">mdi-heart-outline</v-icon>
+                <v-icon color="red" @click="likeStore"> {{ heart }}</v-icon>
               </v-col>
               <v-col class="m-0 p-0 d-flex justify-center" cols=12>
                 <span style="font-size: 0.6rem; color: gray;">찜하기</span>
@@ -78,16 +78,24 @@
 
 <script>
 var map = ''
+const axios = require('axios')
 import StoreReview from './StoreReview'
 export default {
   name: "PlaceDetail",
   components: {
     StoreReview,
   },
+  data() {
+    return {
+      heart: 'mdi-heart-outline',
+      like_store: []
+    }
+  },
   props: {
     place: Object,
   },
   mounted() {
+    this.getLikeStore()
     setTimeout(() => { this.initMap() }, 100)
   },
   methods: {
@@ -113,6 +121,42 @@ export default {
         marker.setMap(map)
         markers.push(marker)
       } 
+    },
+    getLikeStore() {
+      axios.get(`http://localhost:8000/letsmeet/mypage/likestore?uNo=${this.$store.state.uNo}`)
+      .then((res)=> {
+        console.log(res.data)
+        this.like_store = res.data
+        for (var store of this.like_store) {
+          if (store.lsSNo === this.place.sNo) {
+            this.heart = "mdi-heart"
+          }
+        }
+      })
+      .catch(()=> {
+        console.log('못드감')
+      })
+    },
+    likeStore(){
+      if (this.heart === "mdi-heart-outline") {
+        axios.post(`http://localhost:8000/letsmeet/mypage/likestore/add?lsSNo=${this.place.sNo}&lsUNo=${this.$store.state.uNo}`)
+        .then((res)=> {
+          console.log(res.data)
+          this.heart = "mdi-heart"
+        })
+        .catch(()=> {
+          console.log('못드감')
+        })
+      } else {
+        axios.delete(`http://localhost:8000/letsmeet/mypage/likestore/delete?lsSNo=${this.place.sNo}&lsUNo=${this.$store.state.uNo}`)
+        .then((res)=> {
+          console.log(res.data)
+          this.heart = "mdi-heart-outline"
+        })
+        .catch((err)=> {
+          console.log(err)
+        })
+      }
     },
   }
 }
