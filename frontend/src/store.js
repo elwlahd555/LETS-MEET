@@ -13,6 +13,7 @@ export const store = new Vuex.Store({
     uEmail: null,
     uName: null,
     isLogin: false,
+    // default 이미지 값
     uImageid: null,
     uNo: null,
     uSalt: null,

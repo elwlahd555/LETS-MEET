@@ -35,9 +35,9 @@
                 
                 <v-dialog v-model="deleteDialog" max-width="290" persistent>
                   <v-card>
-                    <v-card-header>
+                    <div class="p-3 pl-5">
                       <h5> 회원탈퇴 </h5>
-                    </v-card-header>
+                    </div>
                     <v-card-text>
                       letsmeet 서비스를 이용하시는데 불편함이 있으셨나요? 
                       이용 및 각종 문의 사항은 고객센터로 문의 주시면 성심 성의껏 답변 드리겠습니다.
@@ -63,7 +63,8 @@
                 cols='3'>
                   <v-badge @click.native="showImageDialog" icon="mdi-plus" bordered color="indigo accent-2" overlap bottom>
                     <v-avatar>
-                      <img class="product-thumb" v-bind:src="'file:////var/lib/anjanda-image'+filename" />
+                      
+                      <img src="uImage" />
                         <!-- <img
                           src="https://cdn.vuetifyjs.com/images/john.jpg"
                           alt="John"
@@ -76,7 +77,7 @@
                   <v-card class="p-3">
                     <h5 class="pb-5">이미지 변경</h5>
 
-                    <ProfileUpload/>
+                    <ProfileUpload @updateImage="val => uImage= val" />
                          <v-card-actions class="pr-0 mb-0 pb-0 mt-3">
                           <v-spacer></v-spacer>
                           <v-btn
@@ -404,7 +405,7 @@ export default {
 
         })
         .catch((err)=> { console.log(err) })
-      }
+      },
     },
     mounted() { 
       let token = localStorage.getItem('auth-token')
@@ -412,6 +413,7 @@ export default {
       this.uPassword = decode.user.uPassword
       this.uEmail = this.$store.state.uEmail
       this.uName= this.$store.state.uName
+      this.uImage = this.$store.state.uImageid
     },
     data: () => {
       return {
@@ -430,7 +432,7 @@ export default {
         dialog3: false,
         uEmail: '',
         uName: '',
-        uImageId: '',
+        uImage: '',
         uPassword: '',
         items: [
           '친구목록',
