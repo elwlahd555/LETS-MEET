@@ -78,7 +78,7 @@
 
 <script>
 var map = ''
-const axios = require('axios');
+const axios = require('axios')
 import StoreReview from './StoreReview'
 export default {
   name: "PlaceDetail",

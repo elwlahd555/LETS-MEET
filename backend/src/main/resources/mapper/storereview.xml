@@ -7,9 +7,9 @@
 	<!-- C :: 리뷰 추가 -->
 	<insert id="insertStoreReview">
 		insert into storereview
-			(sr_s_no, sr_u_no, sr_content, sr_score, sr_time)
+			(sr_s_no, sr_u_no, sr_content, sr_score, sr_time, sr_img, sr_u_name)
 		values
-			(#{srSNo}, #{srUNo}, #{srContent}, #{srScore}, now())
+			(#{srSNo}, #{srUNo}, #{srContent}, #{srScore}, now(), #{srImg}, #{srUName})
 	</insert>
 	
 	<!-- R :: 리뷰 조회 -->

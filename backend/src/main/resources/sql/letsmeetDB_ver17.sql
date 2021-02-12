@@ -271,6 +271,8 @@ CREATE TABLE `storereview` (
   `sr_content` varchar(3000) NOT NULL COMMENT '리뷰 내용',
   `sr_score` int NOT NULL COMMENT '리뷰 별점',
   `sr_time` timestamp NOT NULL,
+  `sr_u_name` varchar(300) NOT NULL,
+  `sr_img` varchar(3000) NOT NULL,
   PRIMARY KEY (`sr_no`),
   KEY `FK_StoreReview_sr_s_no_Store_s_no` (`sr_s_no`),
   KEY `FK_StoreReview_sr_u_no_User_u_no` (`sr_u_no`),
