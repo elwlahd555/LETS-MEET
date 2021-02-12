@@ -35,6 +35,10 @@
         </v-list-item>
       </v-list-item-group>
     </v-list>
+    <v-subheader>이 멤버로 또 다른 약속을 잡고 싶다면?</v-subheader>
+    <v-btn block color="indigo accent-2" class="white--text" @click="rememberMeeting">이멤버 리멤버 
+      <v-icon right> mdi-account-multiple </v-icon>
+    </v-btn>
   </v-container>
 </template>
 
@@ -99,6 +103,9 @@ export default {
       this.members.push(data)
       this.$emit('addMember')
     },
+    rememberMeeting() {
+      this.$router.push({name:"MakeMeeting", params:{"members":this.mrUserInfo}})
+    }
   },
 }
 </script>

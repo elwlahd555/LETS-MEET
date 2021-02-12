@@ -131,7 +131,7 @@ export default {
     InfiniteLoading,
     BackToTop,
   },
-  created() {
+  mounted() {
     this.getRoomList()
   },
   methods: {
