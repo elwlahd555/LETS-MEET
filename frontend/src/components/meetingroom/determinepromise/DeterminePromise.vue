@@ -15,7 +15,6 @@
       :min="min"
       :max="max"
       :picker-date="min"
-      multiple
     ></v-date-picker>
     <v-container class="ml-2 text-start">
       <v-icon color="green">mdi-circle-medium</v-icon> : 모두 가능 <br>
@@ -65,7 +64,7 @@ export default {
   data() {
     return {
       arrayEvents: null,
-      dates: [],
+      dates: '',
       userDeparture: [],
       min: this.roomInfo.mrDateStart,
       max: this.roomInfo.mrDateEnd,

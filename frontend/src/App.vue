@@ -16,7 +16,7 @@
         <v-spacer></v-spacer>
 
         <div v-if="isSearch">
-          <b-form-input type="text" size="sm" placeholder="방이름 및 멤버 검색" v-model="search" @keydown.enter="searchInput"></b-form-input>
+          <b-form-input type="text" size="sm" placeholder="방이름을 검색해주세요." v-model="search" @keydown.enter="searchInput"></b-form-input>
         </div>
         <v-btn icon @click="searchInput">
           <v-icon style="color: black;">mdi-magnify</v-icon>

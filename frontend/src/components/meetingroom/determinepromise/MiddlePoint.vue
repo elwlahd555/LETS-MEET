@@ -98,8 +98,8 @@ export default {
         })
 
       } else {
-        longitude = 128
-        latitude = 37
+        longitude = 128.5976698883993
+        latitude = 35.86656557448651
       }
       console.log(latitude, longitude)
 
@@ -108,7 +108,7 @@ export default {
       container.style.height = '300px'
       var options = {
         center: new kakao.maps.LatLng(latitude, longitude),
-        level: 14
+        level: 4
       }
       map = new kakao.maps.Map(container, options)
 
@@ -143,28 +143,29 @@ export default {
         });
         overlay.setMap(map);
       }
-      polygonPath.sort()
-      var polygon = new kakao.maps.Polygon({
-          path:polygonPath, // 그려질 다각형의 좌표 배열입니다
-          strokeWeight: 3, // 선의 두께입니다
-          strokeColor: '#39DE2A', // 선의 색깔입니다
-          strokeOpacity: 0.8, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-          strokeStyle: 'longdash', // 선의 스타일입니다
-          fillColor: '#A2FF99', // 채우기 색깔입니다
-          fillOpacity: 0.7 // 채우기 불투명도 입니다
-      });
-
-      polygon.setMap(map)
-      
-      var bounds = new kakao.maps.LatLngBounds();
-      for (var j=0; j<this.positions.length; j++) {
-          bounds.extend(this.positions[j].latlng);
-      }       
-      // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-      map.setBounds(bounds);
-
+      if (polygonPath.length > 0) {
+        polygonPath.sort()
+        var polygon = new kakao.maps.Polygon({
+            path:polygonPath, // 그려질 다각형의 좌표 배열입니다
+            strokeWeight: 3, // 선의 두께입니다
+            strokeColor: '#39DE2A', // 선의 색깔입니다
+            strokeOpacity: 0.8, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+            strokeStyle: 'longdash', // 선의 스타일입니다
+            fillColor: '#A2FF99', // 채우기 색깔입니다
+            fillOpacity: 0.7 // 채우기 불투명도 입니다
+        });
+  
+        polygon.setMap(map)
+      }
 
       if (this.count > 0) {
+        var bounds = new kakao.maps.LatLngBounds();
+        for (var j=0; j<this.positions.length; j++) {
+          bounds.extend(this.positions[j].latlng);
+        }       
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+        map.setBounds(bounds);
+        
         var imageSrc2 = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"
         var imageSize2 = new kakao.maps.Size(24, 35)
         var markerImage2 = new kakao.maps.MarkerImage(imageSrc2, imageSize2)

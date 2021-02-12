@@ -65,7 +65,8 @@ const routes = [
         path : '/makemeeting',
         name : 'MakeMeeting',
         beforeEnter: onlyAuthUser,
-        component : MakeMeeting
+        component : MakeMeeting,
+        props: true
     },
     {   
         path: '/signup',

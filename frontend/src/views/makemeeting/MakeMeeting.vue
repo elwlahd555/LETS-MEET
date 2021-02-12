@@ -63,27 +63,43 @@ export default {
           mrDateEnd: tmp_end_day,
           mrSuperUNo: this.$store.state.uNo
         }
-        console.log(data)
         axios.post(`http://localhost:8000/letsmeet/meetingRoom/create`, data )
-          .then(()=> {
+          .then((res)=> {
             alert('방 생성이 완료되었습니다.')
-            this.$router.push({ name: 'Main'});
+            console.log(res.data)
+            this.$store.state.mrNo = res.data
+            const members = this.$route.params.members
+            setTimeout(() => { this.$fileSelect() }, 500)
+            if (members) {
+              var cnt = 0
+              for(let mb of members) {
+                if (mb.uNo !== this.$store.state.uNo){
+                  const data = {
+                    mruMrNo: this.$store.state.mrNo,
+                    mruUNo: mb.uNo,
+                  }
+                  axios.post(`http://localhost:8000/letsmeet/meetingRoomUser/adduser`, data)
+                  .then(()=> {
+                    cnt ++
+                    if (cnt === members.length-1) {
+                      this.$router.push({name:"MeetingRoom", params:{"id":this.$store.state.mrNo}})
+                    }
+                  })
+                  .catch(()=> {
+                    cnt ++
+                    console.log('못드감')
+                  })
+                }
+              }
+              this.$route.params.members = null
+            } else{
+              this.$router.push({ name: 'Main'})
+            }
           })
           .catch(() => {
             alert('방 생성에 실패하셨습니다.')
           })
         
-        // 임시방편
-        axios.get(`http://localhost:8000/letsmeet/main?uNo=${this.$store.state.uNo}`)
-          .then((res)=> {
-            const data = res.data
-            this.$store.state.mrNo = data[data.length-1].mrNo
-            console.log(this.$store.state.mrNo)
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-          setTimeout(() => { this.$fileSelect() }, 500)
       }else {
         alert("데이터를 모두 입력해주세요.")
       }
