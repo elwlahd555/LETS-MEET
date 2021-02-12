@@ -3,7 +3,6 @@ package com.anjanda.letsmeet.like.service;
 import java.util.List;
 
 import com.anjanda.letsmeet.repository.dto.LikeStore;
-import com.anjanda.letsmeet.repository.dto.Store;
 
 /**
  * 
@@ -20,13 +19,10 @@ import com.anjanda.letsmeet.repository.dto.Store;
 public interface LikeStoreService {
 
 	/* C :: 유저의 찜목록에서 가게 추가 메소드 */
-	int insertLikeStore(Store store, String comment) throws Exception;
+	int insertLikeStore(LikeStore likeStore) throws Exception;
 
 	/* R :: 유저의 찜목록 조회 메소드 */
 	List<LikeStore> selectLikeStore(int uNo) throws Exception;
-
-	/* U :: 유저의 찜목록 코멘트 수정 메소드 */
-	boolean updateLikeStore(LikeStore likeStore) throws Exception;
 
 	/* D :: 유저의 찜목록에서 가게 삭제 메소드 */
 	boolean deleteLikeStore(LikeStore likeStore) throws Exception;

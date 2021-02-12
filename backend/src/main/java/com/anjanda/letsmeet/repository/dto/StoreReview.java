@@ -20,13 +20,26 @@ import lombok.ToString;
 @Setter
 @ToString
 public class StoreReview {
-	int srNo;
-	int srSNo;
-	int srUNo;
-	String srContent;
-	double srScore;
+	private int srNo;
+	private int srSNo;
+	private int srUNo;
+	private String srContent;
+	private int srScore;
+	private String srTime;
 	
-	
+	public StoreReview() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public StoreReview(int srNo, int srSNo, int srUNo, String srContent, int srScore, String srTime) {
+		super();
+		this.srNo = srNo;
+		this.srSNo = srSNo;
+		this.srUNo = srUNo;
+		this.srContent = srContent;
+		this.srScore = srScore;
+		this.srTime = srTime;
+	}
 	
 	
 }

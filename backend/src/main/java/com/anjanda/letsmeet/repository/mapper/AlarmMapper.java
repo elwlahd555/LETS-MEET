@@ -1,8 +1,12 @@
 package com.anjanda.letsmeet.repository.mapper;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+
 import com.anjanda.letsmeet.repository.dto.Alarm;
 
+@Mapper
 public interface AlarmMapper {
 	/* C :: 알람 1줄 생성 */
 	public int insertAlarm(Alarm alarm) throws Exception;
