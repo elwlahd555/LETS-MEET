@@ -23,7 +23,7 @@
       <v-icon color="red">mdi-circle-medium</v-icon> : 모두 불가능
       <div>
         <br><br>
-        <v-icon color="indigo deep-2">mdi-vote</v-icon>가장 많이 되는 날
+        <div class="mb-1"><v-icon color="indigo deep-2">mdi-vote</v-icon>가장 많이 되는 날</div>
         <h6 v-for="(value, idx) in Object.keys(voteDates)" :key="idx" >
           <span v-if="idx <= 3"> 
             - {{ Object.keys(voteDates)[idx] }} : {{ voteDates[Object.keys(voteDates)[idx]] }}명
@@ -76,11 +76,16 @@ export default {
   },
   mounted () {
     this.getUserDeparture()
-    console.log(this.roomInfo)
     this.min = this.roomInfo.mrDateStart
     this.max = this.roomInfo.mrDateEnd
     this.userInfo = this.mrUserInfo
     this.getAvailableDates()
+  },
+  watch: {
+    roomInfo() {
+      this.min = this.roomInfo.mrDateStart
+      this.max = this.roomInfo.mrDateEnd
+    }
   },
   methods: {
     functionEvents (date) {
