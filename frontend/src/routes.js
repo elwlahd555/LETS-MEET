@@ -11,6 +11,7 @@ import PasswordChange from '@/views/user/PasswordChange';
 import MyCalendar from '@/views/calendar/MyCalendar';
 import MakeMeeting from '@/views/makemeeting/MakeMeeting'
 import MeetingRoom from '@/views/meetingroom/MeetingRoom'
+import UpdateMeetingRoom from '@/views/updatemeeting/UpdateMeetingRoom'
 import SearchMeetingRoom from '@/views/main/SearchMeetingRoom'
 import Alarm from '@/views/alarm/Alarm'
 import Upload from '@/components/file/Upload'
@@ -89,6 +90,13 @@ const routes = [
         name: 'MeetingRoom',
         beforeEnter: onlyAuthUser,
         component: MeetingRoom,
+        props: true
+    },
+    { 
+        path: '/updatemeetingroom/:id', 
+        name: 'UpdateMeetingRoom',
+        beforeEnter: onlyAuthUser,
+        component: UpdateMeetingRoom,
         props: true
     },
     { 
