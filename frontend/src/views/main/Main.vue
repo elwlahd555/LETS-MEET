@@ -12,6 +12,7 @@
       <v-tab-item>
         <v-card
           class="mx-auto mt-3"
+          v-model="checkList"
           v-for="(value, idx) in doing_temp"
           :key="idx"
           @click="goDetail(value.mrNo)"
@@ -36,7 +37,7 @@
               </template>
 
               <v-list>
-                <v-list-item>
+                <v-list-item v-if="value.mrSuperUNo === uNo">
                   <!-- router-link 걸어주기 -->
                     <router-link class='ro' :to="{ name: 'UpdateMeetingRoom', params: {'id': value.mrNo}}" >
                       <v-list-item-title>
@@ -44,11 +45,34 @@
                       </v-list-item-title>
                     </router-link>
                 </v-list-item>
-                <v-list-item>
+                <v-list-item @click="deleteRoom">
                   <v-list-item-title>삭제</v-list-item-title>
                 </v-list-item>
               </v-list>
             </v-menu>
+
+            <v-dialog v-model="del_dialog" max-width="290" persistent>
+                <v-card>
+                  <div class="p-3 pl-5">
+                    <h5> 모임방 나가기 </h5>
+                  </div>
+                  <v-card-text>
+                    모임방을 나가시겠습니까? 
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-btn text @click="del_dialog = false">
+                      취소
+                    </v-btn>
+                    <v-btn text @click="deleteRoomReal(value.mrNo)">
+                      확인
+                    </v-btn>
+
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+
+
+
           </div>
           <v-img 
           height="200px"
@@ -113,15 +137,21 @@ import InfiniteLoading from 'vue-infinite-loading'
 import BackToTop from 'vue-backtotop'
 import moment from 'moment'
 const axios = require('axios');
+const config = {
+          headers: { 'auth-token': window.localStorage.getItem('auth-token') },
+      };
 
 export default {
   name: "Main",
   data() {
     return {
+      uNo: this.$store.state.uNo,
+      del_dialog: false,
       doing_list: [],
       done_list: [],
       doing_temp: [],
       done_temp: [],
+      checkList: '',
       type: {
         '밥': ['mdi-food', 'https://www.gyeongju.go.kr/upload/content/thumb/20200529/A42F50C69A8A4DDB94DA408C290735C1.jpg'],
         '카페': [ 'mdi-coffee', 'http://www.lightingnews.net/images/theme/cafe_01.png'],
@@ -140,6 +170,21 @@ export default {
     this.getRoomList()
   },
   methods: {
+    deleteRoom() {
+      this.del_dialog = true
+    },
+    deleteRoomReal (roomNumber) {
+      console.log(roomNumber)
+      axios.delete(`http://localhost:8000/letsmeet/meetingRoomUser/delete?mrNo=${roomNumber}&uNo=${this.$store.state.uNo}`, config)
+      .then(()=> {
+        this.del_dialog = false
+        this.getRoomList()
+        
+      })
+      .catch(()=> {
+        console.log('방 삭제 안됨')
+      })
+    },
     doingInfiniteHandler($state) {
       setTimeout(() => {
         for (let i = 1; i <= 3; i++) {
@@ -165,10 +210,15 @@ export default {
       }, 1000);
     },
     getRoomList() {
+      this.doing_list = [],
+      this.done_list = [],
+      this.doing_temp = [],
+      this.done_temp = [],
       axios.get(`http://localhost:8000/letsmeet/main?uNo=${this.$store.state.uNo}`)
       .then((res)=> {
+        
         const data = res.data
-        console.log(data)
+
         for (var val of data) {
           if (val.mrDateEnd < moment().format('YYYY-MM-DD')){
             this.done_list.push(val)
@@ -191,7 +241,7 @@ export default {
     },
     goDetail(mrNo) {
       this.$router.push({name:"MeetingRoom", params:{"id":mrNo}})
-    }
+    },
   },
 }
 </script>
