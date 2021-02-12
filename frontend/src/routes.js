@@ -1,19 +1,6 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
-import Main from '@/views/main/Main'
-import Login from '@/views/user/Login'
-import KakaoCallback from '@/views/user/KakaoCallback'
-import Signup from '@/views/user/Signup'
 import { store } from "./store"
-import MyPage from '@/views/user/MyPage';
-import PasswordSearch from '@/views/user/PasswordSearch';
-import PasswordChange from '@/views/user/PasswordChange';
-import MyCalendar from '@/views/calendar/MyCalendar';
-import MakeMeeting from '@/views/makemeeting/MakeMeeting'
-import MeetingRoom from '@/views/meetingroom/MeetingRoom'
-import SearchMeetingRoom from '@/views/main/SearchMeetingRoom'
-import Alarm from '@/views/alarm/Alarm'
-import Upload from '@/components/file/Upload'
 
 Vue.use(VueRouter)
 Vue.use(store)
@@ -41,78 +28,77 @@ const routes = [
         path : '/',
         name : 'Login',
         beforeEnter: LoginUser,
-        component : Login
+        component: () => import('@/views/user/Login.vue')
     },
     {
         path : '/passwordsearch',
         name : 'PasswordSearch',
         // beforeEnter: LoginUser,
-        component : PasswordSearch
+        component: () => import('@/views/user/PasswordSearch')
     },
     {
         path : '/passwordchange',
         name : 'PasswordChange',
         // beforeEnter: LoginUser,
-        component : PasswordChange
+        component: () => import('@/views/user/PasswordChange')
     },
     {
         path : '/main',
         name : 'Main',
         beforeEnter: onlyAuthUser,
-        component : Main,
+        component: () => import('@/views/main/Main')
     },
     {
         path : '/makemeeting',
         name : 'MakeMeeting',
         beforeEnter: onlyAuthUser,
-        component : MakeMeeting,
+        component: () => import('@/views/makemeeting/MakeMeeting'),
         props: true
     },
     {   
         path: '/signup',
         name: 'Signup',
-        component: Signup
+        component: () => import('@/views/user/Signup'),
     },
     {   
         path: '/mypage',
         name: 'MyPage',
         beforeEnter: onlyAuthUser,
-        component : MyPage,
-        // component: () => import('@/views/user/MyPage.vue')
+        component: () => import('@/views/user/MyPage.vue')
     },
     {
         path: '/kakaocallback',
         name: 'KakaoCallback',
-        component: KakaoCallback
+        component: () => import('@/views/user/KakaoCallback')
     },
     { 
         path: '/meetingroom/:id', 
         name: 'MeetingRoom',
         beforeEnter: onlyAuthUser,
-        component: MeetingRoom,
+        component: () => import('@/views/meetingroom/MeetingRoom'),
         props: true
     },
     { 
         path: '/alarm', 
         name: 'Alarm',
         beforeEnter: onlyAuthUser,
-        component: Alarm,
+        component: () => import('@/views/alarm/Alarm'),
     },
     {
         path: '/image/upload',
         name: 'Upload',
-        component: Upload
+        component: () => import('@/components/file/Upload'),
     },
     {
         path: '/mycalendar',
         name: 'MyCalendar',
-        component: MyCalendar
+        component: () => import('@/views/calendar/MyCalendar')
     },
     { 
         path: '/SearchMeetingRoom/:search', 
         name: 'SearchMeetingRoom',
         beforeEnter: onlyAuthUser,
-        component: SearchMeetingRoom,
+        component: () => import('@/views/main/SearchMeetingRoom'),
         props: true
     },
   ]
