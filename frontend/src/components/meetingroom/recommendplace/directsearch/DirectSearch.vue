@@ -38,8 +38,8 @@ export default {
       var latitude = this.roomInfo.mrCenterLat
       var longitude = this.roomInfo.mrCenterLng
       if (this.roomInfo.mrCenterLat === null) {
-        latitude = 38
-        longitude = 128
+        latitude = 35.86656557448651
+        longitude = 128.5976698883993
       }
       var options = {
         center: new kakao.maps.LatLng(latitude, longitude),
