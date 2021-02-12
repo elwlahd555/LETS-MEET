@@ -79,6 +79,13 @@ const routes = [
         props: true
     },
     { 
+        path: '/updatemeetingroom/:id', 
+        name: 'UpdateMeetingRoom',
+        beforeEnter: onlyAuthUser,
+        component: UpdateMeetingRoom,
+        props: true
+    },
+    { 
         path: '/alarm', 
         name: 'Alarm',
         beforeEnter: onlyAuthUser,

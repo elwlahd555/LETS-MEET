@@ -37,7 +37,12 @@
 
               <v-list>
                 <v-list-item>
-                  <v-list-item-title>수정</v-list-item-title>
+                  <!-- router-link 걸어주기 -->
+                    <router-link class='ro' :to="{ name: 'UpdateMeetingRoom', params: {'id': value.mrNo}}" >
+                      <v-list-item-title>
+                        수정
+                      </v-list-item-title>
+                    </router-link>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-title>삭제</v-list-item-title>
@@ -192,5 +197,8 @@ export default {
 </script>
 
 <style>
-
+  .ro {
+    text-decoration: none !important;
+    color: inherit !important;
+  }
 </style>
