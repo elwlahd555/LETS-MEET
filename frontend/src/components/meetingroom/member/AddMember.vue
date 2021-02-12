@@ -134,7 +134,8 @@ export default {
     }
   },
   props: {
-    members: Array
+    members: Array,
+    roomInfo: Object,
   },
   watch: {
     allmyfriendlist() {
@@ -158,7 +159,7 @@ export default {
           return
         }
       }
-      this.tmplist.push([friend[0], friend[2], friend[1]])
+      this.tmplist.push([friend[0], friend[2], friend[1], friend[3]])
     },
     addMyFriendList () {
       for(let mb of this.tmplist) {
@@ -175,6 +176,19 @@ export default {
             avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
             uNo: mb[0]
           }
+          var img = 'https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/436/8142f53e51d2ec31bc0fa4bec241a919_crop.jpeg'
+          const content = `${this.$store.state.uName}님이 '${this.roomInfo.mrName}'방에 초대하였습니다./${this.roomInfo.mrNo}`
+          const title = '방 초대 알림'
+          if (this.$store.state.uImage) {
+            img = this.$store.state.uImage
+          }
+          axios.post(`http://localhost:8000/letsmeet/alarm/create?aContent=${content}&aRecvUNo=${mb[0]}&aSenderImage=${img}&aTitle=${title}`)
+          .then((res) => {
+            console.log(res.data)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
           this.$emit('addMember', data)
         })
         .catch(()=> {
@@ -196,7 +210,7 @@ export default {
       .then((res)=> {
         const array = res.data
         array.forEach(el => {
-          this.allmyfriendlist.push([el.uNo, el.uName, el.uEmail, el.uImageId])
+          this.allmyfriendlist.push([el.uNo, el.uName, el.uEmail, el.uImage])
         });
         console.log(this.allmyfriendlist)
       })

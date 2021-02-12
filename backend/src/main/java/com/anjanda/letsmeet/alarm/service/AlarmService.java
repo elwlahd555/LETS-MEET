@@ -10,7 +10,7 @@ public interface AlarmService {
 	int createAlarm(Alarm alarm) throws Exception;
 
 	/* R :: 사용자의 알람 전체 조회 */
-	List<Alarm> reviewAlarm(String uEmail) throws Exception;
+	List<Alarm> reviewAlarm(int uNo) throws Exception;
 
 	/* D :: 사용자의 알람 삭제 */
 	boolean deleteAlarm(Alarm alarm) throws Exception;

@@ -105,7 +105,7 @@ export default {
   name: "UpdateSchedule",
   props: {
     id: {
-      type: String,
+      type: Number,
     }
   },
   data () {

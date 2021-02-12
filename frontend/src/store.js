@@ -14,7 +14,7 @@ export const store = new Vuex.Store({
     uName: null,
     isLogin: false,
     // default 이미지 값
-    uImageid: null,
+    uImage: null,
     uNo: null,
     uSalt: null,
     mrNo: null,
@@ -25,7 +25,7 @@ export const store = new Vuex.Store({
       state.uEmail = payload['uEmail']
       state.uName = payload['uName']
       state.uNo = payload['uNo']
-      state.uImageid = payload['uImageId']
+      state.uImageid = payload['uImage']
       state.uSalt = payload['uSalt']
       console.log(state.uSalt)
     },
@@ -34,14 +34,14 @@ export const store = new Vuex.Store({
       state.email = null
       state.name = null
       state.uNo = null
-      state.uImageid= null
+      state.uImage= null
       state.uSalt = null
     },
     SET_USER_NAME(state, uName) {
       state.uName = uName
     },
-    SET_USER_IMAGE(state, uImageid) {
-      state.uImageid = uImageid
+    SET_USER_IMAGE(state, uImage) {
+      state.uImage = uImage
     }
 
   },
@@ -49,8 +49,8 @@ export const store = new Vuex.Store({
     FETCH_USER_NAME(context, uName){
       context.commit('SET_USER_NAME', uName)
     },
-    FETCH_USER_IMAGE(context, uImageid){
-      context.commit('SET_USER_IMAGE', uImageid) 
+    FETCH_USER_IMAGE(context, uImage){
+      context.commit('SET_USER_IMAGE', uImage) 
     },
     LOGOUT(context) {
       context.commit('SET_USER_AUTH_DATA_LOGOUT')

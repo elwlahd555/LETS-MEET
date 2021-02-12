@@ -19,7 +19,11 @@
             <v-img :src="item.avatar"></v-img>
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title>{{item.title}}</v-list-item-title>
+            <v-list-item-subtitle>{{item.title}} 
+              <v-icon 
+                v-if="$store.state.uNo == item.uNo" class="mb-1" color="red" @click="deleteReview(item)"
+              >mdi-close</v-icon>
+            </v-list-item-subtitle>
             <v-rating
               :value="item.rating"
               color="yellow darken-3"
@@ -28,7 +32,8 @@
               readonly
               size="1rem"
             ></v-rating>
-            <v-list-item-subtitle>{{item.subtitle}}</v-list-item-subtitle>
+            <div style="font-size: 0.8rem; text-color: gray;" class="ml-1">{{item.time}}</div>
+            <div style="font-size: 0.9rem;" class="mt-2">{{item.subtitle}}</div>
           </v-list-item-content>
         </v-list-item>
       </template>
@@ -119,6 +124,10 @@ export default {
             title: da.srUName,
             rating: da.srScore,
             subtitle: da.srContent,
+            time: da.srTime,
+            no: da.srNo,
+            uNo: da.srUNo,
+            sNo: da.srSNo,
           }
           this.comments.push(com)
           this.comments.push({ divider: true, inset: true })
@@ -148,8 +157,21 @@ export default {
       })
       this.rating= 5
       this.comment = ''
+    },
+    deleteReview(item){
+      console.log(item)
+      if(confirm("정말 삭제하시겠습니까?")){
+        axios.delete(`http://localhost:8000/letsmeet/store/detail/review/delete?srNo=${item.no}&srSNo=${item.sNo}&srUNo=${item.uNo}`)
+        .then((res)=> {
+          console.log(res.data)
+          this.getComments()
+        })
+        .catch(()=> {
+          console.log('못드감')
+        })
+      }
     }
-  }
+  },
 }
 </script>
 

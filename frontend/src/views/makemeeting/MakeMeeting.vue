@@ -69,6 +69,7 @@ export default {
             console.log(res.data)
             this.$store.state.mrNo = res.data
             const members = this.$route.params.members
+            console.log(members)
             setTimeout(() => { this.$fileSelect() }, 500)
             if (members) {
               var cnt = 0
@@ -80,6 +81,19 @@ export default {
                   }
                   axios.post(`http://localhost:8000/letsmeet/meetingRoomUser/adduser`, data)
                   .then(()=> {
+                    var img = 'https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/436/8142f53e51d2ec31bc0fa4bec241a919_crop.jpeg'
+                    const content = `${this.$store.state.uName}님이 '${this.room_title}'방에 초대하였습니다./${this.$store.state.mrNo}`
+                    const title = '방 초대 알림'
+                    if (this.$store.state.uImage) {
+                      img = this.$store.state.uImage
+                    }
+                    axios.post(`http://localhost:8000/letsmeet/alarm/create?aContent=${content}&aRecvUNo=${mb.uNo}&aSenderImage=${img}&aTitle=${title}`)
+                    .then((res) => {
+                      console.log(res.data)
+                    })
+                    .catch((err) => {
+                      console.log(err)
+                    })
                     cnt ++
                     if (cnt === members.length-1) {
                       this.$router.push({name:"MeetingRoom", params:{"id":this.$store.state.mrNo}})

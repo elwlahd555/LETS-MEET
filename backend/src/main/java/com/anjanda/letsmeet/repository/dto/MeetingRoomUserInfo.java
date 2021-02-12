@@ -24,7 +24,7 @@ public class MeetingRoomUserInfo{
 	private String uEmail;
 	private String uPassword;
 	private String uName;
-	private int uImageId;
+	private String uImage;
 	private String uJoinDate;
 	private String uProvider;
 	private int mruMrNo;
@@ -56,11 +56,11 @@ public class MeetingRoomUserInfo{
 	public void setuName(String uName) {
 		this.uName = uName;
 	}
-	public int getuImageId() {
-		return uImageId;
+	public String getuImage() {
+		return uImage;
 	}
-	public void setuImageId(int uImageId) {
-		this.uImageId = uImageId;
+	public void setuImage(String uImage) {
+		this.uImage = uImage;
 	}
 	public String getuJoinDate() {
 		return uJoinDate;

@@ -45,34 +45,11 @@
                       </v-list-item-title>
                     </router-link>
                 </v-list-item>
-                <v-list-item @click="deleteRoom">
+                <v-list-item @click="deleteRoom(value.mrNo)">
                   <v-list-item-title>삭제</v-list-item-title>
                 </v-list-item>
               </v-list>
             </v-menu>
-
-            <v-dialog v-model="del_dialog" max-width="290" persistent>
-                <v-card>
-                  <div class="p-3 pl-5">
-                    <h5> 모임방 나가기 </h5>
-                  </div>
-                  <v-card-text>
-                    모임방을 나가시겠습니까? 
-                  </v-card-text>
-                  <v-card-actions>
-                    <v-btn text @click="del_dialog = false">
-                      취소
-                    </v-btn>
-                    <v-btn text @click="deleteRoomReal(value.mrNo)">
-                      확인
-                    </v-btn>
-
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-
-
-
           </div>
           <v-img 
           height="200px"
@@ -102,6 +79,32 @@
           :key="idx"
           @click="goDetail(value.mrNo)"
         >
+          <div style="z-index: 9999; position: absolute; right:0;">
+            <v-menu
+              left
+              bottom
+              style="z-index: 9999;"
+              z-index=9999
+              absolute
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  icon
+                  style="color: black; z-index: 9999;"
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  <v-icon color=white>mdi-dots-vertical</v-icon>
+                </v-btn>
+              </template>
+
+              <v-list>
+                <v-list-item @click="deleteRoom(value.mrNo)">
+                  <v-list-item-title>삭제</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </div>
           <v-img 
           height="200px"
           :src="type[value.mrCategory][1]"
@@ -170,14 +173,18 @@ export default {
     this.getRoomList()
   },
   methods: {
-    deleteRoom() {
-      this.del_dialog = true
+    deleteRoom(roomNumber) {
+      // this.del_dialog = true
+      if (confirm(`정말 방을 나가시겠습니까?`)) {
+        this.deleteRoomReal(roomNumber)
+      }
     },
     deleteRoomReal (roomNumber) {
       console.log(roomNumber)
       axios.delete(`http://localhost:8000/letsmeet/meetingRoomUser/delete?mrNo=${roomNumber}&uNo=${this.$store.state.uNo}`, config)
-      .then(()=> {
+      .then((res)=> {
         this.del_dialog = false
+        console.log(res.data)
         this.getRoomList()
         
       })
@@ -240,6 +247,7 @@ export default {
       })
     },
     goDetail(mrNo) {
+      console.log(mrNo)
       this.$router.push({name:"MeetingRoom", params:{"id":mrNo}})
     },
   },

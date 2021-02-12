@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <AddMember :members="members" @addMember="addMember"/>
+    <AddMember :members="members" :roomInfo="roomInfo" @addMember="addMember"/>
     <v-list>
       <v-subheader>멤버 목록</v-subheader>
       <v-list-item-group v-model="model">

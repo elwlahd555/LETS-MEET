@@ -30,7 +30,7 @@
 	<delete id="deleteStoreReview">
 		delete
 		  from storereview
-		 where sr_s_no=#{srSNo} and sr_u_no=#{srUNo}
+		 where sr_s_no=#{srSNo} and sr_u_no=#{srUNo} and sr_no=#{srNo}
 	</delete>
 
 </mapper>
