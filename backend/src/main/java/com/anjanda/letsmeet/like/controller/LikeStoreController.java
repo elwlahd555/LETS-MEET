@@ -49,14 +49,14 @@ public class LikeStoreController {
 	
 	/* R :: 유저의 가게 찜 목록 조회 */
 	@GetMapping("")
-	public ResponseEntity<List<LikeStore>> reviewLikeStore(@RequestBody int uNo) throws Exception {
+	public ResponseEntity<List<LikeStore>> reviewLikeStore(int uNo) throws Exception {
 		return new ResponseEntity<List<LikeStore>> (likeStoreService.selectLikeStore(uNo), HttpStatus.OK);
 	}
 
 	
 	/* D :: 유저의 가게 찜 삭제 */
 	@DeleteMapping("/delete")
-	public ResponseEntity<String> deleteLikeStore(@RequestBody LikeStore likeStore) throws Exception {
+	public ResponseEntity<String> deleteLikeStore(LikeStore likeStore) throws Exception {
 		System.out.println("삭제할 찜가게 정보 : " + likeStore.getLsSNo());
 		if(likeStoreService.deleteLikeStore(likeStore)) {
 			return new ResponseEntity<String>("찜 목록에서 가게 삭제 성공", HttpStatus.OK);

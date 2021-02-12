@@ -82,7 +82,7 @@ const routes = [
         path: '/updatemeetingroom/:id', 
         name: 'UpdateMeetingRoom',
         beforeEnter: onlyAuthUser,
-        component: UpdateMeetingRoom,
+        component: () => import('@/views/updatemeeting/UpdateMeetingRoom'),
         props: true
     },
     { 

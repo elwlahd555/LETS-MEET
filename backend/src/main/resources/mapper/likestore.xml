@@ -13,7 +13,7 @@
 	</insert>
 	
 	<!-- R :: 찜 목록 조회 -->
-	<select id="selectLikeStore">
+	<select id="selectLikeStore" parameterType="int" resultType="likestore">
 		select *
 		  from likestore
 		 where ls_u_no = #{lsUNo}
