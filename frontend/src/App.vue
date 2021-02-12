@@ -9,46 +9,23 @@
         fixed
         style="z-index:10;"
       >
-        <v-toolbar-title class="d-flex justify-start"><img src="./assets/images/logo.png" 
-        style="width: 35%; max-height: 50px; max-width: 200px;">
-        </v-toolbar-title>
+
+        <img src="./assets/images/logo.png" class="mb-1"
+        style="width: 35%; max-height: 50px; max-width: 80px;">
 
         <v-spacer></v-spacer>
 
-        <v-btn icon>
+        <div v-if="isSearch">
+          <b-form-input type="text" size="sm" placeholder="방이름 및 멤버 검색" v-model="search" @keydown.enter="searchInput"></b-form-input>
+        </div>
+        <v-btn icon @click="searchInput">
           <v-icon style="color: black;">mdi-magnify</v-icon>
         </v-btn>
-
-        <v-menu
-          left
-          bottom
-        >
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              icon
-              style="color: black;"
-              v-bind="attrs"
-              v-on="on"
-            >
-              <v-icon>mdi-dots-vertical</v-icon>
-            </v-btn>
-          </template>
-
-          <v-list>
-            <v-list-item
-              v-for="n in 5"
-              :key="n"
-              @click="() => {}"
-            >
-              <v-list-item-title>Option {{ n }}</v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
       </v-app-bar>
     </div>
     
     <v-main>
-      <router-view class="mt-14 mb-13"></router-view>
+      <router-view class="mt-14 mb-13" :key="$route.fullPath"></router-view>
     </v-main>
 
     <v-bottom-navigation
@@ -88,6 +65,8 @@ export default {
   data: () => {
     return {
       value: 0,
+      isSearch: false,
+      search: '',
     }
   },
   components: {
@@ -95,6 +74,15 @@ export default {
   },
 
   methods: {
+    searchInput() {
+      if (this.search === ''){
+        this.isSearch = !this.isSearch
+      } else {
+        this.$router.push({name:"SearchMeetingRoom", params:{"search":this.search}})
+        this.search = ''
+        this.isSearch = false
+      }
+    },
   },
   created() {
     console.log(this.isLogin)

@@ -11,6 +11,7 @@ import PasswordChange from '@/views/user/PasswordChange';
 import MyCalendar from '@/views/calendar/MyCalendar';
 import MakeMeeting from '@/views/makemeeting/MakeMeeting'
 import MeetingRoom from '@/views/meetingroom/MeetingRoom'
+import SearchMeetingRoom from '@/views/main/SearchMeetingRoom'
 import Alarm from '@/views/alarm/Alarm'
 import Upload from '@/components/file/Upload'
 
@@ -105,7 +106,14 @@ const routes = [
         path: '/mycalendar',
         name: 'MyCalendar',
         component: MyCalendar
-    }
+    },
+    { 
+        path: '/SearchMeetingRoom/:search', 
+        name: 'SearchMeetingRoom',
+        beforeEnter: onlyAuthUser,
+        component: SearchMeetingRoom,
+        props: true
+    },
   ]
   
   const router = new VueRouter({

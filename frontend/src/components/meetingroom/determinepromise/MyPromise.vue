@@ -145,11 +145,20 @@ export default {
     roomInfo: Object,
     mrUserInfo: Array,
   },
+  created() {
+    this.min = this.roomInfo.mrDateStart,
+    this.max = this.roomInfo.mrDateEnd
+  },
   mounted() {
     this.addKakaoMapScript()
     this.mrNo = this.$route.params.id
-    console.log(this.mrUserInfo)
     this.countSelect()
+  },
+  watch: {
+    roomInfo() {
+      this.min = this.roomInfo.mrDateStart
+      this.max = this.roomInfo.mrDateEnd
+    }
   },
   methods: {
     directSelect(){
