@@ -1,33 +1,34 @@
 <template>
   <div>
-    <UpdateRoom :id='id' />
+    <UpdateRoom :id='id' v-show="isMake" @is_next="isNext" @update_room_title="updateRoomTitle" @update_idx="updateIdx" @upload_img="uploadImg"/>
     <!-- <UpdateRoom v-show="isMake" @is_next="isNext" @update_room_title="updateRoomTitle" @update_idx="updateIdx" @upload_img="uploadImg"/> -->
-    <!-- <MakeSchedule v-show="isMake2" @is_prev="isPrev" @update_dates="updateDates" @confirm_room="confirmRoom"/> -->
+    <UpdateSchedule :id='id' v-show="isMake2" @is_prev="isPrev" @update_dates="updateDates" @update_room="updateRoom"/>
   </div>
 </template>
 <script>
 import UpdateRoom from "../../components/updatemeeting/UpdateRoom.vue";
-// import MakeSchedule from "../../components/makemeeting/MakeSchedule.vue";
+import UpdateSchedule from "../../components/updatemeeting/UpdateSchedule.vue";
+
 const axios = require('axios');
 
 export default {
   name: "UpdateMeetingRoom",
   components: {
     UpdateRoom,
+    UpdateSchedule
   },
   props: {
       id: {
-          type: Number,
-          default: 0
+        type: String,
       }
   },
   data: function() {
     return {
       isMake: true,
       isMake2: false,
-      room_title: '',
-      room_type: '',
-      dates: [],
+      update_room_title: '',
+      update_room_type: '',
+      update_dates: [],
       iFile: '',
       mrNo: this.id,
     }
@@ -42,40 +43,42 @@ export default {
       this.isMake2 = false
     },
     updateRoomTitle(data) {
-      this.room_title = data
+      this.update_room_title = data
     },
     updateIdx(data) {
-      this.room_type = data
+      this.update_room_type = data
     },
     updateDates(data) {
-      this.dates = data
+      this.update_dates = data
     },
     uploadImg(data) {
       this.iFile = data
     },
-    confirmRoom() {
-      if (this.room_title && this.room_type && this.dates.length > 0){
+    updateRoom() {
+      if (this.update_room_title && this.update_room_type && this.update_dates.length > 0){
         var tmp_end_day = ''
-        if (this.dates.length == 2) {
-          tmp_end_day = this.dates[1]
+        if (this.update_dates.length == 2) {
+          tmp_end_day = this.update_dates[1]
         } else {
-          tmp_end_day = this.dates[0]
+          tmp_end_day = this.update_dates[0]
         }
         const data = {
-          mrName: this.room_title,
-          mrCategory: this.room_type,
-          mrDateStart: this.dates[0],
+          mrNo : this.mrNo,
+          mrImage: this.iFile,
+          mrName: this.update_room_title,
+          mrCategory: this.update_room_type,
+          mrDateStart: this.update_dates[0],
           mrDateEnd: tmp_end_day,
           mrSuperUNo: this.$store.state.uNo
         }
         console.log(data)
-        axios.post(`http://localhost:8000/letsmeet/meetingRoom/create`, data )
+        axios.put(`http://localhost:8000/letsmeet/meetingRoom/edit`, data )
           .then(()=> {
-            alert('방 생성이 완료되었습니다.')
+            alert('방 정보가 수정되었습니다.')
             this.$router.push({ name: 'Main'});
           })
           .catch(() => {
-            alert('방 생성에 실패하셨습니다.')
+            alert('방 정보 수정에 실패하셨습니다.')
           })
         
         // 임시방편

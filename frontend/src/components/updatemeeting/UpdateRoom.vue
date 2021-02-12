@@ -101,6 +101,7 @@ export default {
         mrNo: this.id,
         update_room_title: '',
         update_image_idx: -1,
+        iFile: '',
         images: [
         {
           title:'밥',
@@ -163,8 +164,14 @@ export default {
         this.$emit('is_next')
       },
       selectImage(idx){
-        this.image_idx = idx
+        this.update_image_idx = idx
+        // console.log(this.update_image_idx)
       },
+      $fileSelect : function $fileSelect() {
+      console.log(this.$refs);
+      this.iFile = this.$refs.iFile.files[0];
+      this.$emit("upload_img", this.update_iFile)
+    },
     }
 
 }
