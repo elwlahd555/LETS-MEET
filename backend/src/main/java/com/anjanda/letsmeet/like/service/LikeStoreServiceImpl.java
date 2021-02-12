@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.anjanda.letsmeet.repository.dto.LikeStore;
-import com.anjanda.letsmeet.repository.dto.Store;
 import com.anjanda.letsmeet.repository.mapper.LikeStoreMapper;
 
 /**
@@ -30,20 +29,14 @@ public class LikeStoreServiceImpl implements LikeStoreService {
 	
 	/* C :: 유저의 찜목록에서 가게 추가 메소드 */
 	@Override
-	public int insertLikeStore(Store store, String comment) throws Exception {
-		return likeStoreMapper.insertLikeStore(store, comment);
+	public int insertLikeStore(LikeStore likeStore) throws Exception {
+		return likeStoreMapper.insertLikeStore(likeStore);
 	}
 	
 	/* R :: 유저의 찜목록 조회 메소드 */
 	@Override
 	public List<LikeStore> selectLikeStore(int uNo) throws Exception {
 		return likeStoreMapper.selectLikeStore(uNo);
-	}
-	
-	/* U :: 유저의 찜목록 코멘트 수정 메소드 */
-	@Override
-	public boolean updateLikeStore(LikeStore likeStore) throws Exception {
-		return likeStoreMapper.updateLikeStore(likeStore) == 1;
 	}
 	
 	/* D :: 유저의 찜목록에서 가게 삭제 메소드 */

@@ -22,5 +22,15 @@ import lombok.ToString;
 public class LikeStore {
 	private int lsUNo;
 	private int lsSNo;
-	private String lsComment;
+	public LikeStore() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public LikeStore(int lsUNo, int lsSNo) {
+		super();
+		this.lsUNo = lsUNo;
+		this.lsSNo = lsSNo;
+	}
+	
+	
 }

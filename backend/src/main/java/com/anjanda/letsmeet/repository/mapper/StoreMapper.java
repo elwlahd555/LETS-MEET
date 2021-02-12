@@ -2,6 +2,8 @@ package com.anjanda.letsmeet.repository.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.anjanda.letsmeet.repository.dto.Store;
 
 /**
@@ -16,6 +18,7 @@ import com.anjanda.letsmeet.repository.dto.Store;
  * 
  */
 
+@Mapper
 public interface StoreMapper {
 
 	/* '동 이름'으로 가게 전체 조회 */

@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.anjanda.letsmeet.repository.dto.LikeStore;
-import com.anjanda.letsmeet.repository.dto.Store;
 
 /**
  * 
@@ -23,13 +22,10 @@ import com.anjanda.letsmeet.repository.dto.Store;
 public interface LikeStoreMapper {
 	
 	/* C :: 유저의 찜목록에서 가게 추가 메소드 */
-	public int insertLikeStore(Store store, String comment) throws Exception;
+	public int insertLikeStore(LikeStore likeStore) throws Exception;
 	
 	/* R :: 유저의 찜목록 조회 메소드 */
 	public List<LikeStore> selectLikeStore(int uNo) throws Exception;
-	
-	/* U :: 유저의 찜목록 코멘트 수정 메소드 */
-	public int updateLikeStore(LikeStore likeStore) throws Exception;
 	
 	/* D :: 유저의 찜목록에서 가게 삭제 메소드 */
 	public int deleteLikeStore(LikeStore likeStore) throws Exception;
