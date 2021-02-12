@@ -341,6 +341,21 @@ export default {
           axios.post(`http://localhost:8000/letsmeet/mypage/friend/add?friend=${fr[0]}&myUNo=${this.$store.state.uNo}`, config)
           .then(()=> {
             dbfriend2.push(fr)
+
+            var img = 'https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/436/8142f53e51d2ec31bc0fa4bec241a919_crop.jpeg'
+            const content = `${this.$store.state.uName}님이 당신을 친구 추가하였습니다./${this.$store.state.uNo}`
+            const title = '친구 추가 알림'
+            if (this.$store.state.uImage) {
+              img = this.$store.state.uImage
+            }
+            axios.post(`http://localhost:8000/letsmeet/alarm/create?aContent=${content}&aRecvUNo=${fr[0]}&aSenderImage=${img}&aTitle=${title}`)
+            .then((res) => {
+              console.log(res.data)
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+
           })
           .catch(()=> {
             console.log('못드감')
@@ -365,7 +380,6 @@ export default {
                 if(li.uNo === this.$store.state.uNo) return
                 this.searchFriendList.push([li.uNo, li.uEmail, li.uName])
               });
-            console.log(this.searchFriendList)
             this.addFriend = ''
             } else {
               alert('검색 결과가 없습니다.')

@@ -22,8 +22,8 @@ public class AlarmServiceImpl implements AlarmService {
 	
 	/* R :: 사용자의 알람 전체 조회 */
 	@Override
-	public List<Alarm> reviewAlarm(String uEmail) throws Exception {
-		return alarmMapper.selectAlarm(uEmail);
+	public List<Alarm> reviewAlarm(int uNo) throws Exception {
+		return alarmMapper.selectAlarm(uNo);
 	}
 	
 	/* D :: 사용자의 알람 삭제 */

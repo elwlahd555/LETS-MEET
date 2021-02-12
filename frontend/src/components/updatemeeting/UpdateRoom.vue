@@ -93,7 +93,7 @@ export default {
     name: 'UpdateRoom',
     props: {
       id: {
-        type: String,
+        type: Number,
       }
     },
     data: function () {

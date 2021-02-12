@@ -33,8 +33,8 @@ public class AlarmController {
 	
 	/* R :: 사용자의 알람 전체 조회 */
 	@GetMapping("")
-	public ResponseEntity<List<Alarm>> reviewAlarm(String uEmail) throws Exception {
-		return new ResponseEntity<List<Alarm>>(alarmService.reviewAlarm(uEmail), HttpStatus.OK);
+	public ResponseEntity<List<Alarm>> reviewAlarm(int uNo) throws Exception {
+		return new ResponseEntity<List<Alarm>>(alarmService.reviewAlarm(uNo), HttpStatus.OK);
 	}
 	
 	/* D :: 사용자의 알람 삭제 */

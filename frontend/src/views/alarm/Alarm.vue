@@ -4,7 +4,7 @@
       <h5>알람</h5>
       <v-badge
         color="indigo accent-2"
-        content="6"
+        :content="len"
       >
       </v-badge>
     </div>
@@ -12,8 +12,8 @@
       max-width="100%"
       class="mx-auto"
     >
-      <v-list three-line>
-        <template v-for="(item, index) in items">
+      <v-list>
+        <template v-for="(item, index) in alarms">
           <v-subheader
             v-if="item.header"
             :key="index"
@@ -39,8 +39,18 @@
             </v-list-item-avatar>
 
             <v-list-item-content>
-              <!-- <v-list-item-title v-html="item.title"></v-list-item-title> -->
+              <v-list-item-title v-html="item.title"></v-list-item-title>
               <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle>
+              <div class="mt-3">
+                <v-row>
+                  <v-col class="p-0 m-0 pl-1" cols=6>
+                    <v-btn text small color="indigo accent-2" @click="goAction(item)">{{ btnType[item.title][0] }}<v-icon light>{{ btnType[item.title][1] }}</v-icon></v-btn>
+                  </v-col>
+                  <v-col class="p-0 m-0" cols=6>
+                    <v-btn text small color="error"  @click="deleteAlarm(item.id)">알람 삭제 <v-icon light>mdi-close-thick</v-icon></v-btn>
+                  </v-col>
+                </v-row>
+              </div>
             </v-list-item-content>
           </v-list-item>
         </template>
@@ -50,54 +60,80 @@
 </template>
 
 <script>
+const axios = require('axios');
+
 export default {
   name: "Alarm",
-  data: () => ({
-    items: [
-      { header: 'Today' },
-      {
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-        title: 'Brunch this weekend?',
-        subtitle: `<span class="text--primary">Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?`,
+  data() {
+    return {
+      alarms: [],
+      len: 0,
+      btnType: {
+        '방 초대 알림': ['방 바로가기', 'mdi-run'],
+        '친구 추가 알림': ['친구 추가하기', 'mdi-account-plus'],
       },
-      { divider: true, inset: true },
-      {
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-        title: 'Summer BBQ <span class="grey--text text--lighten-1">4</span>',
-        subtitle: `<span class="text--primary">to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend.`,
-      },
-      { divider: true, inset: true },
-      {
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-        title: 'Oui oui',
-        subtitle: '<span class="text--primary">Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?',
-      },
-      { divider: true, inset: true },
-      {
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-        title: 'Birthday gift',
-        subtitle: '<span class="text--primary">Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?',
-      },
-      { divider: true, inset: true },
-      {
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-        title: 'Recipe to try',
-        subtitle: '<span class="text--primary">Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
-      },
-      { header: 'Yesterday' },
-      {
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-        title: 'Birthday gift',
-        subtitle: '<span class="text--primary">Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?',
-      },
-      { divider: true, inset: true },
-      {
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-        title: 'Recipe to try',
-        subtitle: '<span class="text--primary">Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
-      },
-    ],
-  }),
+    }
+  },
+  mounted() {
+    this.getAlarm()
+  },
+  methods: {
+    getAlarm() {
+      this.alarms = []
+      axios.get(`http://localhost:8000/letsmeet/alarm?uNo=${this.$store.state.uNo}`)
+      .then((res) => {
+        const alarmLists = res.data
+        this.len = res.data.length
+        var header = alarmLists[alarmLists.length-1].aTime.slice(0,10)
+        this.alarms.push({ header: header })
+        for (var i=alarmLists.length-1 ; i >= 0 ; i--) {
+          if (header !== alarmLists[i].aTime.slice(0,10)) {
+            header = alarmLists[i].aTime.slice(0,10)
+            this.alarms.push({ header: header })
+          }
+          const content = alarmLists[i].aContent.split('/')
+          const data = {
+            id: alarmLists[i].aNo,
+            avatar: alarmLists[i].aSenderImage,
+            title: alarmLists[i].aTitle,
+            subtitle: content[0],
+            subdata: content[1],
+          }
+          this.alarms.push(data)
+          this.alarms.push({ divider: true, inset: true })
+        }
+        console.log(this.alarms)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+    goAction(item) {
+      if (item.title === '방 초대 알림') {
+        this.$router.push({name:"MeetingRoom", params:{"id":item.subdata}})
+      }else if (item.title === '친구 추가 알림') {
+        this.addFreind(item)
+      }
+    },
+    deleteAlarm(aNo) {
+      axios.delete(`http://localhost:8000/letsmeet/alarm/delete?aNo=${aNo}`)
+      .then(() => {
+        this.getAlarm()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+    addFreind(item) {
+      axios.post(`http://localhost:8000/letsmeet/mypage/friend/add?friend=${item.subdata}&myUNo=${this.$store.state.uNo}`)
+      .then(()=> {
+        alert('친구 추가하였습니다.')
+      })
+      .catch(()=> {
+        alert('이미 친구입니다.')
+      })
+    }
+  }
 }
 </script>
 

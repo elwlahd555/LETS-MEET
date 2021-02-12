@@ -11,10 +11,10 @@
 			(#{aNo}, #{aTitle}, #{aRecvUNo}, #{aContent}, #{aSenderImage}, now())
 	</insert>
 	
-	<select id="selectAlarm" parameterType="string">
+	<select id="selectAlarm" parameterType="int" resultType="alarm">
 		SELECT *
 		  FROM alarm
-		 WHERE a_recv_u_no = (select u_no from user where u_email = #{uEmail})
+		 WHERE a_recv_u_no = #{uNo}
 	</select>
 
 	<delete id="deleteAlarm">

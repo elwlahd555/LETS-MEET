@@ -12,7 +12,7 @@ public interface AlarmMapper {
 	public int insertAlarm(Alarm alarm) throws Exception;
 	
 	/* R :: 사용자의 알람 전체 조회 */
-	public List<Alarm> selectAlarm(String uEmail) throws Exception;
+	public List<Alarm> selectAlarm(int uNo) throws Exception;
 	
 	/* D :: 사용자의 알람 삭제 */
 	public boolean deleteAlarm(Alarm alarm) throws Exception;

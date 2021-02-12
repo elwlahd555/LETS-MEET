@@ -123,8 +123,8 @@
 const KAKAO_API_KEY = '71f77d07e68b0f6c0464d85d3df14e6c'
 var map = ''
 const axios = require('axios');
-var latitude = '36.108883399999996'
-var longitude = '128.4113509'
+var latitude = '35.86656557448651'
+var longitude = '128.5976698883993'
 export default {
   name: "MyPromise",
   data () {
