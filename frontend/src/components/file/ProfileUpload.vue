@@ -44,21 +44,27 @@ export default {
       
           // 파일 업로드시 경로, FormData, Header 설정
           // axios.post(url, formData, { // 서버에 올릴땐 이거 써야한다.
-              axios.post('http://localhost:8000/letsmeet/image/profileUpload', formData, { // 이건 로컬용이다.
+              axios.put('http://localhost:8000/letsmeet/image/profileUpload', formData, { // 이건 로컬용이다.
               header: {
                   'Content-Type': 'multipart/form-data'
               }
           }).then(
               response => {
                   if(!!response && response.status === 200) {
+                      console.log('된거임?')
+                      console.log(response.data.uImage)
+                      this.$emit('updateImage', response.data.uImage)
                       //commonUtils.$alert('업로드 완료');
                   }
+                  // 업로드 된 후에 저장된 곳(유저 테이블에 있낭?)에서 데이터 받아서 emit?
+
               }
           ).catch(error => {
               console.log(error);
               //commonUtils.$alertUncatchedError(error);
           });
       },
+
   }
 
 }
