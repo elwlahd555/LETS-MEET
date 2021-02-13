@@ -26,6 +26,9 @@ public interface StoreMapper {
 
 	/* '좌표 값' 으로 해당 가게 조회 */
 	public Store selectStoreByPoint(String lat, String lng) throws Exception;
+	
+	/* '스토어 번호' 으로 해당 가게 조회 */
+	public Store selectStoreByNo(int sno) throws Exception;
 
 	/* '중간 좌표 값'으로 일정 반경 내 가게들 조회 */
 	public List<Store> selectStoreByMidPoint(Store store);

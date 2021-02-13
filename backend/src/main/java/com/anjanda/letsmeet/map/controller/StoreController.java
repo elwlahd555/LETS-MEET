@@ -56,6 +56,18 @@ public class StoreController {
 			return storeService.StoreByPoint(lat,lng);
 
 	}
+	
+	/* R :: '스토어 넘버'으로 가게 조회 */
+	@ApiOperation(value="스토어 넘버로 조회", notes="스토어 넘버를 이용해서 조회")
+	@GetMapping("/sno")
+	public Store StoreByNo(int sno) throws Exception{
+
+			System.out.println("좌표값 받아오기");
+			System.out.println("data name : " + storeService.StoreByNo(sno).getsName());
+			
+			return storeService.StoreByNo(sno);
+
+	}
 
 	/* R :: '중간 좌표 값' 으로 반경 내 가게 조회 */
 	@ApiOperation(value="중간 좌표로 조회", notes="중간 좌표를 이용해서 조회")
