@@ -3,12 +3,16 @@ package com.anjanda.letsmeet.map.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.anjanda.letsmeet.map.service.StoreService;
 import com.anjanda.letsmeet.repository.dto.Store;
+import com.anjanda.letsmeet.repository.dto.StoreReview;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -44,6 +48,16 @@ public class StoreController {
 //			return storeService.StoreByDong(dong);
 //		
 //	}
+	
+	/* C :: 리뷰 생성 */
+	@PostMapping("/add")
+	public ResponseEntity<Integer> createStore(Store store) throws Exception {
+		if(storeService.createStore(store) > 0) {
+			System.out.println(store.getsNo());
+			return new ResponseEntity<Integer>(store.getsNo(), HttpStatus.OK);
+		}
+		return new ResponseEntity<Integer>(0, HttpStatus.NO_CONTENT);
+	}
 	
 	/* R :: '좌표 값'으로 가게 조회 */
 	@ApiOperation(value="좌표로 조회", notes="좌표를 이용해서 조회")

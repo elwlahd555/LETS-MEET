@@ -44,11 +44,10 @@
 	
 	<insert id="createStore" parameterType="Store">
 	INSERT INTO `letsmeet`.`store`
-(`s_name`,`s_category`,`s_dong`,`s_road`,`s_bunji_main`,`s_bunji_sub`,`s_building_name`,`s_road_address`,
-`s_lat`,`s_lng`,`s_image_id`,`s_score`)
+(`s_name`,`s_category`, `s_category_detail`, `s_road_address`, `s_number`, `s_price`, `s_time`, `s_lat`, `s_lng`, `s_image`, `s_score`)
 VALUES
-(#{sName},#{sCategory},#{sDong},#{sRoad},#{sBunjiMain},#{sBunjiSub},#{sBuildingName},#{sRoadAddress},
-#{sLat},#{sLng},#{sImageId},#{sScore});
+(#{sName},#{sCategory},#{sCategoryDetail},#{sRoadAddress},#{sNumber},#{sPrice},#{sTime},
+#{sLat},#{sLng},#{sImage},#{sScore});
 	</insert>
 	
 	
