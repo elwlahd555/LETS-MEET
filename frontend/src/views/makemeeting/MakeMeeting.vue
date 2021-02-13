@@ -25,6 +25,14 @@ export default {
       dates: [],
       iFile: '',
       mrNo: '',
+      type: {
+        '밥': 'https://www.gyeongju.go.kr/upload/content/thumb/20200529/A42F50C69A8A4DDB94DA408C290735C1.jpg',
+        '카페': 'http://www.lightingnews.net/images/theme/cafe_01.png',
+        '술': 'https://img.lovepik.com/photo/50011/5863.jpg_wh860.jpg',
+        '스터디': 'https://modo-phinf.pstatic.net/20180304_283/1520151276251GkP1Q_JPEG/mosaOtd1XG.jpeg?type=w720',
+        '놀거리': 'https://www.travel.taipei/image/65598/1024x768',
+        '기타': 'http://img.rflogix.com/agm/main/1024/10_1_20200407112854.jpg',
+      }
     }
   },
   methods: {
@@ -56,12 +64,14 @@ export default {
         } else {
           tmp_end_day = this.dates[0]
         }
+        const t = this.type
         const data = {
           mrName: this.room_title,
           mrCategory: this.room_type,
           mrDateStart: this.dates[0],
           mrDateEnd: tmp_end_day,
-          mrSuperUNo: this.$store.state.uNo
+          mrSuperUNo: this.$store.state.uNo,
+          mrImage: t[this.room_type]
         }
         axios.post(`http://localhost:8000/letsmeet/meetingRoom/create`, data )
           .then((res)=> {
@@ -69,7 +79,6 @@ export default {
             console.log(res.data)
             this.$store.state.mrNo = res.data
             const members = this.$route.params.members
-            console.log(members)
             setTimeout(() => { this.$fileSelect() }, 500)
             if (members) {
               var cnt = 0

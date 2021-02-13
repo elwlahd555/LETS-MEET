@@ -110,6 +110,24 @@ public class MeetingRoomController {
 		return null;
 	}
 	
+	/* U :: 약속방 수정 */
+	@PutMapping("/meetingRoom/finaldate")
+	public ResponseEntity<String> updateMeetingRoomFinalDate(@RequestBody MeetingRoom meetingRoom) throws Exception {
+		if(meetingRoomService.updateMeetingRoomFinalDate(meetingRoom)) {
+			return new ResponseEntity<String>("약속방 수정 성공", HttpStatus.OK);
+		}
+		return new ResponseEntity<String>("약속방 수정 실패", HttpStatus.NO_CONTENT);
+	}
+	
+	/* U :: 약속방 수정 */
+	@PutMapping("/meetingRoom/finalplace")
+	public ResponseEntity<String> updateMeetingRoomFinalPlace(@RequestBody MeetingRoom meetingRoom) throws Exception {
+		if(meetingRoomService.updateMeetingRoomFinalPlace(meetingRoom)) {
+			return new ResponseEntity<String>("약속방 수정 성공", HttpStatus.OK);
+		}
+		return new ResponseEntity<String>("약속방 수정 실패", HttpStatus.NO_CONTENT);
+	}
+	
 	/* D :: 약속방 삭제 */
 	@DeleteMapping("/meetingRoom/delete")
 	public ResponseEntity<String> deleteMeetingRoom(int mrNo) throws Exception {

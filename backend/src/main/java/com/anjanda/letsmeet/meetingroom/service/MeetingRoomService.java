@@ -34,6 +34,10 @@ public interface MeetingRoomService {
 	boolean updateMeetingRoom(MeetingRoom meetingRoom) throws Exception;
 	
 	boolean updateMeetingRoomMidpoint(MeetingRoom meetingRoom);
+	
+	boolean updateMeetingRoomFinalDate(MeetingRoom meetingRoom) throws Exception;;
+	
+	boolean updateMeetingRoomFinalPlace(MeetingRoom meetingRoom) throws Exception;;
 
 	/* D :: 약속방 삭제 */
 	boolean deleteMeetingRoom(int mrNo) throws Exception;
