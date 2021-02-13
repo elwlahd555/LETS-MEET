@@ -40,7 +40,7 @@
 
             <v-list-item-content>
               <v-list-item-title v-html="item.title"></v-list-item-title>
-              <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle>
+              <div v-html="item.subtitle" class="mt-1" style="color: gray; font-size: 0.9rem;"></div>
               <div class="mt-3">
                 <v-row>
                   <v-col class="p-0 m-0 pl-1" cols=6>
@@ -71,6 +71,8 @@ export default {
       btnType: {
         '방 초대 알림': ['방 바로가기', 'mdi-run'],
         '친구 추가 알림': ['친구 추가하기', 'mdi-account-plus'],
+        '일정 선택 알림': ['최종 선택하기', 'mdi-calendar-multiselect'],
+        '일정 확정 알림': ['방 바로가기', 'mdi-run']
       },
     }
   },

@@ -5,8 +5,12 @@
     </div>
     <hr>
     <v-subheader>약속 가능 날짜</v-subheader>
+    <v-subheader v-if="isFinal && roomInfo.mrSuperUNo == $store.state.uNo">
+      <v-icon color="red">mdi-alert-box-outline</v-icon>약속 날짜를 최종 선택해주세요!
+    </v-subheader>
     <v-date-picker
       v-model="dates"
+      @click.native="pickDate"
       :event-color="date => 'date[9] % 2' ? 'red' : 'yellow'"
       :events="functionEvents"
       full-width
@@ -71,6 +75,7 @@ export default {
       availDates: {},
       voteDates: {},
       userInfo: [],
+      isFinal: false,
     }
   },
   mounted () {
@@ -79,6 +84,7 @@ export default {
     this.max = this.roomInfo.mrDateEnd
     this.userInfo = this.mrUserInfo
     this.getAvailableDates()
+    this.getIsFinal()
   },
   watch: {
     roomInfo() {
@@ -114,6 +120,7 @@ export default {
       })
     },
     getUserDeparture() {
+      this.userDeparture = []
       var li = this.mrUserInfo
       for(var i of li){
           if(i.mruUserLat !== null){
@@ -166,9 +173,38 @@ export default {
       this.getAvailableDates()
       this.$emit('refresh')
       this.getUserDeparture()
+      this.getIsFinal()
     },
     getPlace(data) {
       this.$emit('rec_place', data)
+    },
+    getIsFinal() {
+      this.isFinal = true
+      var li = this.mrUserInfo
+      for(var i of li){
+        if(i.mruUserLat === null){
+          this.isFinal = false
+        }
+      }
+    },
+    pickDate() {
+      if (this.isFinal && this.roomInfo.mrSuperUNo == this.$store.state.uNo) {
+        if(confirm(`${this.dates} 로 약속날짜를 확정하시겠습니까?`)){
+          const data = {
+            mrDate: this.dates,
+            mrNo: this.roomInfo.mrNo
+          }
+          axios.put(`http://localhost:8000/letsmeet/meetingRoom/finaldate`, data)
+          .then((res)=> {
+            console.log(res.data)
+            alert("약속 날짜를 확정하였습니다.")
+            this.$emit('refresh3')
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+        }
+      }
     }
   },
 }

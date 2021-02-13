@@ -66,6 +66,16 @@ public class MeetingRoomServiceImpl implements MeetingRoomService{
 		return meetingRoomMapper.updateMeetingRoomMidpoint(meetingRoom)==1;
 	}
 	
+	@Override
+	public boolean updateMeetingRoomFinalDate(MeetingRoom meetingRoom) throws Exception {
+		return meetingRoomMapper.updateMeetingRoomFinalDate(meetingRoom)==1;
+	}
+	
+	@Override
+	public boolean updateMeetingRoomFinalPlace(MeetingRoom meetingRoom) throws Exception {
+		return meetingRoomMapper.updateMeetingRoomFinalPlace(meetingRoom)==1;
+	}
+	
 	/* D :: 약속방 삭제 */
 	@Override
 	public boolean deleteMeetingRoom(int mrNo) throws Exception {

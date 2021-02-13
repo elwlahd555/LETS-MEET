@@ -2,7 +2,7 @@
   <v-container>
     <hooper :settings="hooperSettings" style="height:100%;">
       <slide v-for="(place, i) in ranPlace" :key="i">
-        <RecommendItem :place="place" @go_detail="goDetail"/>
+        <RecommendItem :place="place" :roomInfo="roomInfo" @go_detail="goDetail" @refresh="refresh"/>
       </slide>
     </hooper>
     <div v-if="isDetail && place">
@@ -28,6 +28,7 @@ export default {
   },
   props: {
     ranPlace: Array,
+    roomInfo: Object,
   },
   data() {
     return {
@@ -46,6 +47,9 @@ export default {
     goDetail(data) {
       this.place = data
       this.isDetail = !this.isDetail
+    },
+    refresh() {
+      this.$emit('refresh')
     },
   }
 }

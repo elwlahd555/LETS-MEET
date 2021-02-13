@@ -139,6 +139,7 @@ export default {
       direct: false,
       flag: true,
       count: '',
+      isFinal: false,
     }
   },
   props: {
@@ -250,13 +251,19 @@ export default {
         axios.put(`http://localhost:8000/letsmeet/meetingRoomUser/set`, data)
           .then(()=> {
             alert('일정 선택이 완료되었습니다.')
-            var li = this.mrUserInfo
-            for(var i of li){
-              if(i.uNo === this.$store.state.uNo && i.mruUserLat === null){
-                this.count ++
-                  break
-                }
+            if (this.isFinal) {
+              var img = this.roomInfo.mrImage
+              const content = `'${this.roomInfo.mrName}'방의 모든 멤버들이 일정 투표를 완료하였습니다. 최종 일정을 확정해주세요!/${this.roomInfo.mrNo}`
+              const title = '일정 선택 알림'
+              axios.post(`http://localhost:8000/letsmeet/alarm/create?aContent=${content}&aRecvUNo=${this.roomInfo.mrSuperUNo}&aSenderImage=${img}&aTitle=${title}`)
+              .then((res) => {
+                console.log(res.data)
+              })
+              .catch((err) => {
+                console.log(err)
+              })
             }
+
             const ref_data = {
               mruName: this.$store.state.uName,
               mruUNo: this.$store.state.uNo,
@@ -276,9 +283,14 @@ export default {
     countSelect() {
       var count = 0;
       var li = this.mrUserInfo
+      this.isFinal = true
       for(var i of li){
-          if(i.mruUserLat !== null)
-              count++;
+        if(i.mruUserLat !== null){
+          count++;
+        }
+        if(i.mruUNo !== this.$store.state.uNo && i.mruUserLat === null){
+          this.isFinal = false
+        }
       }
       this.count = count
     }

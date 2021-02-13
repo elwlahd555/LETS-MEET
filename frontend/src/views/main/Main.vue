@@ -53,7 +53,7 @@
           </div>
           <v-img 
           height="200px"
-          :src="type[value.mrCategory][1]"
+          :src="value.mrImage"
           style="filter: brightness(50%);">
           </v-img>
           <v-fade-transition>
@@ -107,7 +107,7 @@
           </div>
           <v-img 
           height="200px"
-          :src="type[value.mrCategory][1]"
+          :src="value.mrImage"
           style="filter: brightness(50%);">
           </v-img>
           <v-fade-transition>

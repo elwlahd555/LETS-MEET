@@ -24,6 +24,7 @@
         <v-btn 
           color="pink accent-4"
           text
+          @click="pickPlace"
         >
           장소확정
         </v-btn>
@@ -33,15 +34,39 @@
 </template>
 
 <script>
+const axios = require('axios');
+
 export default {
   name: "RecommendItem",
   props: {
-    place: Object
+    place: Object,
+    roomInfo: Object,
   },
   methods: {
     goDetail() {
       this.$emit('go_detail', this.place)
     },
+    pickPlace() {
+      if (this.roomInfo.mrSuperUNo == this.$store.state.uNo) {
+        if(confirm(`${this.place.sName} 로 약속장소를 확정하시겠습니까?`)){
+          const data = {
+            mrPlace: this.place.sNo,
+            mrNo: this.$route.params.id
+          }
+          axios.put(`http://localhost:8000/letsmeet/meetingRoom/finalplace`, data)
+          .then((res)=> {
+            console.log(res.data)
+            alert("약속 장소를 확정하였습니다.")
+            this.$emit('refresh')
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+        }
+      }else {
+        alert("방장만 장소를 확정할 수 있습니다.")
+      }
+    }
   }
 }
 </script>

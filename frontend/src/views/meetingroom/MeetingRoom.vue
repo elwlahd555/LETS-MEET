@@ -29,8 +29,8 @@
           <v-divider></v-divider>
           약속 유형 : {{ roomInfo.mrCategory }} <br>
           멤버 : {{ mrUserInfo[0].uName }} 외 {{ mrUserInfo.length - 1 }}명 <br>
-          시간 : {{ roomInfo.mrDateStart }} ~ {{ roomInfo.mrDateEnd }} <br>
-          장소 : 미정 <br>
+          시간 : <span v-if="roomInfo.mrDate">{{ roomInfo.mrDate }}</span><span v-else>미정</span><br>
+          장소 : <span v-if="this.place">{{ this.place.sName }}</span><span v-else>미정</span><br>
         </v-container>
       </v-expand-transition>
     </v-card>
@@ -64,10 +64,10 @@
     <v-tabs-items v-model="tab" touchless>
       <v-tab-item>
         <DeterminePromise :roomInfo="roomInfo" :mrUserInfo="mrUserInfo"
-         @refresh="refresh" @rec_place="getPlace" />
+         @refresh="refresh" @rec_place="getPlace" @refresh3="refresh3" />
       </v-tab-item>
       <v-tab-item>
-        <RecommendPlace :roomInfo="roomInfo" :mrUserInfo="mrUserInfo" :recPlace="recPlace" />
+        <RecommendPlace :roomInfo="roomInfo" :mrUserInfo="mrUserInfo" :recPlace="recPlace" @refresh="refresh2" />
       </v-tab-item>
       <v-tab-item>
         <Chatting :mrNo="mrNo" :mrUserInfo="mrUserInfo"/>
@@ -111,6 +111,7 @@ export default {
       },
       mrUserInfo: null,
       recPlace: [],
+      place: null,
     }
   },
   mounted() {
@@ -122,7 +123,17 @@ export default {
       axios.get(`http://localhost:8000/letsmeet/meetingRoom/detail?mrNo=${this.mrNo}`)
       .then((res)=> {
         this.roomInfo = res.data
-        // console.log(this.roomInfo)
+        console.log(this.roomInfo)
+        if (this.roomInfo.mrPlace) {
+          axios.get(`http://localhost:8000/letsmeet/map/sno?sno=${this.roomInfo.mrPlace}`)
+          .then((res)=> {
+            this.place = res.data
+            console.log(this.place)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+        }
       })
       .catch((err) => {
         console.log(err)
@@ -144,6 +155,32 @@ export default {
     },
     getPlace(data) {
       this.recPlace = data
+    },
+    refresh2() {
+      this.getRoomInfo()
+      if (this.roomInfo.mrDate) {
+        this.postAlarm()
+      }
+    },
+    refresh3() {
+      this.getRoomInfo()
+      if (this.place) {
+        this.postAlarm()
+      }
+    },
+    postAlarm() {
+      var img = this.roomInfo.mrImage
+      const content = `'${this.roomInfo.mrName}'방의 약속 일정이 최종 확정되었습니다./${this.roomInfo.mrNo}`
+      const title = '일정 확정 알림'
+      for (var mb of this.mrUserInfo) {
+        axios.post(`http://localhost:8000/letsmeet/alarm/create?aContent=${content}&aRecvUNo=${mb.uNo}&aSenderImage=${img}&aTitle=${title}`)
+        .then((res) => {
+          console.log(res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      }
     }
   }
 }

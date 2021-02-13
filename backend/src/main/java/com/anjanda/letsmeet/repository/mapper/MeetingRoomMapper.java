@@ -39,6 +39,12 @@ public interface MeetingRoomMapper {
 	/* U :: 약속방 수정 (중간좌표)메소드 */
 	public int updateMeetingRoomMidpoint(MeetingRoom meetingRoom);
 	
+	/* U :: 약속방 수정 (최종날짜)메소드 */
+	public int updateMeetingRoomFinalDate(MeetingRoom meetingRoom) throws Exception;
+	
+	/* U :: 약속방 수정 (최종장소)메소드 */
+	public int updateMeetingRoomFinalPlace(MeetingRoom meetingRoom) throws Exception;
+	
 	/* D :: 약속방 탈퇴 메소드 */
 	public int deleteMeetingRoom(int mrNo) throws Exception;
 
