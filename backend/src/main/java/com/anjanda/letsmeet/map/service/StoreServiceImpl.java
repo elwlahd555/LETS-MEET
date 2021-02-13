@@ -38,6 +38,13 @@ public class StoreServiceImpl implements StoreService {
 		// TODO Auto-generated method stub
 		return mapper.selectStoreByPoint(lat, lng);
 	}
+	
+	/* R :: '스토어 넘버' 으로 해당 가게 조회 */
+	@Override
+	public Store StoreByNo(int sno) throws Exception {
+		// TODO Auto-generated method stub
+		return mapper.selectStoreByNo(sno);
+	}
 
 	/* R :: '중간 좌표 값'으로 일정 반경 내 가게들 조회 */
 	@Override

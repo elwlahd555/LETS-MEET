@@ -25,7 +25,11 @@
 		 where s_lat = #{sLat} and s_lng = #{sLng}
 	</select>
 	
-	
+	<select id="selectStoreByNo" parameterType="int" resultType="Store">
+		select *
+		  from store
+		 where s_no = #{sNo}
+	</select>
 
 	<select id="selectStoreByMidPoint" parameterType="Store" resultType="Store">
 		select *
