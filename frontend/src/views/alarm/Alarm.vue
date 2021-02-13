@@ -111,7 +111,7 @@ export default {
       })
     },
     goAction(item) {
-      if (item.title === '방 초대 알림') {
+      if (item.title === '방 초대 알림' || item.title === '일정 선택 알림' || item.title === '일정 확정 알림') {
         this.$router.push({name:"MeetingRoom", params:{"id":item.subdata}})
       }else if (item.title === '친구 추가 알림') {
         this.addFreind(item)
