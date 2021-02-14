@@ -118,12 +118,12 @@ public class MeetingRoomController {
 	}
 	
 	/* U :: 약속방 수정 */
-	@PutMapping("/meetingRoom/edit")
-	public ResponseEntity<String> updateMeetingRoom(@RequestBody MultipartFile file, MeetingRoom meetingRoom) throws Exception {
+	@RequestMapping("/meetingRoom/edit")
+	public ResponseEntity<String> updateMeetingRoom(MultipartFile file, MeetingRoom meetingRoom) throws Exception {
 		if(file!=null) {
 			meetingRoomService.updateMeetingRoom(meetingRoom);
 			String mrImage = path + "/" + "mr-" + meetingRoom.getMrNo() + "-" + file.getOriginalFilename();
-//			String mrImage = "C:/" + "mr-" + mrNo + "-" + file.getOriginalFilename();
+//			String mrImage = "C:/" + "mr-" + meetingRoom.getMrNo() + "-" + file.getOriginalFilename();
 			System.out.println(mrImage);
 
 
