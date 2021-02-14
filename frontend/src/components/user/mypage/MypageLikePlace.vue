@@ -21,6 +21,7 @@
     </div>
 </template>
 <script>
+const axios = require('axios')
 export default {
     name: 'MypageLikePlace',
     data: () => {
@@ -34,7 +35,20 @@ export default {
             ] 
         }
     },
+    mounted() {
+        this.getLikeStore()
+    },
     methods: {
+        getLikeStore () {
+            axios.get(`http://localhost:8000/letsmeet/mypage/likestore?uNo=${this.$store.state.uNo}`)
+            .then((res)=> {
+                // 가게 상세 조회 detail db 만들어져야함
+                console.log(res.data)
+            })
+            .catch(()=> {
+                console.log('안됨/')
+            })
+        },
         placeDetail () {
             console.log('이미지 클릭')
 

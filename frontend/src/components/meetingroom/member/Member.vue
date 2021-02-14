@@ -21,7 +21,7 @@
           </v-list-item-content>
 
           <v-list-item-content v-if="!item.icon" class="m-0 p-0">
-            <v-col @click='deleteMember(item.uNo)'><v-icon>mdi-trash-can</v-icon></v-col>
+            <v-col v-if="superNo === uNo" @click='deleteMember(item.uNo)'><v-icon>mdi-trash-can</v-icon></v-col>
           </v-list-item-content>
 
           <v-list-item-content v-else class="m-0 p-0">
@@ -57,6 +57,8 @@ export default {
       members: [
       ],
       model: null,
+      superNo : this.roomInfo.mrSuperUNo,
+      uNo : this.$store.state.uNo
     }
   },
   props: {
@@ -69,6 +71,8 @@ export default {
   },
   methods: {
     getMemberList(){
+
+      console.log(this.superNo)
       for (var member of this.mrUserInfo) {
         var icon = false
         if (member.uNo === this.roomInfo.mrSuperUNo){
