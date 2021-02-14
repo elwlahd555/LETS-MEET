@@ -78,15 +78,15 @@ public class LoginController {
 		kakaoUser.setuProvider("kakao");
 		
 		// 가입자 혹은 비가입자 체크해서 처리
-//		try {
-//			User originUser = service.selectUser(kakaoUser);
-//			if(originUser == null) {
-//				System.out.println("카카오 아이디로 회원가입 성공");
-//				service.createKakaoUser(kakaoUser);
-//			}
-//		} catch (Exception e1) {
-//			e1.printStackTrace();
-//		}
+		try {
+			User originUser = service.selectUser(kakaoUser);
+			if(originUser == null) {
+				System.out.println("카카오 아이디로 회원가입 성공");
+				service.createKakaoUser(kakaoUser);
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		
 		return login(kakaoUser, response, session);
 	}
