@@ -20,4 +20,8 @@ public interface ImageMapper {
 	public int updateMeetingroomImage(MeetingRoom meetingroom) throws Exception;
 
 	public int insertGalleryImage(Gallery gallery) throws Exception;
+	
+	public int updateGalleryImage(Gallery gallery) throws Exception;
+	
+	public int deleteGalleryImage(Gallery gallery) throws Exception;
 }

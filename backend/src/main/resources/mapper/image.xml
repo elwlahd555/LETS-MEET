@@ -12,20 +12,34 @@
 		(#{iId}, #{iName}, #{iUserName}, #{iPath});
 	</insert>
 	
-	<!-- U :: 사진첩 사진 추가 -->
+	<!-- C :: 사진첩 사진 추가 -->
 	<insert id="insertGalleryImage" parameterType="gallery">
 	insert into gallery
 		(g_mr_no, g_u_no, g_name)
 	values 
 		(#{gMrNo}, #{gUNo}, #{gName})
 	</insert>
-
-	<!-- R :: 이미지 조회 -->
-	<select id="selectImageList" parameterType="image" resultType="image">
+	
+	<!-- R :: 사진첩 이미지 조회 -->
+	<select id="selectImageList" parameterType="gallery" resultType="gallery">
 		select *
-		  from image
-		 where i_type=#{iType}
+		  from gallery
+		 where g_mr_no=#{gMrNo}
 	</select>
+	
+	<!-- U :: 사진첩 이미지 수정 -->
+	<update id="updateGalleryImage" parameterType="gallery">
+		update gallery
+		   set g_name = #{gName}
+		 where g_mr_no = #{gMrNo} and g_no = #{gNo}
+	</update>
+	
+	<!-- D :: 사진첩 이미지 삭제 -->
+	<delete id="deleteGalleryImage" parameterType="gallery">
+		delete
+		  from gallery
+		 where g_mr_no = #{gMrNo} and g_no = #{gNo}
+	</delete>
 	
 	<!-- U :: 유저 프로필사진 업데이트 -->
 	<update id="updateProfile" parameterType="user">
