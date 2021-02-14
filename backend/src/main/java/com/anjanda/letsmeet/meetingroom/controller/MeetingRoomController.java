@@ -61,34 +61,37 @@ public class MeetingRoomController {
 	
 	/* C :: 미팅룽 추가 */
 	@PostMapping("/meetingRoom/create")
-	public ResponseEntity<Integer> createMeetingRoom(@RequestParam("iFile") MultipartFile file, MeetingRoom meetingRoom) throws Exception{
+	public ResponseEntity<Integer> createMeetingRoom(@RequestParam("iFile") MultipartFile file,@RequestParam("meetingRoom") MeetingRoom meetingRoom) throws Exception{
 		System.out.println(meetingRoom.getMrName()+"이 생성되었습니다");
 		System.out.println(meetingRoom.getMrCategory() + meetingRoom.getMrName());
 		if(meetingRoomService.createMeetingRoom(meetingRoom) > 0) {
 			int mrNo=meetingRoomService.selectMeetingRoomBySuper(meetingRoom);
 			System.out.println(mrNo+"미팅룸넘버");
-			
-			
-			String mrImage = path + "/" + "mr-" + mrNo + "-" + file.getOriginalFilename();
-//			String mrImage = "C:/" + "mr-" + mrNo + "-" + file.getOriginalFilename();
-			System.out.println(mrImage);
+			if(!file.isEmpty()) {
+				String mrImage = path + "/" + "mr-" + mrNo + "-" + file.getOriginalFilename();
+//				String mrImage = "C:/" + "mr-" + mrNo + "-" + file.getOriginalFilename();
+				System.out.println(mrImage);
 
 
-			File dest = new File(mrImage);
-			file.transferTo(dest);
+				File dest = new File(mrImage);
+				file.transferTo(dest);
+				
+				mrImage = "https://i4d107.p.ssafy.io/images/" + "mr-" + mrNo + "-" + file.getOriginalFilename();
+				
+				MeetingRoom meetingroom = new MeetingRoom();
+				meetingroom.setMrNo(mrNo);
+				meetingroom.setMrImage(mrImage);
+				imageUploadService.UpdateMeetingroomImage(meetingroom);
+			}
 			
-			mrImage = "https://i4d107.p.ssafy.io/images/" + "mr-" + mrNo + "-" + file.getOriginalFilename();
-			
-			MeetingRoom meetingroom = new MeetingRoom();
-			meetingroom.setMrNo(mrNo);
-			meetingroom.setMrImage(mrImage);
+
 			
 			
 			MeetingRoomUser meetingRoomUser=new MeetingRoomUser();
 			meetingRoomUser.setMruMrNo(mrNo);
 			meetingRoomUser.setMruUNo(meetingRoom.getMrSuperUNo());
 			meetingRoomUserService.createMeetingRoomUser(meetingRoomUser);
-			imageUploadService.UpdateMeetingroomImage(meetingroom);
+
 			
 			return new ResponseEntity<Integer>(mrNo, HttpStatus.OK);
 		}
