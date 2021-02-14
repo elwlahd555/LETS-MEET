@@ -25,7 +25,7 @@ export default {
       
       // 저장
       $executeSave : function $executeSave() {
-          //const url = 'letsmeet/image/galleryImageUpload'; // 서버에 올릴땐 이거 써야한다.
+          //const url = 'https://i4d107.p.ssafy.io/letsmeet/image/galleryImageUpload'; // 서버에 올릴땐 이거 써야한다.
       
           //Object To FormData 변환
           var formData = new FormData();

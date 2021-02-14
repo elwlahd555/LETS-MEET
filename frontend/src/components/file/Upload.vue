@@ -26,7 +26,7 @@ export default {
       
       // 저장
       $executeSave : function $executeSave() {
-          //const url = 'letsmeet/image/upload';
+          //const url = 'https://i4d107.p.ssafy.io/letsmeet/image/upload'; // 서버에 올릴땐 이거 써야한다.
       
           //Object To FormData 변환
           var formData = new FormData();
@@ -42,8 +42,8 @@ export default {
           }
       
           // 파일 업로드시 경로, FormData, Header 설정
-          //axios.post(url, formData, {
-              axios.post('http://localhost:8000/letsmeet/image/upload', formData, {
+          // axios.post(url, formData, { // 서버에 올릴땐 이거 써야한다.
+              axios.post('http://localhost:8000/letsmeet/image/upload', formData, { // 이건 로컬용이다.
               header: {
                   'Content-Type': 'multipart/form-data'
               }
