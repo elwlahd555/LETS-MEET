@@ -29,7 +29,11 @@
                     <v-list-item @click="logout">
                       <v-list-item-title> 로그아웃 </v-list-item-title>
                     </v-list-item>
-                    <v-list-item @click="deleteWant"> 회원탈퇴 </v-list-item>
+                    <v-list-item @click="deleteWant">
+                      <v-list-item-title>
+                      회원탈퇴 
+                      </v-list-item-title>
+                      </v-list-item>
                   </v-list>
                 </v-menu>
                 
@@ -63,12 +67,7 @@
                 cols='3'>
                   <v-badge @click.native="showImageDialog" icon="mdi-plus" bordered color="indigo accent-2" overlap bottom>
                     <v-avatar>
-                      
-                      <img src="uImage" />
-                        <!-- <img
-                          src="https://cdn.vuetifyjs.com/images/john.jpg"
-                          alt="John"
-                        > -->
+                      <img :src="uImage" />                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
                     </v-avatar>
                   </v-badge>
 
@@ -77,7 +76,7 @@
                   <v-card class="p-3">
                     <h5 class="pb-5">이미지 변경</h5>
 
-                    <ProfileUpload @updateImage="val => uImage= val" />
+                    <ProfileUpload @updateImage="val => uImage = val" />
                          <v-card-actions class="pr-0 mb-0 pb-0 mt-3">
                           <v-spacer></v-spacer>
                           <v-btn

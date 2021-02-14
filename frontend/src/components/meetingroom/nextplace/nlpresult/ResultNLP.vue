@@ -55,7 +55,7 @@
 import VueWordCloud from 'vuewordcloud';
 const axios = require('axios')
 export default {
-    name: 'NLP',
+    name: 'ResultNLP',
     components: {
       [VueWordCloud.name]: VueWordCloud,
     },
@@ -66,7 +66,7 @@ export default {
         new_words: []
       }
     },
-    created () {
+    mounted () {
       this.getData()
     },
     methods: {
@@ -89,9 +89,6 @@ export default {
         })
       },
       analyzeNLP (data) {
-        // var access_key = '1d00844e-0b14-498b-a3c8-017784783627';
-        // var analysisCode = 'ner';
-
         axios.post('http://aiopen.etri.re.kr:8000/WiseNLU', {
           'access_key': '1d00844e-0b14-498b-a3c8-017784783627',
           'argument': {
@@ -124,47 +121,6 @@ export default {
         .catch((err)=>{
           console.log(err)
         })
-      //   let words = {'a': 1}
-      //   var openApiURL = "http://aiopen.etri.re.kr:8000/WiseNLU_spoken";
-      //   // var text = '';
-
-      //     var requestJson = {
-      //       'access_key': access_key,
-      //       'argument': {
-      //           'text': data,
-      //           'analysis_code': analysisCode
-      //       }
-      //   };
-        
-      //   var request = require('request');
-      //   var options = {
-      //       url: openApiURL,
-      //       body: JSON.stringify(requestJson),
-      //       headers: {'Content-Type':'application/json; charset=UTF-8'}
-      //   };
-      //   words['B'] = 2
-      //   request.post(options, function (error, response, body) {
-      //       console.log('responseCode = ' + response.statusCode);
-      //       console.log('----------------------------------------')
-      //       // console.log('responseBody = ' + body);
-      //       let obj = JSON.parse(body);
-      //       // console.log(obj["return_object"]["sentence"][0]["morp"])
-      //       let check = obj.return_object.sentence[0].morp
-      //       this.words = check
-      //       check.forEach(el => {
-      //           if (el.type === "NNG") {
-      //             let word = el.lemma
-      //               if (word in words) {
-      //                 words[word] += 1
-      //               } else {
-      //                 words[word] = 1
-      //               }
-      //           }
-      //       });
-
-      //   });
-      // console.log(words)
-      // this.words = words
     } 
   }
 }
@@ -174,11 +130,5 @@ export default {
   display: flex;
   left: 63px;
 }
-  /* .showtext {
-    display: none;
-  }
-  .heretext:hover + .showtext {
-    display: inline-block;
-    font-size: 20px;
-  } */
+
 </style>

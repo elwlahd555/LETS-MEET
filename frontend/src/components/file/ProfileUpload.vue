@@ -44,7 +44,7 @@ export default {
       
           // 파일 업로드시 경로, FormData, Header 설정
           // axios.post(url, formData, { // 서버에 올릴땐 이거 써야한다.
-              axios.put('http://localhost:8000/letsmeet/image/profileUpload', formData, { // 이건 로컬용이다.
+            axios.put('http://localhost:8000/letsmeet/image/profileUpload', formData, { // 이건 로컬용이다.
               header: {
                   'Content-Type': 'multipart/form-data'
               }

@@ -1,12 +1,21 @@
 <template>
-  <div>
-    <h2>GALLERY</h2>
-  </div>
+  <v-container>
+    <v-card>
+      
+    </v-card>
+  </v-container>
 </template>
 
 <script>
 export default {
   name: "Gallery",
+  mounted () {
+    this.getGallery()
+  },
+  methods: {
+    getGallery() {
+    }
+  }
 }
 </script>
 
