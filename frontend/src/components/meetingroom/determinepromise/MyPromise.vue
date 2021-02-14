@@ -161,6 +161,10 @@ export default {
     roomInfo() {
       this.min = this.roomInfo.mrDateStart
       this.max = this.roomInfo.mrDateEnd
+      this.countSelect()
+    },
+    mrUserInfo() {
+      this.countSelect()
     }
   },
   methods: {

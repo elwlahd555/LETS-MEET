@@ -6,6 +6,7 @@
 
 <script>
 const axios = require('axios');
+const server_URL = process.env.VUE_APP_SERVER_URL
 
 export default {
   name: "Upload",
@@ -43,7 +44,7 @@ export default {
       
           // 파일 업로드시 경로, FormData, Header 설정
           //axios.post(url, formData, {
-              axios.post('http://localhost:8000/letsmeet/image/upload', formData, {
+              axios.post(`${server_URL}/letsmeet/image/upload`, formData, {
               header: {
                   'Content-Type': 'multipart/form-data'
               }

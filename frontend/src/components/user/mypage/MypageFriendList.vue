@@ -18,7 +18,7 @@
                 <v-col cols='2'>
                 <v-avatar>
                   <img
-                    src="https://cdn.vuetifyjs.com/images/john.jpg"
+                    :src="friend[3]"
                     alt="John"
                   >
                 </v-avatar>
@@ -42,7 +42,7 @@
           <v-row>
           <v-avatar>
             <img
-              src="https://cdn.vuetifyjs.com/images/john.jpg"
+              :src="friend[3]"
               alt="John"
             >
           </v-avatar>
@@ -104,7 +104,7 @@ export default {
       .then((res)=> {
         const array = res.data
         array.forEach(el => {
-          this.allmyfriendlist.push([el.uNo, el.uName, el.uEmail])
+          this.allmyfriendlist.push([el.uNo, el.uName, el.uEmail, el.uImage])
         });
         console.log(this.allmyfriendlist)
       })

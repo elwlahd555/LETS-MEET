@@ -66,7 +66,7 @@
                   <v-badge @click.native="showImageDialog" icon="mdi-plus" bordered color="indigo accent-2" overlap bottom>
                     <v-avatar>
                       
-                      <img src="uImage" />
+                      <img :src="uImage" />
                         <!-- <img
                           src="https://cdn.vuetifyjs.com/images/john.jpg"
                           alt="John"
@@ -79,7 +79,7 @@
                   <v-card class="p-3">
                     <h5 class="pb-5">이미지 변경</h5>
 
-                    <ProfileUpload @updateImage="val => uImage= val" />
+                    <ProfileUpload @updateImage="updateImage" />
                          <v-card-actions class="pr-0 mb-0 pb-0 mt-3">
                           <v-spacer></v-spacer>
                           <v-btn
@@ -195,7 +195,7 @@
                                 <v-col class="d-flex align-center p-1">
                                 <v-avatar  style="text-center">
                                   <img
-                                    src="https://cdn.vuetifyjs.com/images/john.jpg"
+                                    :src="friend[3]"
                                     alt="John"
                                   >
                                 </v-avatar> 
@@ -235,8 +235,7 @@
                                 <v-col cols='2'>
                                 <v-avatar>
                                   <img
-                                    src="https://cdn.vuetifyjs.com/images/john.jpg"
-                                    alt="John"
+                                    :src="friend[3]"
                                   >
                                 </v-avatar>
                                 </v-col>
@@ -334,7 +333,7 @@ export default {
             return
           }
         }
-        this.tmplist.push([friend[0], friend[2], friend[1]])
+        this.tmplist.push([friend[0], friend[2], friend[1], friend[3]])
       },
       addMyFriendList () {
         this.dbfriend = []
@@ -381,7 +380,7 @@ export default {
             if (array.length) {
               array.forEach(li => {
                 if(li.uNo === this.$store.state.uNo) return
-                this.searchFriendList.push([li.uNo, li.uEmail, li.uName])
+                this.searchFriendList.push([li.uNo, li.uEmail, li.uName, li.uImage])
               });
             this.addFriend = ''
             } else {
@@ -423,6 +422,10 @@ export default {
         })
         .catch((err)=> { console.log(err) })
       },
+      updateImage(data) {
+        this.uImage= data
+        this.$store.dispatch('FETCH_USER_IMAGE', this.uImage)
+      }
     },
     mounted() { 
       let token = localStorage.getItem('auth-token')
@@ -430,7 +433,8 @@ export default {
       this.uPassword = decode.user.uPassword
       this.uEmail = this.$store.state.uEmail
       this.uName= this.$store.state.uName
-      this.uImage = this.$store.state.uImageid
+      this.uImage = this.$store.state.uImage
+      console.log(this.uImage)
     },
     data: () => {
       return {
