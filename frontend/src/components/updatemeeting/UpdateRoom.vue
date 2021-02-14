@@ -93,9 +93,7 @@ const server_URL = process.env.VUE_APP_SERVER_URL
 export default {
     name: 'UpdateRoom',
     props: {
-      id: {
-        type: Number,
-      }
+      id: {}
     },
     data: function () {
       return {
@@ -166,12 +164,11 @@ export default {
       },
       selectImage(idx){
         this.update_image_idx = idx
-        // console.log(this.update_image_idx)
       },
       $fileSelect : function $fileSelect() {
       console.log(this.$refs);
       this.iFile = this.$refs.iFile.files[0];
-      this.$emit("upload_img", this.update_iFile)
+      this.$emit("upload_img", this.iFile)
     },
     }
 

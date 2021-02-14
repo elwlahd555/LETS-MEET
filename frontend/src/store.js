@@ -26,7 +26,7 @@ export const store = new Vuex.Store({
       state.uEmail = payload['uEmail']
       state.uName = payload['uName']
       state.uNo = payload['uNo']
-      state.uImageid = payload['uImage']
+      state.uImage = payload['uImage']
       state.uSalt = payload['uSalt']
       console.log(state.uSalt)
     },

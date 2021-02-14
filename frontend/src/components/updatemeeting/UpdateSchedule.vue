@@ -106,9 +106,7 @@ const server_URL = process.env.VUE_APP_SERVER_URL
 export default {
   name: "UpdateSchedule",
   props: {
-    id: {
-      type: Number,
-    }
+    id: {}
   },
   data () {
     return {
@@ -122,40 +120,34 @@ export default {
     }
   },
   watch: {
-    
   },
   computed: {
     dateRangeText () {
       this.dateSort()
       this.$emit('update_dates', this.update_dates)
       return this.update_dates.join(' ~ ')
-    },
+    }
   },
   mounted() { 
-
     this.getRoomInfo()
   },
   methods: {
-          getRoomInfo() {
-        axios.get(`${server_URL}/letsmeet/meetingRoom/detail?mrNo=${this.mrNo}`)
-        .then( (res)=> {
-          console.log(res.data)
-          this.update_dates.push(res.data.mrDateStart)
-          this.update_dates.push(res.data.mrDateEnd)
-        })
-
-        .catch((err)=> {
-          console.log(err)
-        })
+    getRoomInfo() {
+      axios.get(`${server_URL}/letsmeet/meetingRoom/detail?mrNo=${this.mrNo}`)
+      .then( (res)=> {
+        console.log(res.data)
+        this.update_dates.push(res.data.mrDateStart)
+        this.update_dates.push(res.data.mrDateEnd)
+      })
+      .catch((err)=> {
+        console.log(err)
+      })
     },
     is_prev(){
       this.$emit('is_prev')
     },
     directSelect(){
       this.direct = !this.direct
-      if (this.direct && this.flag) {
-        setTimeout(() => { this.initMap() }, 100)
-      }
       this.flag = false
     },
     dateSort(){
@@ -169,7 +161,7 @@ export default {
     },
     updateRoom() {
       this.dialog = false
-      this.$emit('update_room')
+      this.$emit('update_room2')
     }
   },
 }
