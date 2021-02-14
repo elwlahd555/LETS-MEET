@@ -42,7 +42,7 @@ export default {
             this.$cookies.set('access-token', data.access_token, '1d');
             this.$cookies.set('refresh-token', data.refresh_token, '1d');
             await this.setUserInfo();
-
+            this.$router.replace('/');
         },
         async setUserInfo () {
             let user_data = await getKakaoUserInfo();

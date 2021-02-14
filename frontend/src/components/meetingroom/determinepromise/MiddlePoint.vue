@@ -44,7 +44,7 @@ export default {
       const script = document.createElement("script")
       script.onload = () => kakao.maps.load()
       script.src =
-        `http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${KAKAO_API_KEY}`
+        `https://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${KAKAO_API_KEY}`
       document.head.appendChild(script)
     },
     initMap() {
@@ -179,17 +179,6 @@ export default {
         
       }
       map.relayout()
-
-
-      // var places = new kakao.maps.services.Places();
-
-      // var callback = function(result, status) {
-      //     if (status === kakao.maps.services.Status.OK) {
-      //         console.log(result);
-      //     }
-      // };
-
-      // places.keywordSearch('판교 치킨', callback);
     },
   },
 }

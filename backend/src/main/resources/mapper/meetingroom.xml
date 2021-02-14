@@ -38,7 +38,7 @@
 	<!-- U :: 약속방 정보 수정 (방이름, 카데고리, 시작기간, 끝기간) -->
 	<update id="updateMeetingRoom" parameterType="meetingRoom">
 		update meetingroom
-		   set mr_name=#{mrName}, mr_category=#{mrCategory}, mr_date_start=#{mrDateStart}, mr_date_end=#{mrDateEnd}
+		   set mr_name=#{mrName}, mr_category=#{mrCategory}, mr_date_start=#{mrDateStart}, mr_date_end=#{mrDateEnd},mr_image=#{mrImage}
 		 where mr_no = #{mrNo}
 	</update>
 	

@@ -173,8 +173,8 @@ export default {
       this.departure(ref_data.mruNo, ref_data.mruName, ref_data.mruUserLng, ref_data.mruUserLat)
       this.getAvailableDates()
       this.$emit('refresh')
-      this.getUserDeparture()
       this.getIsFinal()
+      this.getUserDeparture()
     },
     getPlace(data) {
       this.$emit('rec_place', data)

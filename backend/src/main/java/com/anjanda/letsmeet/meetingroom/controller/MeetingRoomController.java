@@ -1,19 +1,23 @@
 package com.anjanda.letsmeet.meetingroom.controller;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.anjanda.letsmeet.imageupload.service.ImageUploadService;
 import com.anjanda.letsmeet.map.service.StoreService;
 import com.anjanda.letsmeet.meetingroom.service.MeetingRoomService;
 import com.anjanda.letsmeet.meetingroomuser.service.MeetingRoomUserService;
@@ -39,6 +43,9 @@ import com.anjanda.letsmeet.repository.dto.Store;
 @RequestMapping("")
 public class MeetingRoomController {
 	
+	@Value("${upload-images-path}")
+	String path;
+	
 	/* 약속방서비스 객체 불러오기 */
 	@Autowired
 	private MeetingRoomService meetingRoomService;
@@ -49,18 +56,43 @@ public class MeetingRoomController {
 	@Autowired
 	private StoreService storeService;
 	
+	@Autowired
+	private ImageUploadService imageUploadService;
+	
 	/* C :: 미팅룽 추가 */
-	@PostMapping("/meetingRoom/create")
-	public ResponseEntity<Integer> createMeetingRoom(@RequestBody MeetingRoom meetingRoom) throws Exception{
+	@RequestMapping("/meetingRoom/create")
+	public ResponseEntity<Integer> createMeetingRoom(MultipartFile file, MeetingRoom meetingRoom) throws Exception{
 		System.out.println(meetingRoom.getMrName()+"이 생성되었습니다");
 		System.out.println(meetingRoom.getMrCategory() + meetingRoom.getMrName());
 		if(meetingRoomService.createMeetingRoom(meetingRoom) > 0) {
 			int mrNo=meetingRoomService.selectMeetingRoomBySuper(meetingRoom);
 			System.out.println(mrNo+"미팅룸넘버");
+			if(file!=null) {
+				String mrImage = path + "/" + "mr-" + mrNo + "-" + file.getOriginalFilename();
+//				String mrImage = "C:/" + "mr-" + mrNo + "-" + file.getOriginalFilename();
+				System.out.println(mrImage);
+
+
+				File dest = new File(mrImage);
+				file.transferTo(dest);
+				
+				mrImage = "https://i4d107.p.ssafy.io/images/" + "mr-" + mrNo + "-" + file.getOriginalFilename();
+				
+				MeetingRoom meetingroom = new MeetingRoom();
+				meetingroom.setMrNo(mrNo);
+				meetingroom.setMrImage(mrImage);
+				imageUploadService.UpdateMeetingroomImage(meetingroom);
+			}
+			
+
+			
+			
 			MeetingRoomUser meetingRoomUser=new MeetingRoomUser();
 			meetingRoomUser.setMruMrNo(mrNo);
 			meetingRoomUser.setMruUNo(meetingRoom.getMrSuperUNo());
 			meetingRoomUserService.createMeetingRoomUser(meetingRoomUser);
+
+			
 			return new ResponseEntity<Integer>(mrNo, HttpStatus.OK);
 		}
 			return new ResponseEntity<Integer>(0, HttpStatus.NO_CONTENT);
@@ -86,12 +118,30 @@ public class MeetingRoomController {
 	}
 	
 	/* U :: 약속방 수정 */
-	@PutMapping("/meetingRoom/edit")
-	public ResponseEntity<String> updateMeetingRoom(@RequestBody MeetingRoom meetingRoom) throws Exception {
-		if(meetingRoomService.updateMeetingRoom(meetingRoom)) {
+	@RequestMapping("/meetingRoom/edit")
+	public ResponseEntity<String> updateMeetingRoom(MultipartFile file, MeetingRoom meetingRoom) throws Exception {
+		if(file!=null) {
+			meetingRoomService.updateMeetingRoom(meetingRoom);
+			String mrImage = path + "/" + "mr-" + meetingRoom.getMrNo() + "-" + file.getOriginalFilename();
+//			String mrImage = "C:/" + "mr-" + meetingRoom.getMrNo() + "-" + file.getOriginalFilename();
+			System.out.println(mrImage);
+
+
+			File dest = new File(mrImage);
+			file.transferTo(dest);
+			
+			mrImage = "https://i4d107.p.ssafy.io/images/" + "mr-" + meetingRoom.getMrNo() + "-" + file.getOriginalFilename();
+			
+			MeetingRoom meetingroom = new MeetingRoom();
+			meetingroom.setMrNo(meetingRoom.getMrNo());
+			meetingroom.setMrImage(mrImage);
+			imageUploadService.UpdateMeetingroomImage(meetingroom);
 			return new ResponseEntity<String>("약속방 수정 성공", HttpStatus.OK);
+		}else {
+			meetingRoomService.updateMeetingRoom(meetingRoom);
+			return new ResponseEntity<String>("약속방 수정 실패", HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<String>("약속방 수정 실패", HttpStatus.NO_CONTENT);
+
 	}
 	
 	/* U :: 약속방 수정 */
