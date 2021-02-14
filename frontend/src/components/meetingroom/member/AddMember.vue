@@ -120,6 +120,7 @@
 
 <script>
 const axios = require('axios');
+const server_URL = process.env.VUE_APP_SERVER_URL
 
 export default {
   name: "AddMember",
@@ -167,7 +168,7 @@ export default {
           mruMrNo: this.$route.params.id,
           mruUNo: mb[0],
         }
-        axios.post(`http://localhost:8000/letsmeet/meetingRoomUser/adduser`, data)
+        axios.post(`${server_URL}/letsmeet/meetingRoomUser/adduser`, data)
         .then(()=> {
           var data = {
             icon: false,
@@ -182,7 +183,7 @@ export default {
           if (this.$store.state.uImage) {
             img = this.$store.state.uImage
           }
-          axios.post(`http://localhost:8000/letsmeet/alarm/create?aContent=${content}&aRecvUNo=${mb[0]}&aSenderImage=${img}&aTitle=${title}`)
+          axios.post(`${server_URL}/letsmeet/alarm/create?aContent=${content}&aRecvUNo=${mb[0]}&aSenderImage=${img}&aTitle=${title}`)
           .then((res) => {
             console.log(res.data)
           })
@@ -206,7 +207,7 @@ export default {
       this.tmplist.splice(idx, 1)
     },
     getMemberList(){
-      axios.get(`http://localhost:8000/letsmeet/mypage/friend?myUNo=${this.$store.state.uNo}`)
+      axios.get(`${server_URL}/letsmeet/mypage/friend?myUNo=${this.$store.state.uNo}`)
       .then((res)=> {
         const array = res.data
         array.forEach(el => {

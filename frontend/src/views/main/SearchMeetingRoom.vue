@@ -110,6 +110,7 @@ import InfiniteLoading from 'vue-infinite-loading'
 import BackToTop from 'vue-backtotop'
 import moment from 'moment'
 const axios = require('axios');
+const server_URL = process.env.VUE_APP_SERVER_URL
 
 export default {
   name: "SearchMeetingRoom",
@@ -168,7 +169,7 @@ export default {
       }, 1000);
     },
     getRoomList() {
-      axios.get(`http://localhost:8000/letsmeet/main?uNo=${this.$store.state.uNo}`)
+      axios.get(`${server_URL}/letsmeet/main?uNo=${this.$store.state.uNo}`)
       .then((res)=> {
         var data = res.data
         console.log(data)

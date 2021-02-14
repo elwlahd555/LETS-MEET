@@ -64,7 +64,10 @@
               <div class="d-flex flex-column mt-5">
                 <div class="d-flex justify-center"><v-icon class="mb-1">{{type[value.mrCategory][0]}} </v-icon> {{ value.mrCategory}} 약속</div>
                 <div class="d-flex justify-center"><h4>{{ value.mrName }}</h4></div>
-                <div class="d-flex justify-center">{{ value.mrDateStart }} ~ {{ value.mrDateEnd }}</div>
+                <div class="d-flex justify-center">
+                  <span v-if="value.mrDate">{{ value.mrDate }}</span>
+                  <span v-else>약속날짜 미정</span>
+                </div>
                 <div class="d-flex justify-center">{{ value.mrUCnt }}명</div>
               </div>
             </v-overlay>
@@ -116,7 +119,10 @@
               <div class="d-flex flex-column mt-5">
                 <div class="d-flex justify-center"><v-icon class="mb-1">{{type[value.mrCategory][0]}} </v-icon> {{ value.mrCategory}} 약속</div>
                 <div class="d-flex justify-center"><h4>{{ value.mrName }}</h4></div>
-                <div class="d-flex justify-center">{{ value.mrDateStart }} ~ {{ value.mrDateEnd }}</div>
+                <div class="d-flex justify-center">
+                  <span v-if="value.mrDate">{{ value.mrDate }}</span>
+                  <span v-else>약속날짜 미정</span>
+                </div>
                 <div class="d-flex justify-center">{{ value.mrUCnt }}명</div>
               </div>
             </v-overlay>
@@ -140,6 +146,7 @@ import InfiniteLoading from 'vue-infinite-loading'
 import BackToTop from 'vue-backtotop'
 import moment from 'moment'
 const axios = require('axios');
+const server_URL = process.env.VUE_APP_SERVER_URL
 const config = {
           headers: { 'auth-token': window.localStorage.getItem('auth-token') },
       };
@@ -181,7 +188,7 @@ export default {
     },
     deleteRoomReal (roomNumber) {
       console.log(roomNumber)
-      axios.delete(`http://localhost:8000/letsmeet/meetingRoomUser/delete?mrNo=${roomNumber}&uNo=${this.$store.state.uNo}`, config)
+      axios.delete(`${server_URL}/letsmeet/meetingRoomUser/delete?mrNo=${roomNumber}&uNo=${this.$store.state.uNo}`, config)
       .then((res)=> {
         this.del_dialog = false
         console.log(res.data)
@@ -221,13 +228,13 @@ export default {
       this.done_list = [],
       this.doing_temp = [],
       this.done_temp = [],
-      axios.get(`http://localhost:8000/letsmeet/main?uNo=${this.$store.state.uNo}`)
+      axios.get(`${server_URL}/letsmeet/main?uNo=${this.$store.state.uNo}`)
       .then((res)=> {
         
         const data = res.data
 
         for (var val of data) {
-          if (val.mrDateEnd < moment().format('YYYY-MM-DD')){
+          if (val.mrDate < moment().format('YYYY-MM-DD')){
             this.done_list.push(val)
           } else {
             this.doing_list.push(val)

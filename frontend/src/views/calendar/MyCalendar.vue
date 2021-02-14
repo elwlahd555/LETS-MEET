@@ -47,6 +47,8 @@
 </template>
 <script>
 const axios = require('axios');
+const server_URL = process.env.VUE_APP_SERVER_URL
+
 export default {
     name: 'MyCalendar',
 data: () => ({
@@ -80,7 +82,7 @@ data: () => ({
         this.$router.push({ name: 'MeetingRoom', params: {'id': event.number}})
       },
       getDate() {
-        axios.get(`http://localhost:8000/letsmeet/main?uNo=${this.$store.state.uNo}`)
+        axios.get(`${server_URL}/letsmeet/main?uNo=${this.$store.state.uNo}`)
         .then((res)=> {
           console.log(res.data)
           const events = []

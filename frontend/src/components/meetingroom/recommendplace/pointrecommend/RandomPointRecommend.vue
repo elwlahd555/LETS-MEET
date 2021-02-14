@@ -14,8 +14,8 @@
 <script>
 import { Hooper, Slide } from 'hooper';
 import 'hooper/dist/hooper.css';
-import RecommendItem from './RecommendItem.vue'
-import RandomPlaceDetail from './RandomPlaceDetail.vue'
+import RecommendItem from '@/components/meetingroom/recommendplace/pointrecommend/RecommendItem.vue'
+import RandomPlaceDetail from '@/components/meetingroom/recommendplace/pointrecommend/RandomPlaceDetail.vue'
 
 
 export default {

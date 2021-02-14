@@ -7,6 +7,7 @@
 
 <script>
 const axios = require('axios');
+const server_URL = process.env.VUE_APP_SERVER_URL
 const KAKAO_API_KEY = '71f77d07e68b0f6c0464d85d3df14e6c'
 var map = ''
 var latitude = 0
@@ -87,7 +88,7 @@ export default {
           mrNo: this.roomInfo.mrNo
         }
 
-        axios.put(`http://localhost:8000/letsmeet/meetingRoom/editmidpoint`, data)
+        axios.put(`${server_URL}/letsmeet/meetingRoom/editmidpoint`, data)
         .then((res)=> {
           console.log(res.data)
           this.recPlace = res.data

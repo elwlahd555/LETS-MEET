@@ -48,10 +48,12 @@
       v-model="tab"
     >
       <v-tab>
-        약속 선택
+        <span v-if="done">추억 공유</span>
+        <span v-else>약속 선택</span>
       </v-tab>
       <v-tab>
-        장소 추천
+        <span v-if="done">다음 장소</span>
+        <span v-else>장소 추천</span>
       </v-tab>
       <v-tab>
         채팅
@@ -63,11 +65,13 @@
 
     <v-tabs-items v-model="tab" touchless>
       <v-tab-item>
-        <DeterminePromise :roomInfo="roomInfo" :mrUserInfo="mrUserInfo"
+        <Gallery v-if="done"/>
+        <DeterminePromise v-else :roomInfo="roomInfo" :mrUserInfo="mrUserInfo"
          @refresh="refresh" @rec_place="getPlace" @refresh3="refresh3" />
       </v-tab-item>
       <v-tab-item>
-        <RecommendPlace :roomInfo="roomInfo" :mrUserInfo="mrUserInfo" :recPlace="recPlace" @refresh="refresh2" />
+        <NextPlace v-if="done" :roomInfo="roomInfo" :mrUserInfo="mrUserInfo"/>
+        <RecommendPlace v-else :roomInfo="roomInfo" :mrUserInfo="mrUserInfo" :recPlace="recPlace" @refresh="refresh2" />
       </v-tab-item>
       <v-tab-item>
         <Chatting :mrNo="mrNo" :mrUserInfo="mrUserInfo"/>
@@ -85,7 +89,11 @@ import Member from "../../components/meetingroom/member/Member.vue";
 import DeterminePromise from "../../components/meetingroom/determinepromise/DeterminePromise.vue";
 import Chatting from "../../components/meetingroom/chatting/Chatting.vue";
 import RecommendPlace from "../../components/meetingroom/recommendplace/RecommendPlace.vue";
+import Gallery from "../../components/meetingroom/gallery/Gallery.vue";
+import NextPlace from "../../components/meetingroom/nextplace/NextPlace.vue";
+import moment from 'moment'
 const axios = require('axios');
+const server_URL = process.env.VUE_APP_SERVER_URL
 
 export default {
   name: "MeetingRoom",
@@ -94,6 +102,8 @@ export default {
     DeterminePromise,
     Chatting,
     RecommendPlace,
+    Gallery,
+    NextPlace,
   },
   data () {
     return {
@@ -112,20 +122,27 @@ export default {
       mrUserInfo: null,
       recPlace: [],
       place: null,
+      done: false,
     }
   },
-  mounted() {
+  created() {
     this.mrNo = this.$route.params.id
     this.getRoomInfo()
   },
+  mounted() {
+  },
   methods: {
     getRoomInfo() {
-      axios.get(`http://localhost:8000/letsmeet/meetingRoom/detail?mrNo=${this.mrNo}`)
+      axios.get(`${server_URL}/letsmeet/meetingRoom/detail?mrNo=${this.mrNo}`)
       .then((res)=> {
         this.roomInfo = res.data
+        if (this.roomInfo.mrDate && this.roomInfo.mrDate <= moment().format('YYYY-MM-DD')){
+          console.log("TRUE")
+          this.done = true
+        }
         console.log(this.roomInfo)
         if (this.roomInfo.mrPlace) {
-          axios.get(`http://localhost:8000/letsmeet/map/sno?sno=${this.roomInfo.mrPlace}`)
+          axios.get(`${server_URL}/letsmeet/map/sno?sno=${this.roomInfo.mrPlace}`)
           .then((res)=> {
             this.place = res.data
             console.log(this.place)
@@ -138,7 +155,7 @@ export default {
       .catch((err) => {
         console.log(err)
       })
-      axios.get(`http://localhost:8000/letsmeet/meetingRoomUser/userInfo?mrNo=${this.mrNo}`)
+      axios.get(`${server_URL}/letsmeet/meetingRoomUser/userInfo?mrNo=${this.mrNo}`)
       .then((res)=> {
         this.mrUserInfo = res.data
         // console.log(this.mrUserInfo)
@@ -173,7 +190,7 @@ export default {
       const content = `'${this.roomInfo.mrName}'방의 약속 일정이 최종 확정되었습니다./${this.roomInfo.mrNo}`
       const title = '일정 확정 알림'
       for (var mb of this.mrUserInfo) {
-        axios.post(`http://localhost:8000/letsmeet/alarm/create?aContent=${content}&aRecvUNo=${mb.uNo}&aSenderImage=${img}&aTitle=${title}`)
+        axios.post(`${server_URL}/letsmeet/alarm/create?aContent=${content}&aRecvUNo=${mb.uNo}&aSenderImage=${img}&aTitle=${title}`)
         .then((res) => {
           console.log(res.data)
         })
