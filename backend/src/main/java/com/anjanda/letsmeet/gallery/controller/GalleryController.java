@@ -9,8 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,8 +53,11 @@ public class GalleryController {
 	
 	/* R :: 추억 공유 사진 조회 */
 	@GetMapping("/detail")
-	public ResponseEntity<List<Gallery>> reviewGallery(int gMrNo) throws Exception {
-		return new ResponseEntity<List<Gallery>>(galleryService.selectGallery(gMrNo), HttpStatus.OK);
+	public ResponseEntity<?> reviewGallery(@RequestParam int gMrNo) throws Exception {
+		if(galleryService.selectGallery(gMrNo) != null) {
+			return new ResponseEntity<List<Gallery>>(galleryService.selectGallery(gMrNo), HttpStatus.OK);
+		}
+		return new ResponseEntity<String>("조회 실패", HttpStatus.NO_CONTENT);
 	}
 	
 //	/* U :: 추억 공유 사진 수정 */

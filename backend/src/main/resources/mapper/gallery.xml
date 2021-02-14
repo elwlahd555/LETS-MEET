@@ -13,7 +13,7 @@
 	</insert>
 	
 	<!-- R :: 추억 공유 조회 -->
-	<select id="selectGallery" parameterType="int">
+	<select id="selectGallery" parameterType="int" resultType="gallery">
 	select *
 	  from gallery
 	 where g_mr_no = #{gMrNo}
