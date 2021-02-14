@@ -119,11 +119,29 @@ public class MeetingRoomController {
 	
 	/* U :: 약속방 수정 */
 	@PutMapping("/meetingRoom/edit")
-	public ResponseEntity<String> updateMeetingRoom(@RequestBody MeetingRoom meetingRoom) throws Exception {
-		if(meetingRoomService.updateMeetingRoom(meetingRoom)) {
+	public ResponseEntity<String> updateMeetingRoom(@RequestBody MultipartFile file, MeetingRoom meetingRoom) throws Exception {
+		if(file!=null) {
+			meetingRoomService.updateMeetingRoom(meetingRoom);
+			String mrImage = path + "/" + "mr-" + meetingRoom.getMrNo() + "-" + file.getOriginalFilename();
+//			String mrImage = "C:/" + "mr-" + mrNo + "-" + file.getOriginalFilename();
+			System.out.println(mrImage);
+
+
+			File dest = new File(mrImage);
+			file.transferTo(dest);
+			
+			mrImage = "https://i4d107.p.ssafy.io/images/" + "mr-" + meetingRoom.getMrNo() + "-" + file.getOriginalFilename();
+			
+			MeetingRoom meetingroom = new MeetingRoom();
+			meetingroom.setMrNo(meetingRoom.getMrNo());
+			meetingroom.setMrImage(mrImage);
+			imageUploadService.UpdateMeetingroomImage(meetingroom);
 			return new ResponseEntity<String>("약속방 수정 성공", HttpStatus.OK);
+		}else {
+			meetingRoomService.updateMeetingRoom(meetingRoom);
+			return new ResponseEntity<String>("약속방 수정 실패", HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<String>("약속방 수정 실패", HttpStatus.NO_CONTENT);
+
 	}
 	
 	/* U :: 약속방 수정 */
