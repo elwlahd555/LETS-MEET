@@ -35,6 +35,7 @@
 
 <script>
 const axios = require('axios');
+const server_URL = process.env.VUE_APP_SERVER_URL
 
 export default {
   name: "RecommendItem",
@@ -53,7 +54,7 @@ export default {
             mrPlace: this.place.sNo,
             mrNo: this.$route.params.id
           }
-          axios.put(`http://localhost:8000/letsmeet/meetingRoom/finalplace`, data)
+          axios.put(`${server_URL}/letsmeet/meetingRoom/finalplace`, data)
           .then((res)=> {
             console.log(res.data)
             alert("약속 장소를 확정하였습니다.")

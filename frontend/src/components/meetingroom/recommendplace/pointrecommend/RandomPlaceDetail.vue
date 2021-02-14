@@ -79,6 +79,8 @@
 <script>
 var map = ''
 const axios = require('axios')
+const server_URL = process.env.VUE_APP_SERVER_URL
+
 import StoreReview from './StoreReview'
 export default {
   name: "PlaceDetail",
@@ -123,7 +125,7 @@ export default {
       } 
     },
     getLikeStore() {
-      axios.get(`http://localhost:8000/letsmeet/mypage/likestore?uNo=${this.$store.state.uNo}`)
+      axios.get(`${server_URL}/letsmeet/mypage/likestore?uNo=${this.$store.state.uNo}`)
       .then((res)=> {
         console.log(res.data)
         this.like_store = res.data
@@ -139,7 +141,7 @@ export default {
     },
     likeStore(){
       if (this.heart === "mdi-heart-outline") {
-        axios.post(`http://localhost:8000/letsmeet/mypage/likestore/add?lsSNo=${this.place.sNo}&lsUNo=${this.$store.state.uNo}`)
+        axios.post(`${server_URL}/letsmeet/mypage/likestore/add?lsSNo=${this.place.sNo}&lsUNo=${this.$store.state.uNo}`)
         .then((res)=> {
           console.log(res.data)
           this.heart = "mdi-heart"
@@ -148,7 +150,7 @@ export default {
           console.log('못드감')
         })
       } else {
-        axios.delete(`http://localhost:8000/letsmeet/mypage/likestore/delete?lsSNo=${this.place.sNo}&lsUNo=${this.$store.state.uNo}`)
+        axios.delete(`${server_URL}/letsmeet/mypage/likestore/delete?lsSNo=${this.place.sNo}&lsUNo=${this.$store.state.uNo}`)
         .then((res)=> {
           console.log(res.data)
           this.heart = "mdi-heart-outline"

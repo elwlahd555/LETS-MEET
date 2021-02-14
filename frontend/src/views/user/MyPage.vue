@@ -285,6 +285,7 @@
 </template>
 <script>
 const axios = require('axios');
+const server_URL = process.env.VUE_APP_SERVER_URL
 import jwt_decode from "jwt-decode";
 const config = {
           headers: { 'auth-token': window.localStorage.getItem('auth-token') },
@@ -308,7 +309,7 @@ export default {
       // 이름 변경 url
       ChangeNameClick () {
         const changeUserInfo = { uEmail: this.uEmail, uName: this.ChangeName }
-        axios.put(`http://localhost:8000/letsmeet/user/mypage/updatename`, changeUserInfo) 
+        axios.put(`${server_URL}/letsmeet/user/mypage/updatename`, changeUserInfo) 
         .then(()=> {
           this.dialog1 = false
           this.uName = this.ChangeName
@@ -338,7 +339,7 @@ export default {
         var dbfriend2 = []
         // console.log(this.tmplist)
         for(let fr of this.tmplist) {
-          axios.post(`http://localhost:8000/letsmeet/mypage/friend/add?friend=${fr[0]}&myUNo=${this.$store.state.uNo}`, config)
+          axios.post(`${server_URL}/letsmeet/mypage/friend/add?friend=${fr[0]}&myUNo=${this.$store.state.uNo}`, config)
           .then(()=> {
             dbfriend2.push(fr)
 
@@ -348,7 +349,7 @@ export default {
             if (this.$store.state.uImage) {
               img = this.$store.state.uImage
             }
-            axios.post(`http://localhost:8000/letsmeet/alarm/create?aContent=${content}&aRecvUNo=${fr[0]}&aSenderImage=${img}&aTitle=${title}`)
+            axios.post(`${server_URL}/letsmeet/alarm/create?aContent=${content}&aRecvUNo=${fr[0]}&aSenderImage=${img}&aTitle=${title}`)
             .then((res) => {
               console.log(res.data)
             })
@@ -371,7 +372,7 @@ export default {
       searchUserData() {
         this.searchFriendList = []
         if (this.addFriend.length > 0) {
-          axios.get(`http://localhost:8000/letsmeet/mypage/friend/search?uEmail=${this.addFriend}`, config)
+          axios.get(`${server_URL}/letsmeet/mypage/friend/search?uEmail=${this.addFriend}`, config)
           .then((res)=> {
             // 비어 있지않을 때
             const array = res.data
@@ -411,7 +412,7 @@ export default {
       },
       deleteUser() {
         // const userdelete = { uEmail: this.uEmail, uPassword:  this.uPassword}
-        axios.delete(`http://localhost:8000/letsmeet/user/delete/${this.uEmail}`, config)
+        axios.delete(`${server_URL}/letsmeet/user/delete/${this.uEmail}`, config)
         .then(()=> {
           alert('회원 탈퇴가 되었습니다.')
           this.$store.dispatch('DELETE_ACCOUNT')

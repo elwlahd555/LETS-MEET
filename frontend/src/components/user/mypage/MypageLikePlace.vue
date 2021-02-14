@@ -22,6 +22,8 @@
 </template>
 <script>
 const axios = require('axios')
+const server_URL = process.env.VUE_APP_SERVER_URL
+
 export default {
     name: 'MypageLikePlace',
     data: () => {
@@ -40,7 +42,7 @@ export default {
     },
     methods: {
         getLikeStore () {
-            axios.get(`http://localhost:8000/letsmeet/mypage/likestore?uNo=${this.$store.state.uNo}`)
+            axios.get(`${server_URL}/letsmeet/mypage/likestore?uNo=${this.$store.state.uNo}`)
             .then((res)=> {
                 // 가게 상세 조회 detail db 만들어져야함
                 console.log(res.data)

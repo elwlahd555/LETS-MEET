@@ -35,6 +35,7 @@
 
 <script>
 const axios = require('axios');
+const server_URL = process.env.VUE_APP_SERVER_URL
 export default {
     name: 'LoginForm',
 
@@ -47,7 +48,7 @@ export default {
         else {
           console.log('확인')
           localStorage.setItem('auth-token', '')
-          axios.post(`http://localhost:8000/letsmeet/login`, this.user)
+          axios.post(`${server_URL}/letsmeet/login`, this.user)
             .then((res) => {
               let token = res.data['auth-token']
               if (token === undefined) {

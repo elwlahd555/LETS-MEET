@@ -44,6 +44,7 @@
 
 <script>
 const axios = require('axios');
+const server_URL = process.env.VUE_APP_SERVER_URL
 import AddMember from './AddMember.vue'
 
 export default {
@@ -94,7 +95,7 @@ export default {
           this.members.splice(i, 1)
         }
       }
-      axios.delete(`http://localhost:8000/letsmeet/meetingRoomUser/delete?mrNo=${parseInt(this.rNo)}&uNo=${parseInt(uNo)}`)
+      axios.delete(`${server_URL}/letsmeet/meetingRoomUser/delete?mrNo=${parseInt(this.rNo)}&uNo=${parseInt(uNo)}`)
       .then(()=> {
         this.$emit('addMember')
         console.log('성공')

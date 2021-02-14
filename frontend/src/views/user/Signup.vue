@@ -174,7 +174,7 @@
 
 <script>
 const axios = require('axios');
-
+const server_URL = process.env.VUE_APP_SERVER_URL
 const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 export default {
     name: 'Signup',
@@ -223,7 +223,7 @@ export default {
       //이메일 중복 체크
         emailDoubleCheck() {
           if (pattern.test(this.user.uEmail)) {
-            axios.get(`http://localhost:8000/letsmeet/user/checkemail?email=${this.user.uEmail}`)
+            axios.get(`${server_URL}/letsmeet/user/checkemail?email=${this.user.uEmail}`)
             .then((res)=> {
               if (res.data === true) {
                 // 사용가능한 아이디
@@ -247,7 +247,7 @@ export default {
         if (this.$refs.form.validate()) {
           // sprin url 받기
 
-          axios.post(`http://localhost:8000/letsmeet/user/join?uEmail=${this.user.uEmail}&uName=${this.user.uName}&uPassword=${this.user.uPassword}`, this.user)
+          axios.post(`${server_URL}/letsmeet/user/join?uEmail=${this.user.uEmail}&uName=${this.user.uName}&uPassword=${this.user.uPassword}`, this.user)
             .then(()=> {
               alert('회원가입 완료되었습니다.')
               this.$router.push({ name: 'Login'});
@@ -263,7 +263,7 @@ export default {
       },
       // 인증코드 보내기
       sendCode (email) {
-        axios.post(`http://localhost:8000/letsmeet/user/join/service/mail?uEmail=${email}`)
+        axios.post(`${server_URL}/letsmeet/user/join/service/mail?uEmail=${email}`)
         .then(() => {
           console.log('코드 전송 성공')
           this.button_color = 'indigo accent-2'
@@ -277,7 +277,7 @@ export default {
       // 인증이메일 코드가 맞는지 확인
     authCodeCheck () {
       if (this.authCode.length > 0) {
-        axios.post(`http://localhost:8000/letsmeet/user/join/service/verifyCode?code=${this.authCode}`)
+        axios.post(`${server_URL}/letsmeet/user/join/service/verifyCode?code=${this.authCode}`)
         .then((res) => {
           if (res.data === '코드 인증 성공'){
             this.authCodeIsRight = true

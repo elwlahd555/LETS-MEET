@@ -16,7 +16,7 @@
       <v-icon color="indigo accent-2">mdi-map-search</v-icon><v-subheader class="pl-2">직접 추천</v-subheader>
     </div>
     <v-list-item-subtitle class="d-flex justify-start ml-4">추천 장소가 맘에 들지 않는다면 직접 검색하여 선택</v-list-item-subtitle>
-    <DirectSearch :roomInfo="roomInfo"/>
+    <DirectSearch :roomInfo="roomInfo" @refresh="refresh"/>
   </v-container>
 </template>
 
@@ -25,6 +25,7 @@ import MiddlePointRecommend from './pointrecommend/MiddlePointRecommend.vue'
 import RandomPointRecommend from './pointrecommend/RandomPointRecommend.vue'
 import DirectSearch from './directsearch/DirectSearch.vue'
 const axios = require('axios');
+const server_URL = process.env.VUE_APP_SERVER_URL
 
 export default {
   name: "RecommendPlace",
@@ -68,7 +69,7 @@ export default {
         mrCenterLng: users[num].mruUserLng,
         mrNo: this.roomInfo.mrNo
       }
-      axios.put(`http://localhost:8000/letsmeet/meetingRoom/editmidpoint`, data)
+      axios.put(`${server_URL}/letsmeet/meetingRoom/editmidpoint`, data)
         .then((res)=> {
           this.ranPlace = res.data
         })

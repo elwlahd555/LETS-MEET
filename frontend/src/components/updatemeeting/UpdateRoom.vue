@@ -89,6 +89,7 @@
 
 <script>
 const axios = require('axios');
+const server_URL = process.env.VUE_APP_SERVER_URL
 export default {
     name: 'UpdateRoom',
     props: {
@@ -144,7 +145,7 @@ export default {
       },
     methods: {
       getRoomInfo() {
-        axios.get(`http://localhost:8000/letsmeet/meetingRoom/detail?mrNo=${this.mrNo}`)
+        axios.get(`${server_URL}/letsmeet/meetingRoom/detail?mrNo=${this.mrNo}`)
         .then( (res)=> {
           console.log(res.data)
           this.update_room_title = res.data.mrName

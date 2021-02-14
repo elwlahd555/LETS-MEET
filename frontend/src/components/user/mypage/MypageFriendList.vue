@@ -58,6 +58,7 @@
 </template>
 <script>
 const axios = require('axios');
+const server_URL = process.env.VUE_APP_SERVER_URL
 // const config = {
 //           headers: { 'auth-token': window.localStorage.getItem('auth-token') },
 //       }
@@ -99,7 +100,7 @@ export default {
 
     // 친구리스트 불러오기
     friendList(){
-     axios.get(`http://localhost:8000/letsmeet/mypage/friend?myUNo=${this.$store.state.uNo}`)
+     axios.get(`${server_URL}/letsmeet/mypage/friend?myUNo=${this.$store.state.uNo}`)
       .then((res)=> {
         const array = res.data
         array.forEach(el => {
@@ -114,7 +115,7 @@ export default {
     },
     deleteFriend(index, friend) {
       this.allmyfriendlist.splice(index, 1)
-      axios.delete(`http://localhost:8000/letsmeet/mypage/friend/delete?friend=${friend}&myUNo=${this.$store.state.uNo}`)
+      axios.delete(`${server_URL}/letsmeet/mypage/friend/delete?friend=${friend}&myUNo=${this.$store.state.uNo}`)
       .then(()=> {
         console.log('성공')
       })

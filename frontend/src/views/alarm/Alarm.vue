@@ -61,6 +61,7 @@
 
 <script>
 const axios = require('axios');
+const server_URL = process.env.VUE_APP_SERVER_URL
 
 export default {
   name: "Alarm",
@@ -82,7 +83,7 @@ export default {
   methods: {
     getAlarm() {
       this.alarms = []
-      axios.get(`http://localhost:8000/letsmeet/alarm?uNo=${this.$store.state.uNo}`)
+      axios.get(`${server_URL}/letsmeet/alarm?uNo=${this.$store.state.uNo}`)
       .then((res) => {
         const alarmLists = res.data
         this.len = res.data.length
@@ -118,7 +119,7 @@ export default {
       }
     },
     deleteAlarm(aNo) {
-      axios.delete(`http://localhost:8000/letsmeet/alarm/delete?aNo=${aNo}`)
+      axios.delete(`${server_URL}/letsmeet/alarm/delete?aNo=${aNo}`)
       .then(() => {
         this.getAlarm()
       })
@@ -127,7 +128,7 @@ export default {
       })
     },
     addFreind(item) {
-      axios.post(`http://localhost:8000/letsmeet/mypage/friend/add?friend=${item.subdata}&myUNo=${this.$store.state.uNo}`)
+      axios.post(`${server_URL}/letsmeet/mypage/friend/add?friend=${item.subdata}&myUNo=${this.$store.state.uNo}`)
       .then(()=> {
         alert('친구 추가하였습니다.')
       })

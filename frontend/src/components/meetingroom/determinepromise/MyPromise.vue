@@ -121,10 +121,12 @@
 <script>
 // const KAKAO_API_KEY = process.env.VUE_APP_KAKAO_API_KEY
 const KAKAO_API_KEY = '71f77d07e68b0f6c0464d85d3df14e6c'
+const server_URL = process.env.VUE_APP_SERVER_URL
 var map = ''
 const axios = require('axios');
 var latitude = '35.86656557448651'
 var longitude = '128.5976698883993'
+
 export default {
   name: "MyPromise",
   data () {
@@ -248,14 +250,14 @@ export default {
           mruUserLng: longitude
         }
         console.log(data)
-        axios.put(`http://localhost:8000/letsmeet/meetingRoomUser/set`, data)
+        axios.put(`${server_URL}/letsmeet/meetingRoomUser/set`, data)
           .then(()=> {
             alert('일정 선택이 완료되었습니다.')
             if (this.isFinal) {
               var img = this.roomInfo.mrImage
               const content = `'${this.roomInfo.mrName}'방의 모든 멤버들이 일정 투표를 완료하였습니다. 최종 일정을 확정해주세요!/${this.roomInfo.mrNo}`
               const title = '일정 선택 알림'
-              axios.post(`http://localhost:8000/letsmeet/alarm/create?aContent=${content}&aRecvUNo=${this.roomInfo.mrSuperUNo}&aSenderImage=${img}&aTitle=${title}`)
+              axios.post(`${server_URL}/letsmeet/alarm/create?aContent=${content}&aRecvUNo=${this.roomInfo.mrSuperUNo}&aSenderImage=${img}&aTitle=${title}`)
               .then((res) => {
                 console.log(res.data)
               })
