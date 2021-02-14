@@ -122,7 +122,7 @@ export default {
           var com = {
             avatar: da.srImg,
             title: da.srUName,
-            rating: da.srScore,
+            rating: da.srScore, 
             subtitle: da.srContent,
             time: da.srTime,
             no: da.srNo,
