@@ -65,12 +65,7 @@
                 cols='3'>
                   <v-badge @click.native="showImageDialog" icon="mdi-plus" bordered color="indigo accent-2" overlap bottom>
                     <v-avatar>
-                      
-                      <img :src="uImage" />
-                        <!-- <img
-                          src="https://cdn.vuetifyjs.com/images/john.jpg"
-                          alt="John"
-                        > -->
+                      <img :src="uImage" />                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
                     </v-avatar>
                   </v-badge>
 
