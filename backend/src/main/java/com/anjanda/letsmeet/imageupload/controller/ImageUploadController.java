@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,12 +46,14 @@ public class ImageUploadController {
 
 	@PutMapping("/profileUpload")
 	public ResponseEntity<?> UpdateProfile(@RequestParam("iFile") MultipartFile file, @RequestParam("iUserEmail") String userEmail) throws Exception {
-//		String uImage = path + "/" + userEmail + "-" + file.getOriginalFilename();
-		String uImage = "C:/" + userEmail + "-" + file.getOriginalFilename();
+		String uImage = path + "/" + userEmail + "-" + file.getOriginalFilename();
+//		String uImage = "C:/" + userEmail + "-" + file.getOriginalFilename();
 
 		File dest = new File(uImage);
 		file.transferTo(dest);
 		
+		uImage = "https://i4d107.p.ssafy.io/images/" + userEmail + "-" + file.getOriginalFilename();
+
 		User user = new User();
 		user.setuImage(uImage);
 		user.setuEmail(userEmail);
@@ -61,13 +64,15 @@ public class ImageUploadController {
 		return new ResponseEntity<User> (user, HttpStatus.NO_CONTENT);
 	}
 	
-	@PutMapping("/meetingroomImageUpload")
+	@PostMapping("/meetingroomImageUpload")
 	public String UpdateMeetingroomImageUpload(@RequestParam("iFile") MultipartFile file, @RequestParam("mrNo") int mrNo) throws Exception {
-//		String mrImage = path + "/" + "mr-" + mrNo + "-" + file.getOriginalFilename();
-		String mrImage = "C:/" + "mr-" + mrNo + "-" + file.getOriginalFilename();
+		String mrImage = path + "/" + "mr-" + mrNo + "-" + file.getOriginalFilename();
+//		String mrImage = "C:/" + "mr-" + mrNo + "-" + file.getOriginalFilename();
 
 		File dest = new File(mrImage);
 		file.transferTo(dest);
+		
+		mrImage = "https://i4d107.p.ssafy.io/images/" + "mr-" + mrNo + "-" + file.getOriginalFilename();
 		
 		MeetingRoom meetingroom = new MeetingRoom();
 		meetingroom.setMrNo(mrNo);
@@ -78,11 +83,13 @@ public class ImageUploadController {
 
 	@PutMapping("/galleryImageUpload")
 	public String InsertGalleryImage(@RequestParam("iFile") MultipartFile file, @RequestParam("gMrNo") int gMrNo, @RequestParam("gUNo") int gUNo) throws Exception {
-//		String gImage = path + "/" + "gallery-" + gMrNo + "-"  + file.getOriginalFilename();
-		String gImage = "C:/" + "gallery-" + gMrNo + "-" + file.getOriginalFilename();
+		String gImage = path + "/" + "gallery-" + gMrNo + "-"  + file.getOriginalFilename();
+//		String gImage = "C:/" + "gallery-" + gMrNo + "-" + file.getOriginalFilename();
 		
 		File dest = new File(gImage);
 		file.transferTo(dest);
+
+		gImage = "https://i4d107.p.ssafy.io/images/" + "gallery-" + gMrNo + "-"  + file.getOriginalFilename();
 
 		Gallery gallery = new Gallery();
 		gallery.setgName(gImage);

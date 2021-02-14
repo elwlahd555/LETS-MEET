@@ -7,13 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.anjanda.letsmeet.imageupload.service.ImageUploadService;
 import com.anjanda.letsmeet.map.service.StoreService;
 import com.anjanda.letsmeet.meetingroom.service.MeetingRoomService;
 import com.anjanda.letsmeet.meetingroomuser.service.MeetingRoomUserService;
@@ -48,6 +48,9 @@ public class MeetingRoomController {
 	
 	@Autowired
 	private StoreService storeService;
+	
+	@Autowired
+	private ImageUploadService imageUploadService;
 	
 	/* C :: 미팅룽 추가 */
 	@PostMapping("/meetingRoom/create")

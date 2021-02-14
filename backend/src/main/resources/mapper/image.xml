@@ -27,7 +27,7 @@
 	</update>
 	
 		<!-- U :: 약속방 사진 업데이트 -->
-	<update id="updateMeetingroomImage" parameterType="meetingroom">
+	<update id="UpdateMeetingroomImage" parameterType="meetingroom">
 	update meetingroom
 	   set mr_image=#{mrImage}
 	 where mr_no=#{mrNo}
