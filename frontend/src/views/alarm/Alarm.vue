@@ -3,6 +3,7 @@
     <div class="pt-2 d-flex justify-center mb-3" style="border-bottom: 2px solid black">
       <h5>알람</h5>
       <v-badge
+        v-if="len>0"
         color="indigo accent-2"
         :content="len"
       >

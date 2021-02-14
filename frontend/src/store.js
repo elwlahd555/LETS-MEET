@@ -18,7 +18,7 @@ export const store = new Vuex.Store({
     uNo: null,
     uSalt: null,
     mrNo: null,
-    serverURL: 'http://localhost:8000',
+    routeValue: 0,
   },
   mutations: {
     SET_USER_AUTH_DATA(state, payload){

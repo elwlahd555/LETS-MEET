@@ -30,7 +30,6 @@
 
     <v-bottom-navigation
       v-if='isLogin'
-      :value="value"
       color="indigo accent-2"
       dense
       grow
@@ -64,15 +63,11 @@ export default {
   name: 'App',
   data: () => {
     return {
-      value: 0,
+      value: null,
       isSearch: false,
       search: '',
     }
   },
-  components: {
-
-  },
-
   methods: {
     searchInput() {
       if (this.search === ''){

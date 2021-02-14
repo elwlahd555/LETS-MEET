@@ -31,7 +31,7 @@ public class CalendarController {
 	}
 	
 	/* R :: 개인 일정 조회  */
-	@GetMapping("")
+	@GetMapping("/get")
 	public ResponseEntity<List<Calendar>> calendarReview(int cUNo) throws Exception {
 		System.out.println("조회할 사람 번호 : " + cUNo);
 		return new ResponseEntity<List<Calendar>>(calendarService.selectCalendar(cUNo), HttpStatus.OK);
