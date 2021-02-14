@@ -82,6 +82,8 @@
 
 <script>
 const axios = require('axios')
+const server_URL = process.env.VUE_APP_SERVER_URL
+
 export default {
   name: "StoreReview",
   data () {
@@ -115,7 +117,7 @@ export default {
   },
   methods: {
     getComments() {
-      axios.get(`http://localhost:8000/letsmeet/store/detail/review?srSNo=${this.place.sNo}`)
+      axios.get(`${server_URL}/letsmeet/store/detail/review?srSNo=${this.place.sNo}`)
       .then((res)=> {
         this.comments = []
         for (var da of res.data) {
@@ -147,7 +149,7 @@ export default {
       if (this.$store.state.uImage) {
         imgUrl = this.$store.state.uImage
       }
-      axios.post(`http://localhost:8000/letsmeet/store/detail/review/add?srContent=${this.comment}&srImg=${imgUrl}&srSNo=${this.place.sNo}&srScore=${this.rating}&srUNo=${this.$store.state.uNo}&srUName=${this.$store.state.uName}`)
+      axios.post(`${server_URL}/letsmeet/store/detail/review/add?srContent=${this.comment}&srImg=${imgUrl}&srSNo=${this.place.sNo}&srScore=${this.rating}&srUNo=${this.$store.state.uNo}&srUName=${this.$store.state.uName}`)
       .then((res)=> {
         console.log(res.data)
         this.getComments()
@@ -161,7 +163,7 @@ export default {
     deleteReview(item){
       console.log(item)
       if(confirm("정말 삭제하시겠습니까?")){
-        axios.delete(`http://localhost:8000/letsmeet/store/detail/review/delete?srNo=${item.no}&srSNo=${item.sNo}&srUNo=${item.uNo}`)
+        axios.delete(`${server_URL}/letsmeet/store/detail/review/delete?srNo=${item.no}&srSNo=${item.sNo}&srUNo=${item.uNo}`)
         .then((res)=> {
           console.log(res.data)
           this.getComments()

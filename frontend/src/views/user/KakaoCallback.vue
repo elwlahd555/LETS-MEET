@@ -6,7 +6,7 @@
 
 <script>
 const axios = require('axios');
-
+const server_URL = process.env.VUE_APP_SERVER_URL
 import { getKakaoToken, getKakaoUserInfo, naverService } from "@/services/kakaoLogin";
 export default {
     name: 'KakaoCallback',
@@ -50,7 +50,7 @@ export default {
             this.user.uEmail = user_data.kakao_account.email+'_'+user_data.id;
             this.user.uPassword = 'kakaoPassword';
             this.user.uName = user_data.properties.nickname;
-            axios.post(`http://i4d107.p.ssafy.io/letsmeet/auth/kakao/callback`, this.user)
+            axios.post(`${server_URL}/letsmeet/auth/kakao/callback`, this.user)
             .then((res)=> {
               console.log(res.data)
               this.$store.commit('SET_USER_AUTH_DATA', res.data)
@@ -64,7 +64,7 @@ export default {
         submit () {
             if (this.$refs.form.validate()) {
                 // sprin url 받기
-                axios.post(`http://i4d107.p.ssafy.io/letsmeet/auth/kakao/callback`, this.user ).then(()=> {
+                axios.post(`${server_URL}/letsmeet/auth/kakao/callback`, this.user ).then(()=> {
                     alert('카카오 소셜 로그인 완료되었습니다.')
                     this.$router.push({ name: 'Login'});
                 })

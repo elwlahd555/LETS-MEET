@@ -78,4 +78,13 @@ public class StoreServiceImpl implements StoreService {
 		return null;
 	}
 
+	/* R :: '가게 명'으로 가게 전체 조회 */
+	@Override
+	public List<Store> StoreByName(String sName) {
+		// TODO Auto-generated method stub
+		return mapper.selectStoreByName(sName);
+	}
+
+
+
 }

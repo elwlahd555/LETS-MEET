@@ -16,6 +16,8 @@
 
 <script>
 var map = ''
+const axios = require('axios');
+const server_URL = process.env.VUE_APP_SERVER_URL
 
 export default {
   name: "DirectSearch",
@@ -69,6 +71,7 @@ export default {
         } 
       }
       // 지도에 마커를 표시하는 함수입니다
+      var that = this
       function displayMarker(place) {
           // 마커를 생성하고 지도에 표시합니다
           var marker = new kakao.maps.Marker({
@@ -84,8 +87,32 @@ export default {
               var elements = document.getElementsByClassName("makerevent")
               for (var i = 0; i < elements.length; i++) {
                 elements[i].addEventListener('click', function(){
-                if (confirm(`${place.place_name} 을 모임 장소로 선택하시겠습니까?`)) {
+                if (confirm(`${place.place_name} 을 모임장소로 선택하시겠습니까?`)) {
+                  console.log(that.roomInfo)
                   console.log(place)
+                  axios.post(`${server_URL}/letsmeet/map/add?sCategory=${that.roomInfo.mrCategory}&sLat=${place.y}&sLng=${place.x}&sName=${place.place_name}`)
+                  .then((res)=> {
+                    console.log(res.data)
+                    if (that.roomInfo.mrSuperUNo == that.$store.state.uNo) {
+                      const data = {
+                        mrPlace: res.data,
+                        mrNo: that.$route.params.id
+                      }
+                      axios.put(`${server_URL}/letsmeet/meetingRoom/finalplace`, data)
+                      .then((res)=> {
+                        console.log(res.data)
+                        alert("약속 장소를 확정하였습니다.")
+                        that.$emit('refresh')
+                      })
+                      .catch((err) => {
+                        console.log(err)
+                      })
+                    }
+                  })
+                  .catch((err) => {
+                    console.log(err)
+                  })
+
                 }
               })
             }

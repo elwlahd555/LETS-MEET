@@ -9,6 +9,7 @@
 import MakeRoom from "../../components/makemeeting/MakeRoom.vue";
 import MakeSchedule from "../../components/makemeeting/MakeSchedule.vue";
 const axios = require('axios');
+const server_URL = process.env.VUE_APP_SERVER_URL
 
 export default {
   name: "MakeMeeting",
@@ -31,7 +32,7 @@ export default {
         '술': 'https://img.lovepik.com/photo/50011/5863.jpg_wh860.jpg',
         '스터디': 'https://modo-phinf.pstatic.net/20180304_283/1520151276251GkP1Q_JPEG/mosaOtd1XG.jpeg?type=w720',
         '놀거리': 'https://www.travel.taipei/image/65598/1024x768',
-        '기타': 'http://img.rflogix.com/agm/main/1024/10_1_20200407112854.jpg',
+        '관광지': 'https://post-phinf.pstatic.net/MjAxNzA1MTFfMTQg/MDAxNDk0NDgyODE4OTI2.P7H0n7pqJChBq_g42dZAwi_K16adlRxBerf26cW1Hvgg.oqVaoHWzt7D7dFhW_W62oMaoRn9TCStRJ6A9j_D7C0Yg.JPEG/%EC%84%AC.jpg?type=w1200',
       }
     }
   },
@@ -73,7 +74,7 @@ export default {
           mrSuperUNo: this.$store.state.uNo,
           mrImage: t[this.room_type]
         }
-        axios.post(`http://localhost:8000/letsmeet/meetingRoom/create`, data )
+        axios.post(`${server_URL}/letsmeet/meetingRoom/create`, data )
           .then((res)=> {
             alert('방 생성이 완료되었습니다.')
             console.log(res.data)
@@ -88,7 +89,7 @@ export default {
                     mruMrNo: this.$store.state.mrNo,
                     mruUNo: mb.uNo,
                   }
-                  axios.post(`http://localhost:8000/letsmeet/meetingRoomUser/adduser`, data)
+                  axios.post(`${server_URL}/letsmeet/meetingRoomUser/adduser`, data)
                   .then(()=> {
                     var img = 'https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/436/8142f53e51d2ec31bc0fa4bec241a919_crop.jpeg'
                     const content = `${this.$store.state.uName}님이 '${this.room_title}'방에 초대하였습니다./${this.$store.state.mrNo}`
@@ -96,7 +97,7 @@ export default {
                     if (this.$store.state.uImage) {
                       img = this.$store.state.uImage
                     }
-                    axios.post(`http://localhost:8000/letsmeet/alarm/create?aContent=${content}&aRecvUNo=${mb.uNo}&aSenderImage=${img}&aTitle=${title}`)
+                    axios.post(`${server_URL}/letsmeet/alarm/create?aContent=${content}&aRecvUNo=${mb.uNo}&aSenderImage=${img}&aTitle=${title}`)
                     .then((res) => {
                       console.log(res.data)
                     })
@@ -149,7 +150,7 @@ export default {
   
       // 파일 업로드시 경로, FormData, Header 설정
       // axios.post(url, formData, { // 서버에 올릴땐 이거 써야한다.
-          axios.post('http://localhost:8000/letsmeet/image/meetingroomImageUpload', formData, { // 이건 로컬용이다.
+          axios.post(`${server_URL}/letsmeet/image/meetingroomImageUpload`, formData, { // 이건 로컬용이다.
           header: {
             'Content-Type': 'multipart/form-data'
           }

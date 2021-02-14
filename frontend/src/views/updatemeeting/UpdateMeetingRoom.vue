@@ -10,6 +10,7 @@ import UpdateRoom from "../../components/updatemeeting/UpdateRoom.vue";
 import UpdateSchedule from "../../components/updatemeeting/UpdateSchedule.vue";
 
 const axios = require('axios');
+const server_URL = process.env.VUE_APP_SERVER_URL
 
 export default {
   name: "UpdateMeetingRoom",
@@ -72,7 +73,7 @@ export default {
           mrSuperUNo: this.$store.state.uNo
         }
         console.log(data)
-        axios.put(`http://localhost:8000/letsmeet/meetingRoom/edit`, data )
+        axios.put(`${server_URL}/letsmeet/meetingRoom/edit`, data )
           .then(()=> {
             alert('방 정보가 수정되었습니다.')
             this.$router.push({ name: 'Main'});
@@ -82,7 +83,7 @@ export default {
           })
         
         // 임시방편
-        axios.get(`http://localhost:8000/letsmeet/main?uNo=${this.$store.state.uNo}`)
+        axios.get(`${server_URL}/letsmeet/main?uNo=${this.$store.state.uNo}`)
           .then((res)=> {
             const data = res.data
             this.$store.state.mrNo = data[data.length-1].mrNo
@@ -118,7 +119,7 @@ export default {
   
       // 파일 업로드시 경로, FormData, Header 설정
       // axios.post(url, formData, { // 서버에 올릴땐 이거 써야한다.
-          axios.post('http://localhost:8000/letsmeet/image/meetingroomImageUpload', formData, { // 이건 로컬용이다.
+          axios.post(`${server_URL}/letsmeet/image/meetingroomImageUpload`, formData, { // 이건 로컬용이다.
           header: {
             'Content-Type': 'multipart/form-data'
           }

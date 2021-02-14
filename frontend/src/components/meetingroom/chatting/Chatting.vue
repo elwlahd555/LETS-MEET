@@ -17,6 +17,7 @@ import moment from 'moment'
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
 const axios = require('axios')
+const server_URL = process.env.VUE_APP_SERVER_URL
 
 export default {
   name: "Chatting",
@@ -24,7 +25,7 @@ export default {
     Chat,
   },
   props: {
-    mrNo: String,
+    mrNo: Number,
     mrUserInfo: Array,
   },
   data() {
@@ -88,7 +89,7 @@ export default {
       for (var i=0; i < this.mrUserInfo.length; i++) {
         this.user[this.mrUserInfo[i].uNo] = this.mrUserInfo[i].uName
       }
-      axios.get(`http://localhost:8000/letsmeet/chat/open?mrcMrNo=${this.mrNo}`)
+      axios.get(`${server_URL}/letsmeet/chat/open?mrcMrNo=${this.mrNo}`)
       .then((res)=> {
         console.log(res.data)
         for (var re of res.data){
@@ -108,12 +109,13 @@ export default {
             if (!isScrolledToBottom) { scrollContainer.scrollTop = scrollContainer.scrollHeight }
           }, 201)
         }
+
       })
       .catch((err) => {
         console.log(err)
       })
 
-      const serverURL = "http://localhost:8000/letsmeet/websocket"
+      const serverURL = `${server_URL}/letsmeet/websocket`
       let socket = new SockJS(serverURL);
       this.stompClient = Stomp.over(socket);
       console.log(`소켓 연결을 시도합니다. 서버 주소: ${serverURL}`)
@@ -136,7 +138,7 @@ export default {
               imageUrl: '',
               date: moment().format('HH:mm:ss')
             }
-            if(this.message.roomNo==this.mrNo){
+            if(this.message.roomNo===this.mrNo){
               console.log("방번호가 일치합니다.")
             console.log(this.message)
             setTimeout(function () {
@@ -155,12 +157,18 @@ export default {
         };
         console.log(msg)
         this.stompClient.send("/pub", JSON.stringify(msg), {});
+        // if (this.stompClient) {
+        //   this.stompClient.unsubscribe("/send")
+        //   this.stompClient.disconnect()
+        //   this.socket.close()
+        // }
         },
         error => {
           // 소켓 연결 실패
           console.log('소켓 연결 실패', error);
           this.connected = false;
         }
+        
       );        
     },
   },

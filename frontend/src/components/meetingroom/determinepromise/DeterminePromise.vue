@@ -54,6 +54,7 @@
 import MyPromise from "./MyPromise.vue";
 import MiddlePoint from "./MiddlePoint.vue";
 const axios = require('axios');
+const server_URL = process.env.VUE_APP_SERVER_URL
 
 export default {
   name: "DeterminePromise",
@@ -194,7 +195,7 @@ export default {
             mrDate: this.dates,
             mrNo: this.roomInfo.mrNo
           }
-          axios.put(`http://localhost:8000/letsmeet/meetingRoom/finaldate`, data)
+          axios.put(`${server_URL}/letsmeet/meetingRoom/finaldate`, data)
           .then((res)=> {
             console.log(res.data)
             alert("약속 날짜를 확정하였습니다.")

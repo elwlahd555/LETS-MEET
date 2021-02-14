@@ -36,27 +36,31 @@ public class StoreController {
 	@Autowired
 	private StoreService storeService;
 	
-//	/* R :: '동 이름'으로 가게 조회 */
-//	@ApiOperation(value="전체 동 조회", notes="동을 이용해서 조회")
-//	@GetMapping("/dong")
-//	public List<Store> reviewStoreByDong(String dong) throws Exception {
-//		
-//			System.out.println("dong값 받아오기");
-//			System.out.println("data size : " + storeService.StoreByDong(dong).size());
-//			System.out.println("data size : " + storeService.StoreByDong(dong).get(0).getsDong());
-//			
-//			return storeService.StoreByDong(dong);
-//		
-//	}
+	/* R :: '가게 이름'으로 가게 조회 */
+	@ApiOperation(value="가게명으로 조회", notes="가게이름을 이용해서 조회")
+	@GetMapping("/storename")
+	public List<Store> StoreByName(String sName) throws Exception {
+		
+			System.out.println("가게명 받아오기");
+			System.out.println("data size : " + storeService.StoreByName(sName).size());
+			System.out.println("data size : " + storeService.StoreByName(sName).get(0));
+			
+			return storeService.StoreByName(sName);
+		
+	}
 	
 	/* C :: 리뷰 생성 */
 	@PostMapping("/add")
 	public ResponseEntity<Integer> createStore(Store store) throws Exception {
-		if(storeService.createStore(store) > 0) {
-			System.out.println(store.getsNo());
-			return new ResponseEntity<Integer>(store.getsNo(), HttpStatus.OK);
+		
+		if(storeService.StoreByName(store.getsName()).size()>=1) {
+			return new ResponseEntity<Integer>(storeService.StoreByName(store.getsName()).get(0).getsNo(),HttpStatus.OK);
+		}else {
+			storeService.createStore(store);
+			return new ResponseEntity<Integer>(storeService.StoreByName(store.getsName()).get(0).getsNo(),HttpStatus.OK);
+
 		}
-		return new ResponseEntity<Integer>(0, HttpStatus.NO_CONTENT);
+
 	}
 	
 	/* R :: '좌표 값'으로 가게 조회 */
@@ -94,4 +98,6 @@ public class StoreController {
 			return storeService.StoreByMidPoint(store);
 
 	}
+	
+
 }

@@ -48,6 +48,7 @@
 </template>
 <script>
 const axios = require('axios');
+const server_URL = process.env.VUE_APP_SERVER_URL
 import jwt_decode from "jwt-decode";
 const config = {
           headers: { 'auth-token': window.localStorage.getItem('auth-token') },
@@ -102,7 +103,7 @@ export default {
 
     methods: {
       nowpwcheck() {
-        axios.get(`http://localhost:8000/letsmeet/user/mypage/updatecheckpassword?pastPassword=${this.nowpw}&uEmail=${this.user.uEmail}&uPassword=${this.beforepw}`)
+        axios.get(`${server_URL}/letsmeet/user/mypage/updatecheckpassword?pastPassword=${this.nowpw}&uEmail=${this.user.uEmail}&uPassword=${this.beforepw}`)
         .then((res)=> {
           console.log(res.data)
           if (res.data === '현재 비번 일치'){
@@ -118,7 +119,7 @@ export default {
 
       },
       PasswordChangeMethod() {
-        axios.put(`http://localhost:8000/letsmeet/user/mypage/updatepassword`, this.user, config)
+        axios.put(`${server_URL}/letsmeet/user/mypage/updatepassword`, this.user, config)
         .then((res)=> {
           console.log(res.data)
           alert('비밀번호가 변경되었습니다.')

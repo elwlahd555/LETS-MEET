@@ -10,6 +10,8 @@
 import MypageLikePlaceItem from '../mypage/MypageLikePlaceItem'
 
 const axios = require('axios')
+const server_URL = process.env.VUE_APP_SERVER_URL
+
 export default {
     name: 'MypageLikePlace',
     components: {
@@ -30,7 +32,7 @@ export default {
         getLikeStore () {
             this.myLikePlaceDetail = [],
             this.myLikePlaceNum = [],
-            axios.get(`http://localhost:8000/letsmeet/mypage/likestore?uNo=${this.$store.state.uNo}`)
+            axios.get(`${server_URL}/letsmeet/mypage/likestore?uNo=${this.$store.state.uNo}`)
             .then((res)=> {
                 // 가게 상세 조회 detail db 만들어져야함
                 const likeplace = res.data
