@@ -68,8 +68,8 @@ public class MeetingRoomController {
 			int mrNo=meetingRoomService.selectMeetingRoomBySuper(meetingRoom);
 			System.out.println(mrNo+"미팅룸넘버");
 			if(file!=null) {
-//				String mrImage = path + "/" + "mr-" + mrNo + "-" + file.getOriginalFilename();
-				String mrImage = "C:/" + "mr-" + mrNo + "-" + file.getOriginalFilename();
+				String mrImage = path + "/" + "mr-" + mrNo + "-" + file.getOriginalFilename();
+//				String mrImage = "C:/" + "mr-" + mrNo + "-" + file.getOriginalFilename();
 				System.out.println(mrImage);
 
 
