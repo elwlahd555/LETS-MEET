@@ -20,6 +20,7 @@ public class KakaoProfile {
 	public String connected_at;
 	public Properties properties;
 	public KakaoAccount kakao_account;
+	public String uSalt;
 
 	@Data
 	public class Properties {

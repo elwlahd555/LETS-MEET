@@ -15,8 +15,8 @@
 	<!-- C :: 카카오 회원 가입 -->
 	<insert id="insertKakaoUser" parameterType="user">
 		insert
-		  into user(u_email, u_password, u_name, u_provider, u_join_date)
-		values (#{uEmail}, #{uPassword}, #{uName}, #{uProvider}, now())
+		  into user(u_email, u_password, u_name, u_provider, u_join_date, u_salt)
+		values (#{uEmail}, #{uPassword}, #{uName}, #{uProvider}, now(), #{uSalt})
 	</insert>
 
 	<!-- R :: 로그인 -->
