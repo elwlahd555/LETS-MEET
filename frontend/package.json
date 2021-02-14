@@ -38,6 +38,7 @@
     "vue-select-image": "^1.9.0",
     "vuelidate": "^0.7.6",
     "vuetify": "^2.4.3",
+    "vuewordcloud": "^18.7.12",
     "vuex": "^3.6.0",
     "vuex-persistedstate": "^4.0.0-beta.3",
     "webstomp-client": "^1.2.6"
