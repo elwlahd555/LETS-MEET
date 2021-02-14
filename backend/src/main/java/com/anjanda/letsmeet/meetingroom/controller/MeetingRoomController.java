@@ -60,7 +60,7 @@ public class MeetingRoomController {
 	private ImageUploadService imageUploadService;
 	
 	/* C :: 미팅룽 추가 */
-	@PostMapping("/meetingRoom/create")
+	@RequestMapping("/meetingRoom/create")
 	public ResponseEntity<Integer> createMeetingRoom(MultipartFile file, MeetingRoom meetingRoom) throws Exception{
 		System.out.println(meetingRoom.getMrName()+"이 생성되었습니다");
 		System.out.println(meetingRoom.getMrCategory() + meetingRoom.getMrName());
