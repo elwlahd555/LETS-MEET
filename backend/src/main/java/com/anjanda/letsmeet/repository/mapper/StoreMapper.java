@@ -36,4 +36,9 @@ public interface StoreMapper {
 	// 가게등록
 	public int createStore(Store store);
 
+	/* '가게 명'으로 가게 전체 조회 */
+	public List<Store> selectStoreByName(String sName);
+
+
+
 }

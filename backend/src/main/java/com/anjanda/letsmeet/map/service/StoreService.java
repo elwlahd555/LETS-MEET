@@ -42,4 +42,9 @@ public interface StoreService {
 	/* R :: '중간 좌표 값'으로 일정 반경 내 가게들 조회 */
 	List<Store> reviewStoreByMidPoint(String lat, String lng);
 
+	/* R :: '가게명 '으로 가게 전체 조회 */
+	List<Store> StoreByName(String sName);
+
+
+
 }
