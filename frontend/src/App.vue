@@ -29,6 +29,7 @@
     </v-main>
 
     <v-bottom-navigation
+      :value="value"
       v-if='isLogin'
       color="indigo accent-2"
       dense
@@ -66,6 +67,22 @@ export default {
       value: null,
       isSearch: false,
       search: '',
+    }
+  },
+  watch: {
+    $route() {
+      var ro = this.$route.name
+      if (ro === "Main") {
+        this.value = 0
+      } else if (ro === "MyCalendar") {
+        this.value = 1
+      } else if (ro === "MakeMeeting") {
+        this.value = 2
+      } else if (ro === "Alarm") {
+        this.value = 3
+      } else if (ro === "MyPage") {
+        this.value = 4
+      }
     }
   },
   methods: {

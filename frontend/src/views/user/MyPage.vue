@@ -29,7 +29,9 @@
                     <v-list-item @click="logout">
                       <v-list-item-title> 로그아웃 </v-list-item-title>
                     </v-list-item>
-                    <v-list-item @click="deleteWant"> 회원탈퇴 </v-list-item>
+                    <v-list-item @click="deleteWant"> 
+                      <v-list-item-title> 회원탈퇴 </v-list-item-title> 
+                    </v-list-item>
                   </v-list>
                 </v-menu>
                 

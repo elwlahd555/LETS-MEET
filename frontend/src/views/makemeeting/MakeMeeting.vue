@@ -80,7 +80,7 @@ export default {
             console.log(res.data)
             this.$store.state.mrNo = res.data
             const members = this.$route.params.members
-            setTimeout(() => { this.$fileSelect() }, 500)
+            this.$fileSelect()
             if (members) {
               var cnt = 0
               for(let mb of members) {
