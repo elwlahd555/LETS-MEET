@@ -50,7 +50,9 @@ export default {
     initMap() {
       var con = document.getElementById("onoff")
       var delete_item = document.getElementById("map2");
-      con.removeChild(delete_item)
+      if (delete_item) {
+        con.removeChild(delete_item)
+      }
       var newDiv = document.createElement("div")
       newDiv.setAttribute("id","map2")
       con.appendChild(newDiv)

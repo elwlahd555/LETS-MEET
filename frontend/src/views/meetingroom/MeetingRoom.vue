@@ -28,7 +28,7 @@
         <v-container v-show="show">
           <v-divider></v-divider>
           약속 유형 : {{ roomInfo.mrCategory }} <br>
-          멤버 : {{ mrUserInfo[0].uName }} 외 {{ mrUserInfo.length - 1 }}명 <br>
+          멤버 : {{ mrUserInfo[0].uName }} <span v-if="mrUserInfo.length > 1">외 {{ mrUserInfo.length - 1 }}명 </span><br>
           시간 : <span v-if="roomInfo.mrDate">{{ roomInfo.mrDate }}</span><span v-else>미정</span><br>
           장소 : <span v-if="this.place">{{ this.place.sName }}</span><span v-else>미정</span><br>
         </v-container>
@@ -65,7 +65,7 @@
 
     <v-tabs-items v-model="tab" touchless>
       <v-tab-item>
-        <Gallery v-if="done"/>
+        <Gallery v-if="done" :mrNo="mrNo" />
         <DeterminePromise v-else :roomInfo="roomInfo" :mrUserInfo="mrUserInfo"
          @refresh="refresh" @rec_place="getPlace" @refresh3="refresh3" />
       </v-tab-item>

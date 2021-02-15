@@ -38,19 +38,19 @@
       width="100%"
       style="z-index:10;"
     >
-      <v-btn>
+      <v-btn style="height: 56px;">
         <router-link class="ro" :to="{ name: 'Main' }"><v-icon>mdi-home</v-icon></router-link>
       </v-btn>
-      <v-btn>
+      <v-btn style="height: 56px;">
         <router-link class="ro" :to="{ name: 'MyCalendar'}"><v-icon>mdi-calendar</v-icon></router-link>
       </v-btn>
-      <v-btn>
+      <v-btn style="height: 56px;">
         <router-link class="ro" :to="{ name: 'MakeMeeting' }"><v-icon>mdi-plus-circle</v-icon></router-link>
       </v-btn>
-      <v-btn>
+      <v-btn style="height: 56px;">
         <router-link class="ro" :to="{ name: 'Alarm' }"><v-icon>mdi-bell</v-icon></router-link>
       </v-btn>
-      <v-btn>
+      <v-btn style="height: 56px;">
         <router-link class="ro" :to="{ name: 'MyPage' }"><v-icon>mdi-account-circle</v-icon></router-link>
       </v-btn>
     </v-bottom-navigation>
@@ -84,7 +84,7 @@ export default {
       } else if (ro === "MyPage") {
         this.value = 4
       }
-    }
+    },
   },
   methods: {
     searchInput() {
