@@ -1,23 +1,18 @@
 <template>
     <div>
-        <div>test</div>
+        <div id="naverIdLogin" style="display: none">login...</div>
     </div>
 </template>
 
 <script>
 const axios = require('axios');
 const server_URL = process.env.VUE_APP_SERVER_URL
-import { getKakaoToken, getKakaoUserInfo, naverService } from "@/services/kakaoLogin";
+import { getKakaoToken, getKakaoUserInfo } from "@/services/login";
 export default {
     name: 'KakaoCallback',
     created() {
         if (this.$route.query.code) {
             this.setKakaoToken();
-        }
-    },
-    mounted() {
-        if (this.$route.hash) {
-            naverService().getUserInfo();
         }
     },
     data: () => {
@@ -51,7 +46,6 @@ export default {
             this.user.uEmail = user_data.kakao_account.email+'_'+user_data.id;
             this.user.uPassword = 'kakaoPassword';
             this.user.uName = user_data.properties.nickname;
-            console.log('뭐1');
             axios.post(`${server_URL}/letsmeet/auth/kakao/callback`, this.user)
               .then((res) => {
               console.log(res);
@@ -72,17 +66,6 @@ export default {
               console.log(err)
               alert('로그인에 실패하셨습니다.')
             })
-            // .then((res)=> {
-            //   console.log('뭐2');
-            //   console.log(res.data)
-            //   this.$store.commit('SET_USER_AUTH_DATA', res.data)
-
-            //   this.$router.push({ name: 'Main'});
-            // })
-            // .catch((err) => {
-            //   console.log('뭐3');
-            //   console.log(err)
-            // })
         },
         submit () {
             if (this.$refs.form.validate()) {
@@ -99,9 +82,6 @@ export default {
                 console.log('카카오 소셜 로그인에 실패')
             }
         },
-        getInfo() {
-            naverService().getUserInfo();
-        }
     }
 }
 </script>
