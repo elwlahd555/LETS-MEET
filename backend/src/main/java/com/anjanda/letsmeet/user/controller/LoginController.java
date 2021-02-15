@@ -89,7 +89,26 @@ public class LoginController {
 		}
 		User toLogin = service.selectUser(kakaoUser);
 		
-		return login(toLogin, response, session);
+		System.out.println(toLogin+"유저정보"+toLogin.getuEmail()+toLogin.getuPassword());
+		Map<String, Object> resultMap = new HashMap<>();
+		User check = service.login(toLogin);
+		if(check != null) {
+			String token = jwtService.create(check);
+			
+			// 파라미터 1번째 것은 FE 대로 따라가기..
+			resultMap.put("auth-token", token);
+			resultMap.put("uNo", check.getuNo());
+			resultMap.put("uEmail", check.getuEmail()); 
+			resultMap.put("uPassword", check.getuPassword());
+			resultMap.put("uName", check.getuName());
+			resultMap.put("uImage", check.getuImage());
+			resultMap.put("uJoinDate", check.getuJoinDate());
+			resultMap.put("uProvider", check.getuProvider());
+			resultMap.put("uSalt", check.getuSalt());
+			return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+		}
+		resultMap.put("message", "로그인에 실패하였습니다.");
+		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.NO_CONTENT);
 	}
 }
 

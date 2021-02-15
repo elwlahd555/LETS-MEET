@@ -46,18 +46,22 @@ export default {
         },
         async setUserInfo () {
             let user_data = await getKakaoUserInfo();
+            console.log(user_data)
             // 여기에 백으로 계정 정보 넘겨주면 된다.
             this.user.uEmail = user_data.kakao_account.email+'_'+user_data.id;
             this.user.uPassword = 'kakaoPassword';
             this.user.uName = user_data.properties.nickname;
+            console.log('뭐1');
             axios.post(`${server_URL}/letsmeet/auth/kakao/callback`, this.user)
             .then((res)=> {
+              console.log('뭐2');
               console.log(res.data)
               this.$store.commit('SET_USER_AUTH_DATA', res.data)
 
               this.$router.push({ name: 'Main'});
             })
             .catch((err) => {
+              console.log('뭐3');
               console.log(err)
             })
         },
