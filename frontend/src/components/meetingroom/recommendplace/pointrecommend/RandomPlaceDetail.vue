@@ -80,6 +80,7 @@
 var map = ''
 const axios = require('axios')
 const server_URL = process.env.VUE_APP_SERVER_URL
+const KAKAO_API_KEY = '71f77d07e68b0f6c0464d85d3df14e6c'
 
 import StoreReview from './StoreReview'
 export default {
@@ -96,11 +97,21 @@ export default {
   props: {
     place: Object,
   },
+  created() {
+    this.addKakaoMapScript()
+  },
   mounted() {
     this.getLikeStore()
     setTimeout(() => { this.initMap() }, 100)
   },
   methods: {
+    addKakaoMapScript() {
+      const script = document.createElement("script")
+      script.onload = () => kakao.maps.load()
+      script.src =
+        `https://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${KAKAO_API_KEY}`
+      document.head.appendChild(script)
+    },
     initMap() {
       var container = document.getElementById("map4");
       container.style.width = '100%'

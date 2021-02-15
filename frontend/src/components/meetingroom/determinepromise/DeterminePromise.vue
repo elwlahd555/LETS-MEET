@@ -170,7 +170,6 @@ export default {
             break
           }
       }
-      this.departure(ref_data.mruNo, ref_data.mruName, ref_data.mruUserLng, ref_data.mruUserLat)
       this.getAvailableDates()
       this.$emit('refresh')
       this.getIsFinal()

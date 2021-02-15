@@ -183,13 +183,17 @@ export default {
       this.textContent = 'Locating...'
       
       navigator.geolocation.getCurrentPosition(pos => {
+        console.log(pos)
         latitude = pos.coords.latitude
         longitude = pos.coords.longitude
+        this.textContent = latitude + ', ' + longitude
+        console.log(this.textContent)
+        this.dialogm1 = true
+        alert(`현재 위치로 설정하였습니다. \n(위도: ${latitude}, 경도: ${longitude})`)
       }, err => {
         this.textContent = err.message
+        alert(`현재 위치 설정에 실패했습니다. 직접 선택해주세요.`)
       })
-      this.dialogm1 = true
-      alert(`현재 위치로 설정하였습니다. \n(위도: ${latitude}, 경도: ${longitude})`)
     },
     addKakaoMapScript() {
       const script = document.createElement("script")

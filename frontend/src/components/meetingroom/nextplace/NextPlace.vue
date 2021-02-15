@@ -57,7 +57,7 @@ export default {
       let randoms = [];
       let i = 0;
       while (i < 6) {
-        let n = Math.floor(Math.random() * 4000) + 1;
+        let n = Math.floor(Math.random() * 1500) + 1;
         if (! sameNum(n)) {
           randoms.push(n);
           i++;
