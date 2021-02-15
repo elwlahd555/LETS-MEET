@@ -7,7 +7,6 @@ Vue.use(store)
 
 const onlyAuthUser = function usercheck (to, from, next){
     if (store.state.isLogin === false) {
-        alert('로그인이 필요한 페이지입니다.')
         router.push({ name: 'Login'});
     } else {
         next();
@@ -16,7 +15,6 @@ const onlyAuthUser = function usercheck (to, from, next){
 
 const LoginUser = function LoginUserCheck (to, from, next) {
     if (store.state.isLogin === true) {
-        alert('로그인이 되어있는 상태입니다.')
         next({ path: '/main'})
     } else {
         next();

@@ -1,17 +1,6 @@
 <template>
     <v-container class="mt-5 pt-5">
-      <!-- <vue-word-cloud
-        style="
-          height: 300px;
-          width: 300px;
-        "
-        :words="new_words"
-        :color="([, weight]) => weight > 1 ? 'DeepPink' : weight > 0 ? 'RoyalBlue' : 'Indigo'"
-        font-family="Roboto"
-        :wordClick="wordClickHandler"
-      /> -->
       <v-row>
-
       <vue-word-cloud class="vue-word" :words="new_words"  style=" height: 100px; width: 220px;" 
       :color="([, weight]) => weight > 3 ? 'DeepPink' : weight > 2 ? 'RoyalBlue' : 'Indigo'"
       font-family="Roboto">
@@ -19,9 +8,6 @@
           <div class='heretext' :title="weight" style="cursor: pointer;" animation-overlap>
             {{ text }}
           </div>
-          <!-- <div class="showtext">
-            {{ weight }}
-          </div> -->
         </template> 
       </vue-word-cloud>
       </v-row>
@@ -53,8 +39,13 @@
 <script>
 import VueWordCloud from 'vuewordcloud';
 const axios = require('axios')
+const server_URL = process.env.VUE_APP_SERVER_URL
+
 export default {
     name: 'ResultNLP',
+    props: {
+      roomInfo: Object,
+    },
     components: {
       [VueWordCloud.name]: VueWordCloud,
     },
@@ -72,7 +63,7 @@ export default {
     methods: {
       getData() {
         // 채팅방 내용들 다 받아오기
-        axios.get(`http://localhost:8000/letsmeet/chat/open?mrcMrNo=1`)
+        axios.get(`${server_URL}/letsmeet/chat/open?mrcMrNo=1`)
         .then((res)=> {
           res.data.forEach((content)=> {
             this.chatContent += content.mrcContent
@@ -134,5 +125,4 @@ export default {
   display: flex;
   left: 63px;
 }
-
 </style>

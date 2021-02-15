@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    {{ nlpWordsList }}
     <hooper :settings="hooperSettings" style="height:100%;">
       <slide v-for="(place, i) in ranPlace" :key="i">
 
@@ -29,7 +28,6 @@ export default {
     // RandomPlaceDetail,
   },
   props: {
-    ranPlace: Array,
     roomInfo: Object,
     nlpWordsList: Array,
   },
@@ -53,6 +51,8 @@ export default {
   methods: {
     getStoreDetail() {  
       // 데이터 받아온걸 토대로 nlpPlaceInfo 에 넣어서 item, detail 각각 넣어주기
+      // nlpPlaceInfo 에 다 넣어줌
+      
     },
     goDetail(data) {
       this.place = data

@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <div class="header">
-      <div class='logo'>
+      <div class='logo '>
         <img src="../../assets/images/logo.png" 
-        style="width: 70%; max-height: 50px; max-width: 200px;">
+        style="width: 80%; max-height: 70px; max-width: 200px;">
 
       </div>
     </div>
