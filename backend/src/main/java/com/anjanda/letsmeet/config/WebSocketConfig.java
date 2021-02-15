@@ -1,5 +1,6 @@
 package com.anjanda.letsmeet.config;
 
+import org.apache.catalina.startup.SetAllPropertiesRule;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
@@ -36,6 +37,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     // connection을 맺을때 CORS 허용합니다.
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/websocket").setAllowedOrigins("https://i4d107.p.ssafy.io").withSockJS();
+//        registry.addEndpoint("/websocket").setAllowedOrigins("http://localhost:8080").setAllowedOriginPatterns("https://i4d107.p.ssafy.io").setAllowedOriginPatterns("wss://i4d107.p.ssafy.io").withSockJS();
+        registry.addEndpoint("/websocket").setAllowedOriginPatterns("*").withSockJS();
     }
 }
