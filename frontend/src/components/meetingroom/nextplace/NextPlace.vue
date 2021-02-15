@@ -16,13 +16,13 @@
       <v-icon color="indigo accent-2">mdi-help-circle</v-icon><v-subheader class="pl-2">랜덤 장소 추천</v-subheader>
     </div>
     <v-list-item-subtitle class="d-flex justify-start ml-4">다음 약속 장소를 랜덤 추천</v-list-item-subtitle>
-    <RandomPointRecommend :ranPlace="ranPlace" :roomInfo="roomInfo"/>
+    <NextRandomRecommend :ranPlace="ranPlace" :roomInfo="roomInfo"/>
     
   </v-container>
 </template>
 
 <script>
-import RandomPointRecommend from '@/components/meetingroom/recommendplace/pointrecommend/RandomPointRecommend.vue'
+import NextRandomRecommend from './NextRandomRecommend.vue'
 import ResultNLP from '../../../components/meetingroom/nextplace/nlpresult/ResultNLP'
 import NextPlaceNLP from '../../../components/meetingroom/nextplace/nlpresult/NextPlaceNLP'
 
@@ -43,7 +43,7 @@ export default {
     }
   },
   components: {
-    RandomPointRecommend,
+    NextRandomRecommend,
     ResultNLP,
     NextPlaceNLP
   },

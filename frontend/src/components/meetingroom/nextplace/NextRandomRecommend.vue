@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <hooper :settings="hooperSettings" style="height:100%;">
-      <slide v-for="(place, i) in nlpPlaceDetail" :key="i">
+      <slide v-for="(place, i) in ranPlace" :key="i">
         <NextItem :place="place" :roomInfo="roomInfo" @go_detail="goDetail"/>
       </slide>
     </hooper>
@@ -14,14 +14,12 @@
 <script>
 import { Hooper, Slide } from 'hooper';
 import 'hooper/dist/hooper.css';
-// const axios = require('axios')
-// const server_URL = process.env.VUE_APP_SERVER_URL
-import NextItem from '../NextItem.vue'
+import NextItem from './NextItem.vue'
 import RandomPlaceDetail from '@/components/meetingroom/recommendplace/pointrecommend/RandomPlaceDetail.vue'
 
 
 export default {
-  name: "NextPlaceNLP",
+  name: "RandomPointRecommend",
   components: {
     Hooper,
     Slide,
@@ -29,8 +27,8 @@ export default {
     RandomPlaceDetail,
   },
   props: {
+    ranPlace: Array,
     roomInfo: Object,
-    nlpPlaceDetail: Array,
   },
   data() {
     return {
@@ -42,23 +40,10 @@ export default {
         wheelControl: false,
       },
       place: null,
-      isDetail: false,
-      nlpPlaceInfo: [],
+      isDetail: false
     }
   },
   methods: {
-    // getStoreDetail() {
-    //     this.new_words.forEach((place)=> {        
-    //       axios.get(`${server_URL}/letsmeet/map/storedetail?detail=${place[0]}`)
-    //       .then((res)=>{
-    //         console.log(res.data)
-    //       })
-    //       .catch((err)=>{
-    //         console.log(err)
-    //       })
-    //     })
- 
-    // },
     goDetail(data) {
       this.place = data
       this.isDetail = !this.isDetail
