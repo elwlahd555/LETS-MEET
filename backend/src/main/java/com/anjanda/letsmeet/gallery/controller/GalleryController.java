@@ -32,13 +32,13 @@ public class GalleryController {
 	/* C :: 추억 공유 사진 추가 */
 	@PostMapping("/add")
 	public ResponseEntity<String> addGallery(@RequestParam("iFile") MultipartFile file, @RequestParam("gMrNo") int gMrNo, @RequestParam("gUNo") int gUNo) throws Exception {
-		String gImage = path + "/" + "gallery-" + gMrNo + "-"  + file.getOriginalFilename();
+		String gImage = path + "/" + "gallery-" + gMrNo + "-" + gUNo + "-" + file.getOriginalFilename();
 //		String gImage = "C:/" + "gallery-" + gMrNo + "-" + file.getOriginalFilename();
 		
 		File dest = new File(gImage);
 		file.transferTo(dest);
 
-		gImage = "https://i4d107.p.ssafy.io/images/" + "gallery-" + gMrNo + "-"  + file.getOriginalFilename();
+		gImage = "https://i4d107.p.ssafy.io/images/" + "gallery-" + gMrNo + "-" + gUNo + "-" + file.getOriginalFilename();
 
 		Gallery gallery = new Gallery();
 		gallery.setgName(gImage);
