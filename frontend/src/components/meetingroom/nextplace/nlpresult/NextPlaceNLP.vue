@@ -1,13 +1,12 @@
 <template>
   <v-container>
     <hooper :settings="hooperSettings" style="height:100%;">
-      <slide v-for="(place, i) in ranPlace" :key="i">
-
-        <!-- <RecommendItem :place="place" :roomInfo="roomInfo" @go_detail="goDetail" @refresh="refresh"/> -->
+      <slide v-for="(place, i) in nlpPlaceDetail" :key="i">
+        <RecommendItem :place="place" :roomInfo="roomInfo" @go_detail="goDetail" @refresh="refresh"/>
       </slide>
     </hooper>
     <div v-if="isDetail && place">
-      <!-- <RandomPlaceDetail :place="place" class="mt-3"/> -->
+      <RandomPlaceDetail :place="place" class="mt-3"/>
     </div>
   </v-container>
 </template>
@@ -15,8 +14,10 @@
 <script>
 import { Hooper, Slide } from 'hooper';
 import 'hooper/dist/hooper.css';
-// import RecommendItem from '@/components/meetingroom/recommendplace/pointrecommend/RecommendItem.vue'
-// import RandomPlaceDetail from '@/components/meetingroom/recommendplace/pointrecommend/RandomPlaceDetail.vue'
+// const axios = require('axios')
+// const server_URL = process.env.VUE_APP_SERVER_URL
+import RecommendItem from '@/components/meetingroom/recommendplace/pointrecommend/RecommendItem.vue'
+import RandomPlaceDetail from '@/components/meetingroom/recommendplace/pointrecommend/RandomPlaceDetail.vue'
 
 
 export default {
@@ -24,15 +25,12 @@ export default {
   components: {
     Hooper,
     Slide,
-    // RecommendItem,
-    // RandomPlaceDetail,
+    RecommendItem,
+    RandomPlaceDetail,
   },
   props: {
     roomInfo: Object,
-    nlpWordsList: Array,
-  },
-  created() {
-    this.getStoreDetail()
+    nlpPlaceDetail: Array,
   },
   data() {
     return {
@@ -49,11 +47,18 @@ export default {
     }
   },
   methods: {
-    getStoreDetail() {  
-      // 데이터 받아온걸 토대로 nlpPlaceInfo 에 넣어서 item, detail 각각 넣어주기
-      // nlpPlaceInfo 에 다 넣어줌
-      
-    },
+    // getStoreDetail() {
+    //     this.new_words.forEach((place)=> {        
+    //       axios.get(`${server_URL}/letsmeet/map/storedetail?detail=${place[0]}`)
+    //       .then((res)=>{
+    //         console.log(res.data)
+    //       })
+    //       .catch((err)=>{
+    //         console.log(err)
+    //       })
+    //     })
+ 
+    // },
     goDetail(data) {
       this.place = data
       this.isDetail = !this.isDetail
