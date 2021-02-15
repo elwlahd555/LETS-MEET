@@ -78,8 +78,20 @@ public class UserServiceImpl implements UserService {
 //		String rawPassword = user.getuPassword(); // 비밀번호 원문
 //		String encPassword = encoder.encode(rawPassword); // 해쉬
 //		user.setuPassword(rawPassword);
+
+		// 1. 가입할 회원의 고유 salt 생성 및 저장
 		String salt = SaltSHA256.generateSalt(); 
 		user.setuSalt(salt);		
+		
+		// 2. 입력된 password + 생성된 salt 활용해서 암호화된 password 생성
+		String password = user.getuPassword();
+		password = SaltSHA256.getEncrypt(password, salt);
+		
+		
+		// 3. 입력된 비번 삽입
+		user.setuPassword(password);
+		
+		// 4. 남은 유저 정보 삽입		
 		return mapper.insertKakaoUser(user);
 	}
 	
