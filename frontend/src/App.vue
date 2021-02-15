@@ -96,9 +96,6 @@ export default {
       }
     },
   },
-  created() {
-    console.log(this.isLogin)
-  },
   computed: {
     ...mapState(['isLogin'])
   }

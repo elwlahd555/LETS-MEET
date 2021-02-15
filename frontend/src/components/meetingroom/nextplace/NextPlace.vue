@@ -4,13 +4,13 @@
       <v-icon color="indigo accent-2">mdi-google-analytics</v-icon><v-subheader class="pl-2">채팅 분석</v-subheader>
     </div>
     <v-list-item-subtitle class="d-flex justify-start ml-4">대화내용 분석 결과</v-list-item-subtitle>
-    <ResultNLP @nlp_words='nlpWords' />
+    <ResultNLP :roomInfo='roomInfo' @nlp_words='nlpWords' />
 
     <div class="d-flex justify-start ml-3">
       <v-icon color="indigo accent-2">mdi-map-search</v-icon><v-subheader class="pl-2">다음 장소 추천</v-subheader>
     </div>
     <v-list-item-subtitle class="d-flex justify-start ml-4">채팅의 대화내용 분석 결과를 토대로 장소 추천</v-list-item-subtitle>
-    <NextPlaceNLP :nlpWordsList='nlpWordsList' />
+    <NextPlaceNLP :roomInfo='roomInfo' :nlpWordsList='nlpWordsList' />
 
     <div class="d-flex justify-start ml-3">
       <v-icon color="indigo accent-2">mdi-help-circle</v-icon><v-subheader class="pl-2">랜덤 장소 추천</v-subheader>
