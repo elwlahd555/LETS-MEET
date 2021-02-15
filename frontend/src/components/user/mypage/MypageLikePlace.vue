@@ -37,7 +37,7 @@ export default {
                 // 가게 상세 조회 detail db 만들어져야함
                 const likeplace = res.data
                 likeplace.forEach(el => {
-                    axios.get(`http://localhost:8000/letsmeet/map/sno?sno=${el.lsSNo}`)
+                    axios.get(`${server_URL}/letsmeet/map/sno?sno=${el.lsSNo}`)
                     .then((res)=> {
                         this.myLikePlaceDetail.push(res.data)
                     })
