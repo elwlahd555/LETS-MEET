@@ -9,7 +9,7 @@
       <v-tab>진행중</v-tab>
       <v-tab>완료</v-tab>
       
-      <v-tab-item>
+      <v-tab-item v-if="doing_temp.length > 0">
         <v-card
           class="mx-auto mt-3"
           v-model="checkList"
@@ -75,7 +75,7 @@
         </v-card>
         <infinite-loading @infinite="doingInfiniteHandler"></infinite-loading>
       </v-tab-item>
-      <v-tab-item>
+      <v-tab-item v-if="done_temp.length > 0">
         <v-card
           class="mx-auto mt-3"
           v-for="(value, idx) in done_temp"

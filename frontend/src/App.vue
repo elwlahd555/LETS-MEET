@@ -32,9 +32,10 @@
       :value="value"
       v-if='isLogin'
       color="indigo accent-2"
-      dense
-      grow
+      app
       fixed
+      grow
+      width="100%"
       style="z-index:10;"
     >
       <v-btn>
