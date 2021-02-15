@@ -21,6 +21,9 @@ public interface UserService {
 	/* 로그인 메소드 */
 	User login(User user) throws Exception;
 
+	/* 카카오 로그인 메소드 */
+	User kakaoLogin(User user) throws Exception;
+
 	/* C :: 회원 가입 메소드 */
 	int createUser(User user) throws Exception;
 

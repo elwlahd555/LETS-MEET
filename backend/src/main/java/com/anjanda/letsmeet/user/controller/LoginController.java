@@ -87,15 +87,13 @@ public class LoginController {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		User toLogin = service.selectUser(kakaoUser);
+		User toLogin = service.selectUser(user);
 		
-		System.out.println(toLogin+"유저정보"+toLogin.getuEmail()+toLogin.getuPassword());
 		Map<String, Object> resultMap = new HashMap<>();
-		User check = service.login(toLogin);
+		User check = service.kakaoLogin(toLogin);
 		if(check != null) {
 			String token = jwtService.create(check);
 			
-			// 파라미터 1번째 것은 FE 대로 따라가기..
 			resultMap.put("auth-token", token);
 			resultMap.put("uNo", check.getuNo());
 			resultMap.put("uEmail", check.getuEmail()); 
@@ -104,7 +102,6 @@ public class LoginController {
 			resultMap.put("uImage", check.getuImage());
 			resultMap.put("uJoinDate", check.getuJoinDate());
 			resultMap.put("uProvider", check.getuProvider());
-			resultMap.put("uSalt", check.getuSalt());
 			return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 		}
 		resultMap.put("message", "로그인에 실패하였습니다.");

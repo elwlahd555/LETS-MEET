@@ -53,17 +53,36 @@ export default {
             this.user.uName = user_data.properties.nickname;
             console.log('뭐1');
             axios.post(`${server_URL}/letsmeet/auth/kakao/callback`, this.user)
-            .then((res)=> {
-              console.log('뭐2');
-              console.log(res.data)
-              this.$store.commit('SET_USER_AUTH_DATA', res.data)
-
-              this.$router.push({ name: 'Main'});
-            })
+              .then((res) => {
+              console.log(res);
+              let token = res.data['auth-token']
+              if (token === undefined) {
+                alert('비밀번호가 틀렸습니다.')}
+              else {
+                alert('로그인 되었습니다.')
+                // context.commit('SET_USER_AUTH_DATA', res.data)
+                localStorage.setItem('auth-token', token)
+                // axios default 헤더에 현재 token 적재
+                axios.defaults.headers.common['auth-token'] = window.localStorage.getItem("auth-token");
+                this.$store.commit('SET_USER_AUTH_DATA', res.data)
+                this.$router.push({ name: 'Main'})
+                }
+              })
             .catch((err) => {
-              console.log('뭐3');
               console.log(err)
+              alert('로그인에 실패하셨습니다.')
             })
+            // .then((res)=> {
+            //   console.log('뭐2');
+            //   console.log(res.data)
+            //   this.$store.commit('SET_USER_AUTH_DATA', res.data)
+
+            //   this.$router.push({ name: 'Main'});
+            // })
+            // .catch((err) => {
+            //   console.log('뭐3');
+            //   console.log(err)
+            // })
         },
         submit () {
             if (this.$refs.form.validate()) {
