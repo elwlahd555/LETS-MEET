@@ -1,5 +1,9 @@
 package com.anjanda.letsmeet.repository.dto;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,8 +32,7 @@ public class Gallery {
 	private int gMrNo;
 	private int gUNo;
 	private String gName;
-	
-	
+
 	public int getgNo() {
 		return gNo;
 	}

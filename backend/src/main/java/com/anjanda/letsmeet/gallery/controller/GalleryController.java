@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,8 +31,8 @@ public class GalleryController {
 	/* C :: 추억 공유 사진 추가 */
 	@PostMapping("/add")
 	public ResponseEntity<String> addGallery(@RequestParam("iFile") MultipartFile file, @RequestParam("gMrNo") int gMrNo, @RequestParam("gUNo") int gUNo) throws Exception {
-		String gImage = path + "/" + "gallery-" + gMrNo + "-" + gUNo + "-" + file.getOriginalFilename();
-//		String gImage = "C:/" + "gallery-" + gMrNo + "-" + file.getOriginalFilename();
+//		String gImage = path + "/" + "gallery-" + gMrNo + "-" + gUNo + "-" + file.getOriginalFilename();
+		String gImage = "C:/" + "gallery-" + gMrNo + "-" + file.getOriginalFilename();
 		
 		File dest = new File(gImage);
 		file.transferTo(dest);
@@ -49,6 +48,39 @@ public class GalleryController {
 		if(galleryService.insertGallery(gallery) > 0)
 			return new ResponseEntity<String>("추억에 사진 추가 성공", HttpStatus.OK);
 		return new ResponseEntity<String>("추억에 사진 추가 실패", HttpStatus.NO_CONTENT);
+	}
+	/* C :: 추억 공유 다중 사진 추가 */
+	@GetMapping("/addmulti")
+	public ResponseEntity<String> addmultiGallery(@RequestParam("gMrNo")int gMrNo,@RequestParam("gUNo")int gUNo,MultipartFile[] multifile) throws Exception {
+
+		System.out.println("파일 갯수"+multifile.length);
+		for (MultipartFile mf : multifile) {
+			
+			if(mf.isEmpty())continue;
+			
+//			String gImage = path + "/" + "gallery-" + gMrNo + "-" + gUNo + "-" + mf.getOriginalFilename();
+			String gImage = "C:/" + "gallery-" + gMrNo + "-" + mf.getOriginalFilename();
+			
+			File dest = new File(gImage);
+			mf.transferTo(dest);
+			
+			
+			gImage = "https://i4d107.p.ssafy.io/images/" + "gallery-" + gMrNo + "-" + gUNo + "-" + mf.getOriginalFilename();
+			
+			Gallery gallery = new Gallery();
+			gallery.setgName(gImage);
+			gallery.setgMrNo(gMrNo);
+			gallery.setgUNo(gUNo);
+			
+			System.out.println("사진 경로명 : " + gallery.getgName());
+			
+			galleryService.insertGallery(gallery);
+
+			
+		}
+		return new ResponseEntity<String>("성공",HttpStatus.OK);
+		
+
 	}
 	
 	/* R :: 추억 공유 사진 조회 */
