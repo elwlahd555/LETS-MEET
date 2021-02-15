@@ -33,6 +33,7 @@
     "vue-delay": "^0.1.0",
     "vue-geolocation-api": "^0.1.21",
     "vue-infinite-loading": "^2.4.5",
+    "vue-it-bigger": "0.1.1",
     "vue-moment": "^4.1.0",
     "vue-router": "^3.4.9",
     "vue-select-image": "^1.9.0",
