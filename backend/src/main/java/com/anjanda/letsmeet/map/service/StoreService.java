@@ -45,6 +45,9 @@ public interface StoreService {
 	/* R :: '가게명 '으로 가게 전체 조회 */
 	List<Store> StoreByName(String sName);
 
+	/* R :: '디테일'으로 가게 전체 조회 */
+	List<Store> StoreByDetail(String detail);
+
 
 
 }

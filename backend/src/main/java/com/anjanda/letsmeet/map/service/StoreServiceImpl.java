@@ -85,6 +85,12 @@ public class StoreServiceImpl implements StoreService {
 		return mapper.selectStoreByName(sName);
 	}
 
+	@Override
+	public List<Store> StoreByDetail(String detail) {
+		// TODO Auto-generated method stub
+		return mapper.selectStoreByDetail(detail);
+	}
+
 
 
 }

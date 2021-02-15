@@ -49,6 +49,17 @@ public class StoreController {
 		
 	}
 	
+	@GetMapping("/storedetail")
+	public List<Store> StoreByDetail(String detail) throws Exception {
+		
+			System.out.println("가게명 받아오기");
+			System.out.println("data size : " + storeService.StoreByDetail(detail).size());
+			System.out.println("data size : " + storeService.StoreByDetail(detail).get(0));
+			
+			return storeService.StoreByDetail(detail);
+		
+	}
+	
 	/* C :: 리뷰 생성 */
 	@PostMapping("/add")
 	public ResponseEntity<Integer> createStore(Store store) throws Exception {

@@ -16,6 +16,16 @@
 		  from store
 		 where s_name = #{sName}
 	</select>
+	
+	
+	
+	<!-- 디테일을 통한 가게 조회 -->
+	<select id="selectStoreByDetail" resultType="Store">
+		select *
+		  from store
+		 where s_category_detail like "%"#{detail}"%"
+		 order by s_score desc;
+	</select>
 
 
 
