@@ -135,6 +135,8 @@ export default {
     getRoomInfo() {
       axios.get(`${server_URL}/letsmeet/meetingRoom/detail?mrNo=${this.mrNo}`)
       .then((res)=> {
+        console.log('제발')
+        console.log(res.data)
         this.roomInfo = res.data
         if (this.roomInfo.mrDate && this.roomInfo.mrDate <= moment().format('YYYY-MM-DD')){
           console.log("TRUE")

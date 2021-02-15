@@ -40,6 +40,7 @@
 </template>
 <script>
 const axios = require('axios')
+const server_URL = process.env.VUE_APP_SERVER_URL
 import MypageLikePlaceDetail from '../mypage/MypageLikePlaceDetail'
 export default {
     name: 'MypageLikePlaceItem',
@@ -61,7 +62,7 @@ export default {
       },
       unlikeStore(storenumber) {
           if (this.heart === "mdi-heart") {
-            axios.delete(`http://localhost:8000/letsmeet/mypage/likestore/delete?lsSNo=${storenumber}&lsUNo=${this.$store.state.uNo}`)
+            axios.delete(`${server_URL}/letsmeet/mypage/likestore/delete?lsSNo=${storenumber}&lsUNo=${this.$store.state.uNo}`)
             .then((res)=> {
               console.log(res.data)
               this.heart = "mdi-heart-outline"
