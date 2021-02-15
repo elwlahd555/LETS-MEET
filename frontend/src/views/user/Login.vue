@@ -14,8 +14,10 @@
       <div>
         <LoginKakao/>
         <!-- <img @click="kakaoLogin" src="../../assets/images/snsLogin/kakao.jpg" style='width:13%;' alt=""> -->
-        <img @click="googleLogin" src="../../assets/images/snsLogin/google.png" style='width:13%;' alt="">
-        <img src="../../assets/images/snsLogin/naver.png" style='width:13%;' alt="">
+        <LoginGoogle/>
+        <!-- <img @click="googleLogin" src="../../assets/images/snsLogin/google.png" style='width:13%;' alt=""> -->
+        <LoginNaver/>
+        <!-- <img src="../../assets/images/snsLogin/naver.png" style='width:13%;' alt=""> -->
       </div>
       <router-link :to= "{ name: 'PasswordSearch'}" style='color:slateGray'>비밀번호 찾기</router-link>
       <router-link :to="{ name: 'Signup' }" style="color:slateGray">회원가입</router-link>
@@ -26,12 +28,16 @@
 <script>
 import LoginForm from "../../components/user/LoginForm";
 import LoginKakao from '../../components/user/snsLogin/LoginKakao.vue';
+import LoginGoogle from '../../components/user/snsLogin/LoginGoogle.vue';
+import LoginNaver from '../../components/user/snsLogin/LoginNaver.vue';
 
 export default {
   name: "Login",  
   components: {
     LoginForm,
     LoginKakao,
+    LoginGoogle,
+    LoginNaver,
   },
   methods: {
     googleLogin(){

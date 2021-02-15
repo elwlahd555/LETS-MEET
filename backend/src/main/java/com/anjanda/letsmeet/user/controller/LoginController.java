@@ -81,8 +81,8 @@ public class LoginController {
 		try {
 			User originUser = service.selectUser(kakaoUser);
 			if(originUser == null) {
-				System.out.println("카카오 아이디로 회원가입 성공");
 				service.createKakaoUser(kakaoUser);
+				System.out.println("카카오 아이디로 회원가입 성공");
 			}
 		} catch (Exception e1) {
 			e1.printStackTrace();
@@ -91,6 +91,45 @@ public class LoginController {
 		
 		Map<String, Object> resultMap = new HashMap<>();
 		User check = service.kakaoLogin(toLogin);
+		if(check != null) {
+			String token = jwtService.create(check);
+			
+			resultMap.put("auth-token", token);
+			resultMap.put("uNo", check.getuNo());
+			resultMap.put("uEmail", check.getuEmail()); 
+			resultMap.put("uPassword", check.getuPassword());
+			resultMap.put("uName", check.getuName());
+			resultMap.put("uImage", check.getuImage());
+			resultMap.put("uJoinDate", check.getuJoinDate());
+			resultMap.put("uProvider", check.getuProvider());
+			return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+		}
+		resultMap.put("message", "로그인에 실패하였습니다.");
+		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.NO_CONTENT);
+	}
+
+	@PostMapping("/auth/naver/callback")
+	public ResponseEntity<?> naverCallback(@RequestBody User user, HttpServletResponse response, HttpSession session) throws Exception { // Data를 return 해주는 controller method
+		User naverUser = new User();
+		naverUser.setuEmail(user.getuEmail());
+		naverUser.setuPassword(user.getuPassword());
+		naverUser.setuName(user.getuName());
+		naverUser.setuProvider("naver");
+		
+		// 가입자 혹은 비가입자 체크해서 처리
+		try {
+			User originUser = service.selectUser(naverUser);
+			if(originUser == null) {
+				service.createNaverUser(naverUser);
+				System.out.println("네이버 아이디로 회원가입 성공");
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		User toLogin = service.selectUser(user);
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		User check = service.naverLogin(toLogin);
 		if(check != null) {
 			String token = jwtService.create(check);
 			

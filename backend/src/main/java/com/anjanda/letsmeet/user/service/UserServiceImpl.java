@@ -173,6 +173,23 @@ public class UserServiceImpl implements UserService {
 		else
 			return null;
 	}
+
+	/* C :: 네이버 회원 가입 메소드 */
+	@Override
+	public int createNaverUser(User user) throws Exception {
+		return mapper.insertNaverUser(user);
+	}
+
+	/* 네이버 로그인 */
+	@Override
+	public User naverLogin(User user) throws Exception {
+		User check = mapper.selectUser(user);
+		if(user.getuPassword().equals(check.getuPassword()))
+			return check;
+		else
+			return null;
+	}
+	
 }
 
 
