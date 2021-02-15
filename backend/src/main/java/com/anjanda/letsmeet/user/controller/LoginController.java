@@ -87,8 +87,9 @@ public class LoginController {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
+		User toLogin = service.selectUser(kakaoUser);
 		
-		return login(kakaoUser, response, session);
+		return login(toLogin, response, session);
 	}
 }
 
