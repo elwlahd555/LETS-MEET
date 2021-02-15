@@ -13,7 +13,7 @@ import com.anjanda.letsmeet.user.service.UserEmailService;
 import com.anjanda.letsmeet.user.service.UserEmailServiceImpl;
 
 @RestController
-@RequestMapping("/user/join/service")
+@RequestMapping("user/join/service")
 public class UserEmailController {
 	
 	@Autowired

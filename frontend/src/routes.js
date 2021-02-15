@@ -108,11 +108,6 @@ const routes = [
         component: () => import('@/views/main/SearchMeetingRoom'),
         props: true
     },    
-    { 
-        path: '/nlp', 
-        name: 'NLP',
-        component: () => import('@/views/NLP'),
-    },
   ]
   
   const router = new VueRouter({

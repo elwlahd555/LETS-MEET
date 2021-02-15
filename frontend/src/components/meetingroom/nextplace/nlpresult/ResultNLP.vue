@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container class="mt-5 pt-5">
       <!-- <vue-word-cloud
         style="
           height: 300px;
@@ -12,8 +12,8 @@
       /> -->
       <v-row>
 
-      <vue-word-cloud class="vue-word" :words="new_words"  style=" height: 300px; width: 300px;" 
-      :color="([, weight]) => weight > 1 ? 'DeepPink' : weight > 0 ? 'RoyalBlue' : 'Indigo'"
+      <vue-word-cloud class="vue-word" :words="new_words"  style=" height: 100px; width: 220px;" 
+      :color="([, weight]) => weight > 3 ? 'DeepPink' : weight > 2 ? 'RoyalBlue' : 'Indigo'"
       font-family="Roboto">
         <template slot-scope="{text, weight}">
           <div class='heretext' :title="weight" style="cursor: pointer;" animation-overlap>
@@ -25,8 +25,7 @@
         </template> 
       </vue-word-cloud>
       </v-row>
-
-          <v-simple-table dense>
+          <v-simple-table dense class="pt-5 mt-3" v-if="showTable">
             <template v-slot:default>
               <thead>
                 <tr>
@@ -63,7 +62,8 @@ export default {
       return {
         chatContent: "",
         words: {},
-        new_words: []
+        new_words: [],
+        showTable: false,
       }
     },
     mounted () {
@@ -72,15 +72,16 @@ export default {
     methods: {
       getData() {
         // 채팅방 내용들 다 받아오기
-        axios.get(`http://localhost:8000/letsmeet/chat/open?mrcMrNo=3`)
+        axios.get(`http://localhost:8000/letsmeet/chat/open?mrcMrNo=1`)
         .then((res)=> {
           res.data.forEach((content)=> {
             this.chatContent += content.mrcContent
           })
-          this.analyzeNLP(this.chatContent)
-          console.log(this.words)
-          for (var wo of Object.keys(this.words)){
-            console.log(this.words[wo])
+          if (this.chatContent.length <= 0) {
+            this.new_words.push('대화 내용이 없습니다.')
+            this.showTable = false
+          } else {
+            this.analyzeNLP(this.chatContent)
           }
 
         })
@@ -88,6 +89,7 @@ export default {
           console.log('안됨')
         })
       },
+      // 데이터 없을 때 처리해줄거
       analyzeNLP (data) {
         axios.post('http://aiopen.etri.re.kr:8000/WiseNLU', {
           'access_key': '1d00844e-0b14-498b-a3c8-017784783627',
@@ -116,7 +118,9 @@ export default {
               this.new_words.sort(function (a, b){
                 return b[1] - a[1]
               })
+              this.showTable = true
               this.new_words = this.new_words.slice(0, 5)
+              this.$emit('nlp_words', this.new_words)
             })
         .catch((err)=>{
           console.log(err)

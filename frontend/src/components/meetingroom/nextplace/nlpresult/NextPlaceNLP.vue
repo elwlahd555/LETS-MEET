@@ -1,7 +1,9 @@
 <template>
   <v-container>
+    {{ nlpWordsList }}
     <hooper :settings="hooperSettings" style="height:100%;">
       <slide v-for="(place, i) in ranPlace" :key="i">
+
         <!-- <RecommendItem :place="place" :roomInfo="roomInfo" @go_detail="goDetail" @refresh="refresh"/> -->
       </slide>
     </hooper>
@@ -29,8 +31,9 @@ export default {
   props: {
     ranPlace: Array,
     roomInfo: Object,
+    nlpWordsList: Array,
   },
-  mounted() {
+  created() {
     this.getStoreDetail()
   },
   data() {
@@ -43,12 +46,13 @@ export default {
         wheelControl: false,
       },
       place: null,
-      isDetail: false
+      isDetail: false,
+      nlpPlaceInfo: [],
     }
   },
   methods: {
-    getStoreDetail() {
-      // store 전체 데이터를 불러내서 s_category_detail 마다 단어 5개 for 문 때리기 
+    getStoreDetail() {  
+      // 데이터 받아온걸 토대로 nlpPlaceInfo 에 넣어서 item, detail 각각 넣어주기
     },
     goDetail(data) {
       this.place = data
