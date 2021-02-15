@@ -23,7 +23,7 @@ export default {
     mounted() {
         const naverLogin = new window.naver.LoginWithNaverId({
         clientId: "MdMhmGDLOLYqpYpSgHux",
-        callbackUrl: "http://localhost:8080/navercallback",
+        callbackUrl: `${server_URL}/navercallback`,
         isPopup: false /* 팝업을 통한 연동처리 여부 */,
     });
         console.log(naverLogin);
@@ -36,8 +36,7 @@ export default {
             } else {
                 console.log("AccessToken이 올바르지 않습니다.");
             }
-            // axios.post(`${server_URL}/letsmeet/auth/kakao/callback`, this.user)
-            axios.post(`http://localhost:8000/letsmeet/auth/naver/callback`, this.user)
+            axios.post(`${server_URL}/letsmeet/auth/kakao/callback`, this.user)
               .then((res) => {
               console.log(res);
               let token = res.data['auth-token']
