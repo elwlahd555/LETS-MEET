@@ -1,27 +1,28 @@
 <template>
   <div class="input__container">
     <slot name="input-field">
-      <input-field
-        v-model="message"
-        @newOwnMessage="onNewOwnMessage"
-        @input_message="inputMessage" />
+      <div class="input__field">
+        <input
+          v-model="message"
+          type="text"
+          placeholder="메시지를 입력해주세요."
+          autofocus
+          @keydown.enter.prevent="send"><br>
+      </div>
     </slot>
     <slot name="input-button">
-      <input-button @newOwMnessage="onNewOwnMessage" />
+      <div
+        class="input__button"
+        @click="send">
+        보내기
+      </div>
     </slot>
   </div>
 </template>
 
 <script>
-import InputField from './InputField.vue'
-import InputButton from './InputButton.vue'
-
 export default {
   name: 'InputContainer',
-  components: {
-    InputField,
-    InputButton,
-  },
   data: function () {
     return {
       message: '',
@@ -37,7 +38,10 @@ export default {
     },
     inputMessage(value) {
       this.message = value
-    }
+    },
+    send () {
+      this.onNewOwnMessage ()
+    },
   }
 }
 </script>

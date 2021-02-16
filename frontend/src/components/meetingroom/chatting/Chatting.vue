@@ -10,7 +10,7 @@
 </template>
 
 <script>
-// import Chat from 'basic-vue-chat'
+import { scrollToBottom } from '@/helpers/scroll.js'
 import Chat from './BasicVueChat.vue'
 import moment from 'moment'
 import Stomp from 'webstomp-client'
@@ -110,11 +110,7 @@ export default {
             uImage: img
           }
           this.feed.push(feed_data)
-          setTimeout(function () {
-            var scrollContainer = document.getElementById('window__messages__container')
-            var isScrolledToBottom = scrollContainer.scrollHeight - scrollContainer.clientHeight <= scrollContainer.scrollTop + 1
-            if (!isScrolledToBottom) { scrollContainer.scrollTop = scrollContainer.scrollHeight }
-          }, 201)
+          scrollToBottom ()
         }
 
       })
