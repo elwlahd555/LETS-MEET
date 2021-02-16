@@ -25,7 +25,11 @@ export const store = new Vuex.Store({
       state.uEmail = payload['uEmail']
       state.uName = payload['uName']
       state.uNo = payload['uNo']
-      state.uImage = payload['uImage']
+      if (!payload['uImage']) {
+        state.uImage = 'https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/436/8142f53e51d2ec31bc0fa4bec241a919_crop.jpeg'
+      } else{
+        state.uImage = payload['uImage']
+      }
       state.uSalt = payload['uSalt']
       console.log(state.uSalt)
     },
