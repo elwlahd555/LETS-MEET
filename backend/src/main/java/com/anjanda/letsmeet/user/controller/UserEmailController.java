@@ -38,7 +38,7 @@ public class UserEmailController {
 		if(UserEmailServiceImpl.ePw.equals(code)) {
 			return new ResponseEntity<String>("코드 인증 성공", HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("코드 인증 실패", HttpStatus.NO_CONTENT);
+		return new ResponseEntity<String>(UserEmailServiceImpl.ePw+" : "+code, HttpStatus.OK);
 		
 	}
 }
