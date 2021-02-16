@@ -79,11 +79,15 @@ export default {
         if (member.uNo === this.roomInfo.mrSuperUNo){
           icon = true
         }
+        var img = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ0zR3D2SYdonO9a3Yfzfh1RNq1nWGN3WD4w&usqp=CAU'
+        if (member.uImage) {
+          img = member.uImage
+        }
         var data = {
           icon: icon,
           uName: member.uName,
           uEmail: member.uEmail,
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+          avatar: img,
           uNo: member.uNo
         }
         this.members.push(data)

@@ -11,7 +11,7 @@
           </div>
           <div class="custom-file">
             <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" 
-              v-on:change="$fileSelect()" ref="iFile" />
+              v-on:change="$fileSelect()" ref="iFile" accept="image/*" />
             <label class="custom-file-label" for="inputGroupFile01">Choose image</label>
           </div>
         </div>

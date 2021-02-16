@@ -375,7 +375,11 @@ export default {
             if (array.length) {
               array.forEach(li => {
                 if(li.uNo === this.$store.state.uNo) return
-                this.searchFriendList.push([li.uNo, li.uEmail, li.uName, li.uImage])
+                var img = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ0zR3D2SYdonO9a3Yfzfh1RNq1nWGN3WD4w&usqp=CAU'
+                if (li.uImage) {
+                  img = li.uImage
+                }
+                this.searchFriendList.push([li.uNo, li.uEmail, li.uName, img])
               });
             this.addFriend = ''
             } else {

@@ -22,8 +22,7 @@
                   <v-row>
                     <v-avatar>
                       <img
-                        src="https://cdn.vuetifyjs.com/images/john.jpg"
-                        alt="John"
+                        :src="friend[3]"
                       >
                     </v-avatar>
                   </v-row>
@@ -55,8 +54,7 @@
                 <v-col cols='2'>
                 <v-avatar>
                   <img
-                    src="https://cdn.vuetifyjs.com/images/john.jpg"
-                    alt="John"
+                    :src="friend[3]"
                   >
                 </v-avatar>
                 </v-col>
@@ -79,8 +77,7 @@
                 <v-col cols='2'>
                 <v-avatar>
                   <img
-                    src="https://cdn.vuetifyjs.com/images/john.jpg"
-                    alt="John"
+                    :src="friend[3]"
                   >
                 </v-avatar>
                 </v-col>
@@ -174,7 +171,7 @@ export default {
             icon: false,
             uName: mb[2],
             uEmail: mb[1],
-            avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+            avatar: mb[3],
             uNo: mb[0]
           }
           var img = 'https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/436/8142f53e51d2ec31bc0fa4bec241a919_crop.jpeg'
@@ -211,7 +208,11 @@ export default {
       .then((res)=> {
         const array = res.data
         array.forEach(el => {
-          this.allmyfriendlist.push([el.uNo, el.uName, el.uEmail, el.uImage])
+          var img = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ0zR3D2SYdonO9a3Yfzfh1RNq1nWGN3WD4w&usqp=CAU'
+          if (el.uImage) {
+            img = el.uImage
+          }
+          this.allmyfriendlist.push([el.uNo, el.uName, el.uEmail, img])
         });
         console.log(this.allmyfriendlist)
       })

@@ -73,7 +73,7 @@
               ref="iFile"
               @change="$fileSelect()"
             ></v-file-input> -->
-            <input v-on:change="$fileSelect()" type="file" ref="iFile" />
+            <input v-on:change="$fileSelect()" type="file" ref="iFile" accept="image/*"/>
           </v-col>
         </v-row>
       </v-container>
