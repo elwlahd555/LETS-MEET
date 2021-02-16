@@ -77,7 +77,7 @@ export default {
       },
       // 데이터 없을 때 처리해줄거
       analyzeNLP (data) {
-        axios.post('http://aiopen.etri.re.kr:8000/WiseNLU', {
+        axios.post(`${server_URL}/NLU`, {
           'access_key': '1d00844e-0b14-498b-a3c8-017784783627',
           'argument': {
               'text': data,

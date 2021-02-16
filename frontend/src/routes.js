@@ -69,6 +69,11 @@ const routes = [
         name: 'KakaoCallback',
         component: () => import('@/views/user/KakaoCallback')
     },
+    {
+        path: '/navercallback',
+        name: 'NaverCallback',
+        component: () => import('@/views/user/NaverCallback')
+    },
     { 
         path: '/meetingroom/:id', 
         name: 'MeetingRoom',
