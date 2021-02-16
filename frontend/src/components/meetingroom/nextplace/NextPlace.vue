@@ -76,76 +76,6 @@ export default {
         })
       },
       // 데이터 없을 때 처리해줄거
-<<<<<<< HEAD
-      analyzeNLP () {
-        var result = []
-        var access_key = '1d00844e-0b14-498b-a3c8-017784783627';
-        var analysisCode = 'ner';
-        var text = '';
-        text += "네 안녕하세요 홍길동 교숩니다"
-        
-        var requestJson = {
-            'access_key': access_key,
-            'argument': {
-                'text': text,
-                'analysis_code': analysisCode
-            }
-        };
-        
-        var request = require('request');
-        var options = {
-            url: 'http://aiopen.etri.re.kr:8000/WiseNLU',
-            body: JSON.stringify(requestJson),
-            headers: {'Content-Type':'application/json; charset=UTF-8'}
-        };
-        request.post(options, function (error, response, body) {
-            var texts = JSON.parse(body).return_object.sentence[0].morp;
-            for (var text of texts) {
-              console.log(text)
-              result.push(text.lemma)
-            }
-            console.log(result)
-        });
-
-        for (var i of result) {
-          console.log(i)
-        }
-        // axios.post('http://aiopen.etri.re.kr:8000/WiseNLU', {
-        //   'access_key': '1d00844e-0b14-498b-a3c8-017784783627',
-        //   'argument': {
-        //       'text': data,
-        //       'analysis_code': 'ner'
-        //   },
-        //   headers: {'Content-Type':'application/json; charset=UTF-8'}
-        // })
-        // .then((res)=> {
-        //   res.data.return_object.sentence.forEach((sentence) => {
-        //     sentence.morp.forEach((morpheme) => {
-        //       if(morpheme.type === 'NNG') {
-        //         let word = morpheme.lemma
-        //             if (word in this.words) {
-        //               this.words[word] += 1
-        //             } else {
-        //               this.words[word] = 1
-        //             }
-        //           }
-        //         })
-        //       })
-        //       for( const [key, value] of Object.entries(this.words)){
-        //         this.new_words.push([key, value])
-        //       }
-        //       this.new_words.sort(function (a, b){
-        //         return b[1] - a[1]
-        //       })
-        //       this.showTable = true
-        //       this.new_words = this.new_words.slice(0, 5)
-        //       console.log(this.new_words)
-        //       this.getnlpStoreDetail()
-        //     })
-        // .catch((err)=>{
-        //   console.log(err)
-        // })
-=======
       analyzeNLP (data) {
         axios.post(`${server_URL}/NLU`, {
           'access_key': '1d00844e-0b14-498b-a3c8-017784783627',
@@ -182,7 +112,6 @@ export default {
         .catch((err)=>{
           console.log(err)
         })
->>>>>>> d9c40013e9fbac8df1c454119568f71cfe4f5fdc
       },
       getnlpStoreDetail() {
         this.new_words.forEach((place)=> {
