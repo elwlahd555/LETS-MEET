@@ -277,7 +277,7 @@ export default {
       // 인증이메일 코드가 맞는지 확인
     authCodeCheck () { 
       if (this.authCode.length > 0) {
-        setTimeout(()=> {
+
         axios.post(`${server_URL}/letsmeet/user/join/service/verifyCode?eConfirm=${this.authCode}&eEmail=${this.user.uEmail}`)
         .then((res) => {
           console.log(res)
@@ -289,6 +289,7 @@ export default {
               this.auth_button_color = 'indigo accent-2'
             } else {
               this.dialog = true
+              console.log('????')
             }
           }
           else {
@@ -301,7 +302,7 @@ export default {
         .catch(() => {
           console.log('불일치')
         })
-      }, 2000);
+
       }
     },
     disagree() {
