@@ -25,6 +25,9 @@ public interface UserMapper {
 	
 	/* C :: 카카오 회원 가입 메소드 */
 	public int insertKakaoUser(User user) throws Exception;
+	
+	/* C :: 네이버 회원 가입 메소드 */
+	public int insertNaverUser(User user) throws Exception;
 
 	/* R :: 로그인 위한 메소드 */
 	public User selectUserLogin(User user) throws Exception;
@@ -53,6 +56,7 @@ public interface UserMapper {
 	
 	/* 비밀번호 찾기 */
 	public int selectPasswordByEmail(String uEmail, String tempPassword) throws Exception;
+
 
 
 }
