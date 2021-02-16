@@ -10,7 +10,7 @@
         {{ contents }}
       </div>
     </div>
-    <div class="message__date mt-6">
+    <div class="justify-end message__date">
       {{ date }}
     </div>
   </div>
