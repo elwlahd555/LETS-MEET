@@ -40,7 +40,7 @@ public interface StoreMapper {
 	public List<Store> selectStoreByName(String sName);
 
 	/* '디테일'으로 가게 전체 조회 */
-	public List<Store> selectStoreByDetail(String detail);
+	public List<Store> selectStoreByDetail(String detail, String x, String y);
 
 
 
