@@ -5,14 +5,13 @@
       :title="'Chat Room'+ ' (' +(mrUserInfo.length)+ '명)'"
       :initial-author-id="authorId"
       @newOwnMessage="onNewOwnMessage"
-      :toggle-emoji-picker="toggleEmojiPicker"
-      @openEmojiPicker="onOpenEmojiPicker"
     />
   </v-container>
 </template>
 
 <script>
-import Chat from 'basic-vue-chat'
+// import Chat from 'basic-vue-chat'
+import Chat from './BasicVueChat.vue'
 import moment from 'moment'
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
@@ -25,9 +24,10 @@ export default {
     Chat,
   },
   props: {
-    mrNo: Number,
+    mrNo: {},
     mrUserInfo: Array,
   },
+
   data() {
     return {
       authorId: 1,
@@ -45,7 +45,6 @@ export default {
       ,
       feed: [
       ],
-      toggleEmojiPicker: true,
     }
   },
   created() {
@@ -53,27 +52,31 @@ export default {
     this.authname = this.$store.state.uName
     this.authorId = this.$store.state.uNo
   },
+  beforeDestroy() {
+    console.log("채팅창 종료!")
+    if (this.stompClient) {
+      this.stompClient.unsubscribe("/send")
+      this.stompClient.disconnect()
+    }
+  },
+  destroyed() {
+    console.log("제거완료")
+  },
   methods: {
-    onNewOwnMessage (message, image, imageUrl) {
+    onNewOwnMessage (message) {
       const newOwnMessage = {
         id: this.authorId,
         author: this.authname,
         contents: message,
-        image: image,
-        imageUrl: imageUrl,
-        date: moment().format('HH:mm:ss')
+        date: moment().format('HH:mm')
       }
       console.log(newOwnMessage)
       this.message = newOwnMessage
-      this.feed.pop()
       this.send()
-    },
-    onOpenEmojiPicker (toggle) {
-      this.setEmojiPickerToggle(toggle)
     },
     created() {
       this.connect()
-    },  
+    },
     send() {
       if (this.stompClient && this.stompClient.connected) {
         const msg = { 
@@ -81,7 +84,6 @@ export default {
           mrcContent: this.message.contents,
           mrcMrNo: this.mrNo
         };
-        console.log(msg)
         this.stompClient.send("/pub/receive", JSON.stringify(msg), {});
       }
     },    
@@ -94,13 +96,18 @@ export default {
         console.log(res.data)
         for (var re of res.data){
           var tmp_date = re.mrcDate
+          var img = 'https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/436/8142f53e51d2ec31bc0fa4bec241a919_crop.jpeg'
+          for (var user of this.mrUserInfo) {
+            if (re.mrcUNo === user.uNo && user.uImage !== null){
+              img = user.uImage
+            }
+          }
           const feed_data = {
             id: re.mrcUNo,
             author: this.user[re.mrcUNo],
-            imageUrl: '',
-            image: '',
             contents: re.mrcContent,
-            date: tmp_date.substring(11,20),
+            date: tmp_date.substring(11,16),
+            uImage: img
           }
           this.feed.push(feed_data)
           setTimeout(function () {
@@ -129,39 +136,38 @@ export default {
           // 이런형태를 pub sub 구조라고 합니다.
           this.stompClient.subscribe("/send", res => {
             console.log('구독으로 받은 메시지 입니다.', this.authname, JSON.parse(res.body));
+            var img = 'https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/436/8142f53e51d2ec31bc0fa4bec241a919_crop.jpeg'
+            for (var user of this.mrUserInfo) {
+              if (JSON.parse(res.body).mrcUNo === user.uNo && user.uImage !== null){
+                img = user.uImage
+              }
+            }
             this.message = {
               id: JSON.parse(res.body).mrcUNo,
               roomNo: JSON.parse(res.body).mrcMrNo,
               author: this.user[JSON.parse(res.body).mrcUNo],
               contents: JSON.parse(res.body).mrcContent,
-              image: '',
-              imageUrl: '',
-              date: moment().format('HH:mm:ss')
+              date: moment().format('HH:mm'),
+              uImage: img
             }
-            if(this.message.roomNo===this.mrNo){
+            if(this.message.roomNo == this.mrNo){
               console.log("방번호가 일치합니다.")
-            console.log(this.message)
-            setTimeout(function () {
-              var scrollContainer = document.getElementById('window__messages__container')
-              var isScrolledToBottom = scrollContainer.scrollHeight - scrollContainer.clientHeight <= scrollContainer.scrollTop + 1
-              if (!isScrolledToBottom) { scrollContainer.scrollTop = scrollContainer.scrollHeight }
-            }, 201)
-            // 받은 데이터를 json으로 파싱하고 리스트에 넣어줍니다.
-            this.feed.push(this.message)
+              this.feed.push(this.message)
+              console.log(this.message)
+              setTimeout(function () {
+                var scrollContainer = document.getElementById('window__messages__container')
+                var isScrolledToBottom = scrollContainer.scrollHeight - scrollContainer.clientHeight <= scrollContainer.scrollTop + 1
+                if (!isScrolledToBottom) { scrollContainer.scrollTop = scrollContainer.scrollHeight }
+              }, 201)
             }
           });
           const msg = { 
           mrcUNo: this.authorId,
           mrcContent: this.message.contents,
           mrcMrNo: this.mrNo
-        };
+          };
         console.log(msg)
         this.stompClient.send("/pub", JSON.stringify(msg), {});
-        // if (this.stompClient) {
-        //   this.stompClient.unsubscribe("/send")
-        //   this.stompClient.disconnect()
-        //   this.socket.close()
-        // }
         },
         error => {
           // 소켓 연결 실패
@@ -177,7 +183,7 @@ export default {
 <style lang="scss">
   .window {
       max-width: 500px !important;
-      height: 450px !important;
+      height: 500px !important;
   }
   .window__header__container {
     background: #536DFE !important;
