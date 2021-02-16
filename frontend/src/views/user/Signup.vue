@@ -247,7 +247,7 @@ export default {
         if (this.$refs.form.validate()) {
           // sprin url 받기
           const uImage = 'https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/436/8142f53e51d2ec31bc0fa4bec241a919_crop.jpeg'
-          axios.post(`${server_URL}/letsmeet/user/join?uEmail=${this.user.uEmail}&uName=${this.user.uName}&uPassword=${this.user.uPassword}&uImage=${uImage}`, this.user)
+          axios.post(`${server_URL}/letsmeet/user/join?uEmail=${this.user.uEmail}&uName=${this.user.uName}&uPassword=${this.user.uPassword}&uImage=${uImage}`)
             .then(()=> {
               alert('회원가입 완료되었습니다.')
               this.$router.push({ name: 'Login'});
@@ -276,11 +276,9 @@ export default {
 
       // 인증이메일 코드가 맞는지 확인
     authCodeCheck () { 
-      console.log(this.emailNotDup)
-      console.log(this.authCodeIsRight)
-      console.log(this.authCode)
       if (this.authCode.length > 0) {
-        axios.post(`${server_URL}/letsmeet/user/join/service/verifyCode?code=${this.authCode}`)
+        setTimeout(()=> {
+        axios.post(`${server_URL}/letsmeet/user/join/service/verifyCode?eConfirm=${this.authCode}&eEmail=${this.user.uEmail}`)
         .then((res) => {
           console.log(res)
           if (res.data === '코드 인증 성공'){
@@ -300,9 +298,10 @@ export default {
           }
           this.authCode = ''
         })
-      .catch(() => {
-        console.log('불일치')
-      })
+        .catch(() => {
+          console.log('불일치')
+        })
+      }, 2000);
       }
     },
     disagree() {

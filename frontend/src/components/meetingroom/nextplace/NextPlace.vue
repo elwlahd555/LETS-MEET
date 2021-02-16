@@ -40,6 +40,7 @@ export default {
       new_words: [],
       showTable: false,
       nlpPlaceDetail: [],
+      
     }
   },
   components: {
@@ -61,7 +62,7 @@ export default {
         axios.get(`${server_URL}/letsmeet/chat/open?mrcMrNo=${this.roomInfo.mrNo}`)
         .then((res)=> {
           res.data.forEach((content)=> {
-            this.chatContent += content.mrcContent
+            this.chatContent += content.mrcContent+' '
           })
           if (this.chatContent.length <= 0) {
             this.new_words.push('대화 내용이 없습니다.')
@@ -77,6 +78,7 @@ export default {
       },
       // 데이터 없을 때 처리해줄거
       analyzeNLP (data) {
+        //'http://aiopen.etri.re.kr:8000/WiseNLU'
         axios.post(`${server_URL}/NLU`, {
           'access_key': '1d00844e-0b14-498b-a3c8-017784783627',
           'argument': {
@@ -88,6 +90,7 @@ export default {
         .then((res)=> {
           res.data.return_object.sentence.forEach((sentence) => {
             sentence.morp.forEach((morpheme) => {
+              console.log(morpheme)
               if(morpheme.type === 'NNG') {
                 let word = morpheme.lemma
                     if (word in this.words) {
@@ -116,7 +119,7 @@ export default {
       getnlpStoreDetail() {
         this.new_words.forEach((place)=> {
           // const nlpList = []
-          axios.get(`${server_URL}/letsmeet/map/storedetail?detail=${place[0]}`)
+          axios.get(`${server_URL}/letsmeet/map/storedetail?detail=${place[0]}&x=${this.roomInfo.mrCenterLat}&y=${this.roomInfo.mrCenterLng}`)
           .then((res)=>{
             if (res.data.length > 0) {
               const li = res.data.slice(0,3)
