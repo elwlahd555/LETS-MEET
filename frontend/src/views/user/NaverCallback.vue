@@ -16,8 +16,6 @@ export default {
           uEmail : '',
           uPassword: '',
           uName: '',
-          uId: '',
-          uImage: '',
         }
       }
     },
@@ -33,7 +31,6 @@ export default {
             if (status) {
                 this.user.uEmail = naverLogin.user.email + '_' + naverLogin.user.id;
                 this.user.uName = naverLogin.user.name;
-                this.user.uImage = naverLogin.user.profile_image;
                 this.user.uPassword = "NaverPassword";
                 console.log(this.user);
             } else {
