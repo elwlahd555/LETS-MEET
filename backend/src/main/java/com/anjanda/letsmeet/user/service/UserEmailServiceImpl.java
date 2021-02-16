@@ -11,11 +11,17 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import com.anjanda.letsmeet.repository.dto.Emailconfirm;
+import com.anjanda.letsmeet.repository.mapper.EmailconfirmMapper;
+
 @Service
 public class UserEmailServiceImpl implements UserEmailService {
 	
 	@Autowired
 	JavaMailSender emailSender;
+	
+	@Autowired
+	EmailconfirmMapper mapper;
 	
 	public static final String ePw = createKey();
 	
@@ -43,6 +49,10 @@ public class UserEmailServiceImpl implements UserEmailService {
         message.setText(msgg, "utf-8", "html");//내용
         message.setFrom(new InternetAddress("khyun7621@naver.com","Let's Meet"));//보내는 사람
         
+        Emailconfirm emailconfirm=new Emailconfirm();
+        emailconfirm.seteEmail(to);
+        emailconfirm.seteConfirm(ePw);
+		mapper.insertEmailconfirm(emailconfirm);
         return message;
 	}
 	
@@ -79,4 +89,15 @@ public class UserEmailServiceImpl implements UserEmailService {
 			throw new IllegalArgumentException();
 		}
 	}
+
+	@Override
+	public Emailconfirm selectEmailconfirm(Emailconfirm emailconfirm) {
+
+		return mapper.selectEmailconfirm(emailconfirm);
+	}
+
+
+
+		
+
 }

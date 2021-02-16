@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.anjanda.letsmeet.repository.dto.Emailconfirm;
 import com.anjanda.letsmeet.user.service.UserEmailService;
 import com.anjanda.letsmeet.user.service.UserEmailServiceImpl;
 
@@ -33,14 +34,23 @@ public class UserEmailController {
 	}
 	
 	@PostMapping("/verifyCode")
-	public ResponseEntity<String> verifyCode(String code){
+	public ResponseEntity<String> verifyCode(Emailconfirm emailconfirm){
 		logger.info("Post VerifyCode");
-		System.out.println("Code : " + code);
-		System.out.println("Code Match : " + password.equals(code));
-		if(password.equals(code)) {
+		System.out.println("입력된 "+emailconfirm.geteConfirm());
+		System.out.println("입력된 "+emailconfirm.geteEmail());
+		Emailconfirm check=userEmailService.selectEmailconfirm(emailconfirm);
+		System.out.println("저장된 "+check.geteConfirm());
+		if(emailconfirm.geteConfirm().equals(check.geteConfirm())) {
 			return new ResponseEntity<String>("코드 인증 성공", HttpStatus.OK);
+		}else {
+			return new ResponseEntity<String>(password+" : ", HttpStatus.OK);
 		}
-		return new ResponseEntity<String>(password+" : "+code, HttpStatus.OK);
+//		System.out.println("Code : " + code);
+//		System.out.println("Code Match : " + password.equals(code));
+//		if(password.equals(code)) {
+//			return new ResponseEntity<String>("코드 인증 성공", HttpStatus.OK);
+//		}
+//		return new ResponseEntity<String>(password+" : "+code, HttpStatus.OK);
 		
 	}
 }
