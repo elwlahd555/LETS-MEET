@@ -21,24 +21,26 @@ public class UserEmailController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
+	private static String password=UserEmailServiceImpl.ePw;
+	
 	@PostMapping("/mail")
 	public ResponseEntity<String> emailConfirm(String uEmail) throws Exception {
 		logger.info("Post email Confirm");
 		System.out.println("전달 받은 이메일 : " + uEmail);
 		userEmailService.sendSimpleMessage(uEmail);
+		System.out.println(password);
 		return new ResponseEntity<String>("코드 전송 성공", HttpStatus.OK);
 	}
 	
 	@PostMapping("/verifyCode")
 	public ResponseEntity<String> verifyCode(String code){
 		logger.info("Post VerifyCode");
-		int result = 0;
 		System.out.println("Code : " + code);
-		System.out.println("Code Match : " + UserEmailServiceImpl.ePw.equals(code));
-		if(UserEmailServiceImpl.ePw.equals(code)) {
+		System.out.println("Code Match : " + password.equals(code));
+		if(password.equals(code)) {
 			return new ResponseEntity<String>("코드 인증 성공", HttpStatus.OK);
 		}
-		return new ResponseEntity<String>(UserEmailServiceImpl.ePw+" : "+code, HttpStatus.OK);
+		return new ResponseEntity<String>(password+" : "+code, HttpStatus.OK);
 		
 	}
 }
