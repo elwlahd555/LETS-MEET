@@ -7,23 +7,23 @@
 	<!-- C :: 회원 가입 -->
 	<insert id="insertUser" parameterType="user">
 	insert into user
-		(u_no, u_email, u_password, u_name, u_join_date, u_salt, u_Image)
+		(u_no, u_email, u_password, u_name, u_join_date, u_salt)
 	values
-		(#{uNo}, #{uEmail}, #{uPassword}, #{uName}, now(), #{uSalt}, #{uImage});
+		(#{uNo}, #{uEmail}, #{uPassword}, #{uName}, now(), #{uSalt});
 	</insert>
 
 	<!-- C :: 카카오 회원 가입 -->
 	<insert id="insertKakaoUser" parameterType="user">
 		insert
-		  into user(u_no, u_email, u_password, u_name, u_provider, u_join_date, u_Image)
-		values (#{uNo}, #{uEmail}, #{uPassword}, #{uName}, #{uProvider}, now(), #{uImage})
+		  into user(u_no, u_email, u_password, u_name, u_provider, u_join_date)
+		values (#{uNo}, #{uEmail}, #{uPassword}, #{uName}, #{uProvider}, now())
 	</insert>
 
 	<!-- C :: 네이버 회원 가입 -->
 	<insert id="insertNaverUser" parameterType="user">
 		insert
-		  into user(u_no, u_email, u_password, u_name, u_provider, u_join_date, u_Image)
-		values (#{uNo}, #{uEmail}, #{uPassword}, #{uName}, #{uProvider}, now(), #{uImage})
+		  into user(u_no, u_email, u_password, u_name, u_provider, u_join_date)
+		values (#{uNo}, #{uEmail}, #{uPassword}, #{uName}, #{uProvider}, now())
 	</insert>
 
 	<!-- R :: 로그인 -->
