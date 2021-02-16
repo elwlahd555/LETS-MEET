@@ -8,7 +8,18 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.4.2</version>
 		<relativePath /> <!-- lookup parent from repository -->
+		
 	</parent>
+	
+			<!-- KOMORAN -->
+	<repositories>
+  <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+  </repository>
+</repositories>
+
+
 	<groupId>com.anjanda</groupId>
 	<artifactId>letsmeet</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -20,6 +31,12 @@
 	</properties>
 	<dependencies>
 	
+		<!-- KOMORAN -->
+	  <dependency>
+    <groupId>com.github.shin285</groupId>
+    <artifactId>KOMORAN</artifactId>
+    <version>3.3.4</version>
+  </dependency>
 		<!-- SpringBoot -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -51,6 +68,8 @@
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 			<version>2.1.4</version>
 		</dependency>
+
+		
 
 		<!-- MySQL -->
 		<dependency>
