@@ -29,8 +29,7 @@
 </template>
 
 <script>
-// import moment from 'moment'
-import { scrollToBottom } from './helpers/scroll.js'
+import { scrollToBottom } from '@/helpers/scroll.js'
 import MessagesList from './messages/MessagesList.vue'
 import InputContainer from './input/InputContainer.vue'
 
@@ -87,12 +86,6 @@ export default {
       this.feed.push(element)
     },
     onNewOwnMessage (message) {
-      // const newOwnMessage = {
-      //   id: this.authorId,
-      //   contents: message,
-      //   date: moment().format('HH:mm')
-      // }
-      // this.pushToFeed(newOwnMessage)
       scrollToBottom()
       this.$emit('newOwnMessage', message)
     }
