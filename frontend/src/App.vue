@@ -25,7 +25,7 @@
     </div>
     
     <v-main>
-      <router-view class="mt-14 mb-13" :key="$route.fullPath"></router-view>
+      <router-view class="mt-14 mb-3" :key="$route.fullPath"></router-view>
     </v-main>
 
     <v-bottom-navigation

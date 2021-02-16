@@ -23,7 +23,10 @@
 	<select id="selectStoreByDetail" resultType="Store">
 		select *
 		  from store
-		 where s_category_detail like "%"#{detail}"%"
+		 where s_category_detail like "%"#{detail}"%" and
+		 (s_lat between (#{x} - 0.005) and (#{x} + 0.005))
+		 	   and 
+		 	   (s_lng between (#{y} - 0.005) and (#{y} + 0.005))
 		 order by s_score desc;
 	</select>
 
