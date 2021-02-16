@@ -75,6 +75,7 @@ public class LoginController {
 		kakaoUser.setuEmail(user.getuEmail());
 		kakaoUser.setuPassword(user.getuPassword());
 		kakaoUser.setuName(user.getuName());
+		kakaoUser.setuImage(user.getuImage());
 		kakaoUser.setuProvider("kakao");
 		
 		// 가입자 혹은 비가입자 체크해서 처리
@@ -114,6 +115,7 @@ public class LoginController {
 		naverUser.setuEmail(user.getuEmail());
 		naverUser.setuPassword(user.getuPassword());
 		naverUser.setuName(user.getuName());
+		naverUser.setuImage(user.getuImage());
 		naverUser.setuProvider("naver");
 		
 		// 가입자 혹은 비가입자 체크해서 처리

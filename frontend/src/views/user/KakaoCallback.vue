@@ -21,6 +21,7 @@ export default {
           uEmail : '',
           uPassword: '',
           uName: '',
+          uImage: '',
         }
       }
     },
@@ -46,6 +47,7 @@ export default {
             this.user.uEmail = user_data.kakao_account.email+'_'+user_data.id;
             this.user.uPassword = 'kakaoPassword';
             this.user.uName = user_data.properties.nickname;
+            this.user.uImage = user_data.properties.profile_image;
             axios.post(`${server_URL}/letsmeet/auth/kakao/callback`, this.user)
               .then((res) => {
               console.log(res);

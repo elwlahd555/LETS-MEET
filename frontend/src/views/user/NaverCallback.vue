@@ -17,6 +17,7 @@ export default {
           uPassword: '',
           uName: '',
           uId: '',
+          uImage: '',
         }
       }
     },
@@ -26,11 +27,13 @@ export default {
         callbackUrl: `${server_URL}/navercallback`,
         isPopup: false /* 팝업을 통한 연동처리 여부 */,
     });
+        naverLogin.init();
         console.log(naverLogin);
         naverLogin.getLoginStatus((status) => {
             if (status) {
                 this.user.uEmail = naverLogin.user.email + '_' + naverLogin.user.id;
                 this.user.uName = naverLogin.user.name;
+                this.user.uImage = naverLogin.user.profile_image;
                 this.user.uPassword = "NaverPassword";
                 console.log(this.user);
             } else {
