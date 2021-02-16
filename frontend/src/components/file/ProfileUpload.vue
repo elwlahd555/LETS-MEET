@@ -1,6 +1,6 @@
 <template>
   <div>
-      <input v-on:change="$fileSelect()" type="file" ref="iFile" />
+      <input v-on:change="$fileSelect()" type="file" ref="iFile" accept="image/*"/>
   </div>
 </template>
 

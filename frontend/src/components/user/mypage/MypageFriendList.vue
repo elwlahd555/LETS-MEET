@@ -104,7 +104,11 @@ export default {
       .then((res)=> {
         const array = res.data
         array.forEach(el => {
-          this.allmyfriendlist.push([el.uNo, el.uName, el.uEmail, el.uImage])
+          var img = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ0zR3D2SYdonO9a3Yfzfh1RNq1nWGN3WD4w&usqp=CAU'
+          if (el.uImage) {
+            img = el.uImage
+          }
+          this.allmyfriendlist.push([el.uNo, el.uName, el.uEmail, img])
         });
         console.log(this.allmyfriendlist)
       })

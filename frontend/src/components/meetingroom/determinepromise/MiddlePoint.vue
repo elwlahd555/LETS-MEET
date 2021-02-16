@@ -70,7 +70,8 @@ export default {
           var LatLng = new kakao.maps.LatLng(user.mruUserLat, user.mruUserLng)
           var tmp = {
             latlng: LatLng,
-            title: user.uName
+            title: user.uName,
+            uImage: user.uImage
           }
           polygonPath.push(LatLng)
           latitude += parseFloat(user.mruUserLat)
@@ -120,10 +121,14 @@ export default {
       var zoomControl = new kakao.maps.ZoomControl()
       map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT)
 
-      var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/red_b.png'
       // var imageSrc = "https://cdn.vuetifyjs.com/images/john.jpg"
+      var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/red_b.png'
 
       for (var i = 0; i < this.positions.length; i ++) {
+        // var imageSrc = 'https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/436/8142f53e51d2ec31bc0fa4bec241a919_crop.jpeg'
+        // if (this.positions[i].uImage){
+        //   imageSrc = this.positions[i].uImage
+        // }
         var imageSize = new kakao.maps.Size(24, 35)
         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize)
         new kakao.maps.Marker({
@@ -133,12 +138,14 @@ export default {
           image : markerImage // 마커 이미지 
         });
         var content = 
-          '<div class="mt-7 rounded-pill grey lighten-3">' +
+          `<div class="text-center" style="margin-top:50px;">` +
+          ` <img src="${ this.positions[i].uImage }" style="width: 30px; height: 30px; border-radius: 50%;">` +
+          ' <div class="rounded-pill grey lighten-3">' +
           '  <v-textarea background-color="light-blue">' +
           `    <div>${ this.positions[i].title }</div>` + 
           '  </v-textarea>' +
+          `  </div>` +
           '</div>'
-          
         var overlay = new kakao.maps.CustomOverlay({
           content: content,
           map: map,
@@ -178,7 +185,18 @@ export default {
           title : "중간지점 : " + latitude + ", " + longitude,
           image : markerImage2
         });
-        
+        var content2 = 
+          '<div class="mt-7 rounded-pill grey lighten-3">' +
+          '  <v-textarea background-color="light-blue">' +
+          `    <div>중간지점</div>` + 
+          '  </v-textarea>' +
+          '</div>'
+        overlay = new kakao.maps.CustomOverlay({
+          content: content2,
+          map: map,
+          position: new kakao.maps.LatLng(latitude, longitude),  
+        })
+        overlay.setMap(map);
       }
       map.relayout()
     },
