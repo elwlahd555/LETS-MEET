@@ -276,33 +276,34 @@ export default {
 
       // 인증이메일 코드가 맞는지 확인
     authCodeCheck () { 
-      console.log(this.emailNotDup)
-      console.log(this.authCodeIsRight)
-      console.log(this.authCode)
       if (this.authCode.length > 0) {
-        axios.post(`${server_URL}/letsmeet/user/join/service/verifyCode?code=${this.authCode}`)
-        .then((res) => {
-          console.log(res)
-          if (res.data === '코드 인증 성공'){
-            this.authCodeIsRight = true
-            if (this.emailNotDup === true && this.authCodeIsRight === true) {
-              this.dialog = false
-              this.dup2 = true
-              this.auth_button_color = 'indigo accent-2'
-            } else {
-              this.dialog = true
-            }
-          }
-          else {
-            this.authCodeIsRight = false
-            this.dialog = true
-            alert('인증 코드가 맞지 않습니다.')
-          }
-          this.authCode = ''
-        })
-      .catch(() => {
-        console.log('불일치')
-      })
+        setTimeout(()=> {
+          axios.post(`${server_URL}/letsmeet/user/join/service/verifyCode?code=${this.authCode}`)
+            .then((res) => {
+              console.log(res.data)
+
+              if (res.data === '코드 인증 성공'){
+                this.authCodeIsRight = true
+                if (this.emailNotDup === true && this.authCodeIsRight === true) {
+                  this.dialog = false
+                  this.dup2 = true
+                  this.auth_button_color = 'indigo accent-2'
+                } else {
+                  this.dialog = true
+                  this.authCodeIsRight = false
+                }
+              }
+              else {
+                this.authCodeIsRight = false
+                this.dialog = true
+                alert('인증 코드가 맞지 않습니다.')
+              }
+              this.authCode = ''
+            })
+          .catch(() => {
+            console.log('불일치')
+          })
+        }, 2000);
       }
     },
     disagree() {

@@ -31,6 +31,7 @@ export default {
   props: {
     roomInfo: Object,
     nlpPlaceDetail: Array,
+
   },
   data() {
     return {

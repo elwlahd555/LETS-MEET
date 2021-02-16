@@ -3,39 +3,66 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.anjanda.letsmeet.repository.mapper.StoreMapper">
-	
+
 	<!-- 동입력을 통한 가게 조회 -->
 	<select id="selectStoreByDong" resultType="Store">
 		select *
 		  from store
 		 where s_dong = #{sDong}
 	</select>
-
-	<!-- 동입력을 통한 가게 리뷰 조회 -->
-	<select id="reviewStoreByDong" resultType="Store">
+	<!-- 가게명을 통한 가게 조회 -->
+	<select id="selectStoreByName" resultType="Store">
 		select *
 		  from store
-		 where s_dong = #{sDong}
+		 where s_name = #{sName}
+	</select>
+	
+	
+	
+	<!-- 디테일을 통한 가게 조회 -->
+	<select id="selectStoreByDetail" resultType="Store">
+		select *
+		  from store
+		 where s_category_detail like "%"#{detail}"%"
+		 order by s_score desc;
 	</select>
 
-	<!-- 좌표를 참고한 해당 가게의 리뷰 조회 -->	
-	<select id="reviewStoreByPoint" parameterType="com.anjanda.letsmeet.repository.dto.Store" resultType="Store">
+
+
+	
+	
+	<select id="selectStoreByPoint" parameterType="Store" resultType="Store">
 		select *
 		  from store
 		 where s_lat = #{sLat} and s_lng = #{sLng}
 	</select>
 	
-	
-	<!-- 중간 좌표를 참고한 일정 반경 내 리뷰 조회 -->	<!-- 유형으로 거르는 등 나중에 수정 필요 -->
-	<select id="reviewStoreByMidPoint" parameterType="com.anjanda.letsmeet.repository.dto.Store" resultType="Store">
+	<select id="selectStoreByNo" parameterType="int" resultType="Store">
 		select *
 		  from store
-		 where (s_lat between (#{sLat} - 0.003) and (#{sLng} + 0.003))
+		 where s_no = #{sNo}
+	</select>
+
+	<select id="selectStoreByMidPoint" parameterType="Store" resultType="Store">
+		select *
+		  from store
+		 where (s_lat between (#{sLat} - 0.005) and (#{sLat} + 0.005))
 		 	   and 
-		 	   (s_lng between (#{sLng} - 0.003) and (#{sLng} + 0.003))
+		 	   (s_lng between (#{sLng} - 0.005) and (#{sLng} + 0.005))
+               and s_category =#{sCategory}
+		order by s_score desc
+        limit 10;
 	</select>
 	
-
+	<insert id="createStore" parameterType="Store">
+	INSERT INTO `letsmeet`.`store`
+(`s_name`,`s_category`, `s_category_detail`, `s_road_address`, `s_number`, `s_price`, `s_time`, `s_lat`, `s_lng`, `s_image`, `s_score`)
+VALUES
+(#{sName},#{sCategory},#{sCategoryDetail},#{sRoadAddress},#{sNumber},#{sPrice},#{sTime},
+#{sLat},#{sLng},#{sImage},#{sScore});
+	</insert>
+	
+	
 	<!-- 문자->숫자 : CAST('문자열' AS INT) -->
 	<!-- 숫자->문자 : CAST(숫자 AS CHAR(10) -->
 </mapper>

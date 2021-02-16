@@ -40,6 +40,8 @@ export default {
       new_words: [],
       showTable: false,
       nlpPlaceDetail: [],
+      roomCenterLat: this.roomInfo.mrCenterLat,
+      roomCenterLng: this.roomInfo.mrCenterLng,
     }
   },
   components: {
@@ -61,7 +63,7 @@ export default {
         axios.get(`${server_URL}/letsmeet/chat/open?mrcMrNo=${this.roomInfo.mrNo}`)
         .then((res)=> {
           res.data.forEach((content)=> {
-            this.chatContent += content.mrcContent
+            this.chatContent += content.mrcContent +' '
           })
           if (this.chatContent.length <= 0) {
             this.new_words.push('대화 내용이 없습니다.')
@@ -101,12 +103,12 @@ export default {
               for( const [key, value] of Object.entries(this.words)){
                 this.new_words.push([key, value])
               }
+              
               this.new_words.sort(function (a, b){
                 return b[1] - a[1]
               })
               this.showTable = true
               this.new_words = this.new_words.slice(0, 5)
-              console.log(this.new_words)
               this.getnlpStoreDetail()
             })
         .catch((err)=>{
@@ -123,12 +125,40 @@ export default {
               li.forEach(el => {
                 this.nlpPlaceDetail.push(el)
               });
+              // sort
             }
+            
           })
           .catch((err)=>{
             console.log(err)
           })
         })
+      // console.log(this.nlpPlaceDetail)
+      this.getCnterDistance()
+    },
+    getCnterDistance() {
+      const a = JSON.stringify(this.nlpPlaceDetail)
+      console.log(a)
+      // var roomcntlat = this.roomCenterLat
+      // var roomcntlng = this.roomCenterLng
+
+      // this.nlpPlaceDetail.sort(function(a, b) {
+      //   function getDistanceFromLatLonInKm(lat1,lng1,lat2,lng2) { 
+      //     function deg2rad(deg) { return deg * (Math.PI/180) } 
+      //         var R = 6371;  
+      //         var dLat = deg2rad(lat2-lat1);  
+      //         var dLon = deg2rad(lng2-lng1); 
+      //         var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon/2) * Math.sin(dLon/2); 
+      //         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+      //         var d = R * c; 
+      //         return d;
+      //     }
+      //     var n1 = getDistanceFromLatLonInKm(roomcntlat, roomcntlng, a.sLat, a.sLng)
+      //     var n2 = getDistanceFromLatLonInKm(roomcntlat, roomcntlng, b.sLat, b.sLng)
+      //     return n1 > n2 ? -1 : n1 < n2 ? 1 : 0;
+      //   })
+      // console.log('후')
+      // console.log(this.nlpPlaceDetail)
     },
     getRandomPlace() {
       let randoms = [];
