@@ -36,7 +36,7 @@ export default {
             } else {
                 console.log("AccessToken이 올바르지 않습니다.");
             }
-            axios.post(`${server_URL}/letsmeet/auth/kakao/callback`, this.user)
+            axios.post(`${server_URL}/letsmeet/auth/naver/callback`, this.user)
               .then((res) => {
               console.log(res);
               let token = res.data['auth-token']

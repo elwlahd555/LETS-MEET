@@ -52,7 +52,7 @@ const getGoogleToken = (googleUser) => {
 const naverService = () => {
     const naverLogin = new window.naver.LoginWithNaverId({
         clientId: "MdMhmGDLOLYqpYpSgHux",
-        callbackUrl: "http://localhost:8080/navercallback",
+        callbackUrl: "https://i4d107.p.ssafy.io/navercallback",
         isPopup: false /* 팝업을 통한 연동처리 여부 */,
         // loginButton: {
         //     color: "green",
