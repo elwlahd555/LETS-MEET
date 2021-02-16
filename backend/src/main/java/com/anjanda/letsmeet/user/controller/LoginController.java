@@ -75,8 +75,6 @@ public class LoginController {
 		kakaoUser.setuEmail(user.getuEmail());
 		kakaoUser.setuPassword(user.getuPassword());
 		kakaoUser.setuName(user.getuName());
-		String img = "https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/436/8142f53e51d2ec31bc0fa4bec241a919_crop.jpeg";
-		kakaoUser.setuImage(img);
 		kakaoUser.setuProvider("kakao");
 		
 		// 가입자 혹은 비가입자 체크해서 처리
@@ -116,8 +114,6 @@ public class LoginController {
 		naverUser.setuEmail(user.getuEmail());
 		naverUser.setuPassword(user.getuPassword());
 		naverUser.setuName(user.getuName());
-		String img = "https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/436/8142f53e51d2ec31bc0fa4bec241a919_crop.jpeg";
-		naverUser.setuImage(img);
 		naverUser.setuProvider("naver");
 		
 		// 가입자 혹은 비가입자 체크해서 처리
