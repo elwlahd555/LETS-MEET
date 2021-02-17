@@ -26,19 +26,19 @@ export default {
         isPopup: false /* 팝업을 통한 연동처리 여부 */,
     });
         naverLogin.init();
-        console.log(naverLogin);
+        // console.log(naverLogin);
         naverLogin.getLoginStatus((status) => {
             if (status) {
                 this.user.uEmail = naverLogin.user.email + '_' + naverLogin.user.id;
                 this.user.uName = naverLogin.user.name;
                 this.user.uPassword = "NaverPassword";
-                console.log(this.user);
+                // console.log(this.user);
             } else {
                 console.log("AccessToken이 올바르지 않습니다.");
             }
             axios.post(`${server_URL}/letsmeet/auth/naver/callback`, this.user)
               .then((res) => {
-              console.log(res);
+              // console.log(res);
               let token = res.data['auth-token']
               if (token === undefined) {
                 alert('비밀번호가 틀렸습니다.')}

@@ -11,7 +11,7 @@ export default {
     },
     methods : {
         loginWithNaver() {
-            console.log('클릭');
+            // console.log('클릭');
             naverService().tryLogin();
         },
     },
