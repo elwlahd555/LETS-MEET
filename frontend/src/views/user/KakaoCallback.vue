@@ -41,14 +41,14 @@ export default {
         },
         async setUserInfo () {
             let user_data = await getKakaoUserInfo();
-            console.log(user_data)
+            // console.log(user_data)
             // 여기에 백으로 계정 정보 넘겨주면 된다.
             this.user.uEmail = user_data.kakao_account.email+'_'+user_data.id;
             this.user.uPassword = 'kakaoPassword';
             this.user.uName = user_data.properties.nickname;
             axios.post(`${server_URL}/letsmeet/auth/kakao/callback`, this.user)
               .then((res) => {
-              console.log(res);
+              // console.log(res);
               let token = res.data['auth-token']
               if (token === undefined) {
                 alert('비밀번호가 틀렸습니다.')}

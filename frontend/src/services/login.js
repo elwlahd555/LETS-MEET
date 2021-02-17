@@ -35,7 +35,7 @@ const getKakaoUserInfo = async () => {
             console.log(error);
         },
     });
-    console.log('카카오 계정 정보', data);
+    // console.log('카카오 계정 정보', data);
     return data;
 };
 
@@ -68,7 +68,7 @@ const naverService = () => {
     };
     const getUserInfo = () => {
         setNaver();
-        console.log(naverLogin);
+        // console.log(naverLogin);
         naverLogin.getLoginStatus((status) => {
             if (status) {
                 // this.$store.commit('SET_USER_AUTH_DATA', status.data)
