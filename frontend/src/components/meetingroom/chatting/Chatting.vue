@@ -109,6 +109,7 @@ export default {
             date: tmp_date.substring(11,16),
             uImage: img
           }
+          console.log(tmp_date)
           this.feed.push(feed_data)
           scrollToBottom ()
         }
