@@ -124,7 +124,6 @@ alter table `likestore` auto_increment =1;
 
 LOCK TABLES `likestore` WRITE;
 /*!40000 ALTER TABLE `likestore` DISABLE KEYS */;
-INSERT INTO `likestore` VALUES (2,4);
 /*!40000 ALTER TABLE `likestore` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -158,7 +157,7 @@ alter table `meetingroom` auto_increment =1;
 
 LOCK TABLES `meetingroom` WRITE;
 /*!40000 ALTER TABLE `meetingroom` DISABLE KEYS */;
-INSERT INTO `meetingroom` VALUES (1,1,'관리자 임시방','밥',NULL,'2021-02-15','2021-02-19',NULL,NULL,NULL,5,NULL),(2,3,'이야이야','밥',NULL,'2021-02-12','2021-02-20',NULL,NULL,NULL,1,NULL),(3,3,'이야이야','밥',NULL,'2021-02-12','2021-02-20',NULL,NULL,NULL,1,NULL),(4,5,'string','술',NULL,'2021-02-12','2021-02-25',NULL,NULL,NULL,1,NULL),(5,2,'string','string',NULL,'2021-02-13','2021-03-01',NULL,NULL,NULL,1,NULL),(6,7,'가나다라','놀거리',NULL,'2021-02-01','2021-03-03',NULL,NULL,NULL,1,NULL);
+INSERT INTO `meetingroom` VALUES (1,1,'관리자 임시방','밥',NULL,'2021-02-15','2021-02-20',NULL,NULL,NULL,1,NULL),(2,1,'관리자 완료방','밥',NULL,'2021-02-12','2021-02-20',NULL,NULL,'2021-02-15',1,NULL);
 /*!40000 ALTER TABLE `meetingroom` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -189,7 +188,6 @@ alter table `meetingroomchat` auto_increment =1;
 
 LOCK TABLES `meetingroomchat` WRITE;
 /*!40000 ALTER TABLE `meetingroomchat` DISABLE KEYS */;
-INSERT INTO `meetingroomchat` VALUES (1,1,1,'admin이 말합니다.','2021-02-10 14:50:39'),(2,1,2,'master이 말합니다.','2021-02-10 14:51:02');
 /*!40000 ALTER TABLE `meetingroomchat` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -219,7 +217,7 @@ alter table `meetingroomuser` auto_increment =1;
 
 LOCK TABLES `meetingroomuser` WRITE;
 /*!40000 ALTER TABLE `meetingroomuser` DISABLE KEYS */;
-INSERT INTO `meetingroomuser` VALUES (2,1,NULL,NULL,NULL),(2,2,NULL,NULL,NULL),(2,3,NULL,NULL,NULL),(2,4,NULL,NULL,NULL),(3,3,NULL,NULL,NULL),(5,2,NULL,NULL,NULL),(6,7,NULL,NULL,NULL);
+INSERT INTO `meetingroomuser` VALUES (1,1,NULL,NULL,NULL),(1,2,NULL,NULL,NULL),(2,1,NULL,NULL,NULL),(2,2,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `meetingroomuser` ENABLE KEYS */;
 UNLOCK TABLES;
 
