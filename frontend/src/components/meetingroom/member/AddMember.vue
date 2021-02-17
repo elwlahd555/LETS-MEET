@@ -145,6 +145,10 @@ export default {
   },
   methods: {
     addTemporaryList(friend) {
+      if (this.members.length + this.tmplist.length >= 4) {
+        alert("코로나 방역 수칙을 지켜주세요!! 5인 이상 집합 금지!!")
+        return
+      }
       for (var mb of this.members){
         if (friend[2] === mb.uEmail){
           alert("이미 추가된 멤버입니다!")
