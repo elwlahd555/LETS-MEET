@@ -18,6 +18,7 @@
 		  from meetingroom inner join meetingroomuser
 		    on meetingroom.mr_no = meetingroomuser.mru_mr_no
 		 where meetingroomuser.mru_u_no = #{uNo}
+         order by mr_date, mr_date_start;
 	</select>
 	
 	<!-- R :: 약속방 상세 조회 -->
