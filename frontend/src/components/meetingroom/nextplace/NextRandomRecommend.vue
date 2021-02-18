@@ -2,11 +2,11 @@
   <v-container>
     <hooper :settings="hooperSettings" style="height:100%;">
       <slide v-for="(place, i) in ranPlace" :key="i">
-        <NextItem :place="place" :roomInfo="roomInfo" @go_detail="goDetail"/>
+        <NextItem :place="place" :roomInfo="roomInfo" @go_detail="goDetail" />
       </slide>
     </hooper>
     <div v-if="isDetail && place">
-      <RandomPlaceDetail :place="place" class="mt-3"/>
+      <RandomPlaceDetail :place="place" class="mt-3" @go_close="goClose"/>
     </div>
   </v-container>
 </template>
@@ -46,11 +46,14 @@ export default {
   methods: {
     goDetail(data) {
       this.place = data
-      this.isDetail = !this.isDetail
+      this.isDetail = true
     },
     refresh() {
       this.$emit('refresh')
     },
+    goClose() {
+      this.isDetail = false
+    }
   }
 }
 </script>

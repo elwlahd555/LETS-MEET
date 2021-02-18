@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app style="max-width:540px;">
     <div>
       <v-app-bar
         v-if='isLogin'
@@ -7,7 +7,7 @@
         dense
         dark
         fixed
-        style="z-index:10;"
+        style="z-index:10; max-width:540px;"
       >
 
         <img src="./assets/images/logo.png" class="mb-1"
@@ -36,7 +36,7 @@
       fixed
       grow
       width="100%"
-      style="z-index:10;"
+      style="z-index:10; max-width:540px;"
     >
       <v-btn style="height: 56px;">
         <router-link class="ro" :to="{ name: 'Main' }"><v-icon>mdi-home</v-icon></router-link>

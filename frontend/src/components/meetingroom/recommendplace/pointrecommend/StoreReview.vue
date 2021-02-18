@@ -1,6 +1,12 @@
 <template>
   <div>
-    <v-list>
+    <v-list-item>
+      <v-list-item-subtitle>리뷰 보기
+        (<v-icon>mdi-comment</v-icon>
+        <span>: {{ items.length / 2}}</span>)
+      </v-list-item-subtitle>
+    </v-list-item>
+    <v-list v-if="items.length > 0">
       <template v-for="(item, index) in items">
         <v-subheader
           v-if="item.header"
@@ -38,8 +44,11 @@
         </v-list-item>
       </template>
     </v-list> 
+    <v-list v-else>
+     <div style="font-size: 0.9rem;" class="mt-2">리뷰가 없습니다. 첫 리뷰를 작성해주세요!</div>
+    </v-list>
 
-    <div class="text-center">
+    <div class="text-center" v-if="items.length > 0">
       <v-pagination
         v-model="page"
         :length="len"
