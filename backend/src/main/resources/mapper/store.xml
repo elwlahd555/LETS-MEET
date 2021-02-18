@@ -24,10 +24,11 @@
 		select *
 		  from store
 		 where s_category_detail like "%"#{detail}"%" and
-		 (s_lat between (#{x} - 0.005) and (#{x} + 0.005))
+		 (s_lat between (#{x} - 0.01) and (#{x} + 0.01))
 		 	   and 
-		 	   (s_lng between (#{y} - 0.005) and (#{y} + 0.005))
-		 order by s_score desc;
+		 	   (s_lng between (#{y} - 0.01) and (#{y} + 0.01))
+		 order by s_score desc
+		 limit 10;
 	</select>
 
 
@@ -49,9 +50,9 @@
 	<select id="selectStoreByMidPoint" parameterType="Store" resultType="Store">
 		select *
 		  from store
-		 where (s_lat between (#{sLat} - 0.005) and (#{sLat} + 0.005))
+		 where (s_lat between (#{sLat} - 0.01) and (#{sLat} + 0.01))
 		 	   and 
-		 	   (s_lng between (#{sLng} - 0.005) and (#{sLng} + 0.005))
+		 	   (s_lng between (#{sLng} - 0.01) and (#{sLng} + 0.01))
                and s_category =#{sCategory}
 		order by s_score desc
         limit 10;
