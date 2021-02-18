@@ -95,12 +95,17 @@
 	</update>
 	
 	<update id="updateMeetingRoomCntDown">
-				update meetingroom
+
+			update meetingroom
+		   set mr_u_cnt= mr_u_cnt - 1
+		 where mr_no = #{mrNo};
+	</update>
+	<update id="updateMeetingRoomUserInMeetingRoom">
+					update meetingroom
 		   set mr_u_cnt= (select count(*)
 from meetingroomuser
 where mru_mr_no = #{mrNo})
 		 where mr_no = #{mrNo};
-
 	</update>
 </mapper>
 	

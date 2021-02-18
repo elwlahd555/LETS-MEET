@@ -23,7 +23,13 @@
 	<select id="selectSearchFriend" resultType="user">
 		select *
 		  from user
-		 where u_email like concat('%',#{uEmail},'%')
+		 where u_email like concat('%',#{uEmail},'%') or u_name like concat('%',#{uEmail},'%')
+	</select>
+	<!-- R :: 사용자가 검색한 친구 목록 조회 -->
+	<select id="selectSearchFriendByname" resultType="user">
+		select *
+		  from user
+		 where u_name like concat('%',#{uEmail},'%')
 	</select>
 	
 	<!-- D :: 친구 삭제 -->

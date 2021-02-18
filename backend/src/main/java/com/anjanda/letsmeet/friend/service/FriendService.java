@@ -30,4 +30,7 @@ public interface FriendService {
 	/* D :: 사용자의 친구 삭제 */
 	boolean deleteFriend(int myUNo, int friend) throws Exception;
 
+
+	List<User> SearchFriendByname(String uEmail);
+
 }

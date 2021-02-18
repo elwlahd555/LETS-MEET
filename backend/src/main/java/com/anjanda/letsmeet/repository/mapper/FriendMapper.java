@@ -33,4 +33,6 @@ public interface FriendMapper {
 	
 	/* D :: 사용자의 친구 삭제 */
 	public int deleteFriend(int myUNo, int friend) throws Exception;
+
+	public List<User> selectSearchFriendByname(String uEmail);
 }

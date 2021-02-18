@@ -1,6 +1,9 @@
 package com.anjanda.letsmeet.friend.controller;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -60,10 +63,15 @@ public class FriendController {
 	public ResponseEntity<List<User>> reviewSearchFriend(String uEmail) throws Exception {
 		System.out.println("검색할 친구 이메일 : " + uEmail);
 		System.out.println(friendService.reviewSearchFriend(uEmail).toString());
+
+
+
+				
 		return new ResponseEntity<List<User>>(friendService.reviewSearchFriend(uEmail), HttpStatus.OK);
 	}
 	
 	
+
 	/* D :: 사용자의 친구 삭제 */
 	@DeleteMapping("/delete")
 	public ResponseEntity<String> deleteFriend(int myUNo, int friend) throws Exception{

@@ -49,4 +49,9 @@ public class FriendServiceImpl implements FriendService {
 	public boolean deleteFriend(int myUNo, int friend) throws Exception {
 		return friendMapper.deleteFriend(myUNo, friend) == 1;
 	}
+
+	@Override
+	public List<User> SearchFriendByname(String uEmail) {
+		return friendMapper.selectSearchFriendByname(uEmail);
+	}
 }
