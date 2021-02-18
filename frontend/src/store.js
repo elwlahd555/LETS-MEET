@@ -31,7 +31,7 @@ export const store = new Vuex.Store({
         state.uImage = payload['uImage']
       }
       state.uSalt = payload['uSalt']
-      console.log(state.uSalt)
+      // console.log(state.uSalt)
     },
     SET_USER_AUTH_DATA_LOGOUT(state) {
       state.isLogin = false
