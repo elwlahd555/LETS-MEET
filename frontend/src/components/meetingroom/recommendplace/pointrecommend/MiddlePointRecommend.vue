@@ -6,7 +6,7 @@
       </slide>
     </hooper>
     <div v-if="isDetail && place">
-      <MiddlePlaceDetail :place="place" class="mt-3"/>
+      <MiddlePlaceDetail :place="place" class="mt-3" @go_close="goClose"/>
     </div>
   </v-container>
 </template>
@@ -46,11 +46,14 @@ export default {
   methods: {
     goDetail(data) {
       this.place = data
-      this.isDetail = !this.isDetail
+      this.isDetail = true
     },
     refresh() {
       this.$emit('refresh')
     },
+    goClose() {
+      this.isDetail = false
+    }
   }
 }
 </script>

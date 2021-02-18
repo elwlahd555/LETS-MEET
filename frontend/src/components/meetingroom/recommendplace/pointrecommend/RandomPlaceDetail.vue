@@ -4,11 +4,13 @@
       class="mx-auto"
       max-width="400"
     >
-      <v-img :src="place.sImage" />
+      <v-img :src="place.sImage">
+        <v-icon class="mb-1" color="red" style="position: absolute; right: 5px; top:5px;" @click="$emit('go_close')">mdi-close-circle</v-icon>
+      </v-img>
       <v-container>
         <v-row>
           <v-col cols=10>
-            <h3 class="mt-2">{{ place.sName }} <span class="ml-2" style="color: #536DFE !important;">{{ place.sScore }}</span></h3>
+            <h3 class="mt-2">{{ place.sName }} <span class="ml-2" style="color: #536DFE !important;" v-if="place.sScore != 0">{{ place.sScore }}</span></h3>
           </v-col>
           <v-col cols=2 class="d-flex align-center">
             <v-row>
@@ -43,7 +45,7 @@
         <v-list-item-subtitle>전화번호</v-list-item-subtitle>
       </v-list-item>
 
-      <v-list-item>
+      <v-list-item v-if="place.sNumber">
         <v-list-item-icon>
           <v-icon>mdi-phone</v-icon>
         </v-list-item-icon>
@@ -56,21 +58,18 @@
         <v-list-item-subtitle>상세 정보</v-list-item-subtitle>
       </v-list-item>
 
-      <v-list-item>
+      <v-list-item v-if="place.sCategoryDetail">
         음식 종류 : {{ place.sCategoryDetail }}
       </v-list-item>
-      <v-list-item>
+      <v-list-item v-if="place.sPrice">
         가격대 : {{ place.sPrice }}
       </v-list-item>
-      <v-list-item>
+      <v-list-item v-if="place.sTime">
         영업 시간 : <br>{{ place.sTime }}
       </v-list-item>
 
       <hr>
 
-      <v-list-item>
-        <v-list-item-subtitle>리뷰 보기</v-list-item-subtitle>
-      </v-list-item>
       <StoreReview :place="place" />
     </v-card>
   </div>
