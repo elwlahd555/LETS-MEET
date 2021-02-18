@@ -55,4 +55,6 @@ public interface MeetingRoomMapper {
 	public void updateMeetingRoomCntUp(int mruMrNo);
 	
 	public void updateMeetingRoomCntDown(int mruMrNo);
+
+	public void updateMeetingRoomUserInMeetingRoom(int mrNo);
 }

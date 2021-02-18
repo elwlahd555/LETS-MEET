@@ -107,6 +107,12 @@ public class MeetingRoomServiceImpl implements MeetingRoomService{
 		
 	}
 
+	@Override
+	public void updateMeetingRoomUser(int mrNo) {
+		meetingRoomMapper.updateMeetingRoomUserInMeetingRoom(mrNo);
+		
+	}
+
 
 
 }

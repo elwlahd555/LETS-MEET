@@ -51,5 +51,7 @@ public interface MeetingRoomService {
 	
 	void updateMeetingRoomCntDown(int mruMrNo);
 
+	void updateMeetingRoomUser(int mrNo);
+
 
 }
