@@ -340,3 +340,6 @@ UNLOCK TABLES;
 
 
 -- Dump completed on 2021-02-14 18:10:32
+
+UPDATE `meetingroom` SET `mr_image` = "https://cdn.pixabay.com/photo/2015/06/30/18/36/st-826688__340.jpg", `mr_center_lat` = "35.86587655495927", `mr_center_lng` = "128.5941263873308", `mr_place` = 8 WHERE `mr_no` = 3;
+UPDATE `meetingroom` SET `mr_image` = "https://cdn.pixabay.com/photo/2014/04/26/00/41/dining-room-332207__340.jpg", `mr_center_lat` = "35.86587655495927", `mr_center_lng` = "128.5941263873308", `mr_place` = 10 WHERE `mr_no` = 4;
